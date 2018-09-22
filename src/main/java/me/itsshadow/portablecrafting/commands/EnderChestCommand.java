@@ -20,9 +20,11 @@ public class EnderChestCommand extends PlayerCommand {
 
     @Override
     protected void run(Player player, String[] args) {
+        if (!Settings.USE_ENDERCHEST) returnTell(Messages.FEATURE_DISABLED, false);
+
         checkPerms(player, Messages.NO_PERMS, "pci.enderchest");
 
-        String sound = Settings.ENDER_CHEST_OPEN_SOUND;
+        final String sound = Settings.ENDER_CHEST_OPEN_SOUND;
 
         if (args.length == 0) {
             Inventory eChest = player.getEnderChest();
@@ -36,19 +38,23 @@ public class EnderChestCommand extends PlayerCommand {
             returnTell(Messages.OPENED_ENDERCHEST, false);
         }
 
-        if (Settings.USE_TOO_MANY_ARGS)
-            checkArgsStrict(1, Messages.TOOMANY_ARGS);
+        if (args.length == 1) {
+            Player target = Bukkit.getPlayer(args[0]);
+            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]), false);
 
-        Player target = Bukkit.getPlayer(args[0]);
-        checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]), false);
+            Inventory targetEChest = target.getEnderChest();
 
-        Inventory targetEChest = target.getEnderChest();
+            player.openInventory(targetEChest);
 
-        player.openInventory(targetEChest);
+            if (Settings.USE_ENDERCHEST_SOUNDS)
+                target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, 1.0f);
 
-        if (Settings.USE_ENDERCHEST_SOUNDS) player.playSound(player.getLocation(), Sound.valueOf(sound), 1.0f, 1.0f);
+            returnTell(Messages.OPEN_TARGET_ECHEST.replace("{player}", target.getName()).replace("{playerFormatted}",
+                    target.getName().endsWith("s") ? target.getName() + "'" : target.getName() + "'s"), false);
+        }
 
-        returnTell(Messages.OPEN_TARGET_ECHEST.replace("{player}", target.getName()).replace("{playerFormatted}",
-                target.getName().endsWith("s") ? target.getName() + "'" : target.getName() + "'s"), false);
+        if (args.length > 1 && Settings.USE_TOO_MANY_ARGS)
+            returnTell(Messages.TOOMANY_ARGS, false);
+
     }
 }

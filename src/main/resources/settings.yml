@@ -24,16 +24,16 @@ use-too-many-args: true
 #                                                                                       #
 # ------------------------------------------------------------------------------------- #
 
-# E
+# Enable or disable the use of the /anvil command.
 use-anvil: true
 
-#
+# Enable or disable the use of the /craft command.
 use-crafting: true
 
-#
+# Enable or disable the use of the /enchanttable command.
 use-enchanttable: true
 
-#
+# Enable or disable the use of the /enderchest command.
 use-enderchest: true
 
 # ------------------------------------------------------------------------------------- #
@@ -42,16 +42,16 @@ use-enderchest: true
 #                                                                                       #
 # ------------------------------------------------------------------------------------- #
 
-#
+# Enable or disable the sound when opening the anvil with /anvil.
 use-anvil-sounds: true
 
-#
+# Enable or disable the sound when opening the crafting table with /craft.
 use-crafting-sounds: true
 
-#
+# Enable or disable the sound when opening the enchantment table with /enchanttable.
 use-enchanttable-sounds: true
 
-#
+# Enable or disable the sound when opening the enderchest with /enderchest.
 use-enderchest-sounds: true
 
 # ------------------------------------------------------------------------------------- #

@@ -1,10 +1,10 @@
 package me.itsshadow.portablecrafting.commands;
 
-import me.itsshadow.libs.Utils;
 import me.itsshadow.libs.commandutils.PlayerCommand;
 import me.itsshadow.portablecrafting.configs.Messages;
 import me.itsshadow.portablecrafting.configs.Settings;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -19,10 +19,18 @@ public class CraftCommand extends PlayerCommand {
 
     @Override
     protected void run(Player player, String[] args) {
+        if (!Settings.USE_CRAFTING) returnTell(Messages.FEATURE_DISABLED, false);
+
+        final String craftOpenSound = Settings.CRAFTING_OPEN_SOUND;
+
         checkPerms(player, Messages.NO_PERMS, "pci.craft");
 
         if (args.length == 0) {
+            if (Settings.USE_CRAFTING_SOUNDS)
+                player.playSound(player.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, 1.0f);
+
             player.openWorkbench(player.getLocation(), true);
+
             returnTell(Messages.OPENED_CRAFTING, false);
         }
 
@@ -30,6 +38,9 @@ public class CraftCommand extends PlayerCommand {
             Player target = Bukkit.getPlayer(args[0]);
 
             checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]), false);
+
+            if (Settings.USE_CRAFTING_SOUNDS)
+                target.playSound(target.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, 1.0f);
 
             target.openWorkbench(target.getLocation(), true);
             tellTarget(target, Messages.OPENED_CRAFTING, false);
