@@ -1,0 +1,5 @@
+name: ${project.artifactId}
+version: ${version}
+main: ${main}
+author: ${author}
+description: ${description}

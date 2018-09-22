@@ -1,0 +1,113 @@
+# ------------------------------------------------------------------------------------- #
+#                                                                                       #
+#                                 Messages.yml File                                     #
+#                                                                                       #
+# ------------------------------------------------------------------------------------- #
+#
+#
+# This file allows you to edit MOST messages in the plugin, there are some messages you
+# cannot edit as they are hard coded into the plugin, if you really want those messages
+# to be editable (and if there is enough support for it) I will try and add it.
+# Please note that if there is ever an update to this file, like new message were added
+# we take the liberty to automatically add the value into this file BUT due to the way
+# Bukkit/Spigot save configuration files all of my 'helpful' comments are removed. So it
+# is recommended before updating to the newest version to backup your config and messages
+# file to save your work and to keep the comments.
+#
+# If you have questions you can post an issue on Github
+# (https://github.com/ItsShadow13/PortableCraftingInv/issues) Also helpful if you want to
+# see the code for the plugin.
+# You can join my Development discord server as-well (https://discord.gg/w29GTdC)
+#
+# If it is requested enough, we will add PlaceHolderAPI support.
+#
+# Sorry for the text wall above!
+
+# ------------------------------------------------------------------------------------- #
+#                                                                                       #
+#                                   Utility Messages                                    #
+#                                                                                       #
+# ------------------------------------------------------------------------------------- #
+
+# Edit the prefix for the entire plugin.
+prefix: "&7Portable Inventories &d\u00BB&f"
+
+# The message that is sent when someone doesn't have permission to execute a command.
+no-perms: "{prefix} &cI'm sorry you don't have permission to do that."
+
+# This message supports scalar. Which means you can have a multiline message be sent.
+# I would suggest that you familiarize yourself with scalar to better use it then I can.
+help-message: |+
+  &7Required Arguments &a<> &7|| &7Optional Args &6[]
+  &7/pci or /pci &6[&7help&6] &7>&f Lists this help message.
+  &7/pci &6[&7rl &oor&7 reload&6] &7>&f Reload the configuration.
+  &7/pci &6[&7rl &oor&7 reload&6] &6[&7SETTINGS &oor&7 MESSAGES] &7>
+  &f Reload the specified config.
+  &7/pci &6[&7version &oor&7 ver&6] &7>&f Get the version of the plugin.
+  &7/enderchest &6[&7player&6] &7>&f Open your enderchest, and if specified the targets.
+  &7/craft &6[&7player&6] &7>&f Opens a workbench for you or another player.
+  &7/anvil &6[&7player&6] &7>&f Opens an anvil for you or another player.
+  &7/enchanttable &6[&7player&6] &7>
+  &f Opens an enchattable for you or another player. (Tier one only.)
+  &7/enderchest &6[&7player&6] &7>&f
+
+  &7&oDeveloped by _ItsShadow_ on spigot.
+
+# The message that is sent if you disable a feature in the settings.yml.
+feature-disabled: "{prefix} That feature is disabled, sorry about that..."
+
+# The message that is sent to whomever reloaded the configs
+reload-message: "{prefix}&a The plugin has been reloaded."
+
+# The message that is sent to whomever reloaded the specified config.
+reload-message-specific: "{prefix}&a The file {file} was reloaded."
+
+# A message that is sent if an argument is incorrect for the command.
+wrong-args: "{prefix}&c You've added inappropriate arguments!"
+
+# The message that is sent when someone doesn't add arguments or doesn't add enough to complete a command.
+not-enough-args: "{prefix}&c Please add some more arguments, if you need more help use &7/pci&c."
+
+# This message is sent when someone adds TO many arguments that aren't needed, this really isn't that useful I just
+# added it in the event you want to use. (There is an option in the config to disable this.)
+too-many-args: "{prefix} &cYou've added too many arguments!"
+
+# This message is sent when something doesn't exist.
+doesnt-exist: "{prefix} &cSomething that you've entered doesn't exist."
+
+# This message is sent when a doesn't exist.
+player-doesnt-exist: "{prefix}&e {player}&c doesn't exist."
+
+# ------------------------------------------------------------------------------------- #
+#                                                                                       #
+#                               Inventory Open Messages                                 #
+#                                                                                       #
+# ------------------------------------------------------------------------------------- #
+
+
+# This message is sent to a player when executing /enderchest command.
+opened-enderchest: "{prefix} Opened your enderchest."
+
+# This message is sent to a player when opening another players enderchest.
+# This message has a fancy modifier that uses appropriate pluralisation to a players name.
+# To use it do {playerFormatted}
+open-target-enderchest: "{prefix} Opening {player} enderchest."
+
+# This message is sent when opening a crafting table using /craft.
+opened-craftingtable: "{prefix} Opened crafting table."
+
+# This message is sent to the target of /craft <target> command.
+opened-craftingtable-other: "{prefix} Opened crafting table for &e{player}&r."
+
+# This message is sent when someone opens an anvil using /anvil.
+opened-anvil: "{prefix} Opened anvil."
+
+# This message is sent to the target of the /anvil <target> command.
+opened-anvil-other: "{prefix} Opened anvil for {player}"
+
+# This message is sent when opening an enchant table using /enchanttable
+# (I don't plan to add an alias of /enchant for this command. This would cause issues with the regular /enchant command.)
+opened-enchanttable: "{prefix} Opened enchantment table."
+
+# This message is sent to the target of /enchanttable <target> command.
+opened-enchanttable-other: "{prefix} Opened enchantment table for {player}."

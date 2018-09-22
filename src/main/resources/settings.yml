@@ -1,0 +1,75 @@
+# ------------------------------------------------------------------------------------- #
+#                                                                                       #
+#                                 Settings.yml File                                     #
+#                                                                                       #
+# ------------------------------------------------------------------------------------- #
+#
+# This file can be used to enable or disable all parts of the plugin.
+#
+#
+#
+#
+# There is one thing that I am planning on working towards. I plan on trying to get
+# different tiers of the enchantment table to work. In other words, add support for level
+# 30 enchants.
+#
+
+# If this is set to true and you add more then the required amount of arguments
+# the plugin will send you a message saying so.
+use-too-many-args: true
+
+# ------------------------------------------------------------------------------------- #
+#                                                                                       #
+#                                   Crafting Features                                   #
+#                                                                                       #
+# ------------------------------------------------------------------------------------- #
+
+# E
+use-anvil: true
+
+#
+use-crafting: true
+
+#
+use-enchanttable: true
+
+#
+use-enderchest: true
+
+# ------------------------------------------------------------------------------------- #
+#                                                                                       #
+#                                     Enable sounds                                     #
+#                                                                                       #
+# ------------------------------------------------------------------------------------- #
+
+#
+use-anvil-sounds: true
+
+#
+use-crafting-sounds: true
+
+#
+use-enchanttable-sounds: true
+
+#
+use-enderchest-sounds: true
+
+# ------------------------------------------------------------------------------------- #
+#                                                                                       #
+#                                         Sounds                                        #
+#                                                                                       #
+# Want to use different sounds?                                                         #
+# https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html                       #
+# ------------------------------------------------------------------------------------- #
+
+# This sound is played when opening the anvil using /anvil.
+anvil-open-sound: BLOCK_ANVIL_HIT
+
+# This sound is played when opening the crafting table using /craft.
+crafting-open-sound: BLOCK_WOOD_PLACE
+
+# This sound is played when opening the enchantmenttable using /enchantable.
+enchanttable-open-sound: BLOCK_ENCHANTMENT_TABLE_USE
+
+# This sound is played when opening the enderchest using /enderchest
+enderchest-open-sound: BLOCK_ENDER_CHEST_OPEN
