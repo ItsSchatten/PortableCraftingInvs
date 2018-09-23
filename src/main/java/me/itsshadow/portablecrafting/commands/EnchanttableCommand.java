@@ -14,7 +14,7 @@ public class EnchanttableCommand extends PlayerCommand {
     public EnchanttableCommand () {
         super("enchanttable");
 
-        setAliases(Arrays.asList("enchtable", "ectable"));
+        setAliases(Arrays.asList("enchtable", "ectable", "enchantmenttable"));
     }
 
     @Override
@@ -35,6 +35,7 @@ public class EnchanttableCommand extends PlayerCommand {
         }
 
         if (args.length == 1) {
+            checkPerms(player, Messages.NO_PERMS, "pci.enchanttable.other");
             Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]), false);
 

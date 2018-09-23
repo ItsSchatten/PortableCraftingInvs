@@ -38,6 +38,7 @@ public class AnvilCommand extends PlayerCommand {
         }
 
         if (args.length == 1) {
+            checkPerms(player, Messages.NO_PERMS, "pci.anvil.other");
             Inventory anvilTarget = Bukkit.getServer().createInventory(null, InventoryType.ANVIL);
 
             Player target = Bukkit.getPlayer(args[0]);

@@ -39,6 +39,7 @@ public class EnderChestCommand extends PlayerCommand {
         }
 
         if (args.length == 1) {
+            checkPerms(player, Messages.NO_PERMS, "pci.enderchest.other");
             Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]), false);
 
