@@ -9,6 +9,7 @@ import me.itsshadow.libs.configutils.SimpleConfig;
 public class Settings extends SimpleConfig {
 
     public static boolean
+            USE_UPDATER,
             USE_TOO_MANY_ARGS,
 
             USE_ENDERCHEST,
@@ -59,6 +60,7 @@ public class Settings extends SimpleConfig {
     private void onLoad() {
         /* Features */
         USE_TOO_MANY_ARGS = (boolean) get("use-too-many-args");
+        USE_UPDATER = (boolean) get("use-updater");
         USE_CRAFTING = (boolean) get("use-crafting");
         USE_ENDERCHEST = (boolean) get("use-enderchest");
         USE_ENCHANTTABLE = (boolean) get("use-enchanttable");

@@ -8,7 +8,8 @@ import me.itsshadow.libs.configutils.SimpleConfig;
 
 public class Messages extends SimpleConfig {
 
-    public static String PREFIX,
+    public static String
+            PREFIX,
             NO_PERMS,
             HELP_MESSAGE,
             RELOAD_MESSAGE,
@@ -17,9 +18,10 @@ public class Messages extends SimpleConfig {
             TOOMANY_ARGS,
             NOTENOUGH_ARGS,
             FEATURE_DISABLED,
-            OPENED_ENDERCHEST,
             DOESENT_EXIST,
             PLAYER_DOSENT_EXIST,
+            UPDATE_AVALIABLE_MESSAGE,
+            OPENED_ENDERCHEST,
             OPEN_TARGET_ECHEST,
             OPENED_CRAFTING,
             OPENED_CRAFTING_OTHER,
@@ -66,10 +68,11 @@ public class Messages extends SimpleConfig {
         WRONG_ARGS = getString("wrong-args");
         TOOMANY_ARGS = getString("too-many-args");
         NOTENOUGH_ARGS = getString("not-enough-args");
-        FEATURE_DISABLED = getString("feature-disabled");
-        OPENED_ENDERCHEST = getString("opened-enderchest");
         DOESENT_EXIST = getString("doesnt-exist");
         PLAYER_DOSENT_EXIST = getString("player-doesnt-exist");
+        FEATURE_DISABLED = getString("feature-disabled");
+        UPDATE_AVALIABLE_MESSAGE = (String) get("update-available");
+        OPENED_ENDERCHEST = getString("opened-enderchest");
         OPEN_TARGET_ECHEST = getString("open-target-enderchest");
         OPENED_CRAFTING = getString("opened-craftingtable");
         OPENED_CRAFTING_OTHER = getString("opened-craftingtable-other");

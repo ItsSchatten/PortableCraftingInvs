@@ -18,6 +18,11 @@
 # the plugin will send you a message saying so.
 use-too-many-args: true
 
+# If this is set to true, when there is an update to the plugin admins with the correct
+# permissions (pci.update) and console will be notified. You can set a custom message
+# in the message.yml if you want.
+use-updater: true
+
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                   Crafting Features                                   #
@@ -43,13 +48,13 @@ use-enderchest: true
 # ------------------------------------------------------------------------------------- #
 
 # Enable or disable the sound when opening the anvil with /anvil.
-use-anvil-sounds: true
+use-anvil-sounds: false
 
 # Enable or disable the sound when opening the crafting table with /craft.
-use-crafting-sounds: true
+use-crafting-sounds: false
 
 # Enable or disable the sound when opening the enchantment table with /enchanttable.
-use-enchanttable-sounds: true
+use-enchanttable-sounds: false
 
 # Enable or disable the sound when opening the enderchest with /enderchest.
 use-enderchest-sounds: true
