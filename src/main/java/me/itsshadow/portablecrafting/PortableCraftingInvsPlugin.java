@@ -13,15 +13,12 @@ import org.bukkit.command.Command;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Logger;
-
 public class PortableCraftingInvsPlugin extends JavaPlugin {
 
+    private static PluginDescriptionFile pdf;
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
     private PortableCraftingInvsPlugin instance;
-
-    private static PluginDescriptionFile pdf;
 
     @Override
     public void onEnable() {
@@ -32,12 +29,16 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         registerThings();
 
-        new UpdateNotifications(61045){
-            @Override
-            public void onUpdateAvailable() {
-                Utils.log("There is an update available for the plugin! Current Version " + pdf.getVersion() + " New Version " + getLatestVersion() + " {https://spigotmc.org/resources/" + getProjectId() + ")");
-            }
-        }.runTaskAsynchronously(this);
+        if (Settings.USE_UPDATER) {
+            new UpdateNotifications(61045) {
+                @Override
+                public void onUpdateAvailable() {
+                    Utils.log("There is an update available for the plugin! Current Version " + pdf.getVersion() + " New Version " + getLatestVersion() + " {https://spigotmc.org/resources/" + getProjectId() + ")");
+                }
+            }.runTaskAsynchronously(this);
+        }
+
+
     }
 
     @Override
@@ -52,7 +53,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 "&9+---------------------------------------------------+ ",
                 "");
 
-        registerCommands(new PortableCraftingInvsCommand(), new EnderChestCommand(), new CraftCommand(), new AnvilCommand(), new EnchanttableCommand());
+        registerCommands(new PortableCraftingInvsCommand(), new EnderChestCommand(), new CraftCommand(), new AnvilCommand(), new EnchanttableCommand(), new FurnaceCommand());
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
 
         Utils.log(" ");
@@ -71,7 +72,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
     private void registerCommands(Command... commands) {
 
-        try{
+        try {
             for (Command command : commands)
                 Utils.registerCommand(command);
 
