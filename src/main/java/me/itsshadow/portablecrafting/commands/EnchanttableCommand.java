@@ -6,6 +6,9 @@ import me.itsshadow.portablecrafting.configs.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 
 import java.util.Arrays;
 
@@ -48,7 +51,12 @@ public class EnchanttableCommand extends PlayerCommand {
             returnTell(Messages.OPENED_ENCHANTTABLE_OTHER.replace("{player}", target.getName()), false);
         }
 
-        if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
+        if (args.length == 2) {
+            Inventory inv = Bukkit.createInventory(null, InventoryType.ENCHANTING);
+            InventoryView test = null;
+        }
+
+        if (args.length > 2 && Settings.USE_TOO_MANY_ARGS) {
             returnTell(Messages.TOOMANY_ARGS, false);
         }
     }

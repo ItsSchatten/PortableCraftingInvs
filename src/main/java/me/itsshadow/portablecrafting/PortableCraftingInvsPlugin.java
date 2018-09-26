@@ -53,7 +53,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 "&9+---------------------------------------------------+ ",
                 "");
 
-        registerCommands(new PortableCraftingInvsCommand(), new EnderChestCommand(), new CraftCommand(), new AnvilCommand(), new EnchanttableCommand(), new FurnaceCommand());
+        registerCommands(new PortableCraftingInvsCommand(), new EnderChestCommand(), new CraftCommand(), new AnvilCommand(), new EnchanttableCommand());
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
 
         Utils.log(" ");
