@@ -53,7 +53,7 @@ public class EnchanttableCommand extends PlayerCommand {
 
         if (args.length == 2) {
             Inventory inv = Bukkit.createInventory(null, InventoryType.ENCHANTING);
-            InventoryView test = null;
+            InventoryView test;
         }
 
         if (args.length > 2 && Settings.USE_TOO_MANY_ARGS) {
