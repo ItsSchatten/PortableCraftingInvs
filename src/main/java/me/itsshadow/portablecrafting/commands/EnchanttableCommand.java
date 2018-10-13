@@ -50,13 +50,8 @@ public class EnchanttableCommand extends PlayerCommand {
             tellTarget(target, Messages.OPENED_ENCHANTTABLE, false);
             returnTell(Messages.OPENED_ENCHANTTABLE_OTHER.replace("{player}", target.getName()), false);
         }
-
-        if (args.length == 2) {
-            Inventory inv = Bukkit.createInventory(null, InventoryType.ENCHANTING);
-            InventoryView test;
-        }
-
-        if (args.length > 2 && Settings.USE_TOO_MANY_ARGS) {
+        
+        if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
             returnTell(Messages.TOOMANY_ARGS, false);
         }
     }
