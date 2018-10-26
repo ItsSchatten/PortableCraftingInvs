@@ -50,8 +50,6 @@ public class Messages extends SimpleConfig {
                 "--------------------------------------------------------"});
 
         setInstance(this);
-
-
     }
 
     public static void init() {

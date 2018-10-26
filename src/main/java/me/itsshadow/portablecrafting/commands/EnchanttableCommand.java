@@ -6,15 +6,12 @@ import me.itsshadow.portablecrafting.configs.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 
 import java.util.Arrays;
 
 public class EnchanttableCommand extends PlayerCommand {
 
-    public EnchanttableCommand () {
+    public EnchanttableCommand() {
         super("enchanttable");
 
         setAliases(Arrays.asList("enchtable", "ectable", "enchantmenttable"));
@@ -50,7 +47,7 @@ public class EnchanttableCommand extends PlayerCommand {
             tellTarget(target, Messages.OPENED_ENCHANTTABLE, false);
             returnTell(Messages.OPENED_ENCHANTTABLE_OTHER.replace("{player}", target.getName()), false);
         }
-        
+
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
             returnTell(Messages.TOOMANY_ARGS, false);
         }
