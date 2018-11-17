@@ -19,7 +19,7 @@ public class EnchanttableCommand extends PlayerCommand {
 
     @Override
     protected void run(Player player, String[] args) {
-        if (!Settings.USE_ENCHANTTABLE) returnTell(Messages.FEATURE_DISABLED, false);
+        if (!Settings.USE_ENCHANTTABLE) returnTell(Messages.FEATURE_DISABLED);
 
         final String openEnchanttableSound = Settings.ENCHANTTABLE_OPEN_SOUND;
 
@@ -31,25 +31,25 @@ public class EnchanttableCommand extends PlayerCommand {
                 player.playSound(player.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, 1.0f);
 
             player.openEnchanting(player.getLocation(), true);
-            returnTell(Messages.OPENED_ENCHANTTABLE, false);
+            returnTell(Messages.OPENED_ENCHANTTABLE);
         }
 
         if (args.length == 1) {
             checkPerms(player, Messages.NO_PERMS, "pci.enchanttable.other");
             Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]), false);
+            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
 
             target.openEnchanting(player.getLocation(), true);
 
             if (Settings.USE_ENCHANTTABLE_SOUNDS)
                 target.playSound(target.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, 1.0f);
 
-            tellTarget(target, Messages.OPENED_ENCHANTTABLE, false);
-            returnTell(Messages.OPENED_ENCHANTTABLE_OTHER.replace("{player}", target.getName()), false);
+            tellTarget(target, Messages.OPENED_ENCHANTTABLE);
+            returnTell(Messages.OPENED_ENCHANTTABLE_OTHER.replace("{player}", target.getName()));
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
-            returnTell(Messages.TOOMANY_ARGS, false);
+            returnTell(Messages.TOOMANY_ARGS);
         }
     }
 }

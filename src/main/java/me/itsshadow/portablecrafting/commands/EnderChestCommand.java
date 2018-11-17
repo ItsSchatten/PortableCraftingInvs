@@ -20,7 +20,7 @@ public class EnderChestCommand extends PlayerCommand {
 
     @Override
     protected void run(Player player, String[] args) {
-        if (!Settings.USE_ENDERCHEST) returnTell(Messages.FEATURE_DISABLED, false);
+        if (!Settings.USE_ENDERCHEST) returnTell(Messages.FEATURE_DISABLED);
 
         checkPerms(player, Messages.NO_PERMS, "pci.enderchest");
 
@@ -35,13 +35,13 @@ public class EnderChestCommand extends PlayerCommand {
                 player.playSound(player.getLocation(), Sound.valueOf(sound), 1.0f, 1.0f);
             }
 
-            returnTell(Messages.OPENED_ENDERCHEST, false);
+            returnTell(Messages.OPENED_ENDERCHEST);
         }
 
         if (args.length == 1) {
             checkPerms(player, Messages.NO_PERMS, "pci.enderchest.other");
             Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]), false);
+            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
 
             Inventory targetEChest = target.getEnderChest();
 
@@ -51,11 +51,11 @@ public class EnderChestCommand extends PlayerCommand {
                 target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, 1.0f);
 
             returnTell(Messages.OPEN_TARGET_ECHEST.replace("{player}", target.getName()).replace("{playerFormatted}",
-                    target.getName().endsWith("s") ? target.getName() + "'" : target.getName() + "'s"), false);
+                    target.getName().endsWith("s") ? target.getName() + "'" : target.getName() + "'s"));
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS)
-            returnTell(Messages.TOOMANY_ARGS, false);
+            returnTell(Messages.TOOMANY_ARGS);
 
     }
 }

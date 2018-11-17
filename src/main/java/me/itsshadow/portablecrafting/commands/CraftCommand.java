@@ -19,7 +19,7 @@ public class CraftCommand extends PlayerCommand {
 
     @Override
     protected void run(Player player, String[] args) {
-        if (!Settings.USE_CRAFTING) returnTell(Messages.FEATURE_DISABLED, false);
+        if (!Settings.USE_CRAFTING) returnTell(Messages.FEATURE_DISABLED);
 
         final String craftOpenSound = Settings.CRAFTING_OPEN_SOUND;
 
@@ -31,25 +31,25 @@ public class CraftCommand extends PlayerCommand {
 
             player.openWorkbench(player.getLocation(), true);
 
-            returnTell(Messages.OPENED_CRAFTING, false);
+            returnTell(Messages.OPENED_CRAFTING);
         }
 
         if (args.length == 1) {
             checkPerms(player, Messages.NO_PERMS, "pci.craft.other");
             Player target = Bukkit.getPlayer(args[0]);
 
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]), false);
+            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
 
             if (Settings.USE_CRAFTING_SOUNDS)
                 target.playSound(target.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, 1.0f);
 
             target.openWorkbench(target.getLocation(), true);
-            tellTarget(target, Messages.OPENED_CRAFTING, false);
-            returnTell(Messages.OPENED_CRAFTING_OTHER.replace("{player}", target.getName()), false);
+            tellTarget(target, Messages.OPENED_CRAFTING);
+            returnTell(Messages.OPENED_CRAFTING_OTHER.replace("{player}", target.getName()));
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
-            returnTell(Messages.TOOMANY_ARGS, false);
+            returnTell(Messages.TOOMANY_ARGS);
         }
     }
 }

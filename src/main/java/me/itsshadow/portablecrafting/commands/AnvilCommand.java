@@ -21,7 +21,7 @@ public class AnvilCommand extends PlayerCommand {
 
     @Override
     protected void run(Player player, String[] args) {
-        if (!Settings.USE_ANVIL) returnTell(Messages.FEATURE_DISABLED, false);
+        if (!Settings.USE_ANVIL) returnTell(Messages.FEATURE_DISABLED);
 
         final String anvilOpenSound = Settings.ANVIL_OPEN_SOUND;
 
@@ -34,7 +34,7 @@ public class AnvilCommand extends PlayerCommand {
             if (Settings.USE_ANVIL_SOUNDS)
                 player.playSound(player.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, 1.0f);
 
-            returnTell(Messages.OPENED_ANVIL, false);
+            returnTell(Messages.OPENED_ANVIL);
         }
 
         if (args.length == 1) {
@@ -42,19 +42,19 @@ public class AnvilCommand extends PlayerCommand {
             Inventory anvilTarget = Bukkit.getServer().createInventory(null, InventoryType.ANVIL);
 
             Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST, false);
+            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST);
 
             if (Settings.USE_ANVIL_SOUNDS)
                 target.playSound(target.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, 1.0f);
 
             target.openInventory(anvilTarget);
 
-            tellTarget(target, Messages.OPENED_ANVIL, false);
-            returnTell(Messages.OPENED_ANVIL_OTHER.replace("{player}", target.getName()), false);
+            tellTarget(target, Messages.OPENED_ANVIL);
+            returnTell(Messages.OPENED_ANVIL_OTHER.replace("{player}", target.getName()));
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
-            returnTell(Messages.TOOMANY_ARGS, false);
+            returnTell(Messages.TOOMANY_ARGS);
         }
     }
 }

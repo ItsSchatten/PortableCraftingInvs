@@ -25,21 +25,21 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
     @Override
     protected void run(CommandSender commandSender, String[] args) {
         if (args.length == 0)
-            returnTell(Messages.HELP_MESSAGE, false);
+            returnTell(Messages.HELP_MESSAGE);
 
         if (args.length > 2 && Settings.USE_TOO_MANY_ARGS)
-            returnTell(Messages.TOOMANY_ARGS.replace("{prefix}", Utils.getPrefix()), false);
+            returnTell(Messages.TOOMANY_ARGS.replace("{prefix}", Utils.getPrefix()));
 
         String param = args[0].toLowerCase();
 
         switch (param) {
             case "help":
-                returnTell(Messages.HELP_MESSAGE, false);
+                returnTell(Messages.HELP_MESSAGE);
                 break;
 
             case "version":
                 Utils.log("Someone named " + commandSender.getName() + " got the version of the plugin; which is " + Utils.getInstance().getDescription().getVersion());
-                returnTell("&fThe plugin version is " + Utils.getInstance().getDescription().getVersion(), true);
+                returnTell("&fThe plugin version is " + Utils.getInstance().getDescription().getVersion());
                 break;
 
             case "reload":
@@ -48,7 +48,7 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
                 if (args.length == 1) {
                     Messages.getInstance().reload();
                     Settings.getInstance().reload();
-                    returnTell(Messages.RELOAD_MESSAGE, false);
+                    returnTell(Messages.RELOAD_MESSAGE);
                 }
 
                 final String param2 = args[1].toUpperCase();
@@ -56,14 +56,14 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
                 switch (param2) {
                     case "SETTINGS":
                         Settings.getInstance().reload();
-                        returnTell(Messages.RELOAD_SPECIFIC.replace("{file}", Settings.getFile()), false);
+                        returnTell(Messages.RELOAD_SPECIFIC.replace("{file}", Settings.getFile()));
                         break;
                     case "MESSAGES":
                         Messages.getInstance().reload();
-                        returnTell(Messages.RELOAD_SPECIFIC.replace("{file}", Messages.getFile()), false);
+                        returnTell(Messages.RELOAD_SPECIFIC.replace("{file}", Messages.getFile()));
                         break;
                     default:
-                        returnTell(Messages.WRONG_ARGS, false);
+                        returnTell(Messages.WRONG_ARGS);
                         break;
                 }
                 break;
@@ -73,7 +73,7 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
                 if (args.length == 1) {
                     Messages.getInstance().reload();
                     Settings.getInstance().reload();
-                    returnTell(Messages.RELOAD_MESSAGE, false);
+                    returnTell(Messages.RELOAD_MESSAGE);
                 }
 
                 final String parm2 = args[1].toUpperCase();
@@ -81,20 +81,20 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
                 switch (parm2) {
                     case "SETTINGS":
                         Settings.getInstance().reload();
-                        returnTell(Messages.RELOAD_SPECIFIC.replace("{file}", Settings.getFile()), false);
+                        returnTell(Messages.RELOAD_SPECIFIC.replace("{file}", Settings.getFile()));
                         break;
                     case "MESSAGES":
                         Messages.getInstance().reload();
-                        returnTell(Messages.RELOAD_SPECIFIC.replace("{file}", Messages.getFile()), false);
+                        returnTell(Messages.RELOAD_SPECIFIC.replace("{file}", Messages.getFile()));
                         break;
                     default:
-                        returnTell(Messages.WRONG_ARGS, false);
+                        returnTell(Messages.WRONG_ARGS);
                         break;
                 }
                 break;
 
             default:
-                returnTell(Messages.WRONG_ARGS.replace("{prefix}", Utils.getPrefix()), false);
+                returnTell(Messages.WRONG_ARGS.replace("{prefix}", Utils.getPrefix()));
                 break;
         }
 
