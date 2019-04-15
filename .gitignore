@@ -229,3 +229,5 @@ target/classes
 target/classes/plugin.yml
 target/classes/messages.yml
 target/classes/settings.yml
+
+Server/

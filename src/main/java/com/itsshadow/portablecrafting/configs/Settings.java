@@ -1,23 +1,29 @@
-package me.itsshadow.portablecrafting.configs;
+package com.itsshadow.portablecrafting.configs;
 
+import com.itsschatten.libs.Utils;
+import com.itsschatten.libs.configutils.SimpleConfig;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import me.itsshadow.libs.Utils;
-import me.itsshadow.libs.configutils.SimpleConfig;
 
+/**
+ * Sets values to be used throughout the plugin.
+ */
 public class Settings extends SimpleConfig {
 
     public static boolean
+            DEBUG,
             USE_UPDATER,
             USE_TOO_MANY_ARGS,
+            USE_HELP_IF_WRONG_ARGS,
+            USE_RANDOM_SOUND_PITCH,
 
-            USE_ENDERCHEST,
+    USE_ENDERCHEST,
             USE_ENCHANTTABLE,
             USE_CRAFTING,
             USE_ANVIL,
 
-            USE_ANVIL_SOUNDS,
+    USE_ANVIL_SOUNDS,
             USE_CRAFTING_SOUNDS,
             USE_ENCHANTTABLE_SOUNDS,
             USE_ENDERCHEST_SOUNDS;
@@ -27,9 +33,6 @@ public class Settings extends SimpleConfig {
             ENCHANTTABLE_OPEN_SOUND,
             CRAFTING_OPEN_SOUND,
             ANVIL_OPEN_SOUND;
-
-    @Getter
-    private static String file = "settings.yml";
 
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
@@ -43,23 +46,26 @@ public class Settings extends SimpleConfig {
                 " This configuration file has been automatically updated!",
                 "",
                 " Unfortunately, due to the way Bukkit saves .yml files,",
-                " all comments in your file where lost. please open",
-                " " + fileName + " directly to browse the default values.",
+                " all comments in your file where lost. To read them,",
+                " please open " + fileName + " directly to browse the default values.",
                 " Don't know how to do this? You can also check our github",
-                " page for a default file.",
+                " page for the default file.",
+                "(https://github.com/ItsSchatten/PortableCraftingInvs)",
                 "--------------------------------------------------------"});
 
         setInstance(this);
     }
 
     public static void init() {
-        new Settings(file).onLoad();
-        Utils.log("&7File &e" + file + "&7 was loaded.");
+        new Settings("settings.yml").onLoad();
+        Utils.debugLog(DEBUG, "Loaded the settings.yml file.");
     }
 
     private void onLoad() {
         /* Features */
+        DEBUG = (boolean) get("debug");
         USE_TOO_MANY_ARGS = (boolean) get("use-too-many-args");
+        USE_HELP_IF_WRONG_ARGS = (boolean) get("use-help-if-no-args");
         USE_UPDATER = (boolean) get("use-updater");
         USE_CRAFTING = (boolean) get("use-crafting");
         USE_ENDERCHEST = (boolean) get("use-enderchest");
@@ -77,16 +83,15 @@ public class Settings extends SimpleConfig {
         ENCHANTTABLE_OPEN_SOUND = getString("enchanttable-open-sound");
         CRAFTING_OPEN_SOUND = getString("crafting-open-sound");
         ANVIL_OPEN_SOUND = getString("anvil-open-sound");
+        USE_RANDOM_SOUND_PITCH = (boolean) get("use-random-sound-pitch");
 
     }
 
     public void reload() {
         setInstance(null);
 
-        new Settings(file).onLoad();
-
-        setInstance(this);
-        Utils.log("&7The file &e" + file + "&7 has been reloaded.");
+        init();
+        Utils.debugLog(Settings.DEBUG, "Reloaded the settings.yml file.");
     }
 
 }

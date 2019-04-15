@@ -3,3 +3,46 @@ version: ${version}
 main: ${main}
 author: ${author}
 description: ${description}
+permissions:
+  pci.*:
+    default: false
+    description: "Gives all permissions to a user (besides reload and update), useful if you don't want to op someone."
+    children:
+      pci.anvil: true
+      pci.anvil.other: true
+      pci.craft: true
+      pci.craft.other: true
+      pci.enchanttable: true
+      pci.enchanttable.other: true
+      pci.enderchest: true
+      pci.enderchest.other: true
+  pci.anvil:
+    default: op
+    description: "The permission needed to be able to run the /anvil command."
+  pci.anvil.other:
+    default: op
+    description: "This permission is needed for players to open the anvil for another player."
+  pci.craft:
+    default: op
+    description: "This permission is needed to be able to run the /craft command."
+  pci.craft.other:
+    default: op
+    description: "This permission is needed to be able to run the /craft command for another player."
+  pci.enchanttable:
+    default: op
+    description: "This permission is needed to be able to use the /enchanttable command."
+  pci.enchanttable.other:
+    default: op
+    description: "This permission is needed to be able to use the /enchanttable command on another player."
+  pci.enderchest:
+    default: op
+    description: "This permission is needed to be able to use the /enderchest command."
+  pci.enderchest.other:
+    default: op
+    description: "This permission is needed to be able to use the /enderchest command to open another player's enderchest."
+  pci.reload:
+    default: op
+    description: "This permission allows a user to reload the configuration files."
+  pci.update:
+    default: op
+    description: "Users with this permission will be able to see when an update is available for the plugin."

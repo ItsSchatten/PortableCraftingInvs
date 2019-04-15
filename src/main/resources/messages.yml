@@ -20,13 +20,9 @@
 # file to save your work and to keep the comments.
 #
 # If you have questions you can post an issue on Github
-# (https://github.com/ItsShadow13/PortableCraftingInv/issues) Also helpful if you want to
+# (https://github.com/ItsSchatten/PortableCraftingInv/issues) Also helpful if you want to
 # see the code for the plugin.
 # You can also message me on Discord (Schatten#4113)
-#
-# If it is requested enough, we will add PlaceHolderAPI support.
-#
-# Sorry for the text wall above!
 
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
@@ -38,15 +34,15 @@
 prefix: "&7Portable Inventories &d\u00BB&f"
 
 # The message that is sent when someone doesn't have permission to execute a command.
-no-perms: "{prefix} &cI'm sorry you don't have permission to do that."
+no-perms: "{prefix} &cI'm sorry you don't have permission to do that. &7({permission})"
 
 # This message supports scalar. Which means you can have a multiline message be sent.
 # I would suggest that you familiarize yourself with scalar to better use it then I can.
 help-message: |+
   &7Required Arguments &a<> &7|| &7Optional Args &6[]
   &7/pci or /pci &6[&7help&6] &7>&f Lists this help message.
-  &7/pci &6[&7rl &oor&7 reload&6] &7>&f Reload the configuration.
-  &7/pci &6[&7rl &oor&7 reload&6] &6[&7SETTINGS &oor&7 MESSAGES] &7>
+  &7/pci &6[&7rl &oor&7 reload&6] &7> &f Reload the configuration.
+  &7/pci &6[&7rl &oor&7 reload&6] &6[&7settings &oor&7 messages] &7>
   &f Reload the specified config.
   &7/pci &6[&7version &oor&7 ver&6] &7>&f Get the version of the plugin.
   &7/enderchest &6[&7player&6] &7>&f Open your enderchest, and if specified the targets.
@@ -56,7 +52,7 @@ help-message: |+
   &f Opens an enchattable for you or another player. (Tier one only.)
   &7/enderchest &6[&7player&6] &7>&f
 
-  &7&oDeveloped by _ItsShadow_ on spigot.
+  &7&oDeveloped by ItsSchatten on spigot.
 
 # The message that is sent if you disable a feature in the settings.yml.
 feature-disabled: "{prefix} That feature is disabled, sorry about that..."

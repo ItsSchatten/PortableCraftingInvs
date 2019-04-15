@@ -1,11 +1,14 @@
-package me.itsshadow.portablecrafting.configs;
+package com.itsshadow.portablecrafting.configs;
 
+import com.itsschatten.libs.Utils;
+import com.itsschatten.libs.configutils.SimpleConfig;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import me.itsshadow.libs.Utils;
-import me.itsshadow.libs.configutils.SimpleConfig;
 
+/**
+ * Sets the messages to be used throughout the plugin.
+ */
 public class Messages extends SimpleConfig {
 
     public static String
@@ -30,31 +33,32 @@ public class Messages extends SimpleConfig {
             OPENED_ENCHANTTABLE,
             OPENED_ENCHANTTABLE_OTHER;
     @Getter
-    private static String file = "messages.yml";
-    @Getter
     @Setter(value = AccessLevel.PRIVATE)
     private static Messages instance;
 
-    private Messages(String filename) {
-        super(filename);
+    private Messages(String fileName) {
+        super(fileName);
 
         setHeader(new String[]{
                 "--------------------------------------------------------",
                 " This configuration file has been automatically updated!",
                 "",
                 " Unfortunately, due to the way Bukkit saves .yml files,",
-                " all comments in your file where lost. please open",
-                " " + filename + " directly to browse the default values.",
+                " all comments in your file where lost. To read them,",
+                " please open " + fileName + " directly to browse the default values.",
                 " Don't know how to do this? You can also check our github",
-                " page for a default file.",
+                " page for the default file.",
+                "(https://github.com/ItsSchatten/PortableCraftingInvs)",
                 "--------------------------------------------------------"});
 
         setInstance(this);
     }
 
     public static void init() {
-        new Messages(file).onLoad();
-        Utils.log("&7File &e" + file + "&7 was loaded.");
+        new Messages("messages.yml").onLoad();
+        Utils.setPrefix(PREFIX);
+        Utils.setUpdateAvailableMessage(Messages.UPDATE_AVALIABLE_MESSAGE);
+        Utils.debugLog(Settings.DEBUG, "Loaded the file messages.yml");
     }
 
     private void onLoad() {
@@ -83,13 +87,8 @@ public class Messages extends SimpleConfig {
     public void reload() {
         setInstance(null);
 
-        new Messages(file).onLoad();
-
-        Utils.setPrefix(PREFIX);
-        Utils.setNoPermsMessage(NO_PERMS);
-
-        setInstance(this);
-        Utils.log("&7The file &e" + file + "&7 has been reloaded.");
+        init();
+        Utils.debugLog(Settings.DEBUG, "Reloaded the messages.yml file.");
     }
 
 

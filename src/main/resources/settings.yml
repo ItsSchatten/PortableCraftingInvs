@@ -14,14 +14,13 @@
 # This file can be used to enable or disable all parts of the plugin.
 #
 # If you have questions you can post an issue on Github
-# (https://github.com/ItsShadow13/PortableCraftingInv/issues) Also helpful if you want to
+# (https://github.com/ItsSchatten/PortableCraftingInv/issues) Also helpful if you want to
 # see the code for the plugin.
 # You can also message me on Discord (Schatten#4113)
 #
-# There is one thing that I am planning on working towards. I plan on trying to get
-# different tiers of the enchantment table to work. In other words, add support for level
-# 30 enchants.
-#
+
+# I do not recommend you enable this unless you want to have your console be filled with messages.
+debug: false
 
 # If this is set to true and you add more then the required amount of arguments
 # the plugin will send you a message saying so.
@@ -31,6 +30,10 @@ use-too-many-args: true
 # permissions (pci.update) and console will be notified. You can set a custom message
 # in the message.yml if you want.
 use-updater: true
+
+# If a user was to use the command /pci and not provide any arguments to the command,
+# we send the help message along with the wrong arguments message.
+use-help-if-no-args: true
 
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
@@ -56,6 +59,9 @@ use-enderchest: true
 #                                                                                       #
 # ------------------------------------------------------------------------------------- #
 
+# When true, instead of the default sound playing, we randomize the sound pitch to make it higher or lower.
+use-random-sound-pitch: true
+
 # Enable or disable the sound when opening the anvil with /anvil.
 use-anvil-sounds: false
 
@@ -73,7 +79,7 @@ use-enderchest-sounds: true
 #                                         Sounds                                        #
 #                                                                                       #
 # Want to use different sounds?                                                         #
-# https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html                       #
+# https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html                        #
 # ------------------------------------------------------------------------------------- #
 
 # This sound is played when opening the anvil using /anvil.
