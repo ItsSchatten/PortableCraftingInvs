@@ -1,25 +1,30 @@
 ---
 name: Bug report
-about: Found a bug in the plugin? Post it here!
+about: Found a bug in the plugin? Choose this template
+title: ''
+labels: bug
+assignees: ''
 
 ---
 
-So you've found a bug in my plugin? You've done the right thing by posting it here!  
+So you've found a bug in my plugin in my plugin? Alright! Please follow the outline and make sure you provide any relevant information. 
 
-**Describe the bug**
-*What is the bug? What do you think the appropriate behavior would be for this feature?*
+__Please post screenshots on a site like [Imgur](https://imgur.com/upload) and post config files on a site like [Pastebin](https://pastebin.com/) or some another alternative.__
 
-**The Error Stacktrace**
-*When an error occurs normally you will get an error in console, copy and paste that here.*
+**Please describe the bug**
+*What is the bug? What do you think the appropriate behavior would be for this feature? (Paste screenshots here)*
 
-**To Reproduce**
-*What can I do to reproduce the error?*
+**If there is a stacktrace in console, please post that here.** 
+*When an error occurs and you receive the "An internal error has occurred..." message there is some sort of error in console, please copy and past that here.*
 
-**Output of /pci version**
-*Please run /pci version on your server/server console and post the output.*
+**How to reproduce the error?**
+*What can I do to reproduce the error you have experienced?*
 
-**Version of Spigot**
-*What version of spigot are you using?*
+**What is your Spigot Version?**
+*What version of Spigot are you using? /ver*
+
+**What is the plugins version?**
+*Please run '/pci version' in your console or in game and paste it here.*
 
 **Anything else I should know?**
-*Is there anything else I should know before attempting to fix this bug?*
+*Is there something else that I should know before attempting to fix this bug?*
