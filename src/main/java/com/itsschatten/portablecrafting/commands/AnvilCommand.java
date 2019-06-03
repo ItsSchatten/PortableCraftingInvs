@@ -1,10 +1,10 @@
-package com.itsshadow.portablecrafting.commands;
+package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.commandutils.PlayerCommand;
-import com.itsshadow.portablecrafting.Perms;
-import com.itsshadow.portablecrafting.configs.Messages;
-import com.itsshadow.portablecrafting.configs.Settings;
+import com.itsschatten.portablecrafting.Perms;
+import com.itsschatten.portablecrafting.configs.Messages;
+import com.itsschatten.portablecrafting.configs.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -35,8 +35,11 @@ public class AnvilCommand extends PlayerCommand {
         checkPerms(player, Perms.ANVIL); // Check perms again.
 
         if (args.length == 0) {
-            Inventory anvil = Bukkit.getServer().createInventory(player, InventoryType.ANVIL); // Create anvil inventory.
+
+            Inventory anvil = Bukkit.createInventory(player, InventoryType.ANVIL, "Test"); // Create anvil inventory.
+
             player.openInventory(anvil); // Open inv.
+
             Utils.debugLog(Settings.DEBUG, "Opened inventory.");
             if (Settings.USE_ANVIL_SOUNDS) {
                 player.playSound(player.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);

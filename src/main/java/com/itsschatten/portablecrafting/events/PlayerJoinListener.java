@@ -1,10 +1,10 @@
-package com.itsshadow.portablecrafting.events;
+package com.itsschatten.portablecrafting.events;
 
 import com.itsschatten.libs.UpdateNotifications;
 import com.itsschatten.libs.Utils;
-import com.itsshadow.portablecrafting.CheckForUpdate;
-import com.itsshadow.portablecrafting.Perms;
-import com.itsshadow.portablecrafting.configs.Settings;
+import com.itsschatten.portablecrafting.CheckForUpdate;
+import com.itsschatten.portablecrafting.Perms;
+import com.itsschatten.portablecrafting.configs.Settings;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

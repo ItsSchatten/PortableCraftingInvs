@@ -1,4 +1,4 @@
-package com.itsshadow.portablecrafting;
+package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.UpdateNotifications;
 import com.itsschatten.libs.Utils;

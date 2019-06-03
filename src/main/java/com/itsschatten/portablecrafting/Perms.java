@@ -1,7 +1,7 @@
-package com.itsshadow.portablecrafting;
+package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.Permissions;
-import com.itsshadow.portablecrafting.configs.Messages;
+import com.itsschatten.portablecrafting.configs.Messages;
 
 /**
  * A utility class that I can use to specify permissions, so I don't have to constantly rewrite them.

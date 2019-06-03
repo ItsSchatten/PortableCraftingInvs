@@ -1,4 +1,4 @@
-package com.itsshadow.portablecrafting.configs;
+package com.itsschatten.portablecrafting.configs;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.SimpleConfig;

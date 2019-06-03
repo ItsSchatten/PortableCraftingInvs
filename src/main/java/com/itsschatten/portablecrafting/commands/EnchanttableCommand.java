@@ -1,10 +1,10 @@
-package com.itsshadow.portablecrafting.commands;
+package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.commandutils.PlayerCommand;
-import com.itsshadow.portablecrafting.Perms;
-import com.itsshadow.portablecrafting.configs.Messages;
-import com.itsshadow.portablecrafting.configs.Settings;
+import com.itsschatten.portablecrafting.Perms;
+import com.itsschatten.portablecrafting.configs.Settings;
+import com.itsschatten.portablecrafting.configs.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
