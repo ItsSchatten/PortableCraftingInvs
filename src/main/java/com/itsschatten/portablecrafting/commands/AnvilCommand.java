@@ -5,11 +5,11 @@ import com.itsschatten.libs.commandutils.PlayerCommand;
 import com.itsschatten.portablecrafting.Perms;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
+import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
 
 import java.util.Arrays;
 
@@ -36,15 +36,13 @@ public class AnvilCommand extends PlayerCommand {
 
         if (args.length == 0) {
 
-            Inventory anvil = Bukkit.createInventory(player, InventoryType.ANVIL, "Test"); // Create anvil inventory.
-
-            player.openInventory(anvil); // Open inv.
-
-            Utils.debugLog(Settings.DEBUG, "Opened inventory.");
             if (Settings.USE_ANVIL_SOUNDS) {
                 player.playSound(player.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + player.getName());
             }
+
+            openAnvil(player);
+            Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + player.getName());
 
             returnTell(Messages.OPENED_ANVIL);
         }
@@ -55,14 +53,14 @@ public class AnvilCommand extends PlayerCommand {
             Player target = Bukkit.getPlayer(args[0]); // Set target.
             checkNotNull(target, Messages.PLAYER_DOSENT_EXIST); // Make sure not null.
 
-            Inventory anvilTarget = Bukkit.getServer().createInventory(target, InventoryType.ANVIL); // Make inventory
 
             if (Settings.USE_ANVIL_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + target.getName());
             }
 
-            target.openInventory(anvilTarget);
+            openAnvil(target);
+
             Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + target.getName());
 
             tellTarget(target, Messages.OPENED_ANVIL);
@@ -73,4 +71,27 @@ public class AnvilCommand extends PlayerCommand {
             returnTell(Messages.TOOMANY_ARGS);
         }
     }
+
+    private void openAnvil(final Player player) { // Using NMS create an anvil.
+        EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+        FakeAnvil fakeAnvil = new FakeAnvil(ePlayer);
+        int containerID = ePlayer.nextContainerCounter();
+
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, "minecraft:anvil", new ChatMessage("Repairing", new Object[]{}), 0));
+
+        ePlayer.activeContainer = fakeAnvil;
+        ePlayer.activeContainer.windowId = containerID;
+        ePlayer.activeContainer.addSlotListener(ePlayer);
+        ePlayer.activeContainer = fakeAnvil;
+        ePlayer.activeContainer.windowId = containerID;
+    }
+
+    class FakeAnvil extends ContainerAnvil {
+        public FakeAnvil(EntityHuman entityhuman) {
+            super(entityhuman.inventory, entityhuman.world, new BlockPosition(0, 0, 0), entityhuman);
+            this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
+        }
+
+    }
+
 }

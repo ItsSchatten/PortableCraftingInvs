@@ -3,7 +3,6 @@ package com.itsschatten.portablecrafting;
 import com.itsschatten.libs.UpdateNotifications;
 import com.itsschatten.libs.Utils;
 import com.itsschatten.portablecrafting.commands.*;
-import com.itsshadow.portablecrafting.commands.*;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.events.PlayerJoinListener;
@@ -60,7 +59,6 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         // Register commands, and JoinListener.
         registerCommands(new AnvilCommand(), new CraftCommand(), new EnchanttableCommand(), new EnderChestCommand(), new PortableCraftingInvsCommand());
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
-        this.getServer().getPluginManager().registerEvents(new AnvilRepairListener(), this);
         Utils.debugLog(Settings.DEBUG, "Loaded the PlayerJoinListener.");
 
 
