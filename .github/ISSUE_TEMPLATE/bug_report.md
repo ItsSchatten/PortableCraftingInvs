@@ -1,13 +1,13 @@
 ---
 name: Bug report
 about: Found a bug in the plugin? Choose this template
-title: ''
+title: "[BUG]"
 labels: bug
 assignees: ''
 
 ---
 
-So you've found a bug in my plugin in my plugin? Alright! Please follow the outline and make sure you provide any relevant information. 
+So you've found a bug in my plugin in my plugin? Alright! Please follow the outline and make sure you provide any relevant information.  (Feel free to remove this message.)
 
 __Please post screenshots on a site like [Imgur](https://imgur.com/upload) and post config files on a site like [Pastebin](https://pastebin.com/) or some another alternative.__
 
