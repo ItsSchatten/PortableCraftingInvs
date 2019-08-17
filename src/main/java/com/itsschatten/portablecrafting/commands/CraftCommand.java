@@ -1,10 +1,10 @@
 package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
-import com.itsschatten.libs.commandutils.PlayerCommand;
+import com.itsschatten.libs.commandutils.UserCommand;
 import com.itsschatten.portablecrafting.Perms;
-import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.Messages;
+import com.itsschatten.portablecrafting.configs.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -14,14 +14,14 @@ import java.util.Arrays;
 /**
  * This class handles the crafting table.
  */
-public class CraftCommand extends PlayerCommand {
+public class CraftCommand extends UserCommand {
 
     public CraftCommand() {
         super("craft"); // The command.
 
         setAliases(Arrays.asList("crafting", "craftingtable", "workbench"));
         setPermission(Perms.CRAFTING.getPermission());
-        setPermissionMessage(Perms.CRAFTING.getNoPermission().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.CRAFTING.getPermission()));
+        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.CRAFTING.getPermission()));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class CraftCommand extends PlayerCommand {
 
         if (args.length == 0) { // If no arguments, open a crafting table for the sender.
             if (Settings.USE_CRAFTING_SOUNDS) {
-                player.playSound(player.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds enabled play a sound, if random pitch at random.
+                player.playSound(player.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds are enabled play a sound, if random pitch at random.
                 Utils.debugLog(Settings.DEBUG, "Played the sound " + craftOpenSound + " to player " + player.getName());
             }
 

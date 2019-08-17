@@ -1,10 +1,10 @@
 package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
-import com.itsschatten.libs.commandutils.PlayerCommand;
-import com.itsschatten.portablecrafting.configs.Settings;
+import com.itsschatten.libs.commandutils.UserCommand;
 import com.itsschatten.portablecrafting.Perms;
 import com.itsschatten.portablecrafting.configs.Messages;
+import com.itsschatten.portablecrafting.configs.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -15,14 +15,14 @@ import java.util.Arrays;
 /**
  * Ender chest.
  */
-public class EnderChestCommand extends PlayerCommand {
+public class EnderChestCommand extends UserCommand {
 
     public EnderChestCommand() {
         super("enderchest");
 
         setAliases(Arrays.asList("ec", "echest"));
         setPermission(Perms.ENDERCHEST.getPermission());
-        setPermissionMessage(Perms.ENDERCHEST.getNoPermission().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.ENDERCHEST.getPermission()));
+        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.ENDERCHEST.getPermission()));
     }
 
     @Override

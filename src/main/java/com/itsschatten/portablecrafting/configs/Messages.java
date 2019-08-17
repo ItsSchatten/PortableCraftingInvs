@@ -58,6 +58,7 @@ public class Messages extends SimpleConfig {
         new Messages("messages.yml").onLoad();
         Utils.setPrefix(PREFIX);
         Utils.setUpdateAvailableMessage(Messages.UPDATE_AVALIABLE_MESSAGE);
+        Utils.setNoPermsMessage(NO_PERMS);
         Utils.debugLog(Settings.DEBUG, "Loaded the file messages.yml");
     }
 

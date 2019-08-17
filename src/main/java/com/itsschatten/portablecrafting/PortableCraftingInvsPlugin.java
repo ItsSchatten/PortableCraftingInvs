@@ -72,9 +72,9 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         Utils.setInstance(null);
     }
 
+
     // A utility method so I can register commands on one line.
     private void registerCommands(Command... commands) {
-
         try {
             for (Command command : commands) {
                 Utils.registerCommand(command);

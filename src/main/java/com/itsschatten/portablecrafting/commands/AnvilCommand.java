@@ -1,29 +1,31 @@
 package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
-import com.itsschatten.libs.commandutils.PlayerCommand;
+import com.itsschatten.libs.commandutils.UserCommand;
 import com.itsschatten.portablecrafting.Perms;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
-import net.minecraft.server.v1_13_R2.*;
+import net.minecraft.server.v1_14_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
 
 import java.util.Arrays;
 
 /**
  * Anvil
  */
-public class AnvilCommand extends PlayerCommand {
+public class AnvilCommand extends UserCommand {
 
     public AnvilCommand() {
         super("anvil");
 
         setAliases(Arrays.asList("openanvil", "anv"));
         setPermission(Perms.ANVIL.getPermission());
-        setPermissionMessage(Perms.ANVIL.getNoPermission().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.ANVIL.getPermission()));
+        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.ANVIL.getPermission()));
     }
 
     @Override
@@ -41,7 +43,10 @@ public class AnvilCommand extends PlayerCommand {
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + player.getName());
             }
 
+            player.openInventory(Bukkit.createInventory(player, InventoryType.ANVIL));
+
             openAnvil(player);
+
             Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + player.getName());
 
             returnTell(Messages.OPENED_ANVIL);
@@ -59,7 +64,8 @@ public class AnvilCommand extends PlayerCommand {
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + target.getName());
             }
 
-            openAnvil(target);
+//            openAnvil(target);
+
 
             Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + target.getName());
 
@@ -73,23 +79,28 @@ public class AnvilCommand extends PlayerCommand {
     }
 
     private void openAnvil(final Player player) { // Using NMS create an anvil.
-        EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
-        FakeAnvil fakeAnvil = new FakeAnvil(ePlayer);
-        int containerID = ePlayer.nextContainerCounter();
+        try {
+            EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+            int containerID = ePlayer.nextContainerCounter();
+            FakeAnvil fakeAnvil = new FakeAnvil(containerID, player);
 
-        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, "minecraft:anvil", new ChatMessage("Repairing", new Object[]{}), 0));
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, new ChatMessage("Repairing")));
 
-        ePlayer.activeContainer = fakeAnvil;
-        ePlayer.activeContainer.windowId = containerID;
-        ePlayer.activeContainer.addSlotListener(ePlayer);
-        ePlayer.activeContainer = fakeAnvil;
-        ePlayer.activeContainer.windowId = containerID;
+            ePlayer.activeContainer = fakeAnvil;
+            ePlayer.activeContainer.addSlotListener(ePlayer);
+            ePlayer.activeContainer = fakeAnvil;
+        } catch (UnsupportedOperationException ex) {
+            // Logging this error normally spams console
+            Utils.debugLog(Settings.DEBUG, ex.getStackTrace().toString());
+
+        }
     }
 
     class FakeAnvil extends ContainerAnvil {
-        public FakeAnvil(EntityHuman entityhuman) {
-            super(entityhuman.inventory, entityhuman.world, new BlockPosition(0, 0, 0), entityhuman);
+        public FakeAnvil(int containerID, Player player) {
+            super(containerID, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(0, 0, 0)));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
+            setTitle(new ChatMessage("Repair & Name"));
         }
 
     }
