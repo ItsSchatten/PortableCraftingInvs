@@ -1,13 +1,14 @@
 package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
-import com.itsschatten.libs.commandutils.UserCommand;
+import com.itsschatten.libs.commandutils.UniversalCommand;
 import com.itsschatten.portablecrafting.Perms;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import net.minecraft.server.v1_14_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
+import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -17,7 +18,7 @@ import java.util.Arrays;
 /**
  * Enchant table.
  */
-public class EnchanttableCommand extends UserCommand {
+public class EnchanttableCommand extends UniversalCommand {
 
     public EnchanttableCommand() {
         super("enchanttable"); // Command
@@ -28,10 +29,31 @@ public class EnchanttableCommand extends UserCommand {
     }
 
     @Override
-    protected void run(Player player, String[] args) {
+    protected void run(CommandSender sender, String[] args) {
         if (!Settings.USE_ENCHANTTABLE) returnTell(Messages.FEATURE_DISABLED); // Check if feature is disabled.
 
         final String openEnchanttableSound = Settings.ENCHANTTABLE_OPEN_SOUND.toUpperCase(); // Set sound.
+
+        if (!(sender instanceof Player)) {
+            if (args.length == 0)
+                returnTell(Messages.NOTENOUGH_ARGS);
+
+            final Player target = Bukkit.getPlayer(args[0]);
+            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
+
+            if (Settings.USE_ENCHANTTABLE_SOUNDS) {
+                target.playSound(target.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + target.getName());
+            }
+
+            openFakeEnchant(target);
+            tellTarget(target, Messages.OPENED_ANVIL);
+            returnTell(Messages.OPENED_ANVIL_OTHER);
+
+            return;
+        }
+
+        final Player player = (Player) sender;
 
         checkPerms(player, Perms.ENCHANTTABLE); // Check perms.
 
