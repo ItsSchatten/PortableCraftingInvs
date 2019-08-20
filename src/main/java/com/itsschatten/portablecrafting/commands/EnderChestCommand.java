@@ -5,6 +5,7 @@ import com.itsschatten.libs.commandutils.UniversalCommand;
 import com.itsschatten.portablecrafting.Perms;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -12,11 +13,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * Ender chest.
  */
 public class EnderChestCommand extends UniversalCommand {
+
+    @Getter
+    private static Set<UUID> players = new HashSet<>();
 
     public EnderChestCommand() {
         super("enderchest");
@@ -43,6 +50,10 @@ public class EnderChestCommand extends UniversalCommand {
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + sound + " to " + target.getName());
             }
 
+            if (Settings.USE_ENDERCHEST_RESTRICTION) {
+                players.add(target.getUniqueId());
+            }
+
             target.openInventory(target.getEnderChest());
             Utils.debugLog(Settings.DEBUG, "Opening " + target.getName() + "'s enderchest for themselves.");
 
@@ -55,7 +66,6 @@ public class EnderChestCommand extends UniversalCommand {
 
         checkPerms(player, Perms.ENDERCHEST); // Perms.
 
-
         if (args.length == 0) {
             Inventory eChest = player.getEnderChest(); // Get the players enderchest inventory.
 
@@ -66,6 +76,10 @@ public class EnderChestCommand extends UniversalCommand {
                 player.playSound(player.getLocation(), Sound.valueOf(sound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + sound + " to " + player.getName());
 
+            }
+
+            if (Settings.USE_ENDERCHEST_RESTRICTION) {
+                players.add(player.getUniqueId());
             }
 
             returnTell(Messages.OPENED_ENDERCHEST);
@@ -85,6 +99,10 @@ public class EnderChestCommand extends UniversalCommand {
             if (Settings.USE_ENDERCHEST_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + sound + " to " + player.getName());
+            }
+
+            if (Settings.USE_ENDERCHEST_RESTRICTION) {
+                players.add(target.getUniqueId());
             }
 
             returnTell(Messages.OPEN_TARGET_ECHEST.replace("{player}", target.getName()).replace("{playerFormatted}",

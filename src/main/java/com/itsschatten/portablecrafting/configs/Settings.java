@@ -19,6 +19,7 @@ public class Settings extends SimpleConfig {
             USE_RANDOM_SOUND_PITCH,
 
     USE_ENDERCHEST,
+            USE_ENDERCHEST_RESTRICTION,
             USE_ENCHANTTABLE,
             USE_CRAFTING,
             USE_ANVIL,
@@ -71,7 +72,7 @@ public class Settings extends SimpleConfig {
         USE_ENDERCHEST = (boolean) get("use-enderchest");
         USE_ENCHANTTABLE = (boolean) get("use-enchanttable");
         USE_ANVIL = (boolean) get("use-anvil");
-
+        USE_ENDERCHEST_RESTRICTION = (boolean) get("ender-chest-restrictions");
         /* Sound Booleans */
         USE_ANVIL_SOUNDS = (boolean) get("use-anvil-sounds");
         USE_CRAFTING_SOUNDS = (boolean) get("use-crafting-sounds");

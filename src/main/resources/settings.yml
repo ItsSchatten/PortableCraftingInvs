@@ -53,6 +53,9 @@ use-enchanttable: true
 # Enable or disable the use of the /enderchest command.
 use-enderchest: true
 
+# Should we only allow players to deposit items into their enderchest when using the command?
+ender-chest-restrictions: false
+
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                     Enable sounds                                     #

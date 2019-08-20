@@ -31,7 +31,8 @@ public class Messages extends SimpleConfig {
             OPENED_ANVIL,
             OPENED_ANVIL_OTHER,
             OPENED_ENCHANTTABLE,
-            OPENED_ENCHANTTABLE_OTHER;
+            OPENED_ENCHANTTABLE_OTHER,
+            CANT_RETRIEVE_ITEM_FROM_ENDER;
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
     private static Messages instance;
@@ -83,6 +84,7 @@ public class Messages extends SimpleConfig {
         OPENED_ANVIL_OTHER = getString("opened-anvil-other");
         OPENED_ENCHANTTABLE = getString("opened-enchanttable");
         OPENED_ENCHANTTABLE_OTHER = getString("opened-enchanttable-other");
+        CANT_RETRIEVE_ITEM_FROM_ENDER = getString("cant-retrieve-from-enderchest");
     }
 
     public void reload() {

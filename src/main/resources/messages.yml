@@ -120,3 +120,6 @@ opened-enchanttable: "{prefix} Opened enchantment table."
 
 # This message is sent to the target of /enchanttable <target> command.
 opened-enchanttable-other: "{prefix} Opened enchantment table for {player}."
+
+# The message that is sent if a player trues
+cant-retrieve-from-enderchest: "{prefix} &cYou can't retrieve items from your portable enderchest!"

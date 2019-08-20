@@ -5,7 +5,8 @@ import com.itsschatten.libs.Utils;
 import com.itsschatten.portablecrafting.commands.*;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
-import com.itsschatten.portablecrafting.events.PlayerJoinListener;
+import com.itsschatten.portablecrafting.listeners.EnderchestListener;
+import com.itsschatten.portablecrafting.listeners.PlayerJoinListener;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -56,6 +57,12 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             new CheckForUpdate().runTaskTimerAsynchronously(this, 30 * 60 * 20, 30 * 60 * 20); // Wait 30 minutes and check for another update.
             Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running.");
         }
+
+        if (Settings.USE_ENDERCHEST_RESTRICTION) {
+            this.getServer().getPluginManager().registerEvents(new EnderchestListener(), this);
+            Utils.debugLog(Settings.DEBUG, "USE_ENDERCHEST_RESTRICTIONS is true; EnderchestListener has been initialized.");
+        }
+
         // Register commands, and JoinListener.
         registerCommands(new AnvilCommand(), new CraftCommand(), new EnchanttableCommand(), new EnderChestCommand(), new PortableCraftingInvsCommand());
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
@@ -78,11 +85,11 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         try {
             for (Command command : commands) {
                 Utils.registerCommand(command);
-                Utils.debugLog(Settings.DEBUG, "&7Command " + command + " has been registered.");
+                Utils.debugLog(Settings.DEBUG, "&7Command " + command.getName() + " has been registered.");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            Utils.log("Some error occurred.");
+            Utils.log("Some error occurred, please report this immediately to ItsSchatten on Spigot or Github. \n(https://github.com/ItsSchatten/PortableCraftingInvs/issues)");
         }
     }
 

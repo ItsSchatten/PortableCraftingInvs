@@ -1,4 +1,4 @@
-package com.itsschatten.portablecrafting.events;
+package com.itsschatten.portablecrafting.listeners;
 
 import com.itsschatten.libs.UpdateNotifications;
 import com.itsschatten.libs.Utils;
