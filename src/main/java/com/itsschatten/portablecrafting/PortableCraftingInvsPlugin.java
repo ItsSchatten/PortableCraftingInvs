@@ -10,6 +10,7 @@ import com.itsschatten.portablecrafting.listeners.PlayerJoinListener;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.command.Command;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,6 +46,11 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         // Register configs.
         Settings.init();
         Messages.init();
+
+        if (Settings.USE_METRICS) {
+            Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/Portable%20Crafting%20Inventories&7", "If you don't wish for this information to be collected you can disable it in the settings.yml.");
+            Metrics metrics = new Metrics(this);
+        }
 
         if (Settings.USE_UPDATER) {
             new UpdateNotifications(61045) {

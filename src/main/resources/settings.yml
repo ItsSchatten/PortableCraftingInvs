@@ -35,6 +35,9 @@ use-updater: true
 # we send the help message along with the wrong arguments message.
 use-help-if-no-args: true
 
+# If enabled the plugin will send statistics to BStats.
+metrics: true
+
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                   Crafting Features                                   #

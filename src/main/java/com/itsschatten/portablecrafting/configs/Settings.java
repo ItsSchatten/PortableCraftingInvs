@@ -14,6 +14,7 @@ public class Settings extends SimpleConfig {
     public static boolean
             DEBUG,
             USE_UPDATER,
+            USE_METRICS,
             USE_TOO_MANY_ARGS,
             USE_HELP_IF_WRONG_ARGS,
             USE_RANDOM_SOUND_PITCH,
@@ -68,6 +69,7 @@ public class Settings extends SimpleConfig {
         USE_TOO_MANY_ARGS = (boolean) get("use-too-many-args");
         USE_HELP_IF_WRONG_ARGS = (boolean) get("use-help-if-no-args");
         USE_UPDATER = (boolean) get("use-updater");
+        USE_METRICS = (boolean) get("metrics");
         USE_CRAFTING = (boolean) get("use-crafting");
         USE_ENDERCHEST = (boolean) get("use-enderchest");
         USE_ENCHANTTABLE = (boolean) get("use-enchanttable");

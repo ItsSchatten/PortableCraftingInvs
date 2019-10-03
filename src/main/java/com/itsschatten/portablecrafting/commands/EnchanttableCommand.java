@@ -108,7 +108,7 @@ public class EnchanttableCommand extends UniversalCommand {
 
     class FakeEnchant extends ContainerEnchantTable {
 
-        public FakeEnchant(int i, Player player) {
+        FakeEnchant(int i, Player player) {
             super(i, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(((CraftPlayer) player).getHandle().locX, ((CraftPlayer) player).getHandle().locY, ((CraftPlayer) player).getHandle().locZ)));
             this.checkReachable = false;
             setTitle(new ChatMessage("Enchant"));
