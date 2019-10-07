@@ -19,8 +19,8 @@
 # is recommended before updating to the newest version to backup your config and messages
 # file to save your work and to keep the comments.
 #
-# If you have questions you can post an issue on Github
-# (https://github.com/ItsSchatten/PortableCraftingInv/issues) Also helpful if you want to
+# If you have questions you can post an issue on BitBucket
+# (https://bitbucket.org/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
 # see the code for the plugin.
 # You can also message me on Discord (Schatten#4113)
 
@@ -49,8 +49,12 @@ help-message: |+
   &7/craft &6[&7player&6] &7>&f Opens a workbench for you or another player.
   &7/anvil &6[&7player&6] &7>&f Opens an anvil for you or another player.
   &7/enchanttable &6[&7player&6] &7>
-  &f Opens an enchattable for you or another player. (Tier one only.)
-  &7/enderchest &6[&7player&6] &7>&f
+  &f Opens an enchattable for you or another player. (Teir depends on surrouding bookshelves.)
+  &7/enderchest &6[&7player&6] &7>&f Open your enderchest or another players
+  &7/cartography &6[&7player&6] &7>&f Open a cartography table.
+  &7/grindstone &6[&7player&6] &7>&f Open a grindstone.
+  &7/loom &6[&7player&6] &7>&f Open a loom.
+  &7/stonecutter &6[&7player&6] &7>&f Open a stonecutter.
 
   &7&oDeveloped by ItsSchatten on spigot.
 
@@ -121,5 +125,29 @@ opened-enchanttable: "{prefix} Opened enchantment table."
 # This message is sent to the target of /enchanttable <target> command.
 opened-enchanttable-other: "{prefix} Opened enchantment table for {player}."
 
-# The message that is sent if a player trues
+# The message that is sent if a player tries to take an item from their portable enderchest.
 cant-retrieve-from-enderchest: "{prefix} &cYou can't retrieve items from your portable enderchest!"
+
+# The message that is sent when opening the grindstone.
+opened-grindstone: "{prefix} Opened the grindstone."
+
+# The message that is sent when opening the grindstone for someone else.
+opened-grindstone-other: "{prefix} Opened the grindstone for {player}."
+
+# The message that is sent when opening the loom.
+opened-loom: "{prefix} Opened the loom."
+
+# The message that is sent when opening the loom for someone else.
+opened-loom-other: "{prefix} Opened the loom for {player}."
+
+# The message that is sent when opening the cartography table.
+opened-cartography: "{prefix} Opened the cartography table."
+
+# The message that is sent when opening the cartography table for someone else.
+opened-cartography-other: "{prefix} Opened the cartography table for {player}."
+
+# The message that is sent when opening the stone cutter.
+opened-stonecutter: "{prefix} Opened the stone cutter."
+
+# The message that is sent when opening the stone cutter for someone else.
+opened-stonecutter-other: "{prefix} Opened the stone cutter for {player}."

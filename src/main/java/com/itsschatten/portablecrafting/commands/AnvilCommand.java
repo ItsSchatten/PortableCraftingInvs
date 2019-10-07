@@ -5,14 +5,16 @@ import com.itsschatten.libs.commandutils.UniversalCommand;
 import com.itsschatten.portablecrafting.Perms;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
-import net.minecraft.server.v1_14_R1.*;
+import com.itsschatten.portablecrafting.utils.FakeContainers;
+import net.minecraft.server.v1_14_R1.ChatMessage;
+import net.minecraft.server.v1_14_R1.Containers;
+import net.minecraft.server.v1_14_R1.EntityPlayer;
+import net.minecraft.server.v1_14_R1.PacketPlayOutOpenWindow;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 
 import java.util.Arrays;
 
@@ -36,8 +38,7 @@ public class AnvilCommand extends UniversalCommand {
         final String anvilOpenSound = Settings.ANVIL_OPEN_SOUND.toUpperCase(); // Set sound.
 
         if (!(sender instanceof Player)) {
-            if (args.length == 0)
-                returnTell(Messages.NOTENOUGH_ARGS);
+            checkArgs(1, Messages.NOTENOUGH_ARGS);
 
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
@@ -51,8 +52,6 @@ public class AnvilCommand extends UniversalCommand {
             Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + target.getName());
             tellTarget(target, Messages.OPENED_ANVIL);
             returnTell(Messages.OPENED_ANVIL_OTHER.replace("{player}", target.getName()));
-
-            return;
         }
 
         final Player player = (Player) sender;
@@ -66,8 +65,6 @@ public class AnvilCommand extends UniversalCommand {
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + player.getName());
             }
 
-            player.openInventory(Bukkit.createInventory(player, InventoryType.ANVIL));
-
             openAnvil(player);
 
             Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + player.getName());
@@ -79,7 +76,7 @@ public class AnvilCommand extends UniversalCommand {
             checkPerms(player, Perms.ANVIL_OTHER); // Check perms.
 
             Player target = Bukkit.getPlayer(args[0]); // Set target.
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST); // Make sure not null.
+            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0])); // Make sure not null.
 
 
             if (Settings.USE_ANVIL_SOUNDS) {
@@ -103,7 +100,7 @@ public class AnvilCommand extends UniversalCommand {
         try {
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
-            FakeAnvil fakeAnvil = new FakeAnvil(containerID, player);
+            FakeContainers.FakeAnvil fakeAnvil = new FakeContainers.FakeAnvil(containerID, player);
 
             ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, new ChatMessage("Repairing")));
 
@@ -112,18 +109,12 @@ public class AnvilCommand extends UniversalCommand {
             ePlayer.activeContainer = fakeAnvil;
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
-            Utils.debugLog(Settings.DEBUG, ex.getStackTrace().toString());
+            Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
+            Utils.debugLog(Settings.DEBUG, ex.getMessage());
+            player.sendMessage("An error occurred, please contact an administrator.");
 
         }
     }
 
-    class FakeAnvil extends ContainerAnvil {
-        public FakeAnvil(int containerID, Player player) {
-            super(containerID, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(0, 0, 0)));
-            this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
-            setTitle(new ChatMessage("Repair & Name"));
-        }
-
-    }
 
 }

@@ -32,6 +32,14 @@ public class Messages extends SimpleConfig {
             OPENED_ANVIL_OTHER,
             OPENED_ENCHANTTABLE,
             OPENED_ENCHANTTABLE_OTHER,
+            OPENED_GRINDSTONE,
+            OPENED_GRINDSTONE_OTHER,
+            OPENED_LOOM,
+            OPENED_LOOM_OTHER,
+            OPENED_CARTOGRAPHY,
+            OPENED_CARTOGRAPHY_OTHER,
+            OPENED_STONECUTTER,
+            OPENED_STONECUTTER_OTHER,
             CANT_RETRIEVE_ITEM_FROM_ENDER;
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
@@ -49,7 +57,7 @@ public class Messages extends SimpleConfig {
                 " please open " + fileName + " directly to browse the default values.",
                 " Don't know how to do this? You can also check our github",
                 " page for the default file.",
-                "(https://github.com/ItsSchatten/PortableCraftingInvs)",
+                "(https://bitbucket.org/itsschatten/portablecraftinginvs/)",
                 "--------------------------------------------------------"});
 
         setInstance(this);
@@ -73,9 +81,13 @@ public class Messages extends SimpleConfig {
         TOOMANY_ARGS = getString("too-many-args");
         NOTENOUGH_ARGS = getString("not-enough-args");
         DOESENT_EXIST = getString("doesnt-exist");
+
         PLAYER_DOSENT_EXIST = getString("player-doesnt-exist");
+
         FEATURE_DISABLED = getString("feature-disabled");
+
         UPDATE_AVALIABLE_MESSAGE = (String) get("update-available");
+
         OPENED_ENDERCHEST = getString("opened-enderchest");
         OPEN_TARGET_ECHEST = getString("open-target-enderchest");
         OPENED_CRAFTING = getString("opened-craftingtable");
@@ -84,7 +96,25 @@ public class Messages extends SimpleConfig {
         OPENED_ANVIL_OTHER = getString("opened-anvil-other");
         OPENED_ENCHANTTABLE = getString("opened-enchanttable");
         OPENED_ENCHANTTABLE_OTHER = getString("opened-enchanttable-other");
+
         CANT_RETRIEVE_ITEM_FROM_ENDER = getString("cant-retrieve-from-enderchest");
+
+
+        OPENED_CARTOGRAPHY = getString("opened-cartography");
+        OPENED_CARTOGRAPHY_OTHER = getString("opened-cartography-other");
+
+
+        OPENED_GRINDSTONE = getString("opened-grindstone");
+        OPENED_GRINDSTONE_OTHER = getString("opened-grindstone-other");
+
+
+        OPENED_LOOM = getString("opened-loom");
+        OPENED_LOOM_OTHER = getString("opened-loom-other");
+
+
+        OPENED_STONECUTTER = getString("opened-stonecutter");
+        OPENED_STONECUTTER_OTHER = getString("opened-stonecutter-other");
+
     }
 
     public void reload() {

@@ -1,7 +1,6 @@
 package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.interfaces.IPermissions;
-import com.itsschatten.portablecrafting.configs.Messages;
 
 /**
  * A utility class that I can use to specify permissions, so I don't have to constantly rewrite them.
@@ -60,6 +59,62 @@ public enum Perms implements IPermissions {
         @Override
         public String getPermission() {
             return "pci.enderchest.other";
+        }
+    },
+
+    GRINDSTONE {
+        @Override
+        public String getPermission() {
+            return "pci.grindstone";
+        }
+    },
+
+    GRINDSTONE_OTHER {
+        @Override
+        public String getPermission() {
+            return "pci.grindstone.other";
+        }
+    },
+
+    LOOM {
+        @Override
+        public String getPermission() {
+            return "pci.loom";
+        }
+    },
+
+    LOOM_OTHER {
+        @Override
+        public String getPermission() {
+            return "pci.loom.other";
+        }
+    },
+
+    CARTOGRAPHY {
+        @Override
+        public String getPermission() {
+            return "pci.cartography";
+        }
+    },
+
+    CARTOGRAPHY_OTHER {
+        @Override
+        public String getPermission() {
+            return "pci.cartography.other";
+        }
+    },
+
+    STONECUTTER {
+        @Override
+        public String getPermission() {
+            return "pci.stonecutter";
+        }
+    },
+
+    STONECUTTER_OTHER {
+        @Override
+        public String getPermission() {
+            return "pci.stonecutter.other";
         }
     },
 

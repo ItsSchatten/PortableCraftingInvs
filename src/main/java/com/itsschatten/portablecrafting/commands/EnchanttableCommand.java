@@ -5,11 +5,14 @@ import com.itsschatten.libs.commandutils.UniversalCommand;
 import com.itsschatten.portablecrafting.Perms;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
-import net.minecraft.server.v1_14_R1.*;
+import com.itsschatten.portablecrafting.utils.FakeContainers;
+import net.minecraft.server.v1_14_R1.ChatMessage;
+import net.minecraft.server.v1_14_R1.Containers;
+import net.minecraft.server.v1_14_R1.EntityPlayer;
+import net.minecraft.server.v1_14_R1.PacketPlayOutOpenWindow;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
@@ -96,7 +99,7 @@ public class EnchanttableCommand extends UniversalCommand {
     private void openFakeEnchant(final Player player) {
         EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
         int containerID = ePlayer.nextContainerCounter();
-        FakeEnchant fakeEnchant = new FakeEnchant(containerID, player);
+        FakeContainers.FakeEnchant fakeEnchant = new FakeContainers.FakeEnchant(containerID, player);
 
         ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, new ChatMessage("Enchanting")));
 
@@ -104,14 +107,5 @@ public class EnchanttableCommand extends UniversalCommand {
         ePlayer.activeContainer.addSlotListener(ePlayer);
         ePlayer.activeContainer = fakeEnchant;
 
-    }
-
-    class FakeEnchant extends ContainerEnchantTable {
-
-        FakeEnchant(int i, Player player) {
-            super(i, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(((CraftPlayer) player).getHandle().locX, ((CraftPlayer) player).getHandle().locY, ((CraftPlayer) player).getHandle().locZ)));
-            this.checkReachable = false;
-            setTitle(new ChatMessage("Enchant"));
-        }
     }
 }

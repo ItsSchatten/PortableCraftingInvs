@@ -13,8 +13,8 @@
 #
 # This file can be used to enable or disable all parts of the plugin.
 #
-# If you have questions you can post an issue on Github
-# (https://github.com/ItsSchatten/PortableCraftingInv/issues) Also helpful if you want to
+# If you have questions you can post an issue on BitBucket
+# (https://bitbucket.org/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
 # see the code for the plugin.
 # You can also message me on Discord (Schatten#4113)
 #
@@ -59,6 +59,18 @@ use-enderchest: true
 # Should we only allow players to deposit items into their enderchest when using the command?
 ender-chest-restrictions: false
 
+# Enable or disable the use of the /grindstone command.
+use-grindstone: true
+
+# Enable or disable the use of the /cartography command.
+use-cartography: true
+
+# Enable or disable the use of /loom command.
+use-loom: true
+
+# Enable or disable the use of /stonecutter command.
+use-stonecutter: true
+
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                     Enable sounds                                     #
@@ -80,6 +92,18 @@ use-enchanttable-sounds: false
 # Enable or disable the sound when opening the enderchest with /enderchest.
 use-enderchest-sounds: true
 
+# Enable or disable the sound when opening the grindstone.
+use-grindstone-sounds: false
+
+# Enable or disable the sound when opening the cartography table.
+use-cartography-sounds: false
+
+# Enable or disable the sound when opening the loom.
+use-loom-sounds: false
+
+# Enable or disable the sound when opening the stone cutter.
+use-stonecutter-sounds: false
+
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                         Sounds                                        #
@@ -99,3 +123,15 @@ enchanttable-open-sound: BLOCK_ENCHANTMENT_TABLE_USE
 
 # This sound is played when opening the enderchest using /enderchest
 enderchest-open-sound: BLOCK_ENDER_CHEST_OPEN
+
+# This sound is played when opening the grindstone.
+grindstone-open-sound: BLOCK_CHEST_OPEN
+
+# This sound is played when opening the loom.
+loom-open-sound: BLOCK_CHEST_OPEN
+
+# This sound is played when opening the cartography table.
+cartography-open-sound: BLOCK_CHEST_OPEN
+
+# This sound is played when opening the stone cutter.
+stonecutter-open-sound: BLOCK_CHEST_OPEN

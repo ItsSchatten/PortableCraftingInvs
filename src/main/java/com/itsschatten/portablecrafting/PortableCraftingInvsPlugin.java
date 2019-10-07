@@ -17,6 +17,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PortableCraftingInvsPlugin extends JavaPlugin {
 
+
+    // GRINDSTONE, CARTOGRAPHY, LOOM, AND STONECUTTER
+
     private static PluginDescriptionFile pdf; // So we can access the pdf in this file.
 
     @Getter
@@ -49,7 +52,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         if (Settings.USE_METRICS) {
             Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/Portable%20Crafting%20Inventories&7", "If you don't wish for this information to be collected you can disable it in the settings.yml.");
-            Metrics metrics = new Metrics(this);
+            new Metrics(this);
         }
 
         if (Settings.USE_UPDATER) {
@@ -70,7 +73,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         }
 
         // Register commands, and JoinListener.
-        registerCommands(new AnvilCommand(), new CraftCommand(), new EnchanttableCommand(), new EnderChestCommand(), new PortableCraftingInvsCommand());
+        registerCommands(new AnvilCommand(), new CraftCommand(), new EnchanttableCommand(), new EnderChestCommand(), new PortableCraftingInvsCommand(), new GrindStoneCommand(), new LoomCommand(), new StoneCutterCommand(), new CartographyCommand());
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Utils.debugLog(Settings.DEBUG, "Loaded the PlayerJoinListener.");
 
