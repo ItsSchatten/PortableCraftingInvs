@@ -51,7 +51,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         Messages.init();
 
         if (Settings.USE_METRICS) {
-            Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/Portable%20Crafting%20Inventories&7", "If you don't wish for this information to be collected you can disable it in the settings.yml.");
+            Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/PortableCraftingInvss&7", "If you don't wish for this information to be collected you can disable it in the settings.yml.");
             new Metrics(this);
         }
 

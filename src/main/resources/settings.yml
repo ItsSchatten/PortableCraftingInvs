@@ -35,7 +35,7 @@ use-updater: true
 # we send the help message along with the wrong arguments message.
 use-help-if-no-args: true
 
-# If enabled the plugin will send statistics to BStats. Which you can see here: https://bstats.org/plugin/bukkit/Portable%20Crafting%20Inventories
+# If enabled the plugin will send statistics to BStats. Which you can see here: https://bstats.org/plugin/bukkit/PortableCraftingInvs
 metrics: true
 
 # ------------------------------------------------------------------------------------- #
