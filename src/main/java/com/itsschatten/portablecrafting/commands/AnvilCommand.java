@@ -102,7 +102,8 @@ public class AnvilCommand extends UniversalCommand {
             int containerID = ePlayer.nextContainerCounter();
             FakeContainers.FakeAnvil fakeAnvil = new FakeContainers.FakeAnvil(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, new ChatMessage("Repairing")));
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, fakeAnvil.getTitle()));
+
 
             ePlayer.activeContainer = fakeAnvil;
             ePlayer.activeContainer.addSlotListener(ePlayer);

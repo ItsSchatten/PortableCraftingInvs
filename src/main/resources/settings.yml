@@ -73,6 +73,42 @@ use-stonecutter: true
 
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
+#                                     Sign Features                                     #
+#                                                                                       #
+# ------------------------------------------------------------------------------------- #
+
+# Enable or disable the use of signs.
+use-signs: true
+
+# Should we only allow players to break signs if they are shift clicking?
+require-shift-click-to-break-signs: true
+
+# Enable or disable the anvil sign.
+use-anvil-sign: true
+
+# Enable or disable the anvil sign.
+use-cartography-sign: true
+
+# Enable or disable the anvil sign.
+use-crafting-sign: true
+
+# Enable or disable the anvil sign.
+use-enchanttable-sign: true
+
+# Enable or disable the anvil sign.
+use-enderchest-sign: true
+
+# Enable or disable the grindstone sign.
+use-grindstone-sign: true
+
+# Enable or disable the loom sign.
+use-loom-sign: true
+
+# Enable or disable the stonecutter sign.
+use-stonecutter-sign: true
+
+# ------------------------------------------------------------------------------------- #
+#                                                                                       #
 #                                     Enable sounds                                     #
 #                                                                                       #
 # ------------------------------------------------------------------------------------- #

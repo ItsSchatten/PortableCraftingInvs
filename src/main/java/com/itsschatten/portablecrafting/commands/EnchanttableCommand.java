@@ -101,7 +101,7 @@ public class EnchanttableCommand extends UniversalCommand {
         int containerID = ePlayer.nextContainerCounter();
         FakeContainers.FakeEnchant fakeEnchant = new FakeContainers.FakeEnchant(containerID, player);
 
-        ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, new ChatMessage("Enchanting")));
+        ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, fakeEnchant.getTitle()));
 
         ePlayer.activeContainer = fakeEnchant;
         ePlayer.activeContainer.addSlotListener(ePlayer);

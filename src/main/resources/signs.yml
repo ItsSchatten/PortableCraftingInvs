@@ -1,0 +1,4 @@
+# This config file only contains block data for the signs for the plugin. DO NOT TOUCH THE SIGN AMOUNT!
+sign-amount: 0
+
+signs: []

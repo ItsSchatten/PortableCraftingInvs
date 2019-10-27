@@ -100,7 +100,7 @@ public class CartographyCommand extends UniversalCommand {
             int containerID = ePlayer.nextContainerCounter();
             FakeContainers.FakeCartography fakeCartography = new FakeContainers.FakeCartography(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.CARTOGRAPHY, new ChatMessage("Cartography Table")));
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.CARTOGRAPHY, fakeCartography.getTitle()));
 
             ePlayer.activeContainer = fakeCartography;
             ePlayer.activeContainer.addSlotListener(ePlayer);

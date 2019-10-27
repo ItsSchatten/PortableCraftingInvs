@@ -95,7 +95,7 @@ public class LoomCommand extends UniversalCommand {
             int containerID = ePlayer.nextContainerCounter();
             FakeContainers.FakeLoom fakeLoom = new FakeContainers.FakeLoom(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.LOOM, new ChatMessage("Loom")));
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.LOOM, fakeLoom.getTitle()));
 
             ePlayer.activeContainer = fakeLoom;
             ePlayer.activeContainer.addSlotListener(ePlayer);

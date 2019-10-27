@@ -12,6 +12,7 @@ public class FakeContainers {
         public FakeGrindstone(int containerId, Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
+            this.setTitle(new ChatMessage("Repair & Disenchant"));
         }
     }
 
@@ -20,6 +21,7 @@ public class FakeContainers {
         public FakeCartography(int containerId, Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
+            this.setTitle(new ChatMessage("Cartography Table"));
         }
     }
 
@@ -28,6 +30,7 @@ public class FakeContainers {
         public FakeLoom(int containerId, Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
+            this.setTitle(new ChatMessage("Loom"));
         }
     }
 
@@ -36,6 +39,7 @@ public class FakeContainers {
         public FakeStoneCutter(int containerId, Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
+            this.setTitle(new ChatMessage("Stonecutter"));
         }
     }
 
@@ -44,6 +48,7 @@ public class FakeContainers {
         public FakeAnvil(int containerID, Player player) {
             super(containerID, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
+            this.setTitle(new ChatMessage("Repair & Name"));
         }
 
     }
@@ -53,6 +58,7 @@ public class FakeContainers {
         public FakeEnchant(int i, Player player) {
             super(i, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
+            this.setTitle(new ChatMessage("Enchant"));
         }
     }
 

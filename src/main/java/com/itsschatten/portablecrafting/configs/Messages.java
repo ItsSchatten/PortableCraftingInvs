@@ -40,7 +40,26 @@ public class Messages extends SimpleConfig {
             OPENED_CARTOGRAPHY_OTHER,
             OPENED_STONECUTTER,
             OPENED_STONECUTTER_OTHER,
-            CANT_RETRIEVE_ITEM_FROM_ENDER;
+            CANT_RETRIEVE_ITEM_FROM_ENDER,
+            MUST_SHIFT_CLICK_TO_BREAK_SIGN,
+    // Sign Messages
+
+    ANVIL_SIGN,
+            CARTOGRAPHY_SIGN,
+            CRAFTING_SIGN,
+            ENCHANTTABLE_SIGN,
+            ENDERCHEST_SIGN,
+            GRINDSTONE_SIGN,
+            LOOM_SIGN,
+            STONECUTTER_SIGN,
+            ANVIL_SIGN_CREATED,
+            CARTOGRAPHY_SIGN_CREATED,
+            CRAFTING_SIGN_CREATED,
+            ENCHANTTABLE_SIGN_CREATED,
+            ENDERCHEST_SIGN_CREATED,
+            GRINDSTONE_SIGN_CREATED,
+            LOOM_SIGN_CREATED,
+            STONECUTTER_SIGN_CREATED;
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
     private static Messages instance;
@@ -82,6 +101,7 @@ public class Messages extends SimpleConfig {
         NOTENOUGH_ARGS = getString("not-enough-args");
         DOESENT_EXIST = getString("doesnt-exist");
 
+
         PLAYER_DOSENT_EXIST = getString("player-doesnt-exist");
 
         FEATURE_DISABLED = getString("feature-disabled");
@@ -114,6 +134,27 @@ public class Messages extends SimpleConfig {
 
         OPENED_STONECUTTER = getString("opened-stonecutter");
         OPENED_STONECUTTER_OTHER = getString("opened-stonecutter-other");
+
+        // Sign messages
+        MUST_SHIFT_CLICK_TO_BREAK_SIGN = getString("shift-click-to-break-sign");
+
+        ANVIL_SIGN = getString("anvil-sign");
+        CARTOGRAPHY_SIGN = getString("cartography-sign");
+        CRAFTING_SIGN = getString("crafting-sign");
+        ENCHANTTABLE_SIGN = getString("enchant-table-sign");
+        ENDERCHEST_SIGN = getString("enderchest-sign");
+        GRINDSTONE_SIGN = getString("grindstone-sign");
+        LOOM_SIGN = getString("loom-sign");
+        STONECUTTER_SIGN = getString("stonecutter-sign");
+
+        ANVIL_SIGN_CREATED = getString("anvil-sign-created");
+        CARTOGRAPHY_SIGN_CREATED = getString("cartography-sign-created");
+        CRAFTING_SIGN_CREATED = getString("crafting-sign-created");
+        ENCHANTTABLE_SIGN_CREATED = getString("enchant-table-sign-created");
+        ENDERCHEST_SIGN_CREATED = getString("enderchest-sign-created");
+        GRINDSTONE_SIGN_CREATED = getString("grindstone-sign-created");
+        LOOM_SIGN_CREATED = getString("loom-sign-created");
+        STONECUTTER_SIGN_CREATED = getString("stonecutter-sign-created");
 
     }
 

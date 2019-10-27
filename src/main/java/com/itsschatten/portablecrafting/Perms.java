@@ -118,6 +118,125 @@ public enum Perms implements IPermissions {
         }
     },
 
+    SIGN_CREATE {
+        @Override
+        public String getPermission() {
+            return "pci.sign.create";
+        }
+    },
+
+    SIGN_CREATE_ANVIL {
+        @Override
+        public String getPermission() {
+            return "pci.sign.anvil";
+        }
+    },
+
+    SIGN_CREATE_CATROGRAPHY {
+        @Override
+        public String getPermission() {
+            return "pci.sign.cartography";
+        }
+    },
+
+    SIGN_CREATE_CRAFTING {
+        @Override
+        public String getPermission() {
+            return "pci.sign.crafting-table";
+        }
+    },
+
+    SIGN_CREATE_ENCHANTTABLE {
+        @Override
+        public String getPermission() {
+            return "pci.sign.enchanttable";
+        }
+    },
+
+    SIGN_CREATE_ENDERCHEST {
+        @Override
+        public String getPermission() {
+            return "pci.sign.enderchest";
+        }
+    },
+
+    SIGN_CREATE_GRINDSTONE {
+        @Override
+        public String getPermission() {
+            return "pci.sign.grindstone";
+        }
+    },
+
+    SIGN_CREATE_LOOM {
+        @Override
+        public String getPermission() {
+            return "pci.sign.loom";
+        }
+    },
+
+    SIGN_CREATE_STONECUTTER {
+        @Override
+        public String getPermission() {
+            return "pci.sign.stonecutter";
+        }
+    },
+
+    USE_SIGN_ANVIL {
+        @Override
+        public String getPermission() {
+            return "pci.sign.anvil.use";
+        }
+    },
+
+    USE_SIGN_CATROGRAPHY {
+        @Override
+        public String getPermission() {
+            return "pci.sign.cartography.use";
+        }
+    },
+
+    USE_SIGN_CRAFTING {
+        @Override
+        public String getPermission() {
+            return "pci.sign.crafting-table.use";
+        }
+    },
+
+    USE_SIGN_ENCHANTTABLE {
+        @Override
+        public String getPermission() {
+            return "pci.sign.enchanttable.use";
+        }
+    },
+
+    USE_SIGN_ENDERCHEST {
+        @Override
+        public String getPermission() {
+            return "pci.sign.enderchest.use";
+        }
+    },
+
+    USE_SIGN_GRINDSTONE {
+        @Override
+        public String getPermission() {
+            return "pci.sign.grindstone.use";
+        }
+    },
+
+    USE_SIGN_LOOM {
+        @Override
+        public String getPermission() {
+            return "pci.sign.loom.use";
+        }
+    },
+
+    USE_SIGN_STONECUTTER {
+        @Override
+        public String getPermission() {
+            return "pci.sign.stonecutter.use";
+        }
+    },
+
     RELOAD {
         @Override
         public String getPermission() {

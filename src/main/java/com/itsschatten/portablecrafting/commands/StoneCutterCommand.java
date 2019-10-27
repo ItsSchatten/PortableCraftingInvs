@@ -95,7 +95,7 @@ public class StoneCutterCommand extends UniversalCommand {
             int containerID = ePlayer.nextContainerCounter();
             FakeContainers.FakeStoneCutter fakeStoneCutter = new FakeContainers.FakeStoneCutter(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.STONECUTTER, new ChatMessage("Stonecutter")));
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.STONECUTTER, fakeStoneCutter.getTitle()));
 
             ePlayer.activeContainer = fakeStoneCutter;
             ePlayer.activeContainer.addSlotListener(ePlayer);

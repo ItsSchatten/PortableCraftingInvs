@@ -5,6 +5,7 @@ import com.itsschatten.libs.commandutils.UniversalCommand;
 import com.itsschatten.portablecrafting.Perms;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.Messages;
+import com.itsschatten.portablecrafting.configs.SignsConfig;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 public class PortableCraftingInvsCommand extends UniversalCommand {
 
     private static List<String> TABBALE = Arrays.asList("help", "version", "rl", "reload"); // Tabbable lists for tab complete.
-    private static List<String> CONFIGS = Arrays.asList("settings", "messages");
+    private static List<String> CONFIGS = Arrays.asList("settings", "messages", "signs");
 
 
     public PortableCraftingInvsCommand() {
@@ -54,6 +55,7 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
                 if (args.length == 1) { // Reload if no arguments are passed.
                     Messages.getInstance().reload();
                     Settings.getInstance().reload();
+                    SignsConfig.getInstance().reload();
                     returnTell(Messages.RELOAD_MESSAGE);
                 }
 
@@ -68,6 +70,9 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
                         Messages.getInstance().reload();
                         returnTell(Messages.RELOAD_SPECIFIC.replace("{file}", "messages.yml"));
                         break;
+                    case "signs":
+                        SignsConfig.getInstance().reload();
+                        returnTell(Messages.RELOAD_SPECIFIC.replace("{file}", "signs.yml"));
                     default:
                         returnTell(Messages.WRONG_ARGS);
                         break;

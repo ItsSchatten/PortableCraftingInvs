@@ -25,6 +25,7 @@ permissions:
       pci.cartography.other: true
       pci.stonecutter: true
       pci.stonecutter.other: true
+      pci.sign.*: true
 
 
   pci.anvil:
@@ -97,3 +98,85 @@ permissions:
   pci.stonecutter.other:
     description: "The permission needed to open the stone cutter for someone else."
     default: op
+
+  pci.sign.create:
+    description: "Ability to create signs."
+    default: op
+
+  pci.sign.*:
+    description: "Gives all sign perms."
+    default: false
+    children:
+      pci.sign.create: true
+      pci.sign.use.*: true
+      pci.sign.anvil: true
+      pci.sign.cartography: true
+      pci.sign.crafting-table: true
+      pci.sign.enchanttable: true
+      pci.sign.endechest: true
+      pci.sign.grindstone: true
+      pci.sign.loom: true
+      pci.sign.stonecutter: true
+
+  pci.sign.use.*:
+    default: op
+    description: "Gives all use permissions."
+    children:
+      pci.sign.anvil.use: true
+      pci.sign.cartography.use: true
+      pci.sign.crafting-table.use: true
+      pci.sign.enchanttable.use: true
+      pci.sign.enderchest.use: true
+      pci.sign.grindstone.use: true
+      pci.sign.loom.use: true
+      pci.sign.stonecutter.use: true
+
+  pci.sign.anvil:
+    default: op
+    description: "Create an anvil sign."
+  pci.sign.cartography:
+    default: op
+    description: "Create a cartography sign."
+  pci.sign.crafting-table:
+    default: op
+    description: "Create a crafting table sign."
+  pci.sign.enchanttable:
+    default: op
+    description: "Create an enchanttable sign."
+  pci.sign.endechest:
+    default: op
+    description: "Create an enderchest sign."
+  pci.sign.grindstone:
+    default: op
+    description: "Create a grindstone sign."
+  pci.sign.loom:
+    default: op
+    description: "Create a loom sign."
+  pci.sign.stonecutter:
+    default: op
+    description: "Create a stone cutter sign."
+
+  pci.sign.anvil.use:
+    default: op
+    description: "Create an anvil sign."
+  pci.sign.cartography.use:
+    default: op
+    description: "Create a cartography sign."
+  pci.sign.crafting-table.use:
+    default: op
+    description: "Create a crafting table sign."
+  pci.sign.enchanttable.use:
+    default: op
+    description: "Create an enchanttable sign."
+  pci.sign.endechest.use:
+    default: op
+    description: "Create an enderchest sign."
+  pci.sign.grindstone.use:
+    default: op
+    description: "Create a grindstone sign."
+  pci.sign.loom.use:
+    default: op
+    description: "Create a loom sign."
+  pci.sign.stonecutter.use:
+    default: op
+    description: "Create a stone cutter sign."

@@ -101,7 +101,7 @@ public class GrindStoneCommand extends UniversalCommand {
             int containerId = ePlayer.nextContainerCounter();
             FakeContainers.FakeGrindstone fakeGrindstone = new FakeContainers.FakeGrindstone(containerId, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerId, Containers.GRINDSTONE, new ChatMessage("Repair & Disenchant")));
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerId, Containers.GRINDSTONE, fakeGrindstone.getTitle()));
 
             ePlayer.activeContainer = fakeGrindstone;
             ePlayer.activeContainer.addSlotListener(ePlayer);

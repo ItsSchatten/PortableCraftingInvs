@@ -151,3 +151,61 @@ opened-stonecutter: "{prefix} Opened the stone cutter."
 
 # The message that is sent when opening the stone cutter for someone else.
 opened-stonecutter-other: "{prefix} Opened the stone cutter for {player}."
+
+# ------------------------------------------------------------------------------------- #
+#                                                                                       #
+#                                       Sign Messages                                   #
+#                                                                                       #
+# ------------------------------------------------------------------------------------- #
+
+shift-click-to-break-sign: "{prefix}&c You must shift left-click to break this sign."
+
+# This is what the sign text will turn to when creating the anvil sign.
+anvil-sign: "&3[Anvil]"
+
+# This is what the sign text will turn to when creating the cartography sign.
+cartography-sign: "&3[Cartography]"
+
+# This is what the sign text will turn to when creating the crafting sign.
+crafting-sign: "&3[Crafting]"
+
+# This is what the sign text will turn to when creating the enchantment table sign.
+enchant-table-sign: "&3[EnchantTable]"
+
+# This is what the sign text will turn to when creating the enderchest sign.
+enderchest-sign: "&3[Enderchest]"
+
+# This is what the sign text will turn to when creating the grindstone sign.
+grindstone-sign: "&3[Grindstone]"
+
+# This is what the sign text will turn to when creating the loom sign.
+loom-sign: "&3[Loom]"
+
+# This is what the sign text will turn to when creating the stonecutter sign.
+stonecutter-sign: "&3[Stonecutter]"
+
+# This is what is sent to the player if they try to break
+
+# This is what is sent to the player to confirm the creation of the anvil sign.
+anvil-sign-created: "{prefix} You've created an anvil sign."
+
+# This is what is sent to the player to confirm the creation of the cartography sign.
+cartography-sign-created: "{prefix} You've created a cartography sign."
+
+# This is what is sent to the player to confirm the creation of the crafting sign.
+crafting-sign-created: "{prefix} You've created a crafting sign."
+
+# This is what is sent to the player to confirm the creation of the enchantment table sign.
+enchant-table-sign-created: "{prefix} You've created an enchantment table sign."
+
+# This is what is sent to the player to confirm the creation of the enderchest sign.
+enderchest-sign-created: "{prefix} You've created an enderchest sign."
+
+# This is what is sent to the player to confirm the creation of the grindstone sign.
+grindstone-sign-created: "{prefix} You've created a grindstone sign."
+
+# This is what is sent to the player to confirm the creation of the loom sign.
+loom-sign-created: "{prefix} You've created a loom sign."
+
+# This is what is sent to the player to confirm the creation of the stonecutter sign.
+stonecutter-sign-created: "{prefix} You've created a stonecutter sign."

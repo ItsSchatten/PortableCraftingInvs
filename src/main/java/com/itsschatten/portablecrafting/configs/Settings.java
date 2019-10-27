@@ -18,6 +18,8 @@ public class Settings extends SimpleConfig {
             USE_TOO_MANY_ARGS,
             USE_HELP_IF_WRONG_ARGS,
             USE_RANDOM_SOUND_PITCH,
+            USE_SIGNS,
+            REQUIRE_SIGHT_CLICK_BREAK_SIGN,
 
     USE_ENDERCHEST,
             USE_ENDERCHEST_RESTRICTION,
@@ -78,6 +80,8 @@ public class Settings extends SimpleConfig {
     private void onLoad() {
         /* Features */
         DEBUG = (boolean) get("debug");
+        USE_SIGNS = (boolean) get("use-signs");
+        REQUIRE_SIGHT_CLICK_BREAK_SIGN = (boolean) get("require-shift-click-to-break-signs");
         USE_TOO_MANY_ARGS = (boolean) get("use-too-many-args");
         USE_HELP_IF_WRONG_ARGS = (boolean) get("use-help-if-no-args");
         USE_UPDATER = (boolean) get("use-updater");

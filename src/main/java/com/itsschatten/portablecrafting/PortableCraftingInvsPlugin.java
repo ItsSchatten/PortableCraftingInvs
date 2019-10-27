@@ -5,8 +5,10 @@ import com.itsschatten.libs.Utils;
 import com.itsschatten.portablecrafting.commands.*;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
+import com.itsschatten.portablecrafting.configs.SignsConfig;
 import com.itsschatten.portablecrafting.listeners.EnderchestListener;
 import com.itsschatten.portablecrafting.listeners.PlayerJoinListener;
+import com.itsschatten.portablecrafting.listeners.SignListener;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -70,6 +72,12 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         if (Settings.USE_ENDERCHEST_RESTRICTION) {
             this.getServer().getPluginManager().registerEvents(new EnderchestListener(), this);
             Utils.debugLog(Settings.DEBUG, "USE_ENDERCHEST_RESTRICTIONS is true; EnderchestListener has been initialized.");
+        }
+
+        if (Settings.USE_SIGNS) {
+            SignsConfig.init();
+            this.getServer().getPluginManager().registerEvents(new SignListener(), this);
+            Utils.debugLog("Signs have been enabled.");
         }
 
         // Register commands, and JoinListener.
