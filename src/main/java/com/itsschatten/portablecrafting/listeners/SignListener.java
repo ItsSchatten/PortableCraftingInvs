@@ -18,8 +18,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import java.util.Arrays;
-
 public class SignListener implements Listener {
 
     @EventHandler
@@ -162,27 +160,24 @@ public class SignListener implements Listener {
     private boolean isSign(PlayerInteractEvent event) {
         final SignsConfig signsConfig = SignsConfig.getInstance();
 
-        for (String mat : Arrays.asList("ACACIA", "BIRCH", "DARK_OAK", "JUNGLE", "SPRUCE", "OAK")) {
-            if (event.getClickedBlock() == null) {
+        if (event.getClickedBlock() == null) {
+            return false;
+        }
+
+        if (event.getClickedBlock().getType().name().contains("SIGN") || event.getClickedBlock().getType().name().contains("WALL_SIGN")) {
+
+            if (signsConfig.getConfigurationSection("signs") == null || signsConfig.getConfigurationSection("signs").getKeys(false).isEmpty()) {
                 return false;
             }
 
-            if (event.getClickedBlock().getType() == Material.matchMaterial(mat + "_SIGN") || event.getClickedBlock().getType() == Material.matchMaterial(mat + "_WALL_SIGN")) {
+            for (String key : signsConfig.getConfigurationSection("signs").getKeys(false)) {
+                if (signsConfig.get("signs." + key + ".where.world") == event.getPlayer().getLocation().getWorld().getName()
+                        && signsConfig.getInt("signs." + key + ".where.x") == event.getClickedBlock().getX()
+                        && signsConfig.getInt("signs." + key + ".where.y") == event.getClickedBlock().getY()
+                        && signsConfig.getInt("signs." + key + ".where.z") == event.getClickedBlock().getZ()) {
 
-                if (signsConfig.getConfigurationSection("signs").getKeys(false).isEmpty()) {
-                    continue;
+                    return true;
                 }
-
-                for (String key : signsConfig.getConfigurationSection("signs").getKeys(false)) {
-                    if (signsConfig.get("signs." + key + ".where.world") == event.getPlayer().getLocation().getWorld().getName()
-                            && signsConfig.getInt("signs." + key + ".where.x") == event.getClickedBlock().getX()
-                            && signsConfig.getInt("signs." + key + ".where.y") == event.getClickedBlock().getY()
-                            && signsConfig.getInt("signs." + key + ".where.z") == event.getClickedBlock().getZ()) {
-                        return true;
-                    }
-                }
-
-                return event.getClickedBlock().getType() == Material.matchMaterial(mat + "_SIGN");
             }
         }
 
