@@ -19,9 +19,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PortableCraftingInvsPlugin extends JavaPlugin {
 
-
-    // GRINDSTONE, CARTOGRAPHY, LOOM, AND STONECUTTER
-
     private static PluginDescriptionFile pdf; // So we can access the pdf in this file.
 
     @Getter
@@ -77,7 +74,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         if (Settings.USE_SIGNS) {
             SignsConfig.init();
             this.getServer().getPluginManager().registerEvents(new SignListener(), this);
-            Utils.debugLog("Signs have been enabled.");
+            Utils.debugLog(Settings.DEBUG, "Signs have been enabled.");
         }
 
         // Register commands, and JoinListener.

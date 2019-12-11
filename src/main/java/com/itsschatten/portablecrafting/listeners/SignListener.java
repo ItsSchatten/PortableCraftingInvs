@@ -6,11 +6,10 @@ import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
 import com.itsschatten.portablecrafting.utils.FakeContainers;
-import net.minecraft.server.v1_14_R1.Containers;
-import net.minecraft.server.v1_14_R1.EntityPlayer;
-import net.minecraft.server.v1_14_R1.PacketPlayOutOpenWindow;
-import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
+import net.minecraft.server.v1_15_R1.Containers;
+import net.minecraft.server.v1_15_R1.EntityPlayer;
+import net.minecraft.server.v1_15_R1.PacketPlayOutOpenWindow;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -234,7 +233,7 @@ public class SignListener implements Listener {
                     int containerID = ePlayer.nextContainerCounter();
                     FakeContainers.FakeCartography fakeCartography = new FakeContainers.FakeCartography(containerID, player);
 
-                    ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.CARTOGRAPHY, fakeCartography.getTitle()));
+                    ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.CARTOGRAPHY_TABLE, fakeCartography.getTitle()));
 
                     ePlayer.activeContainer = fakeCartography;
                     ePlayer.activeContainer.addSlotListener(ePlayer);
