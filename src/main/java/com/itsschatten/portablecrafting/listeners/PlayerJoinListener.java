@@ -5,6 +5,7 @@ import com.itsschatten.libs.Utils;
 import com.itsschatten.portablecrafting.CheckForUpdate;
 import com.itsschatten.portablecrafting.Perms;
 import com.itsschatten.portablecrafting.configs.Settings;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,9 +28,8 @@ public class PlayerJoinListener implements Listener {
 
             Utils.debugLog(Settings.DEBUG, "Found an update for the plugin, sending the message to the player.");
 
-            Utils.tell(player, UpdateNotifications.getUpdateMessage().replace("{currentVer}", pdf.getVersion())
-                    .replace("{newVer}", UpdateNotifications.getLatestVersion())
-                    .replace("{link}", "https://spigotmc.org/resources/" + UpdateNotifications.getProjectId()));
+            Utils.tell(player, StringUtils.replaceEach(UpdateNotifications.getUpdateMessage(), new String[]{"{currentVer}", "{newVer}", "{link}"},
+                    new String[]{pdf.getVersion(), UpdateNotifications.getLatestVersion(), "https://spigotmc.org/resources/" + UpdateNotifications.getProjectId()}));
         }
     }
 

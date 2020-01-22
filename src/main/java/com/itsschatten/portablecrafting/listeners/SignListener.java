@@ -163,7 +163,7 @@ public class SignListener implements Listener {
             return false;
         }
 
-        if (event.getClickedBlock().getType().name().contains("SIGN") || event.getClickedBlock().getType().name().contains("WALL_SIGN")) {
+        if (event.getClickedBlock().getType().name().contains("SIGN")) {
 
             if (signsConfig.getConfigurationSection("signs") == null || signsConfig.getConfigurationSection("signs").getKeys(false).isEmpty()) {
                 return false;
@@ -211,7 +211,6 @@ public class SignListener implements Listener {
                     FakeContainers.FakeAnvil fakeAnvil = new FakeContainers.FakeAnvil(containerID, player);
 
                     ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, fakeAnvil.getTitle()));
-
 
                     ePlayer.activeContainer = fakeAnvil;
                     ePlayer.activeContainer.addSlotListener(ePlayer);
