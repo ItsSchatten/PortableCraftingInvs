@@ -13,24 +13,24 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PortableCraftingInvsPlugin extends JavaPlugin {
 
-    private static PluginDescriptionFile pdf; // So we can access the pdf in this file.
 
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
     private static PortableCraftingInvsPlugin instance; // The instance stuffs.
 
     @Override
-    public void onEnable() { // We all know what this does right?
+    public void onEnable() { // We all know what this does right? Right!?
         Utils.setInstance(this);
         setInstance(this);
 
-        pdf = this.getDescription();
+        final PluginDescriptionFile pdf = this.getDescription();
 
         Utils.log("",
                 "&9+---------------------------------------------------+ ",
@@ -54,16 +54,24 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             new Metrics(this);
         }
 
+        Utils.log(Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3]);
+
         if (Settings.USE_UPDATER) {
             new UpdateNotifications(61045) {
                 @Override
                 public void onUpdateAvailable() {
-                    Utils.log("There is an update available for the plugin! Current Version " + pdf.getVersion() + " New Version " + getLatestVersion() + " {https://spigotmc.org/resources/" + getProjectId() + ")");
+                    if (Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_15_R1")) {
+                        Utils.log("There is an update available for the plugin! Current Version " + pdf.getVersion() + " New Version " + getLatestVersion() + " {https://spigotmc.org/resources/" + getProjectId() + ")");
+                    }
+                    Utils.debugLog(Settings.DEBUG, "There is an update to the plugin available but the version is not the latest supported version. To ensure that we don't spam the user's console we won't send a message.");
+                    Utils.log("&4&l[WARNING]&c Hey! Just wanted to let you know that you are using an older version of the plugin on an unsupported version of Minecraft. If you don't wish to see this message you can disable update checking in the settings.yml.");
                 }
             }.runTaskAsynchronously(this);
 
-            new CheckForUpdate().runTaskTimerAsynchronously(this, 30 * 60 * 20, 30 * 60 * 20); // Wait 30 minutes and check for another update.
-            Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running.");
+            if (Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_15_R1")) {
+                new CheckForUpdate().runTaskTimerAsynchronously(this, 30 * 60 * 20, 30 * 60 * 20); // Wait 30 minutes and check for another update.
+                Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running.");
+            }
         }
 
         if (Settings.USE_ENDERCHEST_RESTRICTION) {
@@ -103,7 +111,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            Utils.log("Some error occurred, please report this immediately to ItsSchatten on Spigot or Github. \n(https://github.com/ItsSchatten/PortableCraftingInvs/issues)");
+            Utils.log("Some error occurred, please report this immediately to ItsSchatten on Spigot or BitBucket. \n(https://bitbucket.org/ItsSchatten/PortableCraftingInvs/issues)");
         }
     }
 

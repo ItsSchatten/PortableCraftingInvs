@@ -1,7 +1,7 @@
 package com.itsschatten.portablecrafting.listeners;
 
 import com.itsschatten.libs.Utils;
-import com.itsschatten.portablecrafting.Perms;
+import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
@@ -20,8 +20,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class SignListener implements Listener {
 
     @EventHandler
-    public void onSign(SignChangeEvent event) {
-        if (!event.getPlayer().hasPermission(Perms.SIGN_CREATE.getPermission())) return;
+    public void onSign(final SignChangeEvent event) {
+        if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE.getPermission())) return;
 
         if (event.getLine(0) == null) {
             return;
@@ -29,7 +29,7 @@ public class SignListener implements Listener {
 
         switch (event.getLine(0).toLowerCase()) {
             case "[anvil]": {
-                if (!event.getPlayer().hasPermission(Perms.SIGN_CREATE_ANVIL.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE_ANVIL.getPermission())) return;
                 event.setLine(0, Utils.colorize(Messages.ANVIL_SIGN));
 
                 makeSign(event, SignTypes.ANVIL);
@@ -39,7 +39,7 @@ public class SignListener implements Listener {
             }
 
             case "[cartography]": {
-                if (!event.getPlayer().hasPermission(Perms.SIGN_CREATE_CATROGRAPHY.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE_CARTOGRAPHY.getPermission())) return;
                 event.setLine(0, Utils.colorize(Messages.CARTOGRAPHY_SIGN));
 
                 makeSign(event, SignTypes.CARTOGRAPHY);
@@ -49,7 +49,7 @@ public class SignListener implements Listener {
             }
 
             case "[crafting]": {
-                if (!event.getPlayer().hasPermission(Perms.SIGN_CREATE_CRAFTING.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE_CRAFTING.getPermission())) return;
                 event.setLine(0, Utils.colorize(Messages.CRAFTING_SIGN));
 
                 makeSign(event, SignTypes.CRAFTING_TABLE);
@@ -59,17 +59,17 @@ public class SignListener implements Listener {
             }
 
             case "[enchanttable]": {
-                if (!event.getPlayer().hasPermission(Perms.SIGN_CREATE_ENCHANTTABLE.getPermission())) return;
-                event.setLine(0, Utils.colorize(Messages.ENCHANTTABLE_SIGN));
+                if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE_ENCHANT_TABLE.getPermission())) return;
+                event.setLine(0, Utils.colorize(Messages.ENCHANT_TABLE_SIGN));
 
                 makeSign(event, SignTypes.ENCHANTMENT_TABLE);
 
-                Utils.tell(event.getPlayer(), Messages.ENCHANTTABLE_SIGN_CREATED);
+                Utils.tell(event.getPlayer(), Messages.ENCHANT_TABLE_SIGN_CREATED);
                 break;
             }
 
             case "[enderchest]": {
-                if (!event.getPlayer().hasPermission(Perms.SIGN_CREATE_ENDERCHEST.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE_ENDERCHEST.getPermission())) return;
                 event.setLine(0, Utils.colorize(Messages.ENDERCHEST_SIGN));
 
                 makeSign(event, SignTypes.ENDER_CHEST);
@@ -79,7 +79,7 @@ public class SignListener implements Listener {
             }
 
             case "[grindstone]": {
-                if (!event.getPlayer().hasPermission(Perms.SIGN_CREATE_GRINDSTONE.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE_GRINDSTONE.getPermission())) return;
                 event.setLine(0, Utils.colorize(Messages.GRINDSTONE_SIGN));
 
                 makeSign(event, SignTypes.GRINDSTONE);
@@ -89,7 +89,7 @@ public class SignListener implements Listener {
             }
 
             case "[loom]": {
-                if (!event.getPlayer().hasPermission(Perms.SIGN_CREATE_LOOM.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE_LOOM.getPermission())) return;
                 event.setLine(0, Utils.colorize(Messages.LOOM_SIGN));
 
                 makeSign(event, SignTypes.LOOM);
@@ -99,12 +99,12 @@ public class SignListener implements Listener {
             }
 
             case "[stonecutter]": {
-                if (!event.getPlayer().hasPermission(Perms.SIGN_CREATE_STONECUTTER.getPermission())) return;
-                event.setLine(0, Utils.colorize(Messages.STONECUTTER_SIGN));
+                if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE_STONE_CUTTER.getPermission())) return;
+                event.setLine(0, Utils.colorize(Messages.STONE_CUTTER_SIGN));
 
-                makeSign(event, SignTypes.STONECUTTER);
+                makeSign(event, SignTypes.STONE_CUTTER);
 
-                Utils.tell(event.getPlayer(), Messages.STONECUTTER_SIGN_CREATED);
+                Utils.tell(event.getPlayer(), Messages.STONE_CUTTER_SIGN_CREATED);
                 break;
             }
 
@@ -115,7 +115,7 @@ public class SignListener implements Listener {
     }
 
     @EventHandler
-    public void onSignInteract(PlayerInteractEvent event) {
+    public void onSignInteract(final PlayerInteractEvent event) {
 
         if (isSign(event)) {
             final SignsConfig signsConfig = SignsConfig.getInstance();
@@ -137,7 +137,7 @@ public class SignListener implements Listener {
                 return;
             }
 
-            if (Settings.REQUIRE_SIGHT_CLICK_BREAK_SIGN && event.getAction() == Action.LEFT_CLICK_BLOCK && event.getPlayer().hasPermission(Perms.SIGN_CREATE.getPermission())) {
+            if (Settings.REQUIRE_SIGHT_CLICK_BREAK_SIGN && event.getAction() == Action.LEFT_CLICK_BLOCK && event.getPlayer().hasPermission(Permissions.SIGN_CREATE.getPermission())) {
                 Utils.tell(event.getPlayer(), Messages.MUST_SHIFT_CLICK_TO_BREAK_SIGN);
                 event.setCancelled(true);
             }
@@ -149,14 +149,13 @@ public class SignListener implements Listener {
                         && signsConfig.getInt("signs." + key + ".where.z") == event.getClickedBlock().getZ()) {
 
                     getSign(event, SignTypes.valueOf(signsConfig.getString("signs." + key + ".type")));
-
                 }
             }
         }
 
     }
 
-    private boolean isSign(PlayerInteractEvent event) {
+    private boolean isSign(final PlayerInteractEvent event) {
         final SignsConfig signsConfig = SignsConfig.getInstance();
 
         if (event.getClickedBlock() == null) {
@@ -183,7 +182,7 @@ public class SignListener implements Listener {
         return false;
     }
 
-    private void makeSign(SignChangeEvent event, SignTypes signType) {
+    private void makeSign(final SignChangeEvent event, final SignTypes signType) {
 
         final SignsConfig signs = SignsConfig.getInstance();
         signs.set("sign-amount", signs.getInt("sign-amount") + 1);
@@ -204,7 +203,7 @@ public class SignListener implements Listener {
 
         switch (signTypes) {
             case ANVIL: {
-                if (!event.getPlayer().hasPermission(Perms.USE_SIGN_ANVIL.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.USE_SIGN_ANVIL.getPermission())) return;
                 try {
                     EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
                     int containerID = ePlayer.nextContainerCounter();
@@ -226,7 +225,7 @@ public class SignListener implements Listener {
             }
 
             case CARTOGRAPHY: {
-                if (!event.getPlayer().hasPermission(Perms.USE_SIGN_CATROGRAPHY.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.USE_SIGN_CARTOGRAPHY.getPermission())) return;
                 try {
                     EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
                     int containerID = ePlayer.nextContainerCounter();
@@ -248,13 +247,13 @@ public class SignListener implements Listener {
             }
 
             case CRAFTING_TABLE: {
-                if (!event.getPlayer().hasPermission(Perms.USE_SIGN_CRAFTING.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.USE_SIGN_CRAFTING.getPermission())) return;
                 player.openWorkbench(player.getLocation(), true);
                 break;
             }
 
             case ENCHANTMENT_TABLE: {
-                if (!event.getPlayer().hasPermission(Perms.USE_SIGN_ENCHANTTABLE.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.USE_SIGN_ENCHANT_TABLE.getPermission())) return;
                 try {
                     EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
                     int containerID = ePlayer.nextContainerCounter();
@@ -276,13 +275,13 @@ public class SignListener implements Listener {
             }
 
             case ENDER_CHEST: {
-                if (!event.getPlayer().hasPermission(Perms.USE_SIGN_ENDERCHEST.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.USE_SIGN_ENDERCHEST.getPermission())) return;
                 player.openInventory(player.getEnderChest());
                 break;
             }
 
             case GRINDSTONE: {
-                if (!event.getPlayer().hasPermission(Perms.USE_SIGN_GRINDSTONE.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.USE_SIGN_GRINDSTONE.getPermission())) return;
                 try {
                     EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
                     int containerId = ePlayer.nextContainerCounter();
@@ -303,7 +302,7 @@ public class SignListener implements Listener {
             }
 
             case LOOM: {
-                if (!event.getPlayer().hasPermission(Perms.USE_SIGN_LOOM.getPermission())) return;
+                if (!event.getPlayer().hasPermission(Permissions.USE_SIGN_LOOM.getPermission())) return;
                 try {
                     EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
                     int containerID = ePlayer.nextContainerCounter();
@@ -324,8 +323,8 @@ public class SignListener implements Listener {
                 break;
             }
 
-            case STONECUTTER: {
-                if (!event.getPlayer().hasPermission(Perms.USE_SIGN_STONECUTTER.getPermission())) return;
+            case STONE_CUTTER: {
+                if (!event.getPlayer().hasPermission(Permissions.USE_SIGN_STONE_CUTTER.getPermission())) return;
                 try {
                     EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
                     int containerID = ePlayer.nextContainerCounter();
@@ -359,7 +358,7 @@ public class SignListener implements Listener {
         ENDER_CHEST,
         GRINDSTONE,
         LOOM,
-        STONECUTTER
+        STONE_CUTTER
     }
 
 }

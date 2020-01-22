@@ -2,7 +2,7 @@ package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.commandutils.UniversalCommand;
-import com.itsschatten.portablecrafting.Perms;
+import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.utils.FakeContainers;
@@ -26,24 +26,24 @@ public class EnchanttableCommand extends UniversalCommand {
         super("enchanttable"); // Command
 
         setAliases(Arrays.asList("enchtable", "ectable", "enchantmenttable"));
-        setPermission(Perms.ENCHANTTABLE.getPermission());
-        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.ENCHANTTABLE.getPermission()));
+        setPermission(Permissions.ENCHANT_TABLE.getPermission());
+        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.ENCHANT_TABLE.getPermission()));
     }
 
     @Override
     protected void run(CommandSender sender, String[] args) {
-        if (!Settings.USE_ENCHANTTABLE) returnTell(Messages.FEATURE_DISABLED); // Check if feature is disabled.
+        if (!Settings.USE_ENCHANT_TABLE) returnTell(Messages.FEATURE_DISABLED); // Check if feature is disabled.
 
-        final String openEnchanttableSound = Settings.ENCHANTTABLE_OPEN_SOUND.toUpperCase(); // Set sound.
+        final String openEnchanttableSound = Settings.ENCHANT_TABLE_OPEN_SOUND.toUpperCase(); // Set sound.
 
         if (!(sender instanceof Player)) {
             if (args.length == 0)
-                returnTell(Messages.NOTENOUGH_ARGS);
+                returnTell(Messages.NOT_ENOUGH_ARGS);
 
             final Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
+            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            if (Settings.USE_ENCHANTTABLE_SOUNDS) {
+            if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + target.getName());
             }
@@ -57,26 +57,26 @@ public class EnchanttableCommand extends UniversalCommand {
 
         final Player player = (Player) sender;
 
-        checkPerms(player, Perms.ENCHANTTABLE); // Check perms.
+        checkPerms(player, Permissions.ENCHANT_TABLE); // Check perms.
 
         if (args.length == 0) {
 
-            if (Settings.USE_ENCHANTTABLE_SOUNDS) {
+            if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
                 player.playSound(player.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + player.getName());
             }
 
             openFakeEnchant(player);
             Utils.debugLog(Settings.DEBUG, "Opened the enchantment table.");
-            returnTell(Messages.OPENED_ENCHANTTABLE);
+            returnTell(Messages.OPENED_ENCHANT_TABLE);
         }
 
         if (args.length == 1) {
-            checkPerms(player, Perms.ENCHANTTABLE_OTHER); // Check perms.
+            checkPerms(player, Permissions.ENCHANT_TABLE_OTHER); // Check perms.
             Player target = Bukkit.getPlayer(args[0]); // Set target
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0])); // Make sure target isn't null.
+            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0])); // Make sure target isn't null.
 
-            if (Settings.USE_ENCHANTTABLE_SOUNDS) {
+            if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + target.getName());
 
@@ -86,12 +86,12 @@ public class EnchanttableCommand extends UniversalCommand {
             Utils.debugLog(Settings.DEBUG, "Opened the enchantment table.");
 
 
-            tellTarget(target, Messages.OPENED_ENCHANTTABLE);
-            returnTell(Messages.OPENED_ENCHANTTABLE_OTHER.replace("{player}", target.getName()));
+            tellTarget(target, Messages.OPENED_ENCHANT_TABLE);
+            returnTell(Messages.OPENED_ENCHANT_TABLE_OTHER.replace("{player}", target.getName()));
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
-            returnTell(Messages.TOOMANY_ARGS);
+            returnTell(Messages.TOO_MANY_ARGS);
         }
     }
 

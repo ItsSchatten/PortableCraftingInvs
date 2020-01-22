@@ -18,28 +18,28 @@ public class Messages extends SimpleConfig {
             RELOAD_MESSAGE,
             RELOAD_SPECIFIC,
             WRONG_ARGS,
-            TOOMANY_ARGS,
-            NOTENOUGH_ARGS,
+            TOO_MANY_ARGS,
+            NOT_ENOUGH_ARGS,
             FEATURE_DISABLED,
-            DOESENT_EXIST,
-            PLAYER_DOSENT_EXIST,
-            UPDATE_AVALIABLE_MESSAGE,
+            DOES_NOT_EXIST,
+            PLAYER_DOES_NOT_EXIST,
+            UPDATE_AVAILABLE_MESSAGE,
             OPENED_ENDERCHEST,
-            OPEN_TARGET_ECHEST,
+            OPEN_TARGET_ENDERCHEST,
             OPENED_CRAFTING,
             OPENED_CRAFTING_OTHER,
             OPENED_ANVIL,
             OPENED_ANVIL_OTHER,
-            OPENED_ENCHANTTABLE,
-            OPENED_ENCHANTTABLE_OTHER,
+            OPENED_ENCHANT_TABLE,
+            OPENED_ENCHANT_TABLE_OTHER,
             OPENED_GRINDSTONE,
             OPENED_GRINDSTONE_OTHER,
             OPENED_LOOM,
             OPENED_LOOM_OTHER,
             OPENED_CARTOGRAPHY,
             OPENED_CARTOGRAPHY_OTHER,
-            OPENED_STONECUTTER,
-            OPENED_STONECUTTER_OTHER,
+            OPENED_STONE_CUTTER,
+            OPENED_STONE_CUTTER_OTHER,
             CANT_RETRIEVE_ITEM_FROM_ENDER,
             MUST_SHIFT_CLICK_TO_BREAK_SIGN,
     // Sign Messages
@@ -47,19 +47,19 @@ public class Messages extends SimpleConfig {
     ANVIL_SIGN,
             CARTOGRAPHY_SIGN,
             CRAFTING_SIGN,
-            ENCHANTTABLE_SIGN,
+            ENCHANT_TABLE_SIGN,
             ENDERCHEST_SIGN,
             GRINDSTONE_SIGN,
             LOOM_SIGN,
-            STONECUTTER_SIGN,
+            STONE_CUTTER_SIGN,
             ANVIL_SIGN_CREATED,
             CARTOGRAPHY_SIGN_CREATED,
             CRAFTING_SIGN_CREATED,
-            ENCHANTTABLE_SIGN_CREATED,
+            ENCHANT_TABLE_SIGN_CREATED,
             ENDERCHEST_SIGN_CREATED,
             GRINDSTONE_SIGN_CREATED,
             LOOM_SIGN_CREATED,
-            STONECUTTER_SIGN_CREATED;
+            STONE_CUTTER_SIGN_CREATED;
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
     private static Messages instance;
@@ -85,7 +85,7 @@ public class Messages extends SimpleConfig {
     public static void init() {
         new Messages("messages.yml").onLoad();
         Utils.setPrefix(PREFIX);
-        Utils.setUpdateAvailableMessage(Messages.UPDATE_AVALIABLE_MESSAGE);
+        Utils.setUpdateAvailableMessage(Messages.UPDATE_AVAILABLE_MESSAGE);
         Utils.setNoPermsMessage(NO_PERMS);
         Utils.debugLog(Settings.DEBUG, "Loaded the file messages.yml");
     }
@@ -97,25 +97,25 @@ public class Messages extends SimpleConfig {
         RELOAD_MESSAGE = getString("reload-message");
         RELOAD_SPECIFIC = getString("reload-message-specific");
         WRONG_ARGS = getString("wrong-args");
-        TOOMANY_ARGS = getString("too-many-args");
-        NOTENOUGH_ARGS = getString("not-enough-args");
-        DOESENT_EXIST = getString("doesnt-exist");
+        TOO_MANY_ARGS = getString("too-many-args");
+        NOT_ENOUGH_ARGS = getString("not-enough-args");
+        DOES_NOT_EXIST = getString("doesnt-exist");
 
 
-        PLAYER_DOSENT_EXIST = getString("player-doesnt-exist");
+        PLAYER_DOES_NOT_EXIST = getString("player-doesnt-exist");
 
         FEATURE_DISABLED = getString("feature-disabled");
 
-        UPDATE_AVALIABLE_MESSAGE = (String) get("update-available");
+        UPDATE_AVAILABLE_MESSAGE = (String) get("update-available");
 
         OPENED_ENDERCHEST = getString("opened-enderchest");
-        OPEN_TARGET_ECHEST = getString("open-target-enderchest");
+        OPEN_TARGET_ENDERCHEST = getString("open-target-enderchest");
         OPENED_CRAFTING = getString("opened-craftingtable");
         OPENED_CRAFTING_OTHER = getString("opened-craftingtable-other");
         OPENED_ANVIL = getString("opened-anvil");
         OPENED_ANVIL_OTHER = getString("opened-anvil-other");
-        OPENED_ENCHANTTABLE = getString("opened-enchanttable");
-        OPENED_ENCHANTTABLE_OTHER = getString("opened-enchanttable-other");
+        OPENED_ENCHANT_TABLE = getString("opened-enchanttable");
+        OPENED_ENCHANT_TABLE_OTHER = getString("opened-enchanttable-other");
 
         CANT_RETRIEVE_ITEM_FROM_ENDER = getString("cant-retrieve-from-enderchest");
 
@@ -132,8 +132,8 @@ public class Messages extends SimpleConfig {
         OPENED_LOOM_OTHER = getString("opened-loom-other");
 
 
-        OPENED_STONECUTTER = getString("opened-stonecutter");
-        OPENED_STONECUTTER_OTHER = getString("opened-stonecutter-other");
+        OPENED_STONE_CUTTER = getString("opened-stonecutter");
+        OPENED_STONE_CUTTER_OTHER = getString("opened-stonecutter-other");
 
         // Sign messages
         MUST_SHIFT_CLICK_TO_BREAK_SIGN = getString("shift-click-to-break-sign");
@@ -141,20 +141,20 @@ public class Messages extends SimpleConfig {
         ANVIL_SIGN = getString("anvil-sign");
         CARTOGRAPHY_SIGN = getString("cartography-sign");
         CRAFTING_SIGN = getString("crafting-sign");
-        ENCHANTTABLE_SIGN = getString("enchant-table-sign");
+        ENCHANT_TABLE_SIGN = getString("enchant-table-sign");
         ENDERCHEST_SIGN = getString("enderchest-sign");
         GRINDSTONE_SIGN = getString("grindstone-sign");
         LOOM_SIGN = getString("loom-sign");
-        STONECUTTER_SIGN = getString("stonecutter-sign");
+        STONE_CUTTER_SIGN = getString("stonecutter-sign");
 
         ANVIL_SIGN_CREATED = getString("anvil-sign-created");
         CARTOGRAPHY_SIGN_CREATED = getString("cartography-sign-created");
         CRAFTING_SIGN_CREATED = getString("crafting-sign-created");
-        ENCHANTTABLE_SIGN_CREATED = getString("enchant-table-sign-created");
+        ENCHANT_TABLE_SIGN_CREATED = getString("enchant-table-sign-created");
         ENDERCHEST_SIGN_CREATED = getString("enderchest-sign-created");
         GRINDSTONE_SIGN_CREATED = getString("grindstone-sign-created");
         LOOM_SIGN_CREATED = getString("loom-sign-created");
-        STONECUTTER_SIGN_CREATED = getString("stonecutter-sign-created");
+        STONE_CUTTER_SIGN_CREATED = getString("stonecutter-sign-created");
 
     }
 

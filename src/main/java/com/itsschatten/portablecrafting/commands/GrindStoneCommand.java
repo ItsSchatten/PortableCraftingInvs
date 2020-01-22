@@ -2,7 +2,7 @@ package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.commandutils.UniversalCommand;
-import com.itsschatten.portablecrafting.Perms;
+import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.utils.FakeContainers;
@@ -28,8 +28,8 @@ public class GrindStoneCommand extends UniversalCommand {
         super("grindstone");
 
         setAliases(Arrays.asList("grstone", "gstone"));
-        setPermission(Perms.GRINDSTONE.getPermission());
-        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.GRINDSTONE.getPermission()));
+        setPermission(Permissions.GRINDSTONE.getPermission());
+        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.GRINDSTONE.getPermission()));
     }
 
     @Override
@@ -40,10 +40,10 @@ public class GrindStoneCommand extends UniversalCommand {
         final String grindStoneOpen = Settings.GRINDSTONE_OPEN_SOUND.toUpperCase();
 
         if (!(commandSender instanceof Player)) {
-            checkArgs(1, Messages.NOTENOUGH_ARGS);
+            checkArgs(1, Messages.NOT_ENOUGH_ARGS);
 
             final Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
+            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
             if (Settings.USE_GRINDSTONE_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
@@ -57,7 +57,7 @@ public class GrindStoneCommand extends UniversalCommand {
         }
 
         final Player player = (Player) commandSender;
-        checkPerms(player, Perms.GRINDSTONE);
+        checkPerms(player, Permissions.GRINDSTONE);
 
         if (args.length == 0) {
 
@@ -73,10 +73,10 @@ public class GrindStoneCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Perms.GRINDSTONE_OTHER);
+            checkPerms(player, Permissions.GRINDSTONE_OTHER);
 
             Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{target}", args[0]));
+            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{target}", args[0]));
 
             if (Settings.USE_GRINDSTONE_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
@@ -91,7 +91,7 @@ public class GrindStoneCommand extends UniversalCommand {
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
-            returnTell(Messages.TOOMANY_ARGS);
+            returnTell(Messages.TOO_MANY_ARGS);
         }
 
     }

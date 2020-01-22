@@ -10,7 +10,7 @@ public class FakeContainers {
 
     public static class FakeGrindstone extends ContainerGrindstone {
 
-        public FakeGrindstone(int containerId, Player player) {
+        public FakeGrindstone(final int containerId, final Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
             this.setTitle(new ChatMessage("Repair & Disenchant"));
@@ -19,7 +19,7 @@ public class FakeContainers {
 
     public static class FakeCartography extends ContainerCartography {
 
-        public FakeCartography(int containerId, Player player) {
+        public FakeCartography(final int containerId, final Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
             this.setTitle(new ChatMessage("Cartography Table"));
@@ -28,7 +28,7 @@ public class FakeContainers {
 
     public static class FakeLoom extends ContainerLoom {
 
-        public FakeLoom(int containerId, Player player) {
+        public FakeLoom(final int containerId, final Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
             this.setTitle(new ChatMessage("Loom"));
@@ -37,7 +37,7 @@ public class FakeContainers {
 
     public static class FakeStoneCutter extends ContainerStonecutter {
 
-        public FakeStoneCutter(int containerId, Player player) {
+        public FakeStoneCutter(final int containerId, final Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
             this.setTitle(new ChatMessage("Stonecutter"));
@@ -46,7 +46,7 @@ public class FakeContainers {
 
     public static class FakeAnvil extends ContainerAnvil {
 
-        public FakeAnvil(int containerID, Player player) {
+        public FakeAnvil(final int containerID, final Player player) {
             super(containerID, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
             this.setTitle(new ChatMessage("Repair & Name"));
@@ -56,7 +56,7 @@ public class FakeContainers {
 
     public static class FakeEnchant extends ContainerEnchantTable {
 
-        public FakeEnchant(int i, Player player) {
+        public FakeEnchant(final int i, final Player player) {
             super(i, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
             this.setTitle(new ChatMessage("Enchant"));

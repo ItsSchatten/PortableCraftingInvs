@@ -28,7 +28,7 @@ public class CheckForUpdate extends BukkitRunnable {
                 }
 
                 Bukkit.getOnlinePlayers().forEach((admin) -> {
-                    if (admin.hasPermission(Perms.UPDATE_NOTIFICATIONS.getPermission())) // Check if there are any online players we can send the message to.
+                    if (admin.hasPermission(Permissions.UPDATE_NOTIFICATIONS.getPermission())) // Check if there are any online players we can send the message to.
                         Utils.tell(admin, UpdateNotifications.getUpdateMessage().replace("{currentVer}", PortableCraftingInvsPlugin.getInstance().getDescription().getVersion())
                                 .replace("{newVer}", UpdateNotifications.getLatestVersion())
                                 .replace("{link}", "https://spigotmc.org/resources/" + UpdateNotifications.getProjectId()));

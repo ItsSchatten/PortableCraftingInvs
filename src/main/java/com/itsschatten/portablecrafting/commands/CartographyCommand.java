@@ -2,7 +2,7 @@ package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.commandutils.UniversalCommand;
-import com.itsschatten.portablecrafting.Perms;
+import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.utils.FakeContainers;
@@ -26,8 +26,8 @@ public class CartographyCommand extends UniversalCommand {
         super("cartography");
 
         setAliases(Collections.singletonList("cartographytable"));
-        setPermission(Perms.CARTOGRAPHY.getPermission());
-        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.CARTOGRAPHY.getPermission()));
+        setPermission(Permissions.CARTOGRAPHY.getPermission());
+        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.CARTOGRAPHY.getPermission()));
 
     }
 
@@ -38,10 +38,10 @@ public class CartographyCommand extends UniversalCommand {
         final String cartographyTableOpen = Settings.CARTOGRAPHY_OPEN_SOUND.toUpperCase();
 
         if (!(commandSender instanceof Player)) {
-            checkArgs(1, Messages.NOTENOUGH_ARGS);
+            checkArgs(1, Messages.NOT_ENOUGH_ARGS);
 
             final Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
+            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
             if (Settings.USE_CARTOGRAPHY_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(cartographyTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
@@ -55,7 +55,7 @@ public class CartographyCommand extends UniversalCommand {
         }
 
         final Player player = (Player) commandSender;
-        checkPerms(player, Perms.CARTOGRAPHY);
+        checkPerms(player, Permissions.CARTOGRAPHY);
 
         if (args.length == 0) {
             if (Settings.USE_CARTOGRAPHY_SOUNDS) {
@@ -71,10 +71,10 @@ public class CartographyCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Perms.CARTOGRAPHY_OTHER);
+            checkPerms(player, Permissions.CARTOGRAPHY_OTHER);
 
             Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
+            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
             if (Settings.USE_CARTOGRAPHY_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(cartographyTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
@@ -88,7 +88,7 @@ public class CartographyCommand extends UniversalCommand {
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
-            returnTell(Messages.TOOMANY_ARGS);
+            returnTell(Messages.TOO_MANY_ARGS);
         }
 
     }

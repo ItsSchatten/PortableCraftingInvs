@@ -2,7 +2,7 @@ package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.commandutils.UniversalCommand;
-import com.itsschatten.portablecrafting.Perms;
+import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
@@ -28,10 +28,10 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
     protected void run(CommandSender commandSender, String[] args) {
 
         if (args.length > 2 && Settings.USE_TOO_MANY_ARGS)
-            returnTell(Messages.TOOMANY_ARGS);
+            returnTell(Messages.TOO_MANY_ARGS);
 
         if (args.length == 0) {
-            tell(Messages.NOTENOUGH_ARGS + Messages.HELP_MESSAGE); // If not args send help message.
+            tell(Messages.NOT_ENOUGH_ARGS + Messages.HELP_MESSAGE); // If not args send help message.
             return;
         }
         String param = args[0].toLowerCase(); // Set param.
@@ -50,7 +50,7 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
 
             case "reload":
             case "rl": {
-                checkPerms(commandSender, Perms.RELOAD);
+                checkPerms(commandSender, Permissions.RELOAD);
 
                 if (args.length == 1) { // Reload if no arguments are passed.
                     Messages.getInstance().reload();

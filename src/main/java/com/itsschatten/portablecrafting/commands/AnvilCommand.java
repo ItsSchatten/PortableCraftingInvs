@@ -2,7 +2,7 @@ package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.commandutils.UniversalCommand;
-import com.itsschatten.portablecrafting.Perms;
+import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.utils.FakeContainers;
@@ -26,8 +26,8 @@ public class AnvilCommand extends UniversalCommand {
         super("anvil");
 
         setAliases(Arrays.asList("openanvil", "anv"));
-        setPermission(Perms.ANVIL.getPermission());
-        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.ANVIL.getPermission()));
+        setPermission(Permissions.ANVIL.getPermission());
+        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.ANVIL.getPermission()));
     }
 
     @Override
@@ -37,10 +37,10 @@ public class AnvilCommand extends UniversalCommand {
         final String anvilOpenSound = Settings.ANVIL_OPEN_SOUND.toUpperCase(); // Set sound.
 
         if (!(sender instanceof Player)) {
-            checkArgs(1, Messages.NOTENOUGH_ARGS);
+            checkArgs(1, Messages.NOT_ENOUGH_ARGS);
 
             final Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
+            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
             if (Settings.USE_ANVIL_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
@@ -55,7 +55,7 @@ public class AnvilCommand extends UniversalCommand {
 
         final Player player = (Player) sender;
 
-        checkPerms(player, Perms.ANVIL); // Check perms again.
+        checkPerms(player, Permissions.ANVIL); // Check perms again.
 
         if (args.length == 0) {
 
@@ -72,10 +72,10 @@ public class AnvilCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Perms.ANVIL_OTHER); // Check perms.
+            checkPerms(player, Permissions.ANVIL_OTHER); // Check perms.
 
             Player target = Bukkit.getPlayer(args[0]); // Set target.
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0])); // Make sure not null.
+            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0])); // Make sure not null.
 
 
             if (Settings.USE_ANVIL_SOUNDS) {
@@ -91,7 +91,7 @@ public class AnvilCommand extends UniversalCommand {
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
-            returnTell(Messages.TOOMANY_ARGS);
+            returnTell(Messages.TOO_MANY_ARGS);
         }
     }
 

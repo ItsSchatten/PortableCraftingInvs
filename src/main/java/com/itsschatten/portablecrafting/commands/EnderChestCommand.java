@@ -2,7 +2,7 @@ package com.itsschatten.portablecrafting.commands;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.commandutils.UniversalCommand;
-import com.itsschatten.portablecrafting.Perms;
+import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import lombok.Getter;
@@ -29,8 +29,8 @@ public class EnderChestCommand extends UniversalCommand {
         super("enderchest");
 
         setAliases(Arrays.asList("ec", "echest"));
-        setPermission(Perms.ENDERCHEST.getPermission());
-        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Perms.ENDERCHEST.getPermission()));
+        setPermission(Permissions.ENDERCHEST.getPermission());
+        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.ENDERCHEST.getPermission()));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class EnderChestCommand extends UniversalCommand {
 
         if (!(sender instanceof Player)) {
 
-            checkArgsStrict(1, Messages.NOTENOUGH_ARGS);
+            checkArgsStrict(1, Messages.NOT_ENOUGH_ARGS);
 
             final Player target = Bukkit.getPlayer(args[0]);
 
@@ -64,7 +64,7 @@ public class EnderChestCommand extends UniversalCommand {
 
         final Player player = (Player) sender;
 
-        checkPerms(player, Perms.ENDERCHEST); // Perms.
+        checkPerms(player, Permissions.ENDERCHEST); // Perms.
 
         if (args.length == 0) {
             Inventory eChest = player.getEnderChest(); // Get the players enderchest inventory.
@@ -86,10 +86,10 @@ public class EnderChestCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Perms.ENDERCHEST_OTHER);
+            checkPerms(player, Permissions.ENDERCHEST_OTHER);
 
             Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOSENT_EXIST.replace("{player}", args[0]));
+            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
             Inventory targetEChest = target.getEnderChest();
 
@@ -105,12 +105,12 @@ public class EnderChestCommand extends UniversalCommand {
                 players.add(target.getUniqueId());
             }
 
-            returnTell(Messages.OPEN_TARGET_ECHEST.replace("{player}", target.getName()).replace("{playerFormatted}",
+            returnTell(Messages.OPEN_TARGET_ENDERCHEST.replace("{player}", target.getName()).replace("{playerFormatted}",
                     target.getName().endsWith("s") ? target.getName() + "'" : target.getName() + "'s"));
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS)
-            returnTell(Messages.TOOMANY_ARGS);
+            returnTell(Messages.TOO_MANY_ARGS);
 
     }
 }

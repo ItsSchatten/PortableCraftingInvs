@@ -5,7 +5,7 @@ import com.itsschatten.libs.interfaces.IPermissions;
 /**
  * A utility class that I can use to specify permissions, so I don't have to constantly rewrite them.
  */
-public enum Perms implements IPermissions {
+public enum Permissions implements IPermissions {
     ANVIL {
         @Override
         public String getPermission() {
@@ -34,14 +34,14 @@ public enum Perms implements IPermissions {
         }
     },
 
-    ENCHANTTABLE {
+    ENCHANT_TABLE {
         @Override
         public String getPermission() {
             return "pci.enchanttable";
         }
     },
 
-    ENCHANTTABLE_OTHER {
+    ENCHANT_TABLE_OTHER {
         @Override
         public String getPermission() {
             return "pci.enchanttable.other";
@@ -104,14 +104,14 @@ public enum Perms implements IPermissions {
         }
     },
 
-    STONECUTTER {
+    STONE_CUTTER {
         @Override
         public String getPermission() {
             return "pci.stonecutter";
         }
     },
 
-    STONECUTTER_OTHER {
+    STONE_CUTTER_OTHER {
         @Override
         public String getPermission() {
             return "pci.stonecutter.other";
@@ -132,7 +132,7 @@ public enum Perms implements IPermissions {
         }
     },
 
-    SIGN_CREATE_CATROGRAPHY {
+    SIGN_CREATE_CARTOGRAPHY {
         @Override
         public String getPermission() {
             return "pci.sign.cartography";
@@ -146,7 +146,7 @@ public enum Perms implements IPermissions {
         }
     },
 
-    SIGN_CREATE_ENCHANTTABLE {
+    SIGN_CREATE_ENCHANT_TABLE {
         @Override
         public String getPermission() {
             return "pci.sign.enchanttable";
@@ -174,7 +174,7 @@ public enum Perms implements IPermissions {
         }
     },
 
-    SIGN_CREATE_STONECUTTER {
+    SIGN_CREATE_STONE_CUTTER {
         @Override
         public String getPermission() {
             return "pci.sign.stonecutter";
@@ -188,7 +188,7 @@ public enum Perms implements IPermissions {
         }
     },
 
-    USE_SIGN_CATROGRAPHY {
+    USE_SIGN_CARTOGRAPHY {
         @Override
         public String getPermission() {
             return "pci.sign.cartography.use";
@@ -202,7 +202,7 @@ public enum Perms implements IPermissions {
         }
     },
 
-    USE_SIGN_ENCHANTTABLE {
+    USE_SIGN_ENCHANT_TABLE {
         @Override
         public String getPermission() {
             return "pci.sign.enchanttable.use";
@@ -230,7 +230,7 @@ public enum Perms implements IPermissions {
         }
     },
 
-    USE_SIGN_STONECUTTER {
+    USE_SIGN_STONE_CUTTER {
         @Override
         public String getPermission() {
             return "pci.sign.stonecutter.use";
