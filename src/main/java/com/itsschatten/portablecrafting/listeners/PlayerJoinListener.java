@@ -31,6 +31,7 @@ public class PlayerJoinListener implements Listener {
 
                 Utils.tell(player, StringUtils.replaceEach(UpdateNotifications.getUpdateMessage(), new String[]{"{currentVer}", "{newVer}", "{link}"},
                         new String[]{pdf.getVersion(), UpdateNotifications.getLatestVersion(), "https://spigotmc.org/resources/" + UpdateNotifications.getProjectId()}));
+                return;
             }
             Utils.debugLog(Settings.DEBUG, "There is an update to the plugin available but the version is not the latest supported version. Not sending a message to the player...");
         }

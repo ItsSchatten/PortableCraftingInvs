@@ -5,6 +5,8 @@ import com.itsschatten.libs.commandutils.UniversalCommand;
 import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -16,9 +18,14 @@ import java.util.Arrays;
  * This class handles the crafting table.
  */
 public class CraftCommand extends UniversalCommand {
+    @Getter
+    @Setter
+    static CraftCommand instance;
 
     public CraftCommand() {
         super("craft"); // The command.
+
+        setInstance(this);
 
         setAliases(Arrays.asList("crafting", "craftingtable", "workbench"));
         setPermission(Permissions.CRAFTING.getPermission());

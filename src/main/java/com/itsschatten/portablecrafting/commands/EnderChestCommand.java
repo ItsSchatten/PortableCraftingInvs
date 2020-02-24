@@ -6,6 +6,7 @@ import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -23,10 +24,16 @@ import java.util.UUID;
 public class EnderChestCommand extends UniversalCommand {
 
     @Getter
+    @Setter
+    static EnderChestCommand instance = null;
+
+    @Getter
     private static Set<UUID> players = new HashSet<>();
 
     public EnderChestCommand() {
         super("enderchest");
+
+        setInstance(this);
 
         setAliases(Arrays.asList("ec", "echest"));
         setPermission(Permissions.ENDERCHEST.getPermission());
