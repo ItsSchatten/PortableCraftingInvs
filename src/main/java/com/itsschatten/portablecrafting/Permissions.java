@@ -48,6 +48,13 @@ public enum Permissions implements IPermissions {
         }
     },
 
+    ENCHANT_USE_MAX_LEVEL {
+        @Override
+        public String getPermission() {
+            return "pci.enchant.use-max-level";
+        }
+    },
+
     ENDERCHEST {
         @Override
         public String getPermission() {

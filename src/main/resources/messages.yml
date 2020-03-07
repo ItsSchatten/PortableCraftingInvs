@@ -122,6 +122,12 @@ opened-anvil-other: "{prefix} Opened anvil for {player}"
 # (I don't plan to add an alias of /enchant for this command. This would cause issues with the regular /enchant command.)
 opened-enchanttable: "{prefix} Opened enchantment table."
 
+# Sent when the player opens an enchant table with a defined max level.
+opened-enchanttable-with-max-level: "{prefix} Opened enchantment table with a maximum level of 30."
+
+# Sent when the player passes a higher then the max defined in the settings when opening the enchant table.
+must-be-in-range: "{prefix} &cYou must pass a number between &e{min}&c and &e{max}&c."
+
 # This message is sent to the target of /enchanttable <target> command.
 opened-enchanttable-other: "{prefix} Opened enchantment table for {player}."
 

@@ -257,7 +257,7 @@ public class SignListener implements Listener {
                 try {
                     EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
                     int containerID = ePlayer.nextContainerCounter();
-                    FakeContainers.FakeEnchant fakeEnchant = new FakeContainers.FakeEnchant(containerID, player);
+                    FakeContainers.FakeEnchant fakeEnchant = new FakeContainers.FakeEnchant(containerID, player, 30);
 
                     ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, fakeEnchant.getTitle()));
 

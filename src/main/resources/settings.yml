@@ -53,6 +53,12 @@ use-crafting: true
 # Enable or disable the use of the /enchanttable command.
 use-enchanttable: true
 
+# Enable or disable the ability to define a max level for enchanting.
+allow-max-level-argument: true
+
+# Set the maximum allowed level when it's defined.
+maximum-enchant-level: 30
+
 # Enable or disable the use of the /enderchest command.
 use-enderchest: true
 

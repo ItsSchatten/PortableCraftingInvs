@@ -6,9 +6,11 @@ import com.itsschatten.portablecrafting.commands.*;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
+import com.itsschatten.portablecrafting.listeners.EnchantmentListener;
 import com.itsschatten.portablecrafting.listeners.EnderchestListener;
 import com.itsschatten.portablecrafting.listeners.PlayerJoinListener;
 import com.itsschatten.portablecrafting.listeners.SignListener;
+import com.itsschatten.portablecrafting.utils.FakeContainers;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -103,6 +105,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         }
 
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        this.getServer().getPluginManager().registerEvents(new EnchantmentListener(), this);
         Utils.debugLog(Settings.DEBUG, "Loaded the PlayerJoinListener.");
 
 

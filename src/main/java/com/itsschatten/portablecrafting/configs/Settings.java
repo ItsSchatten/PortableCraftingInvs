@@ -24,6 +24,7 @@ public class Settings extends SimpleConfig {
     USE_ENDERCHEST,
             USE_ENDERCHEST_RESTRICTION,
             USE_ENCHANT_TABLE,
+            USE_ENCHANT_MAX_LEVEL_ARGUMENT,
             USE_CRAFTING,
             USE_ANVIL,
             USE_GRINDSTONE,
@@ -49,6 +50,8 @@ public class Settings extends SimpleConfig {
             LOOM_OPEN_SOUND,
             CARTOGRAPHY_OPEN_SOUND,
             STONE_CUTTER_OPEN_SOUND;
+
+    public static int ENCHANT_MAX_LEVEL;
 
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
@@ -89,6 +92,8 @@ public class Settings extends SimpleConfig {
         USE_CRAFTING = (boolean) get("use-crafting");
         USE_ENDERCHEST = (boolean) get("use-enderchest");
         USE_ENCHANT_TABLE = (boolean) get("use-enchanttable");
+        USE_ENCHANT_MAX_LEVEL_ARGUMENT = (boolean) get("allow-max-level-argument");
+        ENCHANT_MAX_LEVEL = getInt("maximum-enchant-level");
         USE_ANVIL = (boolean) get("use-anvil");
         USE_ENDERCHEST_RESTRICTION = (boolean) get("ender-chest-restrictions");
         USE_GRINDSTONE = (boolean) get("use-grindstone");

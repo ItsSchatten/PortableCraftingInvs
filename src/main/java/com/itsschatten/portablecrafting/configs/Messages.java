@@ -32,6 +32,8 @@ public class Messages extends SimpleConfig {
             OPENED_ANVIL_OTHER,
             OPENED_ENCHANT_TABLE,
             OPENED_ENCHANT_TABLE_OTHER,
+            MUST_BE_IN_RANGE,
+            OPENED_ENCHANT_WITH_MAX_LEVEL,
             OPENED_GRINDSTONE,
             OPENED_GRINDSTONE_OTHER,
             OPENED_LOOM,
@@ -116,6 +118,8 @@ public class Messages extends SimpleConfig {
         OPENED_ANVIL_OTHER = getString("opened-anvil-other");
         OPENED_ENCHANT_TABLE = getString("opened-enchanttable");
         OPENED_ENCHANT_TABLE_OTHER = getString("opened-enchanttable-other");
+        MUST_BE_IN_RANGE = getString("must-be-in-range");
+        OPENED_ENCHANT_WITH_MAX_LEVEL = getString("opened-enchanttable-with-max-level");
 
         CANT_RETRIEVE_ITEM_FROM_ENDER = getString("cant-retrieve-from-enderchest");
 
