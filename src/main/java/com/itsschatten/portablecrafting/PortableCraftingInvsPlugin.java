@@ -10,11 +10,10 @@ import com.itsschatten.portablecrafting.listeners.EnchantmentListener;
 import com.itsschatten.portablecrafting.listeners.EnderchestListener;
 import com.itsschatten.portablecrafting.listeners.PlayerJoinListener;
 import com.itsschatten.portablecrafting.listeners.SignListener;
-import com.itsschatten.portablecrafting.utils.FakeContainers;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.bstats.bukkit.Metrics;
+import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -56,14 +55,14 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         if (Settings.USE_METRICS) {
             Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/PortableCraftingInvss&7", "If you don't wish for this information to be collected you can disable it in the settings.yml.");
-            new Metrics(this);
+            new MetricsLite(this, 5752);
         }
 
         if (Settings.USE_UPDATER) {
             new UpdateNotifications(61045) {
                 @Override
                 public void onUpdateAvailable() {
-                    if (Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_15_R1")) {
+                    if (Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_16_R1")) {
                         Utils.log("There is an update available for the plugin! Current Version " + pdf.getVersion() + " New Version " + getLatestVersion() + " {https://spigotmc.org/resources/" + getProjectId() + ")");
                     } else {
                         Utils.debugLog(Settings.DEBUG, "There is an update to the plugin available but the version is not the latest supported version. To ensure that we don't spam the user's console we won't send a message.");
@@ -72,7 +71,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 }
             }.runTaskAsynchronously(this);
 
-            if (Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_15_R1")) {
+            if (Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_16_R1")) {
                 new CheckForUpdate().runTaskTimerAsynchronously(this, 30 * 60 * 20, 30 * 60 * 20); // Wait 30 minutes and check for another update.
                 Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running.");
             }
@@ -90,7 +89,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         }
 
         // Register commands, and JoinListener.
-        registerCommands(new AnvilCommand(), new EnchanttableCommand(), new PortableCraftingInvsCommand(), new GrindStoneCommand(), new LoomCommand(), new StoneCutterCommand(), new CartographyCommand(), new FurnaceCommand());
+        registerCommands(new AnvilCommand(), new EnchanttableCommand(), new PortableCraftingInvsCommand(), new GrindStoneCommand(), new LoomCommand(), new StoneCutterCommand(), new CartographyCommand());
 
         if (Bukkit.getPluginManager().isPluginEnabled("Essentials") && !Settings.USE_CRAFTING) {
             Utils.debugLog(Settings.DEBUG, "Crafting features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
