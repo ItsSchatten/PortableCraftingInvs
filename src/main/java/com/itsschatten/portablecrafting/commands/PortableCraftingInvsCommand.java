@@ -80,13 +80,13 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
                     }
                 }
 
-                if (Bukkit.getPluginManager().getPlugin("Essentials").isEnabled() && !Settings.USE_CRAFTING) {
+                if (Bukkit.getPluginManager().isPluginEnabled("Essentials") && !Settings.USE_CRAFTING) {
                     PortableCraftingInvsPlugin.getInstance().unregisterCommand(CraftCommand.getInstance());
                     CraftCommand.setInstance(null);
                     Utils.log("&c&lAttention:&c The craft command has been disabled, it cannot be re-enabled until a server restart is performed.");
                 }
 
-                if (Bukkit.getPluginManager().getPlugin("Essentials").isEnabled() && !Settings.USE_ENDERCHEST) {
+                if (Bukkit.getPluginManager().isPluginEnabled("Essentials") && !Settings.USE_ENDERCHEST) {
                     PortableCraftingInvsPlugin.getInstance().unregisterCommand(EnderChestCommand.getInstance());
                     EnderChestCommand.setInstance(null);
                     Utils.log("&c&lAttention:&c The enderchest command has been disabled, it cannot be re-enabled until a server restart is performed.");

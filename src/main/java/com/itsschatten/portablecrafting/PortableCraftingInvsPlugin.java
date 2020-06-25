@@ -90,15 +90,15 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         }
 
         // Register commands, and JoinListener.
-        registerCommands(new AnvilCommand(), new EnchanttableCommand(), new PortableCraftingInvsCommand(), new GrindStoneCommand(), new LoomCommand(), new StoneCutterCommand(), new CartographyCommand());
+        registerCommands(new AnvilCommand(), new EnchanttableCommand(), new PortableCraftingInvsCommand(), new GrindStoneCommand(), new LoomCommand(), new StoneCutterCommand(), new CartographyCommand(), new FurnaceCommand());
 
-        if (Bukkit.getPluginManager().getPlugin("Essentials").isEnabled() && !Settings.USE_CRAFTING) {
+        if (Bukkit.getPluginManager().isPluginEnabled("Essentials") && !Settings.USE_CRAFTING) {
             Utils.debugLog(Settings.DEBUG, "Crafting features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
         } else {
             registerCommand(new CraftCommand());
         }
 
-        if (Bukkit.getPluginManager().getPlugin("Essentials").isEnabled() && !Settings.USE_ENDERCHEST) {
+        if (Bukkit.getPluginManager().isPluginEnabled("Essentials") && !Settings.USE_ENDERCHEST) {
             Utils.debugLog(Settings.DEBUG, "Enderchest features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
         } else {
             registerCommand(new EnderChestCommand());

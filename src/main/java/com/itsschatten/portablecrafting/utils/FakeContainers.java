@@ -2,9 +2,9 @@ package com.itsschatten.portablecrafting.utils;
 
 
 import lombok.Getter;
-import net.minecraft.server.v1_15_R1.*;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import net.minecraft.server.v1_16_R1.*;
+import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -61,7 +61,7 @@ public class FakeContainers {
 
     public static class FakeEnchant extends ContainerEnchantTable {
         @Getter
-        private static Map<UUID, FakeEnchant> openEnchantTables = new HashMap<>();
+        private static final Map<UUID, FakeEnchant> openEnchantTables = new HashMap<>();
         public int maxLevel;
 
         public FakeEnchant(final int i, final Player player, int maxLevel) {

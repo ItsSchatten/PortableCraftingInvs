@@ -6,13 +6,13 @@ import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.utils.FakeContainers;
-import net.minecraft.server.v1_15_R1.Containers;
-import net.minecraft.server.v1_15_R1.EntityPlayer;
-import net.minecraft.server.v1_15_R1.PacketPlayOutOpenWindow;
+import net.minecraft.server.v1_16_R1.Containers;
+import net.minecraft.server.v1_16_R1.EntityPlayer;
+import net.minecraft.server.v1_16_R1.PacketPlayOutOpenWindow;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class LoomCommand extends UniversalCommand {
@@ -85,7 +85,6 @@ public class LoomCommand extends UniversalCommand {
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
             returnTell(Messages.TOO_MANY_ARGS);
         }
-
     }
 
     private void openLoom(final Player player) {

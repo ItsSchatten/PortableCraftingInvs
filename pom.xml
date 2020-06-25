@@ -6,7 +6,7 @@
 
     <groupId>com.itsschatten.portablecrafting</groupId>
     <artifactId>PortableCraftingInvs</artifactId>
-    <version>1.1.6</version>
+    <version>1.1.7</version>
     <description>Open crafting inventories, such as anvils, crafting table, enchant tables, etc..</description>
 
     <properties>
@@ -37,8 +37,8 @@
     <dependencies>
         <dependency>
             <groupId>org.bstats</groupId>
-            <artifactId>bstats-bukkit</artifactId>
-            <version>1.5</version>
+            <artifactId>bstats-bukkit-lite</artifactId>
+            <version>1.7</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.15.2-R0.1-SNAPSHOT</version>
+            <version>1.16.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
