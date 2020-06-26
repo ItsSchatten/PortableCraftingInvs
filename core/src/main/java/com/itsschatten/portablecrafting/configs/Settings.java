@@ -2,6 +2,7 @@ package com.itsschatten.portablecrafting.configs;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.SimpleConfig;
+import com.itsschatten.portablecrafting.PortableCraftingInvsPlugin;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -129,6 +130,7 @@ public class Settings extends SimpleConfig {
         setInstance(null);
 
         init();
+        PortableCraftingInvsPlugin.getFakeContainers().setDebug(Settings.DEBUG);
         Utils.debugLog(Settings.DEBUG, "Reloaded the settings.yml file.");
     }
 

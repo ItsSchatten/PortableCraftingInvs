@@ -4,16 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.itsschatten.portablecrafting</groupId>
-        <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.2.0</version>
-    </parent>
-
+    <groupId>com.itsschatten.portablecrafting</groupId>
+    <version>1.2.0</version>
     <artifactId>PortableCraftingInvs-v1_15_R1</artifactId>
     <packaging>jar</packaging>
 
     <properties>
+        <maven.skip.test>true</maven.skip.test>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -40,6 +39,7 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-Interface</artifactId>
+            <version>1.2.0</version>
         </dependency>
     </dependencies>
 
