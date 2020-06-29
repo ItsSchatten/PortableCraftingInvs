@@ -36,7 +36,7 @@ public class EnderChestCommand extends UniversalCommand {
         setInstance(this);
 
         setAliases(Arrays.asList("ec", "echest"));
-        setPermission(Permissions.ENDERCHEST.getPermission());
+        setPermission(Settings.USE_PERMISSIONS ? Permissions.ENDERCHEST.getPermission() : "");
         setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.ENDERCHEST.getPermission()));
     }
 
@@ -71,7 +71,7 @@ public class EnderChestCommand extends UniversalCommand {
 
         final Player player = (Player) sender;
 
-        checkPerms(player, Permissions.ENDERCHEST); // Perms.
+        if (Settings.USE_PERMISSIONS)  checkPerms(player, Permissions.ENDERCHEST); // Perms.
 
         if (args.length == 0) {
             Inventory eChest = player.getEnderChest(); // Get the players enderchest inventory.
@@ -93,7 +93,7 @@ public class EnderChestCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Permissions.ENDERCHEST_OTHER);
+            if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ENDERCHEST_OTHER);
 
             Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));

@@ -22,7 +22,7 @@ public class AnvilCommand extends UniversalCommand {
         super("anvil");
 
         setAliases(Arrays.asList("openanvil", "anv"));
-        setPermission(Permissions.ANVIL.getPermission());
+        setPermission(Settings.USE_PERMISSIONS ? Permissions.ANVIL.getPermission() : "");
         setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.ANVIL.getPermission()));
     }
 
@@ -52,7 +52,7 @@ public class AnvilCommand extends UniversalCommand {
 
         final Player player = (Player) sender;
 
-        checkPerms(player, Permissions.ANVIL); // Check perms again.
+        if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ANVIL); // Check perms again.
 
         if (args.length == 0) {
 
@@ -69,7 +69,7 @@ public class AnvilCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Permissions.ANVIL_OTHER); // Check perms.
+            if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ANVIL_OTHER); // Check perms.
 
             Player target = Bukkit.getPlayer(args[0]); // Set target.
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0])); // Make sure not null.

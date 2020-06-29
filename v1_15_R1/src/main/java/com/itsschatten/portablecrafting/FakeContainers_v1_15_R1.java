@@ -126,6 +126,11 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
     }
 
     @Override
+    public void openSmithing(Player player) {
+        Utils.tell(player, "Smithing tables do not work in 1.15 versions; in fact you really shouldn't be seeing this command.");
+    }
+
+    @Override
     public void openEnchant(Player player) {
         EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
         int containerID = ePlayer.nextContainerCounter();

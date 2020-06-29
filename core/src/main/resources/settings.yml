@@ -35,6 +35,11 @@ use-updater: true
 # we send the help message along with the wrong arguments message.
 use-help-if-no-args: true
 
+# Have you ever not wanted to fiddle with those nasty complicated looking permissions?
+# Well now you don't have to! Simple set this to "false" and all permissions (besides pci.update and pci.reload)
+# will be given to all users by default.
+use-permissions: true
+
 # If enabled the plugin will send statistics to BStats. Which you can see here: https://bstats.org/plugin/bukkit/PortableCraftingInvs
 metrics: true
 
@@ -77,6 +82,9 @@ use-loom: true
 # Enable or disable the use of /stonecutter command.
 use-stonecutter: true
 
+# Enable or disable the use of /smithing command.
+use-smithing-table: true
+
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                     Sign Features                                     #
@@ -113,6 +121,9 @@ use-loom-sign: true
 # Enable or disable the stonecutter sign.
 use-stonecutter-sign: true
 
+# Enable or disable the smithing table sign (1.16+ only)
+use-smithingtable-sign: true
+
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                     Enable sounds                                     #
@@ -146,6 +157,9 @@ use-loom-sounds: false
 # Enable or disable the sound when opening the stone cutter.
 use-stonecutter-sounds: false
 
+# Enable or disable the sound when opening the smithing table.
+use-smithing-table-sounds: false
+
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                         Sounds                                        #
@@ -177,3 +191,6 @@ cartography-open-sound: BLOCK_CHEST_OPEN
 
 # This sound is played when opening the stone cutter.
 stonecutter-open-sound: BLOCK_CHEST_OPEN
+
+# This sound is played when opening the smithing table.
+smithing-open-sound: BLOCK_SMITHING_TABLE_USE

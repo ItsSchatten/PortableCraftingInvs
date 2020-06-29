@@ -37,7 +37,6 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         setInstance(this);
 
         String ver = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-
         switch (ver) {
             case "v1_16_R1": {
                 fakeContainers = new FakeContainers_v1_16_R1();
@@ -110,6 +109,11 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         // Register commands, and JoinListener.
         registerCommands(new AnvilCommand(), new EnchanttableCommand(), new PortableCraftingInvsCommand(), new GrindStoneCommand(), new LoomCommand(), new StoneCutterCommand(), new CartographyCommand());
+
+
+        if (!ver.contains("1_15_R1")) {
+            registerCommand(new SmithingCommand());
+        }
 
         if (Bukkit.getPluginManager().isPluginEnabled("Essentials") && !Settings.USE_CRAFTING) {
             Utils.debugLog(Settings.DEBUG, "Crafting features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");

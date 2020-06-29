@@ -22,7 +22,7 @@ public class CartographyCommand extends UniversalCommand {
         super("cartography");
 
         setAliases(Collections.singletonList("cartographytable"));
-        setPermission(Permissions.CARTOGRAPHY.getPermission());
+        setPermission(Settings.USE_PERMISSIONS ? Permissions.CARTOGRAPHY.getPermission() : "");
         setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.CARTOGRAPHY.getPermission()));
 
     }
@@ -51,7 +51,7 @@ public class CartographyCommand extends UniversalCommand {
         }
 
         final Player player = (Player) commandSender;
-        checkPerms(player, Permissions.CARTOGRAPHY);
+        if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.CARTOGRAPHY);
 
         if (args.length == 0) {
             if (Settings.USE_CARTOGRAPHY_SOUNDS) {
@@ -67,7 +67,7 @@ public class CartographyCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Permissions.CARTOGRAPHY_OTHER);
+            if (Settings.USE_PERMISSIONS) checkPerms(player,  Permissions.CARTOGRAPHY_OTHER);
 
             Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));

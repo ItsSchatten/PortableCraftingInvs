@@ -158,12 +158,19 @@ opened-stonecutter: "{prefix} Opened the stone cutter."
 # The message that is sent when opening the stone cutter for someone else.
 opened-stonecutter-other: "{prefix} Opened the stone cutter for {player}."
 
+# The message that is sent when opening the smithing table.
+opened-smithing-table: "{prefix} Opened the smithing table."
+
+# The message that is sent when opening the smithing table for someone else.
+opened-smithing-table-other: "{prefix} Opened the smithing table for {player}."
+
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                       Sign Messages                                   #
 #                                                                                       #
 # ------------------------------------------------------------------------------------- #
 
+# This is what is sent to the player if they try to break without shift clicking.
 shift-click-to-break-sign: "{prefix}&c You must shift left-click to break this sign."
 
 # This is what the sign text will turn to when creating the anvil sign.
@@ -190,7 +197,8 @@ loom-sign: "&3[Loom]"
 # This is what the sign text will turn to when creating the stonecutter sign.
 stonecutter-sign: "&3[Stonecutter]"
 
-# This is what is sent to the player if they try to break
+# This is what the sign text will turn to when creating the smithing table sign.
+smithing-sign: "&3[Smithing Table]"
 
 # This is what is sent to the player to confirm the creation of the anvil sign.
 anvil-sign-created: "{prefix} You've created an anvil sign."
@@ -215,3 +223,6 @@ loom-sign-created: "{prefix} You've created a loom sign."
 
 # This is what is sent to the player to confirm the creation of the stonecutter sign.
 stonecutter-sign-created: "{prefix} You've created a stonecutter sign."
+
+# This is what is sent to the player to confirm the creation of the smithing table sign.
+smithing-sign-created: "{prefix} You've created a smithing table sign."

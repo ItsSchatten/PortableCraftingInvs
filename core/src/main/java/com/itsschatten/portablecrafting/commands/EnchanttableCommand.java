@@ -32,7 +32,7 @@ public class EnchanttableCommand extends UniversalCommand {
         super("enchanttable"); // Command
 
         setAliases(Arrays.asList("enchtable", "ectable", "enchantmenttable"));
-        setPermission(Permissions.ENCHANT_TABLE.getPermission());
+        setPermission(Settings.USE_PERMISSIONS ? Permissions.ENCHANT_TABLE.getPermission() : "");
         setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.ENCHANT_TABLE.getPermission()));
     }
 
@@ -63,7 +63,7 @@ public class EnchanttableCommand extends UniversalCommand {
 
         final Player player = (Player) sender;
 
-        checkPerms(player, Permissions.ENCHANT_TABLE); // Check perms.
+        if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ENCHANT_TABLE); // Check perms.
 
         if (args.length == 0) {
 
@@ -80,7 +80,7 @@ public class EnchanttableCommand extends UniversalCommand {
         if (args.length == 1) {
 
             if (NumberUtils.isNumber(args[0])) {
-                checkPerms(player, Permissions.ENCHANT_USE_MAX_LEVEL);
+                if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ENCHANT_USE_MAX_LEVEL);
                 if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
                     player.playSound(player.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
                     Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + player.getName());
@@ -97,7 +97,7 @@ public class EnchanttableCommand extends UniversalCommand {
                 return;
             }
 
-            checkPerms(player, Permissions.ENCHANT_TABLE_OTHER); // Check perms.
+            if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ENCHANT_TABLE_OTHER); // Check perms.
             Player target = Bukkit.getPlayer(args[0]); // Set target
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0])); // Make sure target isn't null.
             if (Settings.USE_ENCHANT_TABLE_SOUNDS) {

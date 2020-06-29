@@ -14,6 +14,7 @@ public class Settings extends SimpleConfig {
 
     public static boolean
             DEBUG,
+            USE_PERMISSIONS,
             USE_UPDATER,
             USE_METRICS,
             USE_TOO_MANY_ARGS,
@@ -32,6 +33,7 @@ public class Settings extends SimpleConfig {
             USE_LOOM,
             USE_CARTOGRAPHY,
             USE_STONE_CUTTER,
+            USE_SMITHING_TABLE,
 
     USE_ANVIL_SOUNDS,
             USE_CRAFTING_SOUNDS,
@@ -40,7 +42,18 @@ public class Settings extends SimpleConfig {
             USE_GRINDSTONE_SOUNDS,
             USE_LOOM_SOUNDS,
             USE_CARTOGRAPHY_SOUNDS,
-            USE_STONE_CUTTER_SOUNDS;
+            USE_STONE_CUTTER_SOUNDS,
+            USE_SMITHING_TABLE_SOUNDS,
+
+    USE_ANVIL_SIGN,
+            USE_CARTOGRAPHY_SIGN,
+            USE_CRAFTING_SIGN,
+            USE_ENDERCHEST_SIGN,
+            USE_ENCHANT_TABLE_SIGN,
+            USE_GRINDSTONE_SIGN,
+            USE_LOOM_SIGN,
+            USE_STONE_CUTTER_SIGN,
+            USE_SMITHING_SIGN;
 
     public static String
             ENDER_CHEST_OPEN_SOUND,
@@ -50,7 +63,8 @@ public class Settings extends SimpleConfig {
             GRINDSTONE_OPEN_SOUND,
             LOOM_OPEN_SOUND,
             CARTOGRAPHY_OPEN_SOUND,
-            STONE_CUTTER_OPEN_SOUND;
+            STONE_CUTTER_OPEN_SOUND,
+            SMITHING_TABLE_OPEN_SOUND;
 
     public static int ENCHANT_MAX_LEVEL;
 
@@ -84,8 +98,8 @@ public class Settings extends SimpleConfig {
     private void onLoad() {
         /* Features */
         DEBUG = (boolean) get("debug");
-        USE_SIGNS = (boolean) get("use-signs");
-        REQUIRE_SIGHT_CLICK_BREAK_SIGN = (boolean) get("require-shift-click-to-break-signs");
+        USE_PERMISSIONS = (boolean) get("use-permissions");
+
         USE_TOO_MANY_ARGS = (boolean) get("use-too-many-args");
         USE_HELP_IF_WRONG_ARGS = (boolean) get("use-help-if-no-args");
         USE_UPDATER = (boolean) get("use-updater");
@@ -101,6 +115,7 @@ public class Settings extends SimpleConfig {
         USE_LOOM = (boolean) get("use-loom");
         USE_CARTOGRAPHY = (boolean) get("use-cartography");
         USE_STONE_CUTTER = (boolean) get("use-stonecutter");
+        USE_SMITHING_TABLE = (boolean) get("use-smithing-table");
 
         /* Sound Booleans */
         USE_ANVIL_SOUNDS = (boolean) get("use-anvil-sounds");
@@ -111,6 +126,7 @@ public class Settings extends SimpleConfig {
         USE_LOOM_SOUNDS = (boolean) get("use-loom-sounds");
         USE_CARTOGRAPHY_SOUNDS = (boolean) get("use-cartography-sounds");
         USE_STONE_CUTTER_SOUNDS = (boolean) get("use-stonecutter-sounds");
+        USE_SMITHING_TABLE_SOUNDS = (boolean) get("use-smithing-table-sounds");
 
         /* Sounds */
         ENDER_CHEST_OPEN_SOUND = getString("enderchest-open-sound");
@@ -121,9 +137,23 @@ public class Settings extends SimpleConfig {
         LOOM_OPEN_SOUND = getString("loom-open-sound");
         CARTOGRAPHY_OPEN_SOUND = getString("cartography-open-sound");
         STONE_CUTTER_OPEN_SOUND = getString("stonecutter-open-sound");
+        SMITHING_TABLE_OPEN_SOUND = getString("smithing-open-sound");
 
         USE_RANDOM_SOUND_PITCH = (boolean) get("use-random-sound-pitch");
 
+        /* Sign Stuff*/
+        USE_SIGNS = (boolean) get("use-signs");
+        REQUIRE_SIGHT_CLICK_BREAK_SIGN = (boolean) get("require-shift-click-to-break-signs");
+
+        USE_ANVIL_SIGN = (boolean) get("use-anvil-sign");
+        USE_CARTOGRAPHY_SIGN = (boolean) get("use-cartography-sign");
+        USE_CRAFTING_SIGN = (boolean) get("use-crafting-sign");
+        USE_ENDERCHEST_SIGN = (boolean) get("use-enderchest-sign");
+        USE_ENCHANT_TABLE_SIGN = (boolean) getBoolean("use-enchanttable-sign");
+        USE_GRINDSTONE_SIGN = (boolean) get("use-grindstone-sign");
+        USE_LOOM_SIGN = (boolean) get("use-loom-sign");
+        USE_STONE_CUTTER_SIGN = (boolean) get("use-stonecutter-sign");
+        USE_SMITHING_SIGN = (boolean) get("use-smithingtable-sign");
     }
 
     public void reload() {

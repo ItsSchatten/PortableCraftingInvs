@@ -6,6 +6,13 @@ import com.itsschatten.libs.interfaces.IPermissions;
  * A utility class that I can use to specify permissions, so I don't have to constantly rewrite them.
  */
 public enum Permissions implements IPermissions {
+    EMPTY {
+        @Override
+        public String getPermission() {
+            return "";
+        }
+    },
+
     ANVIL {
         @Override
         public String getPermission() {
@@ -111,6 +118,20 @@ public enum Permissions implements IPermissions {
         }
     },
 
+    SMITHING_TABLE {
+        @Override
+        public String getPermission() {
+            return "pci.smithingtable";
+        }
+    },
+
+    SMITHING_TABLE_OTHER {
+        @Override
+        public String getPermission() {
+            return "pci.smithingtable.other";
+        }
+    },
+
     STONE_CUTTER {
         @Override
         public String getPermission() {
@@ -167,6 +188,13 @@ public enum Permissions implements IPermissions {
         }
     },
 
+    SIGN_CREATE_SMITHING {
+        @Override
+        public String getPermission() {
+            return "pci.sign.smithing";
+        }
+    },
+
     SIGN_CREATE_GRINDSTONE {
         @Override
         public String getPermission() {
@@ -199,6 +227,13 @@ public enum Permissions implements IPermissions {
         @Override
         public String getPermission() {
             return "pci.sign.cartography.use";
+        }
+    },
+
+    USE_SIGN_SMITHING {
+        @Override
+        public String getPermission() {
+            return "pci.sign.smithing.use";
         }
     },
 

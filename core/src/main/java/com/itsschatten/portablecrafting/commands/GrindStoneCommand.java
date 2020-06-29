@@ -22,7 +22,7 @@ public class GrindStoneCommand extends UniversalCommand {
         super("grindstone");
 
         setAliases(Arrays.asList("grstone", "gstone"));
-        setPermission(Permissions.GRINDSTONE.getPermission());
+        setPermission(Settings.USE_PERMISSIONS ? Permissions.GRINDSTONE.getPermission() : "");
         setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.GRINDSTONE.getPermission()));
     }
 
@@ -48,10 +48,11 @@ public class GrindStoneCommand extends UniversalCommand {
             Utils.debugLog("Opened the grindstone for " + target.getName());
             tellTarget(target, Messages.OPENED_GRINDSTONE);
             returnTell(Messages.OPENED_GRINDSTONE_OTHER.replace("{target}", target.getName()));
+            return;
         }
 
         final Player player = (Player) commandSender;
-        checkPerms(player, Permissions.GRINDSTONE);
+        if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.GRINDSTONE );
 
         if (args.length == 0) {
 
@@ -67,7 +68,7 @@ public class GrindStoneCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Permissions.GRINDSTONE_OTHER);
+            if (Settings.USE_PERMISSIONS)            checkPerms(player, Permissions.GRINDSTONE_OTHER);
 
             Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{target}", args[0]));

@@ -15,6 +15,8 @@ public interface FakeContainers {
 
     void openStoneCutter(Player player);
 
+    void openSmithing(Player player);
+
     void openEnchant(Player player);
 
     void openEnchant(Player player, int maxLvl);

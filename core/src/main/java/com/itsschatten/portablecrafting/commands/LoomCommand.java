@@ -16,7 +16,7 @@ public class LoomCommand extends UniversalCommand {
     public LoomCommand() {
         super("loom");
 
-        setPermission(Permissions.LOOM.getPermission());
+        setPermission(Settings.USE_PERMISSIONS ? Permissions.LOOM.getPermission() : "");
         setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.LOOM.getPermission()));
     }
 
@@ -44,7 +44,7 @@ public class LoomCommand extends UniversalCommand {
         }
 
         final Player player = (Player) commandSender;
-        checkPerms(player, Permissions.LOOM);
+        if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.LOOM);
 
         if (args.length == 0) {
             if (Settings.USE_LOOM_SOUNDS) {
@@ -60,7 +60,7 @@ public class LoomCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Permissions.LOOM_OTHER);
+            if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.LOOM_OTHER);
 
             Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));

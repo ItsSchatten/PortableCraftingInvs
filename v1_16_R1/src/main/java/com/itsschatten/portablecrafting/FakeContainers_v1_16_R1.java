@@ -151,7 +151,28 @@ public class FakeContainers_v1_16_R1 implements FakeContainers {
         ePlayer.activeContainer = fakeEnchant;
     }
 
-    public static class FakeGrindstone extends ContainerGrindstone {
+    @Override
+    public void openSmithing(Player player) {
+        try {
+            EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+            int containerID = ePlayer.nextContainerCounter();
+            FakeSmithing fakeSmithing = new FakeSmithing(containerID, player);
+
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.SMITHING, fakeSmithing.getTitle()));
+
+            ePlayer.activeContainer = fakeSmithing;
+            ePlayer.activeContainer.addSlotListener(ePlayer);
+            ePlayer.activeContainer = fakeSmithing;
+        } catch (UnsupportedOperationException ex) {
+            // Logging this error normally spams console
+            Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
+            Utils.debugLog(debug, ex.getMessage());
+            player.sendMessage("An error occurred, please contact an administrator.");
+
+        }
+    }
+
+    private static class FakeGrindstone extends ContainerGrindstone {
 
         public FakeGrindstone(final int containerId, final Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
@@ -160,7 +181,7 @@ public class FakeContainers_v1_16_R1 implements FakeContainers {
         }
     }
 
-    public static class FakeCartography extends ContainerCartography {
+    private static class FakeCartography extends ContainerCartography {
 
         public FakeCartography(final int containerId, final Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
@@ -169,7 +190,7 @@ public class FakeContainers_v1_16_R1 implements FakeContainers {
         }
     }
 
-    public static class FakeLoom extends ContainerLoom {
+    private static class FakeLoom extends ContainerLoom {
 
         public FakeLoom(final int containerId, final Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
@@ -178,7 +199,7 @@ public class FakeContainers_v1_16_R1 implements FakeContainers {
         }
     }
 
-    public static class FakeStoneCutter extends ContainerStonecutter {
+    private static class FakeStoneCutter extends ContainerStonecutter {
 
         public FakeStoneCutter(final int containerId, final Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
@@ -187,7 +208,7 @@ public class FakeContainers_v1_16_R1 implements FakeContainers {
         }
     }
 
-    public static class FakeAnvil extends ContainerAnvil {
+    private static class FakeAnvil extends ContainerAnvil {
 
         public FakeAnvil(final int containerID, final Player player) {
             super(containerID, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
@@ -197,7 +218,17 @@ public class FakeContainers_v1_16_R1 implements FakeContainers {
 
     }
 
-    public static class FakeEnchant extends ContainerEnchantTable {
+    private static class FakeSmithing extends ContainerSmithing {
+
+        public FakeSmithing(final int containerID, final Player player) {
+            super(containerID, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
+            this.setTitle(new ChatMessage("Upgrade Gear"));
+        }
+
+    }
+
+    private static class FakeEnchant extends ContainerEnchantTable {
         @Getter
         private static final Map<UUID, FakeEnchant> openEnchantTables = new HashMap<>();
         public int maxLevel;

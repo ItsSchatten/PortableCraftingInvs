@@ -16,9 +16,8 @@ public class StoneCutterCommand extends UniversalCommand {
     public StoneCutterCommand() {
         super("stonecutter");
 
-        setPermission(Permissions.STONE_CUTTER.getPermission());
+        setPermission(Settings.USE_PERMISSIONS ? Permissions.STONE_CUTTER.getPermission() : "");
         setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.STONE_CUTTER.getPermission()));
-
     }
 
     @Override
@@ -45,7 +44,7 @@ public class StoneCutterCommand extends UniversalCommand {
         }
 
         final Player player = (Player) commandSender;
-        checkPerms(player, Permissions.STONE_CUTTER);
+        if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.STONE_CUTTER);
 
         if (args.length == 0) {
             if (Settings.USE_STONE_CUTTER_SOUNDS) {
@@ -61,7 +60,7 @@ public class StoneCutterCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Permissions.STONE_CUTTER_OTHER);
+            if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.STONE_CUTTER_OTHER);
 
             Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));

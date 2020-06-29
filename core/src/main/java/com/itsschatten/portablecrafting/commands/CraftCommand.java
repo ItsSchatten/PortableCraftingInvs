@@ -28,7 +28,7 @@ public class CraftCommand extends UniversalCommand {
         setInstance(this);
 
         setAliases(Arrays.asList("crafting", "craftingtable", "workbench"));
-        setPermission(Permissions.CRAFTING.getPermission());
+        setPermission(Settings.USE_PERMISSIONS ? Permissions.CRAFTING.getPermission() : "");
         setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.CRAFTING.getPermission()));
     }
 
@@ -62,7 +62,7 @@ public class CraftCommand extends UniversalCommand {
 
         final Player player = (Player) sender;
 
-        checkPerms(player, Permissions.CRAFTING); // Check for permission again.
+        if (Settings.USE_PERMISSIONS)checkPerms(player, Permissions.CRAFTING); // Check for permission again.
 
         if (args.length == 0) { // If no arguments, open a crafting table for the sender.
             if (Settings.USE_CRAFTING_SOUNDS) {
@@ -77,7 +77,8 @@ public class CraftCommand extends UniversalCommand {
         }
 
         if (args.length == 1) {
-            checkPerms(player, Permissions.CRAFTING_OTHER); // Check if the sender of the command has permission to run it as other.
+            if (Settings.USE_PERMISSIONS)
+                checkPerms(player, Permissions.CRAFTING_OTHER); // Check if the sender of the command has permission to run it as other.
             Player target = Bukkit.getPlayer(args[0]); // Sets the target.
 
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0])); // Make sure the player isn't null.

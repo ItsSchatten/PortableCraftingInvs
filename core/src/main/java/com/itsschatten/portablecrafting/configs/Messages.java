@@ -42,6 +42,8 @@ public class Messages extends SimpleConfig {
             OPENED_CARTOGRAPHY_OTHER,
             OPENED_STONE_CUTTER,
             OPENED_STONE_CUTTER_OTHER,
+            OPENED_SMITHING_TABLE,
+            OPENED_SMITHING_TABLE_OTHER,
             CANT_RETRIEVE_ITEM_FROM_ENDER,
             MUST_SHIFT_CLICK_TO_BREAK_SIGN,
     // Sign Messages
@@ -54,6 +56,7 @@ public class Messages extends SimpleConfig {
             GRINDSTONE_SIGN,
             LOOM_SIGN,
             STONE_CUTTER_SIGN,
+            SMITHING_TABLE_SIGN,
             ANVIL_SIGN_CREATED,
             CARTOGRAPHY_SIGN_CREATED,
             CRAFTING_SIGN_CREATED,
@@ -61,7 +64,8 @@ public class Messages extends SimpleConfig {
             ENDERCHEST_SIGN_CREATED,
             GRINDSTONE_SIGN_CREATED,
             LOOM_SIGN_CREATED,
-            STONE_CUTTER_SIGN_CREATED;
+            STONE_CUTTER_SIGN_CREATED,
+            SMITHING_TABLE_SIGN_CREATED;
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
     private static Messages instance;
@@ -139,6 +143,9 @@ public class Messages extends SimpleConfig {
         OPENED_STONE_CUTTER = getString("opened-stonecutter");
         OPENED_STONE_CUTTER_OTHER = getString("opened-stonecutter-other");
 
+        OPENED_SMITHING_TABLE = getString("opened-smithing-table");
+        OPENED_SMITHING_TABLE_OTHER = getString("opened-smithing-table-other");
+
         // Sign messages
         MUST_SHIFT_CLICK_TO_BREAK_SIGN = getString("shift-click-to-break-sign");
 
@@ -150,6 +157,7 @@ public class Messages extends SimpleConfig {
         GRINDSTONE_SIGN = getString("grindstone-sign");
         LOOM_SIGN = getString("loom-sign");
         STONE_CUTTER_SIGN = getString("stonecutter-sign");
+        SMITHING_TABLE_SIGN = getString("smithing-sign");
 
         ANVIL_SIGN_CREATED = getString("anvil-sign-created");
         CARTOGRAPHY_SIGN_CREATED = getString("cartography-sign-created");
@@ -159,7 +167,7 @@ public class Messages extends SimpleConfig {
         GRINDSTONE_SIGN_CREATED = getString("grindstone-sign-created");
         LOOM_SIGN_CREATED = getString("loom-sign-created");
         STONE_CUTTER_SIGN_CREATED = getString("stonecutter-sign-created");
-
+        SMITHING_TABLE_SIGN_CREATED = getString("smithing-sign-created");
     }
 
     public void reload() {
