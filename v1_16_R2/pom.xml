@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>PortableCraftingInvs-v1_16_R1</artifactId>
-    <version>1.2.3</version>
     <groupId>com.itsschatten.portablecrafting</groupId>
+    <artifactId>PortableCraftingInvs-v1_16_R2</artifactId>
+    <version>1.2.3</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.16.1-R0.1-SNAPSHOT</version>
+            <version>1.16.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -53,5 +53,5 @@
             <url>https://itsschatten.com/repositories/repos/shadowlibs/</url>
         </repository>
     </repositories>
-    
+
 </project>

@@ -38,17 +38,22 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         String ver = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
         switch (ver) {
+            case "v1_16_R2": {
+                fakeContainers = new FakeContainers_v1_16_R2(this);
+                break;
+            }
+
             case "v1_16_R1": {
-                fakeContainers = new FakeContainers_v1_16_R1();
+                fakeContainers = new FakeContainers_v1_16_R1(this);
                 break;
             }
 
             case "v1_15_R1": {
-                fakeContainers = new FakeContainers_v1_15_R1();
+                fakeContainers = new FakeContainers_v1_15_R1(this);
                 break;
             }
             default: {
-                Utils.log("&4&l! Attention ! &cThis version of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
+                Utils.log("&4&l! Attention ! &cVersion " + ver + " of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
                 Bukkit.getPluginManager().disablePlugin(this);
                 return;
             }
@@ -66,7 +71,8 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 "&b|_|     \\_____|_____|",
                 "",
                 "&7Developed by " + String.join(",", pdf.getAuthors()),
-                "&7Version " + pdf.getVersion());
+                "&7Version " + pdf.getVersion(),
+                "&7Using Minecraft version " + ver);
 
         // Register configs.
         Settings.init();

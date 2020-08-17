@@ -20,4 +20,8 @@ public interface FakeContainers {
     void openEnchant(Player player);
 
     void openEnchant(Player player, int maxLvl);
+
+    void openFurnace(Player player);
+    void openBlastFurnace(Player player);
+    void openSmoker(Player player);
 }

@@ -9,6 +9,9 @@ import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,6 +48,13 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
 
             case "ver":
             case "version": {
+
+                /*Inventory inv = Bukkit.createInventory((Player) commandSender, InventoryType.FURNACE);
+
+                ((Player) commandSender).openInventory(inv);
+*/
+                PortableCraftingInvsPlugin.getFakeContainers().openFurnace(((Player)commandSender));
+
                 returnTell("&fThe plugin version is " + Utils.getInstance().getDescription().getVersion());
                 break;
             }

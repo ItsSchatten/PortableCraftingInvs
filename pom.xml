@@ -6,7 +6,7 @@
 
     <groupId>com.itsschatten.portablecrafting</groupId>
     <artifactId>PortableCraftingInvs-parent</artifactId>
-    <version>1.2.3</version>
+    <version>1.2.4</version>
     <description>Open crafting inventories, such as anvils, crafting table, enchant tables, etc..</description>
     <packaging>pom</packaging>
 
@@ -23,6 +23,7 @@
         <module>Interface</module>
         <module>v1_15_R1</module>
         <module>v1_16_R1</module>
+        <module>v1_16_R2</module>
     </modules>
 
     <repositories>
@@ -38,26 +39,37 @@
 
     <dependencies>
 
+        <!-- Our Dependencies START -->
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R1</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.itsschatten.portablecrafting</groupId>
+            <artifactId>PortableCraftingInvs-v1_16_R2</artifactId>
+            <version>1.2.3</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_15_R1</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.3</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-Interface</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.1</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- Our Dependencies END -->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.itsschatten.portablecrafting</groupId>
-    <version>1.2.0</version>
+    <version>1.2.3</version>
     <artifactId>PortableCraftingInvs-v1_15_R1</artifactId>
     <packaging>jar</packaging>
 
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-Interface</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.1</version>
         </dependency>
     </dependencies>
 
