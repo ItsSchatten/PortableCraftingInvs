@@ -1,26 +1,31 @@
 package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.Utils;
+import com.itsschatten.libs.configutils.PlayerConfigManager;
+import com.shanebeestudios.vf.api.FurnaceManager;
+import com.shanebeestudios.vf.api.VirtualFurnaceAPI;
+import com.shanebeestudios.vf.api.machine.Furnace;
+import com.shanebeestudios.vf.api.property.FurnaceProperties;
 import net.minecraft.server.v1_15_R1.*;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class FakeContainers_v1_15_R1 implements FakeContainers {
-    final Map<UUID, FakeFurnace> furnaces;
-    final Map<UUID, FakeFurnace> blastFurnaces;
-    final Map<UUID, FakeFurnace> smokers;
     boolean debug;
 
-    public FakeContainers_v1_15_R1(Plugin plugin) {
-        this.furnaces = new HashMap<>();
-        this.blastFurnaces = new HashMap<>();
-        this.smokers = new HashMap<>();
+    private final FurnaceManager manager;
+
+    public FakeContainers_v1_15_R1(JavaPlugin plugin) {
+        VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true);
+        manager = furnaceAPI.getFurnaceManager();
     }
 
     @Override
@@ -164,19 +169,60 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
         ePlayer.activeContainer = fakeEnchant;
     }
 
+
     @Override
     public void openFurnace(Player player) {
+        if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
+            FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
 
+            if (playerConfig.get("furnaces.furnace") == null) {
+                Furnace furnace = manager.createFurnace("Furnace");
+                furnace.openInventory(player);
+
+                playerConfig.set("furnaces.furnace", furnace.getUniqueID().toString());
+                PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
+            } else {
+                Furnace furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.furnace")));
+                furnace.openInventory(player);
+            }
+        }
     }
 
     @Override
     public void openBlastFurnace(Player player) {
+        if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
+            FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
 
+            if (playerConfig.get("furnaces.blast-furnace") == null) {
+                Furnace blastFurnace = manager.createFurnace("Blast Furnace", FurnaceProperties.BLAST_FURNACE);
+                blastFurnace.openInventory(player);
+
+                playerConfig.set("furnaces.blast-furnace", blastFurnace.getUniqueID().toString());
+                PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
+            } else {
+                Furnace blastFurnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.blast-furnace")));
+                blastFurnace.openInventory(player);
+            }
+        }
     }
 
     @Override
     public void openSmoker(Player player) {
+        if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
+            FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
 
+            if (playerConfig.get("furnaces.smoker") == null) {
+                Furnace smoker = manager.createFurnace("Smoker", FurnaceProperties.SMOKER);
+                smoker.openInventory(player);
+
+                playerConfig.set("furnaces.smoker", smoker.getUniqueID().toString());
+                PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
+            } else {
+                Furnace blastFurnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.smoker")));
+                blastFurnace.openInventory(player);
+            }
+
+        }
     }
 
     private static class FakeGrindstone extends ContainerGrindstone {

@@ -19,13 +19,13 @@ public class SmithingCommand extends UniversalCommand {
         super("smithing");
 
         setPermission(Settings.USE_PERMISSIONS ? Permissions.SMITHING_TABLE.getPermission() : "");
-        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.LOOM.getPermission()));
+        setPermissionMessage(Utils.getNoPermsMessage().replace("{prefix}", Messages.PREFIX).replace("{permission}", Permissions.SMITHING_TABLE.getPermission()));
         setAliases(Arrays.asList("smithing-table", "smithingtable"));
-
     }
 
     @Override
     protected void run(CommandSender commandSender, String[] args) {
+        if (!PortableCraftingInvsPlugin.getServerVersion().equals("v1_15_R1")) returnTell(Messages.CANT_USE_SMITHING_IN_1_15);
         if (!Settings.USE_SMITHING_TABLE) returnTell(Messages.FEATURE_DISABLED);
 
         final String smithingTableOpen = Settings.SMITHING_TABLE_OPEN_SOUND;

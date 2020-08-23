@@ -1,4 +1,4 @@
-# This config file only contains block data for the signs for the plugin. DO NOT TOUCH THE SIGN AMOUNT!
+# This config file only contains block data for the signs for the plugin. DO NOT TOUCH THE SIGN AMOUNT IT WILL BREAK THE PLUGIN!
 sign-amount: 0
 
 signs: []

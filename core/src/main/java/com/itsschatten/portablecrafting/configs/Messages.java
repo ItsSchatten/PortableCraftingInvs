@@ -46,6 +46,15 @@ public class Messages extends SimpleConfig {
             OPENED_SMITHING_TABLE_OTHER,
             CANT_RETRIEVE_ITEM_FROM_ENDER,
             MUST_SHIFT_CLICK_TO_BREAK_SIGN,
+            CANT_USE_SMITHING_IN_1_15,
+
+    OPENED_FURNACE,
+            OPENED_FURNACE_OTHER,
+            OPENED_BLAST_FURNACE,
+            OPENED_BLAST_FURNACE_OTHER,
+            OPENED_SMOKER,
+            OPENED_SMOKER_OTHER,
+
     // Sign Messages
 
     ANVIL_SIGN,
@@ -82,7 +91,7 @@ public class Messages extends SimpleConfig {
                 " please open " + fileName + " directly to browse the default values.",
                 " Don't know how to do this? You can also check our github",
                 " page for the default file.",
-                "(https://bitbucket.org/itsschatten/portablecraftinginvs/)",
+                "(https://github.com/itsschatten/portablecraftinginvs/)",
                 "--------------------------------------------------------"});
 
         setInstance(this);
@@ -107,7 +116,6 @@ public class Messages extends SimpleConfig {
         NOT_ENOUGH_ARGS = getString("not-enough-args");
         DOES_NOT_EXIST = getString("doesnt-exist");
 
-
         PLAYER_DOES_NOT_EXIST = getString("player-doesnt-exist");
 
         FEATURE_DISABLED = getString("feature-disabled");
@@ -125,8 +133,15 @@ public class Messages extends SimpleConfig {
         MUST_BE_IN_RANGE = getString("must-be-in-range");
         OPENED_ENCHANT_WITH_MAX_LEVEL = getString("opened-enchanttable-with-max-level");
 
-        CANT_RETRIEVE_ITEM_FROM_ENDER = getString("cant-retrieve-from-enderchest");
+        OPENED_FURNACE = getString("opened-furnace");
+        OPENED_FURNACE_OTHER = getString("opened-furnace-other");
+        OPENED_BLAST_FURNACE = getString("opened-blast-furnace");
+        OPENED_BLAST_FURNACE_OTHER = getString("opened-blast-furnace-other");
+        OPENED_SMOKER = getString("opened-smoker");
+        OPENED_SMOKER_OTHER = getString("opened-smoker-other");
 
+        CANT_RETRIEVE_ITEM_FROM_ENDER = getString("cant-retrieve-from-enderchest");
+        CANT_USE_SMITHING_IN_1_15 = getString("cant-use-smithing-1-15");
 
         OPENED_CARTOGRAPHY = getString("opened-cartography");
         OPENED_CARTOGRAPHY_OTHER = getString("opened-cartography-other");

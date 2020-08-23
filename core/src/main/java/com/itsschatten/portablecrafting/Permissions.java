@@ -27,6 +27,34 @@ public enum Permissions implements IPermissions {
         }
     },
 
+    BLAST_FURNACE {
+        @Override
+        public String getPermission() {
+            return "pci.blast-furnace";
+        }
+    },
+
+    BLAST_FURNACE_OTHER {
+        @Override
+        public String getPermission() {
+            return "pci.blast-furnace.other";
+        }
+    },
+
+    CARTOGRAPHY {
+        @Override
+        public String getPermission() {
+            return "pci.cartography";
+        }
+    },
+
+    CARTOGRAPHY_OTHER {
+        @Override
+        public String getPermission() {
+            return "pci.cartography.other";
+        }
+    },
+
     CRAFTING {
         @Override
         public String getPermission() {
@@ -62,6 +90,7 @@ public enum Permissions implements IPermissions {
         }
     },
 
+
     ENDERCHEST {
         @Override
         public String getPermission() {
@@ -73,6 +102,20 @@ public enum Permissions implements IPermissions {
         @Override
         public String getPermission() {
             return "pci.enderchest.other";
+        }
+    },
+
+    FURNACE {
+        @Override
+        public String getPermission() {
+            return "pci.furnace";
+        }
+    },
+
+    FURNACE_OTHER {
+        @Override
+        public String getPermission() {
+            return "pci.furnace.other";
         }
     },
 
@@ -104,19 +147,6 @@ public enum Permissions implements IPermissions {
         }
     },
 
-    CARTOGRAPHY {
-        @Override
-        public String getPermission() {
-            return "pci.cartography";
-        }
-    },
-
-    CARTOGRAPHY_OTHER {
-        @Override
-        public String getPermission() {
-            return "pci.cartography.other";
-        }
-    },
 
     SMITHING_TABLE {
         @Override
@@ -129,6 +159,20 @@ public enum Permissions implements IPermissions {
         @Override
         public String getPermission() {
             return "pci.smithingtable.other";
+        }
+    },
+
+    SMOKER {
+        @Override
+        public String getPermission() {
+            return "pci.smoker";
+        }
+    },
+
+    SMOKER_OTHER {
+        @Override
+        public String getPermission() {
+            return "pci.smoker.other";
         }
     },
 

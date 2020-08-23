@@ -20,7 +20,7 @@
 # file to save your work and to keep the comments.
 #
 # If you have questions you can post an issue on BitBucket
-# (https://bitbucket.org/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
+# (https://github.com/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
 # see the code for the plugin.
 # You can also message me on Discord (Schatten#4113)
 
@@ -60,6 +60,9 @@ help-message: |+
 
 # The message that is sent if you disable a feature in the settings.yml.
 feature-disabled: "{prefix} That feature is disabled, sorry about that..."
+
+# Sent when someone tries to open the smithing table in 1.15.
+cant-use-smithing-1-15: "{prefix}&c You can't open the smithing table in 1.15"
 
 # The message that is sent to whomever reloaded the configs
 reload-message: "{prefix}&a The plugin has been reloaded."
@@ -163,6 +166,24 @@ opened-smithing-table: "{prefix} Opened the smithing table."
 
 # The message that is sent when opening the smithing table for someone else.
 opened-smithing-table-other: "{prefix} Opened the smithing table for {player}."
+
+# The message that is sent when opening the furnace.
+opened-furnace: "{prefix} Opened your virtual furnace."
+
+# The message that is sent when opening the furnace for someone else.
+opened-furnace-other: "{prefix} Opened virtual furnace for {player}."
+
+# The message that is sent when opening the blast furnace.
+opened-blast-furnace: "{prefix} Opened your virtual blast furnace."
+
+# The message that is sent when opening the blast furnace for someone else.
+opened-blast-furnace-other: "{prefix} Opened virtual blast furnace for {player}."
+
+# The message that is sent when opening the smoker.
+opened-smoker: "{prefix} Opened your virtual smoker."
+
+# The message that is sent when opening the smoker for someone else.
+opened-smoker-other: "{prefix} Opened virtual smoker for {player}."
 
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #

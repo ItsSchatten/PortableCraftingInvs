@@ -34,6 +34,7 @@ public class Settings extends SimpleConfig {
             USE_CARTOGRAPHY,
             USE_STONE_CUTTER,
             USE_SMITHING_TABLE,
+            USE_FURNACES,
 
     USE_ANVIL_SOUNDS,
             USE_CRAFTING_SOUNDS,
@@ -84,7 +85,7 @@ public class Settings extends SimpleConfig {
                 " please open " + fileName + " directly to browse the default values.",
                 " Don't know how to do this? You can also check our github",
                 " page for the default file.",
-                "(https://bitbucket.org/itsschatten/portablecraftinginvs/)",
+                "(https://github.com/itsschatten/portablecraftinginvs/)",
                 "--------------------------------------------------------"});
 
         setInstance(this);
@@ -99,6 +100,8 @@ public class Settings extends SimpleConfig {
         /* Features */
         DEBUG = (boolean) get("debug");
         USE_PERMISSIONS = (boolean) get("use-permissions");
+
+        USE_FURNACES = (boolean) get("use-furnaces");
 
         USE_TOO_MANY_ARGS = (boolean) get("use-too-many-args");
         USE_HELP_IF_WRONG_ARGS = (boolean) get("use-help-if-no-args");

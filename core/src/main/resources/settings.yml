@@ -14,7 +14,7 @@
 # This file can be used to enable or disable all parts of the plugin.
 #
 # If you have questions you can post an issue on BitBucket
-# (https://bitbucket.org/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
+# (https://github.com/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
 # see the code for the plugin.
 # You can also message me on Discord (Schatten#4113)
 #
@@ -54,6 +54,10 @@ use-anvil: true
 
 # Enable or disable the use of the /craft command.
 use-crafting: true
+
+# Enable or disable the use of /furnace, /blastfurnace, and /smoker
+# ATTENTION: At this moment this is simply laziness, I will add other options to control all furnace command separately.
+use-furnaces: true
 
 # Enable or disable the use of the /enchanttable command.
 use-enchanttable: true

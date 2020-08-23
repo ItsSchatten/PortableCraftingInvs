@@ -2,6 +2,7 @@ package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.UpdateNotifications;
 import com.itsschatten.libs.Utils;
+import com.itsschatten.libs.configutils.PlayerConfigManager;
 import com.itsschatten.portablecrafting.commands.*;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
@@ -10,6 +11,7 @@ import com.itsschatten.portablecrafting.listeners.EnchantmentListener;
 import com.itsschatten.portablecrafting.listeners.EnderchestListener;
 import com.itsschatten.portablecrafting.listeners.PlayerJoinListener;
 import com.itsschatten.portablecrafting.listeners.SignListener;
+import com.shanebeestudios.vf.api.VirtualFurnaceAPI;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,13 +33,17 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
     @Setter(value = AccessLevel.PRIVATE)
     private static PortableCraftingInvsPlugin instance; // The instance stuffs.
 
+    @Getter
+    private static String serverVersion;
+
     @Override
     public void onEnable() { // We all know what this does right? Right!?
         Utils.setInstance(this);
         setInstance(this);
 
-        String ver = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        switch (ver) {
+        serverVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+
+        switch (serverVersion) {
             case "v1_16_R2": {
                 fakeContainers = new FakeContainers_v1_16_R2(this);
                 break;
@@ -53,7 +59,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 break;
             }
             default: {
-                Utils.log("&4&l! Attention ! &cVersion " + ver + " of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
+                Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
                 Bukkit.getPluginManager().disablePlugin(this);
                 return;
             }
@@ -72,7 +78,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 "",
                 "&7Developed by " + String.join(",", pdf.getAuthors()),
                 "&7Version " + pdf.getVersion(),
-                "&7Using Minecraft version " + ver);
+                "&7Using Minecraft version " + serverVersion);
 
         // Register configs.
         Settings.init();
@@ -87,19 +93,12 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             new UpdateNotifications(61045) {
                 @Override
                 public void onUpdateAvailable() {
-                    if (Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_15_R1") || Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_16_R1")) {
-                        Utils.log("There is an update available for the plugin! Current Version " + pdf.getVersion() + " New Version " + getLatestVersion() + " {https://spigotmc.org/resources/" + getProjectId() + ")");
-                    } else {
-                        Utils.debugLog(Settings.DEBUG, "There is an update to the plugin available but the version is not the latest supported version. To ensure that we don't spam the user's console we won't send a message.");
-                        Utils.log("&4&l[WARNING]&c Hey! Just wanted to let you know that you are using an older version of the plugin on an unsupported version of Minecraft. If you don't wish to see this message you can disable update checking in the settings.yml.");
-                    }
+                    Utils.log("There is an update available for the plugin! Current Version " + pdf.getVersion() + " New Version " + getLatestVersion() + " {https://spigotmc.org/resources/" + getProjectId() + ")");
                 }
             }.runTaskAsynchronously(this);
 
-            if (Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_15_R1") || Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_16_R1")) {
-                new CheckForUpdate().runTaskTimerAsynchronously(this, 30 * 60 * 20, 30 * 60 * 20); // Wait 30 minutes and check for another update.
-                Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running.");
-            }
+            new CheckForUpdate().runTaskTimerAsynchronously(this, 30 * 60 * 20, 30 * 60 * 20); // Wait 30 minutes and check for another update.
+            Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running.");
         }
 
         if (Settings.USE_ENDERCHEST_RESTRICTION) {
@@ -114,12 +113,9 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         }
 
         // Register commands, and JoinListener.
-        registerCommands(new AnvilCommand(), new EnchanttableCommand(), new PortableCraftingInvsCommand(), new GrindStoneCommand(), new LoomCommand(), new StoneCutterCommand(), new CartographyCommand());
-
-
-        if (!ver.contains("1_15_R1")) {
-            registerCommand(new SmithingCommand());
-        }
+        registerCommands(new AnvilCommand(), new EnchanttableCommand(), new PortableCraftingInvsCommand(), new GrindStoneCommand(),
+                new LoomCommand(), new StoneCutterCommand(), new CartographyCommand(), new SmithingCommand(), new FurnaceCommand(),
+                new SmokerCommand(), new BlastFurnaceCommand());
 
         if (Bukkit.getPluginManager().isPluginEnabled("Essentials") && !Settings.USE_CRAFTING) {
             Utils.debugLog(Settings.DEBUG, "Crafting features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
@@ -144,6 +140,9 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() { // Remove the instance of the plugin, to help prevent memory leaks, and set it to null in the Utils so we can get a new instance of it when it's reloaded.
+        if (Settings.USE_FURNACES)
+            VirtualFurnaceAPI.getInstance().disableAPI();
+
         CraftCommand.setInstance(null);
         EnderChestCommand.setInstance(null);
         setInstance(null);
@@ -157,7 +156,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             Utils.debugLog(Settings.DEBUG, "&7Command " + command.getName() + " has been registered.");
         } catch (Exception ex) {
             ex.printStackTrace();
-            Utils.log("Some error occurred, please report this immediately to ItsSchatten on Spigot or BitBucket. \n(https://bitbucket.org/ItsSchatten/PortableCraftingInvs/issues)");
+            Utils.log("Some error occurred, please report this immediately to ItsSchatten on Spigot or Github. \n(https://github.com/ItsSchatten/PortableCraftingInvs/issues)");
         }
     }
 
@@ -170,7 +169,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            Utils.log("Some error occurred, please report this immediately to ItsSchatten on Spigot or BitBucket. \n(https://bitbucket.org/ItsSchatten/PortableCraftingInvs/issues)");
+            Utils.log("Some error occurred, please report this immediately to ItsSchatten on Spigot or Github. \n(https://github.com/ItsSchatten/PortableCraftingInvs/issues)");
         }
     }
 
@@ -184,6 +183,4 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             e.printStackTrace();
         }
     }
-
-
 }
