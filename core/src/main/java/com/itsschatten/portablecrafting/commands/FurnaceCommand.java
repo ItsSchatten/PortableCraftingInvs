@@ -25,7 +25,7 @@ public class FurnaceCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender commandSender, String[] args) {
-        if (!Settings.USE_FURNACES) returnTell(Messages.FEATURE_DISABLED);
+        if (!Settings.USE_FURNACE) returnTell(Messages.FEATURE_DISABLED);
 
         if (!(commandSender instanceof Player)) {
             checkArgs(1, Messages.NOT_ENOUGH_ARGS);

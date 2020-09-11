@@ -13,7 +13,7 @@
 #
 # This file can be used to enable or disable all parts of the plugin.
 #
-# If you have questions you can post an issue on BitBucket
+# If you have questions you can post an issue on Github
 # (https://github.com/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
 # see the code for the plugin.
 # You can also message me on Discord (Schatten#4113)
@@ -30,6 +30,9 @@ use-too-many-args: true
 # permissions (pci.update) and console will be notified. You can set a custom message
 # in the message.yml if you want.
 use-updater: true
+
+# Set the interval that we should check for updates, IN MINUTES. By default this is 30.
+update-check-interval: 30
 
 # If a user was to use the command /pci and not provide any arguments to the command,
 # we send the help message along with the wrong arguments message.
@@ -55,9 +58,14 @@ use-anvil: true
 # Enable or disable the use of the /craft command.
 use-crafting: true
 
-# Enable or disable the use of /furnace, /blastfurnace, and /smoker
-# ATTENTION: At this moment this is simply laziness, I will add other options to control all furnace command separately.
-use-furnaces: true
+# Enable or disable the use of the /furnace command.
+use-furnace: true
+
+# Enable or disable the use of the /blastfurnace command.
+use-blast-furnace: true
+
+# Enable or disable the use of the /smoker command.
+use-smoker: true
 
 # Enable or disable the use of the /enchanttable command.
 use-enchanttable: true
@@ -73,6 +81,10 @@ use-enderchest: true
 
 # Should we only allow players to deposit items into their enderchest when using the command?
 ender-chest-restrictions: false
+
+# Enable or disable the old function of the /enderchest command, when true the executor of the command will open the
+# target's enderchest, when false the enderchest will open for the target of the command.
+old-enderchest: false
 
 # Enable or disable the use of the /grindstone command.
 use-grindstone: true

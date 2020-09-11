@@ -25,6 +25,7 @@ public class Settings extends SimpleConfig {
 
     USE_ENDERCHEST,
             USE_ENDERCHEST_RESTRICTION,
+            USE_OLD_ENDERCHEST,
             USE_ENCHANT_TABLE,
             USE_ENCHANT_MAX_LEVEL_ARGUMENT,
             USE_CRAFTING,
@@ -34,7 +35,9 @@ public class Settings extends SimpleConfig {
             USE_CARTOGRAPHY,
             USE_STONE_CUTTER,
             USE_SMITHING_TABLE,
-            USE_FURNACES,
+            USE_FURNACE,
+            USE_BLAST_FURNACE,
+            USE_SMOKER,
 
     USE_ANVIL_SOUNDS,
             USE_CRAFTING_SOUNDS,
@@ -55,6 +58,8 @@ public class Settings extends SimpleConfig {
             USE_LOOM_SIGN,
             USE_STONE_CUTTER_SIGN,
             USE_SMITHING_SIGN;
+
+    public static int CHECK_UPDATE_INTERVAL;
 
     public static String
             ENDER_CHEST_OPEN_SOUND,
@@ -101,7 +106,11 @@ public class Settings extends SimpleConfig {
         DEBUG = (boolean) get("debug");
         USE_PERMISSIONS = (boolean) get("use-permissions");
 
-        USE_FURNACES = (boolean) get("use-furnaces");
+        USE_FURNACE = (boolean) get("use-furnace");
+        USE_BLAST_FURNACE = (boolean) get("use-blast-furnace");
+        USE_SMOKER = (boolean) get("use-smoker");
+
+        CHECK_UPDATE_INTERVAL = getInt("update-check-interval");
 
         USE_TOO_MANY_ARGS = (boolean) get("use-too-many-args");
         USE_HELP_IF_WRONG_ARGS = (boolean) get("use-help-if-no-args");
@@ -109,6 +118,7 @@ public class Settings extends SimpleConfig {
         USE_METRICS = (boolean) get("metrics");
         USE_CRAFTING = (boolean) get("use-crafting");
         USE_ENDERCHEST = (boolean) get("use-enderchest");
+        USE_OLD_ENDERCHEST = (boolean) get("old-enderchest");
         USE_ENCHANT_TABLE = (boolean) get("use-enchanttable");
         USE_ENCHANT_MAX_LEVEL_ARGUMENT = (boolean) get("allow-max-level-argument");
         ENCHANT_MAX_LEVEL = getInt("maximum-enchant-level");

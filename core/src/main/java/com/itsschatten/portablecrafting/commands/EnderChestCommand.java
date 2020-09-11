@@ -24,11 +24,10 @@ import java.util.UUID;
 public class EnderChestCommand extends UniversalCommand {
 
     @Getter
+    private static final Set<UUID> players = new HashSet<>();
+    @Getter
     @Setter
     static EnderChestCommand instance = null;
-
-    @Getter
-    private static Set<UUID> players = new HashSet<>();
 
     public EnderChestCommand() {
         super("enderchest");
@@ -71,7 +70,7 @@ public class EnderChestCommand extends UniversalCommand {
 
         final Player player = (Player) sender;
 
-        if (Settings.USE_PERMISSIONS)  checkPerms(player, Permissions.ENDERCHEST); // Perms.
+        if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ENDERCHEST); // Perms.
 
         if (args.length == 0) {
             Inventory eChest = player.getEnderChest(); // Get the players enderchest inventory.
@@ -100,16 +99,29 @@ public class EnderChestCommand extends UniversalCommand {
 
             Inventory targetEChest = target.getEnderChest();
 
-            player.openInventory(targetEChest);
-            Utils.debugLog(Settings.DEBUG, "Opening " + target.getName() + " enderchest for " + player.getName());
+            if (Settings.USE_ENDERCHEST_RESTRICTION) {
+                players.add(target.getUniqueId());
+            }
+
+            if (Settings.USE_OLD_ENDERCHEST) {
+                player.openInventory(targetEChest);
+                Utils.debugLog(Settings.DEBUG, "Opening " + target.getName() + " enderchest for " + player.getName());
+
+                if (Settings.USE_ENDERCHEST_SOUNDS) {
+                    player.playSound(player.getLocation(), Sound.valueOf(sound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + sound + " to " + player.getName());
+                }
+
+                returnTell(Messages.OPEN_TARGET_ENDERCHEST_OLD.replace("{player}", target.getName()).replace("{playerFormatted}",
+                        target.getName().endsWith("s") ? target.getName() + "'" : target.getName() + "'s"));
+            }
+
+            target.openInventory(targetEChest);
+            Utils.debugLog(Settings.DEBUG, "Opening " + target.getName() + " enderchest for " + target.getName());
 
             if (Settings.USE_ENDERCHEST_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
                 Utils.debugLog(Settings.DEBUG, "Playing sound " + sound + " to " + player.getName());
-            }
-
-            if (Settings.USE_ENDERCHEST_RESTRICTION) {
-                players.add(target.getUniqueId());
             }
 
             returnTell(Messages.OPEN_TARGET_ENDERCHEST.replace("{player}", target.getName()).replace("{playerFormatted}",

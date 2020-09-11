@@ -25,6 +25,7 @@ public class Messages extends SimpleConfig {
             PLAYER_DOES_NOT_EXIST,
             UPDATE_AVAILABLE_MESSAGE,
             OPENED_ENDERCHEST,
+            OPEN_TARGET_ENDERCHEST_OLD,
             OPEN_TARGET_ENDERCHEST,
             OPENED_CRAFTING,
             OPENED_CRAFTING_OTHER,
@@ -123,6 +124,7 @@ public class Messages extends SimpleConfig {
         UPDATE_AVAILABLE_MESSAGE = (String) get("update-available");
 
         OPENED_ENDERCHEST = getString("opened-enderchest");
+        OPEN_TARGET_ENDERCHEST_OLD = getString("open-target-enderchest-old");
         OPEN_TARGET_ENDERCHEST = getString("open-target-enderchest");
         OPENED_CRAFTING = getString("opened-craftingtable");
         OPENED_CRAFTING_OTHER = getString("opened-craftingtable-other");

@@ -2,7 +2,6 @@ package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.UpdateNotifications;
 import com.itsschatten.libs.Utils;
-import com.itsschatten.libs.configutils.PlayerConfigManager;
 import com.itsschatten.portablecrafting.commands.*;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
@@ -65,6 +64,10 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             }
         }
 
+        if (!Settings.USE_FURNACE | !Settings.USE_BLAST_FURNACE | !Settings.USE_SMOKER) {
+            VirtualFurnaceAPI.getInstance().disableAPI();
+            Utils.debugLog("&cNo furnaces are enabled, we disabled the API so we won't take up loads of resources.");
+        }
         final PluginDescriptionFile pdf = this.getDescription();
         Utils.log("",
                 "&9+---------------------------------------------------+ ",
@@ -97,8 +100,8 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 }
             }.runTaskAsynchronously(this);
 
-            new CheckForUpdate().runTaskTimerAsynchronously(this, 30 * 60 * 20, 30 * 60 * 20); // Wait 30 minutes and check for another update.
-            Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running.");
+            new CheckForUpdate().runTaskTimerAsynchronously(this, Settings.CHECK_UPDATE_INTERVAL * (60 * 20), Settings.CHECK_UPDATE_INTERVAL * (60 * 20)); // Wait for the time set in the settings.yml before checking for an update.
+            Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running, checking for update again in " + Settings.CHECK_UPDATE_INTERVAL + " minutes.");
         }
 
         if (Settings.USE_ENDERCHEST_RESTRICTION) {
@@ -138,9 +141,11 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 "");
     }
 
+    // Remove the instance of the plugin, to help prevent memory leaks, and set it to null in the Utils so we can get a new instance of it when it's reloaded.
+    // Also disable the VirtualFurnace API if it is enabled and the one of the furnaces is enabled.
     @Override
-    public void onDisable() { // Remove the instance of the plugin, to help prevent memory leaks, and set it to null in the Utils so we can get a new instance of it when it's reloaded.
-        if (Settings.USE_FURNACES)
+    public void onDisable() {
+        if (VirtualFurnaceAPI.getInstance().isEnabled() && (Settings.USE_FURNACE | Settings.USE_BLAST_FURNACE | Settings.USE_SMOKER))
             VirtualFurnaceAPI.getInstance().disableAPI();
 
         CraftCommand.setInstance(null);

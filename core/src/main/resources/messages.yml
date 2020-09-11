@@ -19,7 +19,7 @@
 # is recommended before updating to the newest version to backup your config and messages
 # file to save your work and to keep the comments.
 #
-# If you have questions you can post an issue on BitBucket
+# If you have questions you can post an issue on Github
 # (https://github.com/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
 # see the code for the plugin.
 # You can also message me on Discord (Schatten#4113)
@@ -107,7 +107,10 @@ opened-enderchest: "{prefix} Opened your enderchest."
 # This message is sent to a player when opening another players enderchest.
 # This message has a fancy modifier that uses appropriate pluralisation to a players name.
 # To use it do {playerFormatted}
-open-target-enderchest: "{prefix} Opening {player} enderchest."
+open-target-enderchest-old: "{prefix} Opening {player} enderchest."
+
+# This message is sent when the setting 'old-enderchest' is false.
+open-target-enderchest: "{prefix} Opening {player} enderchest for {player}."
 
 # This message is sent when opening a crafting table using /craft.
 opened-craftingtable: "{prefix} Opened crafting table."

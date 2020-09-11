@@ -4,7 +4,7 @@ main: ${main}
 author: ${author}
 description: ${description}
 api-version: "1.15"
-soft-depend: [Essentials]
+soft-depend: [ Essentials ]
 permissions:
   pci.*:
     default: false
@@ -12,12 +12,16 @@ permissions:
     children:
       pci.anvil: true
       pci.anvil.other: true
+      pci.blast-furnace: true
+      pci.blast-furnace.other: true
       pci.craft: true
       pci.craft.other: true
       pci.enchanttable: true
       pci.enchanttable.other: true
       pci.enderchest: true
       pci.enderchest.other: true
+      pci.furnace: true
+      pci.furnace.other: true
       pci.grindstone: true
       pci.grindstone.other: true
       pci.loom: true
@@ -26,6 +30,8 @@ permissions:
       pci.cartography.other: true
       pci.stonecutter: true
       pci.stonecutter.other: true
+      pci.smoker: true
+      pci.smoker.other: true
       pci.sign.*: true
 
 
@@ -36,6 +42,14 @@ permissions:
   pci.anvil.other:
     default: op
     description: "This permission is needed for players to open the anvil for another player."
+
+  pci.blast-furnace:
+    default: op
+    description: "This permission is needed to use /blastfurnace"
+
+  pci.blast-furnace.other:
+    default: op
+    description: "Needed to open the blast-furnace for someone else."
 
   pci.craft:
     default: op
@@ -60,6 +74,14 @@ permissions:
   pci.enderchest.other:
     default: op
     description: "This permission is needed to be able to use the /enderchest command to open another player's enderchest."
+
+  pci.furnace:
+    default: op
+    description: "This permission is needed to use /furnace."
+
+  pci.furnace.other:
+    default: op
+    description: "This permission is needed to open the furnace for someone else."
 
   pci.reload:
     default: op
@@ -106,6 +128,14 @@ permissions:
 
   pci.stonecutter.other:
     description: "The permission needed to open the stone cutter for someone else."
+    default: op
+
+  pci.smoker:
+    description: "The permission needed to use the /smoker command."
+    default: op
+
+  pci.smoker.other:
+    description: "The permission needed to open the smoker for someone else."
     default: op
 
   pci.sign.create:
