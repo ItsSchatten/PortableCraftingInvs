@@ -28,7 +28,6 @@
         <dependency>
             <groupId>com.shanebeestudios.vf.api</groupId>
             <artifactId>VF-API</artifactId>
-            <!-- Obviously you will want to put the latest version here -->
             <version>1.0.1</version>
         </dependency>
 

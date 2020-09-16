@@ -64,10 +64,6 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             }
         }
 
-        if (!Settings.USE_FURNACE | !Settings.USE_BLAST_FURNACE | !Settings.USE_SMOKER) {
-            VirtualFurnaceAPI.getInstance().disableAPI();
-            Utils.debugLog("&cNo furnaces are enabled, we disabled the API so we won't take up loads of resources.");
-        }
         final PluginDescriptionFile pdf = this.getDescription();
         Utils.log("",
                 "&9+---------------------------------------------------+ ",
@@ -90,6 +86,11 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         if (Settings.USE_METRICS) {
             Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/PortableCraftingInvss&7", "If you don't wish for this information to be collected you can disable it in the settings.yml.");
             new MetricsLite(this, 5752);
+        }
+
+        if (!Settings.USE_FURNACE && !Settings.USE_BLAST_FURNACE && !Settings.USE_SMOKER) {
+            VirtualFurnaceAPI.getInstance().disableAPI();
+            Utils.debugLog("&cNo furnaces are enabled, we disabled the API so we won't take up loads of resources.");
         }
 
         if (Settings.USE_UPDATER) {
