@@ -2,17 +2,17 @@
 name: Bug report
 about: Create a bug report to help make the plugin better for everyone!
 title: "[BUG] "
-labels: ''
+labels: 'priority: normal, status: awaiting confirmation'
 assignees: ''
 
 ---
 
-__Please post screenshots on a site like [Imgur](https://imgur.com/upload) and post config files on a site like [Pastebin](https://pastebin.com/) or some another alternative.__
+__Please post multiple screenshots on a site like [Imgur](https://imgur.com/upload) and post config files on a site like [Pastebin](https://pastebin.com/) or some other alternative.__
 
 **Please describe the bug**
 *What is the bug? What do you think the appropriate behavior would be for this feature? (Paste screenshots here)*
 
-**If there is a stacktrace in console, please post that here.** 
+**If there is a stack trace in console, please post that here.** 
 *When an error occurs and you receive the "An internal error has occurred..." message there is some sort of error in console, please copy and past that here.*
 
 **How to reproduce the error?**
