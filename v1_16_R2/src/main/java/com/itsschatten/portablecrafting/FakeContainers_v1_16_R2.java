@@ -21,8 +21,8 @@ import java.util.UUID;
 
 public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
 
-    boolean debug;
     private final FurnaceManager manager;
+    boolean debug;
 
     public FakeContainers_v1_16_R2(JavaPlugin plugin) {
         VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true);
