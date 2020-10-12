@@ -10,6 +10,7 @@ import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_15_R1.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -44,7 +45,6 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
 
             ePlayer.activeContainer = fakeLoom;
             ePlayer.activeContainer.addSlotListener(ePlayer);
-            ePlayer.activeContainer = fakeLoom;
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
@@ -66,7 +66,6 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
 
             ePlayer.activeContainer = fakeAnvil;
             ePlayer.activeContainer.addSlotListener(ePlayer);
-            ePlayer.activeContainer = fakeAnvil;
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
@@ -87,7 +86,6 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
 
             ePlayer.activeContainer = fakeCartography;
             ePlayer.activeContainer.addSlotListener(ePlayer);
-            ePlayer.activeContainer = fakeCartography;
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
@@ -108,7 +106,6 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
 
             ePlayer.activeContainer = fakeGrindstone;
             ePlayer.activeContainer.addSlotListener(ePlayer);
-            ePlayer.activeContainer = fakeGrindstone;
 
         } catch (UnsupportedOperationException ex) {
             Utils.debugLog(debug, ex.getMessage());
@@ -128,7 +125,6 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
 
             ePlayer.activeContainer = fakeStoneCutter;
             ePlayer.activeContainer.addSlotListener(ePlayer);
-            ePlayer.activeContainer = fakeStoneCutter;
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
@@ -153,7 +149,6 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
 
         ePlayer.activeContainer = fakeEnchant;
         ePlayer.activeContainer.addSlotListener(ePlayer);
-        ePlayer.activeContainer = fakeEnchant;
     }
 
     @Override
@@ -166,7 +161,6 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
 
         ePlayer.activeContainer = fakeEnchant;
         ePlayer.activeContainer.addSlotListener(ePlayer);
-        ePlayer.activeContainer = fakeEnchant;
     }
 
 
@@ -264,11 +258,25 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
     private static class FakeAnvil extends ContainerAnvil {
 
         public FakeAnvil(final int containerID, final Player player) {
-            super(containerID, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerID, ((CraftPlayer) player).getHandle().inventory,
+                    ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(),
+                            new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
-            this.setTitle(new ChatMessage("Repair & Name"));
+            CraftEventFactory.handleInventoryCloseEvent(((CraftPlayer) player).getHandle());
         }
 
+        @Override
+        public void b(EntityHuman entityhuman) {
+        }
+
+        @Override
+        public void e() {
+            super.e();
+        }
+
+        @Override
+        protected void a(EntityHuman entityhuman, World world, IInventory iinventory) {
+        }
     }
 
     private static class FakeEnchant extends ContainerEnchantTable {
