@@ -61,7 +61,7 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
             int containerID = ePlayer.nextContainerCounter();
             FakeAnvil fakeAnvil = new FakeAnvil(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, fakeAnvil.getTitle()));
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, new ChatMessage("Repair & Name")));
 
             ePlayer.activeContainer = fakeAnvil;
             ePlayer.activeContainer.addSlotListener(ePlayer);
