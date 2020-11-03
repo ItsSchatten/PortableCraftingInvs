@@ -232,6 +232,7 @@ core/target/*
 v1_15_R1/target/*
 v1_16_R1/target/*
 v1_16_R2/target/*
+v1_16_R3/target/*
 Interface/target/*
 
 build.xml
