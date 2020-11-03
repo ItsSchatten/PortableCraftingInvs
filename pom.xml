@@ -6,14 +6,13 @@
 
     <groupId>com.itsschatten.portablecrafting</groupId>
     <artifactId>PortableCraftingInvs-parent</artifactId>
-    <version>1.3.6</version>
+    <version>1.3.7</version>
     <description>Open crafting inventories, such as anvils, crafting table, enchant tables, etc..</description>
     <packaging>pom</packaging>
 
     <properties>
         <maven.skip.test>true</maven.skip.test>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -24,6 +23,7 @@
         <module>v1_15_R1</module>
         <module>v1_16_R1</module>
         <module>v1_16_R2</module>
+        <module>v1_16_R3</module>
     </modules>
 
     <repositories>
@@ -39,37 +39,6 @@
 
     <dependencies>
 
-        <!-- Our Dependencies START -->
-        <dependency>
-            <groupId>com.itsschatten.portablecrafting</groupId>
-            <artifactId>PortableCraftingInvs-v1_16_R1</artifactId>
-            <version>1.3.1</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.itsschatten.portablecrafting</groupId>
-            <artifactId>PortableCraftingInvs-v1_16_R2</artifactId>
-            <version>1.3.1</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.itsschatten.portablecrafting</groupId>
-            <artifactId>PortableCraftingInvs-v1_15_R1</artifactId>
-            <version>1.3.1</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.itsschatten.portablecrafting</groupId>
-            <artifactId>PortableCraftingInvs-Interface</artifactId>
-            <version>1.2.1</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- Our Dependencies END -->
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -81,6 +50,12 @@
             <artifactId>ShadowLibs</artifactId>
             <version>1.0.4</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.shanebeestudios.vf.api</groupId>
+            <artifactId>VF-API</artifactId>
+            <!-- Obviously you will want to put the latest version here -->
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.bstats</groupId>

@@ -20,12 +20,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
+public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
 
     private final FurnaceManager manager;
     boolean debug;
 
-    public FakeContainers_v1_16_R2(JavaPlugin plugin) {
+    public FakeContainers_v1_16_R3(JavaPlugin plugin) {
         VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true);
         manager = furnaceAPI.getFurnaceManager();
     }
@@ -38,7 +38,7 @@ public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
     @Override
     public void openLoom(Player player) {
         try {
-            EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+            final EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
             FakeLoom fakeLoom = new FakeLoom(containerID, player);
 
@@ -54,6 +54,7 @@ public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
 
         }
     }
+
     @Override
     public void openAnvil(Player player) {
         try {

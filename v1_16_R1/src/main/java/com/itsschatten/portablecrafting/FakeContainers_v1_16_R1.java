@@ -39,10 +39,11 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
         try {
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
-            FakeLoom fakeLoom = new FakeLoom(containerID, player);
+            final FakeLoom fakeLoom = new FakeLoom(containerID, player);
+
+            ePlayer.activeContainer = ePlayer.defaultContainer;
 
             ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.LOOM, fakeLoom.getTitle()));
-
             ePlayer.activeContainer = fakeLoom;
             ePlayer.activeContainer.addSlotListener(ePlayer);
         } catch (UnsupportedOperationException ex) {
@@ -57,12 +58,14 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
     @Override
     public void openAnvil(Player player) {
         try {
+            CraftEventFactory.handleInventoryCloseEvent(((CraftPlayer) player).getHandle());
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
-            FakeAnvil fakeAnvil = new FakeAnvil(containerID, player);
+            final FakeAnvil fakeAnvil = new FakeAnvil(containerID, player);
+
+            ePlayer.activeContainer = ePlayer.defaultContainer;
 
             ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, new ChatMessage("Repair & Name")));
-
             ePlayer.activeContainer = fakeAnvil;
             ePlayer.activeContainer.addSlotListener(ePlayer);
         } catch (UnsupportedOperationException ex) {
@@ -81,8 +84,9 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
             int containerID = ePlayer.nextContainerCounter();
             FakeCartography fakeCartography = new FakeCartography(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.CARTOGRAPHY_TABLE, fakeCartography.getTitle()));
+            ePlayer.activeContainer = ePlayer.defaultContainer;
 
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.CARTOGRAPHY_TABLE, fakeCartography.getTitle()));
             ePlayer.activeContainer = fakeCartography;
             ePlayer.activeContainer.addSlotListener(ePlayer);
         } catch (UnsupportedOperationException ex) {
@@ -101,8 +105,9 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
             int containerId = ePlayer.nextContainerCounter();
             FakeGrindstone fakeGrindstone = new FakeGrindstone(containerId, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerId, Containers.GRINDSTONE, fakeGrindstone.getTitle()));
+            ePlayer.activeContainer = ePlayer.defaultContainer;
 
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerId, Containers.GRINDSTONE, fakeGrindstone.getTitle()));
             ePlayer.activeContainer = fakeGrindstone;
             ePlayer.activeContainer.addSlotListener(ePlayer);
         } catch (UnsupportedOperationException ex) {
@@ -119,8 +124,9 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
             int containerID = ePlayer.nextContainerCounter();
             FakeStoneCutter fakeStoneCutter = new FakeStoneCutter(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.STONECUTTER, fakeStoneCutter.getTitle()));
+            ePlayer.activeContainer = ePlayer.defaultContainer;
 
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.STONECUTTER, fakeStoneCutter.getTitle()));
             ePlayer.activeContainer = fakeStoneCutter;
             ePlayer.activeContainer.addSlotListener(ePlayer);
         } catch (UnsupportedOperationException ex) {
@@ -138,8 +144,9 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
         int containerID = ePlayer.nextContainerCounter();
         FakeEnchant fakeEnchant = new FakeEnchant(containerID, player);
 
-        ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, fakeEnchant.getTitle()));
+        ePlayer.activeContainer = ePlayer.defaultContainer;
 
+        ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, fakeEnchant.getTitle()));
         ePlayer.activeContainer = fakeEnchant;
         ePlayer.activeContainer.addSlotListener(ePlayer);
     }
@@ -150,8 +157,8 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
         int containerID = ePlayer.nextContainerCounter();
         FakeEnchant fakeEnchant = new FakeEnchant(containerID, player, maxLvl);
 
+        ePlayer.activeContainer = ePlayer.defaultContainer;
         ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, fakeEnchant.getTitle()));
-
         ePlayer.activeContainer = fakeEnchant;
         ePlayer.activeContainer.addSlotListener(ePlayer);
     }
@@ -274,7 +281,7 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
                     ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(),
                             new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
-            CraftEventFactory.handleInventoryCloseEvent(((CraftPlayer) player).getHandle());
+            this.setTitle(new ChatMessage("Repair & Name"));
         }
 
         @Override

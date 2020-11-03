@@ -57,13 +57,14 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
     @Override
     public void openAnvil(Player player) {
         try {
+            CraftEventFactory.handleInventoryCloseEvent(((CraftPlayer) player).getHandle());
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
-            FakeAnvil fakeAnvil = new FakeAnvil(containerID, player);
+            final FakeAnvil fakeAnvil = new FakeAnvil(containerID, player);
+
+            ePlayer.activeContainer = ePlayer.defaultContainer;
 
             ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, new ChatMessage("Repair & Name")));
-
-
             ePlayer.activeContainer = fakeAnvil;
             ePlayer.activeContainer.addSlotListener(ePlayer);
         } catch (UnsupportedOperationException ex) {
@@ -262,7 +263,7 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
                     ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(),
                             new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
-            CraftEventFactory.handleInventoryCloseEvent(((CraftPlayer) player).getHandle());
+            this.setTitle(new ChatMessage("Repair & Name"));
         }
 
         @Override
@@ -297,15 +298,6 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
             this.setTitle(new ChatMessage("Enchant"));
         }
 
-    }
-
-    private static class FakeFurnace extends ContainerFurnaceFurnace {
-
-        public FakeFurnace(final int containerID, final Player player) {
-            super(containerID, ((CraftPlayer) player).getHandle().inventory);
-            this.checkReachable = false;
-            this.setTitle(new ChatMessage("Furnace"));
-        }
     }
 
 }

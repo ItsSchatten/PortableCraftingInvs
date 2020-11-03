@@ -5,9 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>PortableCraftingInvs-v1_16_R1</artifactId>
-    <version>1.3.1</version>
-    <groupId>com.itsschatten.portablecrafting</groupId>
     <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.itsschatten.portablecrafting</groupId>
+        <artifactId>PortableCraftingInvs-parent</artifactId>
+        <version>1.3.7</version>
+    </parent>
 
     <properties>
         <maven.skip.test>true</maven.skip.test>
@@ -22,25 +26,6 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.16.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.itsschatten.libs</groupId>
-            <artifactId>ShadowLibs</artifactId>
-            <version>1.0.4</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.shanebeestudios.vf.api</groupId>
-            <artifactId>VF-API</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

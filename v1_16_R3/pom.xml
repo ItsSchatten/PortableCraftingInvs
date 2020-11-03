@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>PortableCraftingInvs-Interface</artifactId>
+    <artifactId>PortableCraftingInvs-v1_16_R3</artifactId>
     <packaging>jar</packaging>
 
     <parent>
@@ -24,8 +24,15 @@
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.16.1-R0.1-SNAPSHOT</version>
+            <artifactId>spigot</artifactId>
+            <version>1.16.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.itsschatten.portablecrafting</groupId>
+            <artifactId>PortableCraftingInvs-Interface</artifactId>
+            <version>1.2.1</version>
         </dependency>
     </dependencies>
 
@@ -33,6 +40,10 @@
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>shadows-libs</id>
+            <url>https://itsschatten.com/repositories/repos/shadowlibs/</url>
         </repository>
     </repositories>
 

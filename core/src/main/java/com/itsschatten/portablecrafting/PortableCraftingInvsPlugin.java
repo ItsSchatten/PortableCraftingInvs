@@ -40,6 +40,11 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         serverVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 
         switch (serverVersion) {
+            case "v1_16_R3": {
+                fakeContainers = new FakeContainers_v1_16_R3(this);
+                break;
+            }
+
             case "v1_16_R2": {
                 fakeContainers = new FakeContainers_v1_16_R2(this);
                 break;
