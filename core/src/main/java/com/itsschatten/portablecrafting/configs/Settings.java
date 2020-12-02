@@ -18,6 +18,7 @@ public class Settings extends SimpleConfig {
             USE_UPDATER,
             USE_METRICS,
             USE_TOO_MANY_ARGS,
+            ALLOW_ESSENTIALS,
             USE_HELP_IF_WRONG_ARGS,
             USE_RANDOM_SOUND_PITCH,
             USE_SIGNS,
@@ -105,6 +106,7 @@ public class Settings extends SimpleConfig {
         /* Features */
         DEBUG = (boolean) get("debug");
         USE_PERMISSIONS = (boolean) get("use-permissions");
+        ALLOW_ESSENTIALS = (boolean) get("allow-essentials");
 
         USE_FURNACE = (boolean) get("use-furnace");
         USE_BLAST_FURNACE = (boolean) get("use-blast-furnace");

@@ -21,9 +21,9 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
 
 
     public PortableCraftingInvsCommand() {
-        super("portablecraftinginv");
+        super("portablecraftinginvs");
 
-        setAliases(Arrays.asList("pci", "pi", "portableinv"));
+        setAliases(Arrays.asList("portablecraftinginv", "pci", "pi", "portableinv"));
     }
 
     @Override

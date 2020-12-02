@@ -34,6 +34,11 @@ use-updater: true
 # Set the interval that we should check for updates, IN MINUTES. By default this is 30.
 update-check-interval: 30
 
+# If this option is set to true the plugin will not register specific commands if the feature is disabled to allow
+# Essentials to handle those commands, if false we will register the commands to allow the sending of the feature
+# disabled message.
+allow-essentials: true
+
 # If a user was to use the command /pci and not provide any arguments to the command,
 # we send the help message along with the wrong arguments message.
 use-help-if-no-args: true

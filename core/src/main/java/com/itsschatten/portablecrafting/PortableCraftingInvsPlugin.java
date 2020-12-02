@@ -92,7 +92,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         if (!Settings.USE_FURNACE && !Settings.USE_BLAST_FURNACE && !Settings.USE_SMOKER) {
             VirtualFurnaceAPI.getInstance().disableAPI();
-            Utils.debugLog("&cNo furnaces are enabled, we disabled the API so we won't take up loads of resources.");
+            Utils.debugLog(Settings.DEBUG, "&cNo furnaces are enabled, we disabled the API so we won't take up loads of resources.");
         }
 
         if (Settings.USE_UPDATER) {
@@ -119,20 +119,64 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         }
 
         // Register commands, and JoinListener.
-        registerCommands(new AnvilCommand(), new EnchanttableCommand(), new PortableCraftingInvsCommand(), new GrindStoneCommand(),
-                new LoomCommand(), new StoneCutterCommand(), new CartographyCommand(), new SmithingCommand(), new FurnaceCommand(),
-                new SmokerCommand(), new BlastFurnaceCommand());
+        registerCommands(new EnchanttableCommand(), new PortableCraftingInvsCommand(), new FurnaceCommand(), new SmokerCommand(), new BlastFurnaceCommand());
 
-        if (Bukkit.getPluginManager().isPluginEnabled("Essentials") && !Settings.USE_CRAFTING) {
-            Utils.debugLog(Settings.DEBUG, "Crafting features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
-        } else {
-            registerCommand(new CraftCommand());
-        }
+        if (Settings.ALLOW_ESSENTIALS && Bukkit.getPluginManager().isPluginEnabled("Essentials")) {
+            if (!Settings.USE_CRAFTING) {
+                Utils.debugLog(Settings.DEBUG, "Crafting features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+            } else {
+                registerCommand(new CraftCommand());
+            }
 
-        if (Bukkit.getPluginManager().isPluginEnabled("Essentials") && !Settings.USE_ENDERCHEST) {
-            Utils.debugLog(Settings.DEBUG, "Enderchest features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+            if (!Settings.USE_ENDERCHEST) {
+                Utils.debugLog(Settings.DEBUG, "Enderchest features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+            } else {
+                registerCommand(new EnderChestCommand());
+            }
+
+            if (!Settings.USE_ANVIL) {
+                Utils.debugLog(Settings.DEBUG, "Anvil features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+            } else {
+                registerCommand(new AnvilCommand());
+            }
+
+            if (!Settings.USE_GRINDSTONE) {
+                Utils.debugLog(Settings.DEBUG, "Grind stone features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+            } else {
+                registerCommand(new GrindStoneCommand());
+            }
+
+            if (!Settings.USE_LOOM) {
+                Utils.debugLog(Settings.DEBUG, "Loom features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+            } else {
+                registerCommand(new LoomCommand());
+            }
+
+            if (!Settings.USE_STONE_CUTTER) {
+                Utils.debugLog(Settings.DEBUG, "Stonecutter features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+            } else {
+                registerCommand(new StoneCutterCommand());
+            }
+
+            if (!Settings.USE_CARTOGRAPHY) {
+                Utils.debugLog(Settings.DEBUG, "Cartography table features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+            } else {
+                registerCommand(new CartographyCommand());
+            }
+
+            if (!Settings.USE_SMITHING_SIGN) {
+                Utils.debugLog(Settings.DEBUG, "Smithing table features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+            } else {
+                registerCommand(new SmithingCommand());
+            }
+
         } else {
-            registerCommand(new EnderChestCommand());
+            registerCommands(new AnvilCommand(), new GrindStoneCommand(), new EnderChestCommand(), new CraftCommand(),
+                    new LoomCommand(), new StoneCutterCommand(), new CartographyCommand(), new SmithingCommand());
+
+            if (Settings.USE_ANVIL)
+                this.getServer().getPluginManager().registerEvents(new AnvilListeners(), this);
+
         }
 
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);

@@ -69,7 +69,6 @@ public class EnchantmentListener implements Listener {
 
     @EventHandler
     public void closeEnchantInventory(InventoryCloseEvent event) {
-
         if (event.getInventory().getType() == InventoryType.ENCHANTING) {
             EnchanttableCommand.getOpenEnchantTables().remove(event.getPlayer().getUniqueId());
         }
