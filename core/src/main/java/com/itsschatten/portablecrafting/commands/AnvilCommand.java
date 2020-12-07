@@ -6,17 +6,24 @@ import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.PortableCraftingInvsPlugin;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * Anvil
  */
 public class AnvilCommand extends UniversalCommand {
+
+    @Getter
+    private static final Set<UUID> activeAnvils = new HashSet<>();
 
     public AnvilCommand() {
         super("anvil");
@@ -51,7 +58,6 @@ public class AnvilCommand extends UniversalCommand {
         }
 
         final Player player = (Player) sender;
-
         if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ANVIL); // Check perms again.
 
         if (args.length == 0) {
@@ -63,8 +69,8 @@ public class AnvilCommand extends UniversalCommand {
 
             PortableCraftingInvsPlugin.getFakeContainers().openAnvil(player);
 
+            activeAnvils.add(player.getUniqueId());
             Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + player.getName());
-
             returnTell(Messages.OPENED_ANVIL);
         }
 
@@ -83,6 +89,7 @@ public class AnvilCommand extends UniversalCommand {
             PortableCraftingInvsPlugin.getFakeContainers().openAnvil(target);
             Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + target.getName());
 
+            activeAnvils.add(target.getUniqueId());
             tellTarget(target, Messages.OPENED_ANVIL);
             returnTell(Messages.OPENED_ANVIL_OTHER.replace("{player}", target.getName()));
         }
