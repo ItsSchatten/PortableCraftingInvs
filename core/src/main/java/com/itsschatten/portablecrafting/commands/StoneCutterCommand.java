@@ -22,7 +22,7 @@ public class StoneCutterCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender commandSender, String[] args) {
-        if (!Settings.USE_CARTOGRAPHY) returnTell(Messages.FEATURE_DISABLED);
+        if (!Settings.USE_STONE_CUTTER) returnTell(Messages.FEATURE_DISABLED);
 
         final String stoneCutterOpen = Settings.STONE_CUTTER_OPEN_SOUND.toUpperCase();
 
