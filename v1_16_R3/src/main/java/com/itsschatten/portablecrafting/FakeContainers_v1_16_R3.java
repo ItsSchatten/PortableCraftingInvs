@@ -171,7 +171,6 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
     public void openFurnace(Player player) {
         if (mysql) {
             if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE) == null) {
-                Utils.log("Open furnace, new");
                 Furnace furnace = manager.createFurnace("Furnace", FurnaceProperties.FURNACE);
                 furnace.openInventory(player);
 

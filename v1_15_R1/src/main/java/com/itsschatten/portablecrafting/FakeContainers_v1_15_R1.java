@@ -175,16 +175,12 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
     @Override
     public void openFurnace(Player player) {
         if (mysql) {
-            Utils.log("Open furnace");
             if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE) == null) {
-                Utils.log("Open furnace, new");
                 Furnace furnace = manager.createFurnace("Furnace", FurnaceProperties.FURNACE);
                 furnace.openInventory(player);
 
                 sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.FURNACE);
             } else {
-                Utils.log("Open furnace, old");
-
                 Furnace furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE);
                 furnace.openInventory(player);
             }
