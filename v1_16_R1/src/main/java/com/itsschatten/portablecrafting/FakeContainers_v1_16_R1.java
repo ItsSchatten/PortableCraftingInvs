@@ -22,11 +22,19 @@ import java.util.UUID;
 
 public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
     private final FurnaceManager manager;
-    boolean debug;
+    boolean debug, mysql;
 
-    public FakeContainers_v1_16_R1(JavaPlugin plugin) {
+    MySqlI sql;
+
+    public FakeContainers_v1_16_R1(JavaPlugin plugin, MySqlI sql) {
         VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true);
-        manager = furnaceAPI.getFurnaceManager();
+        this.manager = furnaceAPI.getFurnaceManager();
+        this.sql = sql;
+    }
+
+    @Override
+    public void setUsingMysql(boolean bool) {
+        mysql = bool;
     }
 
     @Override
@@ -165,6 +173,23 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
 
     @Override
     public void openFurnace(Player player) {
+        if (mysql) {
+            Utils.log("Open furnace");
+            if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE) == null) {
+                Utils.log("Open furnace, new");
+                Furnace furnace = manager.createFurnace("Furnace", FurnaceProperties.FURNACE);
+                furnace.openInventory(player);
+
+                sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.FURNACE);
+            } else {
+                Utils.log("Open furnace, old");
+
+                Furnace furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE);
+                furnace.openInventory(player);
+            }
+            return;
+        }
+
         if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
             FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
 
@@ -183,6 +208,19 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
 
     @Override
     public void openBlastFurnace(Player player) {
+        if (mysql) {
+            if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.BLAST_FURNACE) == null) {
+                Furnace furnace = manager.createFurnace("Blast Furnace", FurnaceProperties.BLAST_FURNACE);
+                furnace.openInventory(player);
+
+                sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.BLAST_FURNACE);
+            } else {
+                Furnace furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.BLAST_FURNACE);
+                furnace.openInventory(player);
+            }
+            return;
+        }
+
         if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
             FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
 
@@ -201,6 +239,19 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
 
     @Override
     public void openSmoker(Player player) {
+        if (mysql) {
+            if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.SMOKER) == null) {
+                Furnace furnace = manager.createFurnace("Smoker", FurnaceProperties.SMOKER);
+                furnace.openInventory(player);
+
+                sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.SMOKER);
+            } else {
+                Furnace furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.SMOKER);
+                furnace.openInventory(player);
+            }
+            return;
+        }
+
         if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
             FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
 

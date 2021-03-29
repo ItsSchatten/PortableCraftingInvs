@@ -16,8 +16,7 @@
 # If you have questions you can post an issue on Github
 # (https://github.com/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
 # see the code for the plugin.
-# You can also message me on Discord (Schatten#4113)
-#
+# You may also join my Discord support server. (https://discord.gg/BmWrNam7Sp)
 
 # I do not recommend you enable this unless you want to have your console be filled with messages.
 debug: false
@@ -47,6 +46,23 @@ use-help-if-no-args: true
 # Well now you don't have to! Simple set this to "false" and all permissions (besides pci.update and pci.reload)
 # will be given to all users by default.
 use-permissions: true
+
+# Should we store furnace data inside of a mysql database?
+use-sql: false
+
+# This would would be an IP address or a URL. (default: localhost)
+# If you are unsure what this would be leave it as localhost.
+sql-host: localhost
+
+# The port that your sql server is listening on.
+sql-port: 3306
+
+# The credentials to log into your sql instance.
+sql-user: root
+sql-pass: admin
+
+# The name of the database that we should save our table to.
+sql-database: "portablecraftinginvs"
 
 # If enabled the plugin will send statistics to BStats. Which you can see here: https://bstats.org/plugin/bukkit/PortableCraftingInvs
 metrics: true

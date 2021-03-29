@@ -14,6 +14,7 @@ public class Settings extends SimpleConfig {
 
     public static boolean
             DEBUG,
+            USE_MYSQL,
             USE_PERMISSIONS,
             USE_UPDATER,
             USE_METRICS,
@@ -24,6 +25,7 @@ public class Settings extends SimpleConfig {
             USE_SIGNS,
             REQUIRE_SIGHT_CLICK_BREAK_SIGN,
 
+    // Feature booleans.
     USE_ENDERCHEST,
             USE_ENDERCHEST_RESTRICTION,
             USE_OLD_ENDERCHEST,
@@ -40,6 +42,7 @@ public class Settings extends SimpleConfig {
             USE_BLAST_FURNACE,
             USE_SMOKER,
 
+    // Sound booleans.
     USE_ANVIL_SOUNDS,
             USE_CRAFTING_SOUNDS,
             USE_ENCHANT_TABLE_SOUNDS,
@@ -50,6 +53,7 @@ public class Settings extends SimpleConfig {
             USE_STONE_CUTTER_SOUNDS,
             USE_SMITHING_TABLE_SOUNDS,
 
+    // Sign booleans.
     USE_ANVIL_SIGN,
             USE_CARTOGRAPHY_SIGN,
             USE_CRAFTING_SIGN,
@@ -60,10 +64,20 @@ public class Settings extends SimpleConfig {
             USE_STONE_CUTTER_SIGN,
             USE_SMITHING_SIGN;
 
-    public static int CHECK_UPDATE_INTERVAL;
+    // The interval in which we should check for an update for the plugin.
+    public static int UPDATE_CHECK_INTERVAL,
+    // The max level of enchantment that should be allowed in Enchantment tables.
+    ENCHANT_MAX_LEVEL;
+
 
     public static String
-            ENDER_CHEST_OPEN_SOUND,
+            // MYSQL Stuff.
+            MYSQL_USER,
+            MYSQL_HOST,
+            MYSQL_PASS,
+            MYSQL_DATABASE,
+    // The sounds that are played when opening a specific inventory.
+    ENDER_CHEST_OPEN_SOUND,
             ENCHANT_TABLE_OPEN_SOUND,
             CRAFTING_OPEN_SOUND,
             ANVIL_OPEN_SOUND,
@@ -73,7 +87,7 @@ public class Settings extends SimpleConfig {
             STONE_CUTTER_OPEN_SOUND,
             SMITHING_TABLE_OPEN_SOUND;
 
-    public static int ENCHANT_MAX_LEVEL;
+    public static int MYSQL_PORT;
 
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
@@ -105,14 +119,21 @@ public class Settings extends SimpleConfig {
     private void onLoad() {
         /* Features */
         DEBUG = (boolean) get("debug");
+        UPDATE_CHECK_INTERVAL = getInt("update-check-interval");
         USE_PERMISSIONS = (boolean) get("use-permissions");
         ALLOW_ESSENTIALS = (boolean) get("allow-essentials");
+
+        USE_MYSQL = (boolean) get("use-sql");
+
+        MYSQL_HOST = getString("sql-host");
+        MYSQL_DATABASE = getString("sql-database");
+        MYSQL_USER = getString("sql-user");
+        MYSQL_PASS = getString("sql-pass");
+        MYSQL_PORT = getInt("sql-port");
 
         USE_FURNACE = (boolean) get("use-furnace");
         USE_BLAST_FURNACE = (boolean) get("use-blast-furnace");
         USE_SMOKER = (boolean) get("use-smoker");
-
-        CHECK_UPDATE_INTERVAL = getInt("update-check-interval");
 
         USE_TOO_MANY_ARGS = (boolean) get("use-too-many-args");
         USE_HELP_IF_WRONG_ARGS = (boolean) get("use-help-if-no-args");
@@ -156,7 +177,7 @@ public class Settings extends SimpleConfig {
 
         USE_RANDOM_SOUND_PITCH = (boolean) get("use-random-sound-pitch");
 
-        /* Sign Stuff*/
+        /* Sign Stuff */
         USE_SIGNS = (boolean) get("use-signs");
         REQUIRE_SIGHT_CLICK_BREAK_SIGN = (boolean) get("require-shift-click-to-break-signs");
 
@@ -171,11 +192,21 @@ public class Settings extends SimpleConfig {
         USE_SMITHING_SIGN = (boolean) get("use-smithingtable-sign");
     }
 
+    public static void setUseMysql(boolean useMysql) {
+        USE_MYSQL = useMysql;
+    }
+
     public void reload() {
         setInstance(null);
 
         init();
         PortableCraftingInvsPlugin.getFakeContainers().setDebug(Settings.DEBUG);
+
+        if (!USE_MYSQL && PortableCraftingInvsPlugin.getDatabase().mysql.getConnection() != null) {
+            PortableCraftingInvsPlugin.getDatabase().mysql.close();
+            PortableCraftingInvsPlugin.setDatabase(null);
+        }
+
         Utils.debugLog(Settings.DEBUG, "Reloaded the settings.yml file.");
     }
 

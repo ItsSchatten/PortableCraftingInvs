@@ -22,13 +22,15 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer(); // We set the player so we can use them later.
-
-        if (!PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
-            FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
-            playerConfig.set("furnaces", null);
-            PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-            Utils.debugLog("Saved default player file.");
+        if (!Settings.USE_MYSQL) {
+            if (!PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
+                FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
+                playerConfig.set("furnaces", null);
+                PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
+                Utils.debugLog(Settings.DEBUG, "Saved default player file.");
+            }
         }
+
         if (player.hasPermission(Permissions.UPDATE_NOTIFICATIONS.getPermission()) && Settings.USE_UPDATER && (UpdateNotifications.isUpdateAvailable() || CheckForUpdate.isUpdateAvailable())) {
             // Check if an update is available, if the updater is used, and if the player has permission to see an update.
             PluginDescriptionFile pdf = Utils.getInstance().getDescription(); // So we can get the version.

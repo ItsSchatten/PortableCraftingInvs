@@ -4,6 +4,7 @@ import com.itsschatten.libs.UpdateNotifications;
 import com.itsschatten.libs.Utils;
 import com.itsschatten.portablecrafting.commands.*;
 import com.itsschatten.portablecrafting.configs.Messages;
+import com.itsschatten.portablecrafting.configs.MySql;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
 import com.itsschatten.portablecrafting.listeners.*;
@@ -11,7 +12,7 @@ import com.shanebeestudios.vf.api.VirtualFurnaceAPI;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.bstats.bukkit.MetricsLite;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -32,39 +33,15 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
     @Getter
     private static String serverVersion;
 
+    @Getter
+    @Setter
+    private static MySql database;
+
     @Override
     public void onEnable() { // We all know what this does right? Right!?
         Utils.setInstance(this);
         setInstance(this);
-
         serverVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-
-        switch (serverVersion) {
-            case "v1_16_R3": {
-                fakeContainers = new FakeContainers_v1_16_R3(this);
-                break;
-            }
-
-            case "v1_16_R2": {
-                fakeContainers = new FakeContainers_v1_16_R2(this);
-                break;
-            }
-
-            case "v1_16_R1": {
-                fakeContainers = new FakeContainers_v1_16_R1(this);
-                break;
-            }
-
-            case "v1_15_R1": {
-                fakeContainers = new FakeContainers_v1_15_R1(this);
-                break;
-            }
-            default: {
-                Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
-                Bukkit.getPluginManager().disablePlugin(this);
-                return;
-            }
-        }
 
         final PluginDescriptionFile pdf = this.getDescription();
         Utils.log("",
@@ -85,9 +62,45 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         Settings.init();
         Messages.init();
 
+        if (Settings.USE_MYSQL) {
+            database = new MySql(Settings.MYSQL_HOST, Settings.MYSQL_PORT, Settings.MYSQL_DATABASE, Settings.MYSQL_USER, Settings.MYSQL_PASS);
+        } else {
+            database = null;
+        }
+
+        switch (serverVersion) {
+            case "v1_16_R3": {
+                fakeContainers = new FakeContainers_v1_16_R3(this, database);
+                break;
+            }
+
+            case "v1_16_R2": {
+                fakeContainers = new FakeContainers_v1_16_R2(this, database);
+                break;
+            }
+
+            case "v1_16_R1": {
+                fakeContainers = new FakeContainers_v1_16_R1(this, database);
+                break;
+            }
+
+            case "v1_15_R1": {
+                fakeContainers = new FakeContainers_v1_15_R1(this, database);
+                break;
+            }
+            default: {
+                Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
+                Bukkit.getPluginManager().disablePlugin(this);
+                return;
+            }
+        }
+        fakeContainers.setUsingMysql(Settings.USE_MYSQL);
+        fakeContainers.setDebug(Settings.DEBUG);
+
         if (Settings.USE_METRICS) {
-            Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/PortableCraftingInvss&7", "If you don't wish for this information to be collected you can disable it in the settings.yml.");
-            new MetricsLite(this, 5752);
+            Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/PortableCraftingInvss&7",
+                    "If you don't wish for this information to be collected you can disable it in the settings.yml.");
+            new Metrics(this, 5752);
         }
 
         if (!Settings.USE_FURNACE && !Settings.USE_BLAST_FURNACE && !Settings.USE_SMOKER) {
@@ -103,8 +116,8 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 }
             }.runTaskAsynchronously(this);
 
-            new CheckForUpdate().runTaskTimerAsynchronously(this, Settings.CHECK_UPDATE_INTERVAL * (60 * 20), Settings.CHECK_UPDATE_INTERVAL * (60 * 20)); // Wait for the time set in the settings.yml before checking for an update.
-            Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running, checking for update again in " + Settings.CHECK_UPDATE_INTERVAL + " minutes.");
+            new CheckForUpdate().runTaskTimerAsynchronously(this, Settings.UPDATE_CHECK_INTERVAL * (60 * 20), Settings.UPDATE_CHECK_INTERVAL * (60 * 20)); // Wait for the time set in the settings.yml before checking for an update.
+            Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running, checking for update again in " + Settings.UPDATE_CHECK_INTERVAL + " minutes.");
         }
 
         if (Settings.USE_ENDERCHEST_RESTRICTION) {
