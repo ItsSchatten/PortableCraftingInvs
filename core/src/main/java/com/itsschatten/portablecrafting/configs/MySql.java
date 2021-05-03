@@ -4,7 +4,9 @@ import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.MySqlUtils;
 import com.itsschatten.portablecrafting.MySqlI;
 import com.itsschatten.portablecrafting.PortableCraftingInvsPlugin;
+import com.shanebeestudios.vf.api.BrewingManager;
 import com.shanebeestudios.vf.api.FurnaceManager;
+import com.shanebeestudios.vf.api.machine.BrewingStand;
 import com.shanebeestudios.vf.api.machine.Furnace;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -17,7 +19,7 @@ import java.util.concurrent.TimeoutException;
 
 public class MySql implements MySqlI {
 
-    public static final String furnaceTable = "pci_furnaces";
+    public static final String furnaceTable = "pci_furnaces", brewingTable = "pci_brewing_stands";
 
     public final MySqlUtils mysql;
 
@@ -34,7 +36,7 @@ public class MySql implements MySqlI {
                 Utils.log("&cConnection to MySQL was unsuccessful! Reverting to using file system...");
 
             } else
-                Utils.debugLog("&aConnection to MySQL was successful!");
+                Utils.debugLog(Settings.DEBUG, "&aConnection to MySQL was successful!");
         } else
             this.mysql = null;
 
@@ -43,6 +45,40 @@ public class MySql implements MySqlI {
     private void createIfNotExists() {
         mysql.update("CREATE TABLE IF NOT EXISTS " + furnaceTable +
                 " (owner_uuid VARCHAR(64), furnace_uuid VARCHAR(64), furnace_type enum('FURNACE', 'BLAST_FURNACE', 'SMOKER'))");
+        mysql.update("CREATE TABLE IF NOT EXISTS " + brewingTable + " (owner_uuid VARCHAR(64), stand_uuid VARCHAR(64))");
+    }
+
+    @Override
+    public BrewingStand getStand(UUID owner, BrewingManager manager) {
+        final CompletableFuture<BrewingStand> getStand = CompletableFuture.supplyAsync(() -> {
+            final MySqlUtils.WrappedResultSet set = mysql.query("SELECT * FROM " + brewingTable + " WHERE owner_uuid = '" + owner + "'");
+            try {
+                if (!set.next() || !set.hasColumn("stand_uuid")) {
+                    return null;
+                }
+
+                return manager.getByID(UUID.fromString(set.getResultSet().getString("stand_uuid")));
+            } catch (SQLException throwable) {
+                throwable.printStackTrace();
+                return null;
+            }
+        });
+        try {
+            return getStand.get(15, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public void setStand(UUID owner, BrewingStand stand) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                mysql.update("INSERT INTO " + brewingTable + " (owner_uuid, stand_uuid) VALUES ('" + owner + "', '" + stand.getUniqueID() + "')");
+            }
+        }.runTaskAsynchronously(PortableCraftingInvsPlugin.getInstance());
     }
 
     @Override
@@ -66,8 +102,8 @@ public class MySql implements MySqlI {
                 }
 
                 return furnaceManager.getByID(UUID.fromString(set.getResultSet().getString("furnace_uuid")));
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException throwable) {
+                throwable.printStackTrace();
                 return null;
             }
         });

@@ -13,11 +13,13 @@ import lombok.Setter;
 public class Settings extends SimpleConfig {
 
     public static boolean
+            SILENT_START_UP,
             DEBUG,
             USE_MYSQL,
             USE_PERMISSIONS,
             USE_UPDATER,
             USE_METRICS,
+            USE_MESSAGES,
             USE_TOO_MANY_ARGS,
             ALLOW_ESSENTIALS,
             USE_HELP_IF_WRONG_ARGS,
@@ -41,6 +43,7 @@ public class Settings extends SimpleConfig {
             USE_FURNACE,
             USE_BLAST_FURNACE,
             USE_SMOKER,
+            USE_BREWING,
 
     // Sound booleans.
     USE_ANVIL_SOUNDS,
@@ -116,12 +119,18 @@ public class Settings extends SimpleConfig {
         Utils.debugLog(DEBUG, "Loaded the settings.yml file.");
     }
 
+    public static void setUseMysql(boolean useMysql) {
+        USE_MYSQL = useMysql;
+    }
+
     private void onLoad() {
         /* Features */
+        SILENT_START_UP = (boolean) get("silent-start");
         DEBUG = (boolean) get("debug");
         UPDATE_CHECK_INTERVAL = getInt("update-check-interval");
         USE_PERMISSIONS = (boolean) get("use-permissions");
         ALLOW_ESSENTIALS = (boolean) get("allow-essentials");
+        USE_MESSAGES = (boolean) get("use-messages");
 
         USE_MYSQL = (boolean) get("use-sql");
 
@@ -134,6 +143,7 @@ public class Settings extends SimpleConfig {
         USE_FURNACE = (boolean) get("use-furnace");
         USE_BLAST_FURNACE = (boolean) get("use-blast-furnace");
         USE_SMOKER = (boolean) get("use-smoker");
+        USE_BREWING = (boolean) get("use-brewing");
 
         USE_TOO_MANY_ARGS = (boolean) get("use-too-many-args");
         USE_HELP_IF_WRONG_ARGS = (boolean) get("use-help-if-no-args");
@@ -192,10 +202,6 @@ public class Settings extends SimpleConfig {
         USE_SMITHING_SIGN = (boolean) get("use-smithingtable-sign");
     }
 
-    public static void setUseMysql(boolean useMysql) {
-        USE_MYSQL = useMysql;
-    }
-
     public void reload() {
         setInstance(null);
 
@@ -205,6 +211,7 @@ public class Settings extends SimpleConfig {
         if (!USE_MYSQL && PortableCraftingInvsPlugin.getDatabase().mysql.getConnection() != null) {
             PortableCraftingInvsPlugin.getDatabase().mysql.close();
             PortableCraftingInvsPlugin.setDatabase(null);
+            PortableCraftingInvsPlugin.getFakeContainers().setUsingMysql(Settings.USE_MYSQL);
         }
 
         Utils.debugLog(Settings.DEBUG, "Reloaded the settings.yml file.");

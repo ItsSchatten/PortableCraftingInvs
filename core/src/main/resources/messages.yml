@@ -171,6 +171,12 @@ opened-smithing-table: "{prefix} Opened the smithing table."
 opened-smithing-table-other: "{prefix} Opened the smithing table for {player}."
 
 # The message that is sent when opening the furnace.
+opened-brewing: "{prefix} Opened your virtual brewing stand."
+
+# The message that is sent when opening the furnace for someone else.
+opened-brewing-other: "{prefix} Opened virtual brewing stand for {player}."
+
+# The message that is sent when opening the furnace.
 opened-furnace: "{prefix} Opened your virtual furnace."
 
 # The message that is sent when opening the furnace for someone else.

@@ -2,8 +2,10 @@ package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.PlayerConfigManager;
+import com.shanebeestudios.vf.api.BrewingManager;
 import com.shanebeestudios.vf.api.FurnaceManager;
 import com.shanebeestudios.vf.api.VirtualFurnaceAPI;
+import com.shanebeestudios.vf.api.machine.BrewingStand;
 import com.shanebeestudios.vf.api.machine.Furnace;
 import com.shanebeestudios.vf.api.property.FurnaceProperties;
 import lombok.Getter;
@@ -23,6 +25,7 @@ import java.util.UUID;
 public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
 
     private final FurnaceManager manager;
+    private final BrewingManager brewingManager;
     boolean debug, mysql;
 
     MySqlI sql;
@@ -30,6 +33,7 @@ public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
     public FakeContainers_v1_16_R2(JavaPlugin plugin, MySqlI sql) {
         VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true);
         this.manager = furnaceAPI.getFurnaceManager();
+        this.brewingManager = furnaceAPI.getBrewingManager();
         this.sql = sql;
     }
 
@@ -165,6 +169,37 @@ public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
 
         ePlayer.activeContainer = fakeEnchant;
         ePlayer.activeContainer.addSlotListener(ePlayer);
+    }
+
+    @Override
+    public void openBrewingStand(Player player) {
+        if (mysql) {
+            if (sql.getStand(player.getUniqueId(), brewingManager) == null) {
+                BrewingStand stand = brewingManager.createBrewingStand("Brewing");
+                stand.openInventory(player);
+
+                sql.setStand(player.getUniqueId(), stand);
+            } else {
+                BrewingStand stand = sql.getStand(player.getUniqueId(), brewingManager);
+                stand.openInventory(player);
+            }
+            return;
+        }
+
+        if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
+            FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
+
+            if (playerConfig.get("brewing") == null) {
+                BrewingStand stand = brewingManager.createBrewingStand("Brewing");
+                stand.openInventory(player);
+
+                playerConfig.set("brewing", stand.getUniqueID().toString());
+                PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
+            } else {
+                BrewingStand brewing = brewingManager.getByID(UUID.fromString(playerConfig.getString("brewing")));
+                brewing.openInventory(player);
+            }
+        }
     }
 
     @Override

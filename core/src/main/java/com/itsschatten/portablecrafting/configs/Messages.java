@@ -55,6 +55,8 @@ public class Messages extends SimpleConfig {
             OPENED_BLAST_FURNACE_OTHER,
             OPENED_SMOKER,
             OPENED_SMOKER_OTHER,
+            OPENED_BREWING,
+            OPENED_BREWING_OTHER,
 
     // Sign Messages
 
@@ -99,7 +101,10 @@ public class Messages extends SimpleConfig {
     }
 
     public static void init() {
-        new Messages("messages.yml").onLoad();
+        if (!Settings.USE_MESSAGES) {
+            new Messages("messages.yml").onLoadNoMessages();
+        } else
+            new Messages("messages.yml").onLoad();
         Utils.setPrefix(PREFIX);
         Utils.setUpdateAvailableMessage(Messages.UPDATE_AVAILABLE_MESSAGE);
         Utils.setNoPermsMessage(NO_PERMS);
@@ -141,6 +146,9 @@ public class Messages extends SimpleConfig {
         OPENED_BLAST_FURNACE_OTHER = getString("opened-blast-furnace-other");
         OPENED_SMOKER = getString("opened-smoker");
         OPENED_SMOKER_OTHER = getString("opened-smoker-other");
+
+        OPENED_BREWING = getString("opened-brewing");
+        OPENED_BREWING_OTHER = getString("opened-brewing-other");
 
         CANT_RETRIEVE_ITEM_FROM_ENDER = getString("cant-retrieve-from-enderchest");
         CANT_USE_SMITHING_IN_1_15 = getString("cant-use-smithing-1-15");
@@ -185,6 +193,90 @@ public class Messages extends SimpleConfig {
         LOOM_SIGN_CREATED = getString("loom-sign-created");
         STONE_CUTTER_SIGN_CREATED = getString("stonecutter-sign-created");
         SMITHING_TABLE_SIGN_CREATED = getString("smithing-sign-created");
+    }
+
+    public void onLoadNoMessages() {
+        PREFIX = "";
+        NO_PERMS = "";
+        HELP_MESSAGE = (String) get("help-message");
+        RELOAD_MESSAGE = "";
+        RELOAD_SPECIFIC = "";
+        WRONG_ARGS = "";
+        TOO_MANY_ARGS = "";
+        NOT_ENOUGH_ARGS = "";
+        DOES_NOT_EXIST = "";
+
+        PLAYER_DOES_NOT_EXIST = "";
+
+        FEATURE_DISABLED = "";
+
+        UPDATE_AVAILABLE_MESSAGE = (String) get("update-available");
+
+        OPENED_ENDERCHEST = "";
+        OPEN_TARGET_ENDERCHEST_OLD = "";
+        OPEN_TARGET_ENDERCHEST = "";
+        OPENED_CRAFTING = "";
+        OPENED_CRAFTING_OTHER = "";
+        OPENED_ANVIL = "";
+        OPENED_ANVIL_OTHER = "";
+        OPENED_ENCHANT_TABLE = "";
+        OPENED_ENCHANT_TABLE_OTHER = "";
+        MUST_BE_IN_RANGE = "";
+        OPENED_ENCHANT_WITH_MAX_LEVEL = "";
+
+        OPENED_FURNACE = "";
+        OPENED_FURNACE_OTHER = "";
+        OPENED_BLAST_FURNACE = "";
+        OPENED_BLAST_FURNACE_OTHER = "";
+        OPENED_SMOKER = "";
+        OPENED_SMOKER_OTHER = "";
+
+        OPENED_BREWING = "";
+        OPENED_BREWING_OTHER = "";
+
+        CANT_RETRIEVE_ITEM_FROM_ENDER = "";
+        CANT_USE_SMITHING_IN_1_15 = "";
+
+        OPENED_CARTOGRAPHY = "";
+        OPENED_CARTOGRAPHY_OTHER = "";
+
+
+        OPENED_GRINDSTONE = "";
+        OPENED_GRINDSTONE_OTHER = "";
+
+
+        OPENED_LOOM = "";
+        OPENED_LOOM_OTHER = "";
+
+
+        OPENED_STONE_CUTTER = "";
+        OPENED_STONE_CUTTER_OTHER = "";
+
+        OPENED_SMITHING_TABLE = "";
+        OPENED_SMITHING_TABLE_OTHER = "";
+
+        // Sign messages
+        MUST_SHIFT_CLICK_TO_BREAK_SIGN = "";
+
+        ANVIL_SIGN = "";
+        CARTOGRAPHY_SIGN = "";
+        CRAFTING_SIGN = "";
+        ENCHANT_TABLE_SIGN = "";
+        ENDERCHEST_SIGN = "";
+        GRINDSTONE_SIGN = "";
+        LOOM_SIGN = "";
+        STONE_CUTTER_SIGN = "";
+        SMITHING_TABLE_SIGN = "";
+
+        ANVIL_SIGN_CREATED = "";
+        CARTOGRAPHY_SIGN_CREATED = "";
+        CRAFTING_SIGN_CREATED = "";
+        ENCHANT_TABLE_SIGN_CREATED = "";
+        ENDERCHEST_SIGN_CREATED = "";
+        GRINDSTONE_SIGN_CREATED = "";
+        LOOM_SIGN_CREATED = "";
+        STONE_CUTTER_SIGN_CREATED = "";
+        SMITHING_TABLE_SIGN_CREATED = "";
     }
 
     public void reload() {

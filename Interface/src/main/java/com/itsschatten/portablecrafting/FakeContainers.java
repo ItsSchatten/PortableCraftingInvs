@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 public interface FakeContainers {
     void setUsingMysql(boolean bool);
+
     void setDebug(boolean bool);
 
     void openLoom(Player player);
@@ -23,6 +24,10 @@ public interface FakeContainers {
     void openEnchant(Player player, int maxLvl);
 
     void openFurnace(Player player);
+
     void openBlastFurnace(Player player);
+
     void openSmoker(Player player);
+
+    void openBrewingStand(Player player);
 }

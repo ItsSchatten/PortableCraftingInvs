@@ -41,6 +41,20 @@ public enum Permissions implements IPermissions {
         }
     },
 
+    BREWING {
+        @Override
+        public String getPermission() {
+            return "pci.brewing";
+        }
+    },
+
+    BREWING_OTHER {
+        @Override
+        public String getPermission() {
+            return "pci.brewing.other";
+        }
+    },
+
     CARTOGRAPHY {
         @Override
         public String getPermission() {

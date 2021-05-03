@@ -21,6 +21,11 @@
 # I do not recommend you enable this unless you want to have your console be filled with messages.
 debug: false
 
+# Don't like all of that flooding in your console when the plugin boots? This is the setting for you!
+# Note: In an effort to be transparent we still log that we are collecting metrics if that setting is enabled.
+#  We also will log when a new update is available so you can always use the latest version.
+silent-start: false
+
 # If this is set to true and you add more then the required amount of arguments
 # the plugin will send you a message saying so.
 use-too-many-args: true
@@ -37,6 +42,9 @@ update-check-interval: 30
 # Essentials to handle those commands, if false we will register the commands to allow the sending of the feature
 # disabled message.
 allow-essentials: true
+
+# If this is set to false we will not send any messages when commands are run.
+use-messages: true
 
 # If a user was to use the command /pci and not provide any arguments to the command,
 # we send the help message along with the wrong arguments message.
@@ -78,6 +86,9 @@ use-anvil: true
 
 # Enable or disable the use of the /craft command.
 use-crafting: true
+
+# Enable or disable the use of the /brewing command.
+use-brewing: true
 
 # Enable or disable the use of the /furnace command.
 use-furnace: true

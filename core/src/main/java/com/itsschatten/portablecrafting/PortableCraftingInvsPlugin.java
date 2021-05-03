@@ -43,24 +43,26 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         setInstance(this);
         serverVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 
-        final PluginDescriptionFile pdf = this.getDescription();
-        Utils.log("",
-                "&9+---------------------------------------------------+ ",
-                "",
-                "&9 _____   _____ _____ ",
-                "&9|  __ \\ / ____|_   _|",
-                "&3| |__) | |      | |  ",
-                "&3|  ___/| |      | |  ",
-                "&b| |    | |____ _| |_ ",
-                "&b|_|     \\_____|_____|",
-                "",
-                "&7Developed by " + String.join(",", pdf.getAuthors()),
-                "&7Version " + pdf.getVersion(),
-                "&7Using Minecraft version " + serverVersion);
-
         // Register configs.
         Settings.init();
         Messages.init();
+
+        final PluginDescriptionFile pdf = this.getDescription();
+        if (!Settings.SILENT_START_UP)
+            Utils.log("",
+                    "&9+---------------------------------------------------+ ",
+                    "",
+                    "&9 _____   _____ _____ ",
+                    "&9|  __ \\ / ____|_   _|",
+                    "&3| |__) | |      | |  ",
+                    "&3|  ___/| |      | |  ",
+                    "&b| |    | |____ _| |_ ",
+                    "&b|_|     \\_____|_____|",
+                    "",
+                    "&7Developed by " + String.join(",", pdf.getAuthors()),
+                    "&7Version " + pdf.getVersion(),
+                    "&7Using Minecraft version " + serverVersion);
+
 
         if (Settings.USE_MYSQL) {
             database = new MySql(Settings.MYSQL_HOST, Settings.MYSQL_PORT, Settings.MYSQL_DATABASE, Settings.MYSQL_USER, Settings.MYSQL_PASS);
@@ -103,9 +105,9 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             new Metrics(this, 5752);
         }
 
-        if (!Settings.USE_FURNACE && !Settings.USE_BLAST_FURNACE && !Settings.USE_SMOKER) {
+        if (!Settings.USE_FURNACE && !Settings.USE_BLAST_FURNACE && !Settings.USE_SMOKER && !Settings.USE_BREWING) {
             VirtualFurnaceAPI.getInstance().disableAPI();
-            Utils.debugLog(Settings.DEBUG, "&cNo furnaces are enabled, we disabled the API so we won't take up loads of resources.");
+            Utils.debugLog(Settings.DEBUG, "&cFurnaces and Brewing stands are not enabled, disabled the API so we won't take up loads of resources.");
         }
 
         if (Settings.USE_UPDATER) {
@@ -132,7 +134,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         }
 
         // Register commands, and JoinListener.
-        registerCommands(new EnchanttableCommand(), new PortableCraftingInvsCommand(), new FurnaceCommand(), new SmokerCommand(), new BlastFurnaceCommand());
+        registerCommands(new EnchanttableCommand(), new PortableCraftingInvsCommand(), new FurnaceCommand(), new SmokerCommand(), new BlastFurnaceCommand(), new BrewingStandCommand());
 
         if (Settings.ALLOW_ESSENTIALS && Bukkit.getPluginManager().isPluginEnabled("Essentials")) {
             if (!Settings.USE_CRAFTING) {
@@ -194,18 +196,18 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         this.getServer().getPluginManager().registerEvents(new EnchantmentListener(), this);
-        Utils.debugLog(Settings.DEBUG, "Loaded the PlayerJoinListener.");
+        Utils.debugLog(Settings.DEBUG, "Loaded event listeners.");
 
-
-        Utils.log("&9+---------------------------------------------------+ ",
-                "");
+        if (!Settings.SILENT_START_UP)
+            Utils.log("&9+---------------------------------------------------+ ",
+                    "");
     }
 
     // Remove the instance of the plugin, to help prevent memory leaks, and set it to null in the Utils so we can get a new instance of it when it's reloaded.
     // Also disable the VirtualFurnace API if it is enabled and the one of the furnaces is enabled.
     @Override
     public void onDisable() {
-        if (VirtualFurnaceAPI.getInstance().isEnabled() && (Settings.USE_FURNACE | Settings.USE_BLAST_FURNACE | Settings.USE_SMOKER))
+        if (VirtualFurnaceAPI.getInstance().isEnabled() && (Settings.USE_FURNACE | Settings.USE_BLAST_FURNACE | Settings.USE_SMOKER | Settings.USE_BREWING))
             VirtualFurnaceAPI.getInstance().disableAPI();
 
         CraftCommand.setInstance(null);
@@ -238,6 +240,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         }
     }
 
+    // Uses some reflection to access the server's command map and unregister out commands.
     public void unregisterCommand(Command command) {
         try {
             Field commandMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
