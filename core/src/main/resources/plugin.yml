@@ -12,6 +12,8 @@ permissions:
     children:
       pci.anvil: true
       pci.anvil.other: true
+      pci.brewing: true
+      pci.brewing.other: true
       pci.blast-furnace: true
       pci.blast-furnace.other: true
       pci.craft: true
@@ -50,6 +52,14 @@ permissions:
   pci.blast-furnace.other:
     default: op
     description: "Needed to open the blast-furnace for someone else."
+
+  pci.brewing:
+    default: op
+    description: "Needed to open the brewing stand."
+
+  pci.brewing.other:
+    default: op
+    description: "Needed to open the brewing stand for someone else."
 
   pci.craft:
     default: op
