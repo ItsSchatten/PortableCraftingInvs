@@ -195,7 +195,7 @@ public class Settings extends SimpleConfig {
         USE_CARTOGRAPHY_SIGN = (boolean) get("use-cartography-sign");
         USE_CRAFTING_SIGN = (boolean) get("use-crafting-sign");
         USE_ENDERCHEST_SIGN = (boolean) get("use-enderchest-sign");
-        USE_ENCHANT_TABLE_SIGN = (boolean) getBoolean("use-enchanttable-sign");
+        USE_ENCHANT_TABLE_SIGN = getBoolean("use-enchanttable-sign");
         USE_GRINDSTONE_SIGN = (boolean) get("use-grindstone-sign");
         USE_LOOM_SIGN = (boolean) get("use-loom-sign");
         USE_STONE_CUTTER_SIGN = (boolean) get("use-stonecutter-sign");
@@ -208,7 +208,7 @@ public class Settings extends SimpleConfig {
         init();
         PortableCraftingInvsPlugin.getFakeContainers().setDebug(Settings.DEBUG);
 
-        if (!USE_MYSQL && PortableCraftingInvsPlugin.getDatabase().mysql.getConnection() != null) {
+        if (!USE_MYSQL && (PortableCraftingInvsPlugin.getDatabase() != null && PortableCraftingInvsPlugin.getDatabase().mysql.getConnection() != null)) {
             PortableCraftingInvsPlugin.getDatabase().mysql.close();
             PortableCraftingInvsPlugin.setDatabase(null);
             PortableCraftingInvsPlugin.getFakeContainers().setUsingMysql(Settings.USE_MYSQL);
