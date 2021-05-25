@@ -9,6 +9,7 @@ import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,8 +17,8 @@ import java.util.List;
 
 public class PortableCraftingInvsCommand extends UniversalCommand {
 
-    private static List<String> TABBALE = Arrays.asList("help", "version", "rl", "reload"); // Tabbable lists for tab complete.
-    private static List<String> CONFIGS = Arrays.asList("settings", "messages", "signs");
+    private static final List<String> TABBABLE = Arrays.asList("help", "version", "rl", "reload"); // Tabbable lists for tab complete.
+    private static final List<String> CONFIGS = Arrays.asList("settings", "messages", "signs");
 
 
     public PortableCraftingInvsCommand() {
@@ -56,7 +57,11 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
                 if (args.length == 1) { // Reload if no arguments are passed.
                     Messages.getInstance().reload();
                     Settings.getInstance().reload();
-                    SignsConfig.getInstance().reload();
+
+                    if (SignsConfig.getInstance() != null && Settings.USE_SIGNS) {
+                        SignsConfig.getInstance().reload();
+                    } else if (Settings.USE_SIGNS)
+                        SignsConfig.init();
 
                     tell(Messages.RELOAD_MESSAGE);
                 } else if (args.length == 2) {
@@ -73,7 +78,10 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
                             tell(Messages.RELOAD_SPECIFIC.replace("{file}", "messages.yml"));
                             break;
                         case "signs":
-                            SignsConfig.getInstance().reload();
+                            if (SignsConfig.getInstance() != null && Settings.USE_SIGNS) {
+                                SignsConfig.getInstance().reload();
+                            } else if (Settings.USE_SIGNS)
+                                SignsConfig.init();
                             tell(Messages.RELOAD_SPECIFIC.replace("{file}", "signs.yml"));
                         default:
                             tell(Messages.WRONG_ARGS);
@@ -109,20 +117,20 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
     }
 
     @Override
-    public List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, String[] args) throws IllegalArgumentException {
 
         if (args.length == 1) { // If args are one.
             final String arg = args[0];
             final List<String> list = new ArrayList<>();
 
-            for (final String tab : TABBALE) // Send the first list of tabbable things.
+            for (final String tab : TABBABLE) // Send the first list of tabbable things.
                 if (tab.startsWith(arg.toLowerCase()))
                     list.add(tab.toLowerCase());
 
             return list;
         }
 
-        if (args.length == 2 && (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl"))) { // If args are 2 and are equal to reload.
+        if (args.length == 2 && (args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl"))) { // If args are 2 and arg 1 is equal to reload.
             final String arg2 = args[1];
             final List<String> configList = new ArrayList<>();
 

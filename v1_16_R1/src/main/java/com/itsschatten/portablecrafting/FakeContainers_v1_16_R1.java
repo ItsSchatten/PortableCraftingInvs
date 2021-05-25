@@ -185,6 +185,15 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
                 sql.setStand(player.getUniqueId(), stand);
             } else {
                 BrewingStand stand = sql.getStand(player.getUniqueId(), brewingManager);
+
+                if (stand == null) {
+                    stand = brewingManager.createBrewingStand("Brewing");
+                    stand.openInventory(player);
+
+                    sql.setStand(player.getUniqueId(), stand);
+                    return;
+                }
+
                 stand.openInventory(player);
             }
             return;
@@ -200,8 +209,18 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
                 playerConfig.set("brewing", stand.getUniqueID().toString());
                 PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
             } else {
-                BrewingStand brewing = brewingManager.getByID(UUID.fromString(playerConfig.getString("brewing")));
-                brewing.openInventory(player);
+                BrewingStand stand = brewingManager.getByID(UUID.fromString(playerConfig.getString("brewing")));
+
+                if (stand == null) {
+                    stand = brewingManager.createBrewingStand("Brewing");
+                    stand.openInventory(player);
+
+                    playerConfig.set("brewing", stand.getUniqueID().toString());
+                    PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
+                    return;
+                }
+
+                stand.openInventory(player);
             }
         }
     }
@@ -216,6 +235,15 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
                 sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.FURNACE);
             } else {
                 Furnace furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE);
+
+                if (furnace == null) {
+                    furnace = manager.createFurnace("Furnace");
+                    furnace.openInventory(player);
+
+                    sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.FURNACE);
+                    return;
+                }
+
                 furnace.openInventory(player);
             }
             return;
@@ -232,6 +260,16 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
                 PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
             } else {
                 Furnace furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.furnace")));
+
+                if (furnace == null) {
+                    furnace = manager.createFurnace("Furnace");
+                    furnace.openInventory(player);
+
+                    playerConfig.set("furnaces.furnace", furnace.getUniqueID().toString());
+                    PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
+                    return;
+                }
+
                 furnace.openInventory(player);
             }
         }
@@ -247,6 +285,15 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
                 sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.BLAST_FURNACE);
             } else {
                 Furnace furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.BLAST_FURNACE);
+
+                if (furnace == null) {
+                    furnace = manager.createFurnace("Blast Furnace");
+                    furnace.openInventory(player);
+
+                    sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.BLAST_FURNACE);
+                    return;
+                }
+
                 furnace.openInventory(player);
             }
             return;
@@ -263,6 +310,16 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
                 PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
             } else {
                 Furnace blastFurnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.blast-furnace")));
+
+                if (blastFurnace == null) {
+                    blastFurnace = manager.createFurnace("Blast Furnace");
+                    blastFurnace.openInventory(player);
+
+                    playerConfig.set("furnaces.blast-furnace", blastFurnace.getUniqueID().toString());
+                    PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
+                    return;
+                }
+
                 blastFurnace.openInventory(player);
             }
         }
@@ -278,6 +335,15 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
                 sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.SMOKER);
             } else {
                 Furnace furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.SMOKER);
+
+                if (furnace == null) {
+                    furnace = manager.createFurnace("Smoker");
+                    furnace.openInventory(player);
+
+                    sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.SMOKER);
+                    return;
+                }
+
                 furnace.openInventory(player);
             }
             return;
@@ -293,8 +359,17 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
                 playerConfig.set("furnaces.smoker", smoker.getUniqueID().toString());
                 PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
             } else {
-                Furnace blastFurnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.smoker")));
-                blastFurnace.openInventory(player);
+                Furnace furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.smoker")));
+
+                if (furnace == null) {
+                    furnace = manager.createFurnace("Smoker");
+                    furnace.openInventory(player);
+
+                    playerConfig.set("furnaces.smoker", furnace.getUniqueID().toString());
+                    PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
+                    return;
+                }
+                furnace.openInventory(player);
             }
 
         }
