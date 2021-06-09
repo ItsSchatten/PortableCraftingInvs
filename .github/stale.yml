@@ -4,15 +4,17 @@ daysUntilStale: 30
 daysUntilClose: 7
 # Issues with these labels will never be considered stale
 exemptLabels:
-  - status: in-progress
-  - status: awaiting info
-  - status: accepted
+  - "status: in-progress"
+  - "status: awaiting info"
+  - "status: accepted"
 # Label to use when marking an issue as stale
-staleLabel: stale
+staleLabel: "stale"
 # Comment to post when marking an issue as stale. Set to `false` to disable
 markComment: >
   This issue has been deemed as stale because it has not had
   any recent activity. It will be closed if no further activity occurs.
   
 # Comment to post when closing a stale issue. Set to `false` to disable
-closeComment: false
+closeComment: >
+    This issue has been closed due to inactivity. Should you feel that
+    this issue is still valid post a new issue with reference to this issue.

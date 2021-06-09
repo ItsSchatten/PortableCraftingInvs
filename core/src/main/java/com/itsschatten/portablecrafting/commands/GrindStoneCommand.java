@@ -39,49 +39,51 @@ public class GrindStoneCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            if (Settings.USE_GRINDSTONE_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + grindStoneOpen + " to " + target.getName());
-            }
+            if (PortableCraftingInvsPlugin.getFakeContainers().openGrindStone(target)) {
+                if (Settings.USE_GRINDSTONE_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + grindStoneOpen + " to " + target.getName());
+                }
 
-            PortableCraftingInvsPlugin.getFakeContainers().openGrindStone(target);
-            Utils.debugLog("Opened the grindstone for " + target.getName());
-            tellTarget(target, Messages.OPENED_GRINDSTONE);
-            returnTell(Messages.OPENED_GRINDSTONE_OTHER.replace("{target}", target.getName()));
+                Utils.debugLog("Opened the grindstone for " + target.getName());
+                tellTarget(target, Messages.OPENED_GRINDSTONE);
+                returnTell(Messages.OPENED_GRINDSTONE_OTHER.replace("{target}", target.getName()));
+            }
             return;
         }
 
         final Player player = (Player) commandSender;
-        if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.GRINDSTONE );
+        if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.GRINDSTONE);
 
         if (args.length == 0) {
 
-            if (Settings.USE_GRINDSTONE_SOUNDS) {
-                player.playSound(player.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + grindStoneOpen + " to " + player.getName());
+            if (PortableCraftingInvsPlugin.getFakeContainers().openGrindStone(player)) {
+                if (Settings.USE_GRINDSTONE_SOUNDS) {
+                    player.playSound(player.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + grindStoneOpen + " to " + player.getName());
+                }
+
+                Utils.debugLog(Settings.DEBUG, "Opened the grindstone for " + player.getName());
+                returnTell(Messages.OPENED_GRINDSTONE);
             }
-
-            PortableCraftingInvsPlugin.getFakeContainers().openGrindStone(player);
-            Utils.debugLog(Settings.DEBUG, "Opened the grindstone for " + player.getName());
-            returnTell(Messages.OPENED_GRINDSTONE);
-
         }
 
         if (args.length == 1) {
-            if (Settings.USE_PERMISSIONS)            checkPerms(player, Permissions.GRINDSTONE_OTHER);
+            if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.GRINDSTONE_OTHER);
 
             Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{target}", args[0]));
 
-            if (Settings.USE_GRINDSTONE_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + grindStoneOpen + " to " + target.getName());
-            }
+            if (PortableCraftingInvsPlugin.getFakeContainers().openGrindStone(target)) {
+                if (Settings.USE_GRINDSTONE_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + grindStoneOpen + " to " + target.getName());
+                }
 
-            PortableCraftingInvsPlugin.getFakeContainers().openGrindStone(target);
-            Utils.debugLog("Opened the grindstone for " + target.getName());
-            tellTarget(target, Messages.OPENED_GRINDSTONE);
-            returnTell(Messages.OPENED_GRINDSTONE_OTHER.replace("{target}", target.getName()));
+                Utils.debugLog("Opened the grindstone for " + target.getName());
+                tellTarget(target, Messages.OPENED_GRINDSTONE);
+                returnTell(Messages.OPENED_GRINDSTONE_OTHER.replace("{target}", target.getName()));
+            }
 
         }
 

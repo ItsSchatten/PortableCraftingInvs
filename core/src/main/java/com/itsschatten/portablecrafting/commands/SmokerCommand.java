@@ -33,10 +33,11 @@ public class SmokerCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            PortableCraftingInvsPlugin.getFakeContainers().openFurnace(target);
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + target.getName());
-            tellTarget(target, Messages.OPENED_SMOKER);
-            returnTell(Messages.OPENED_SMOKER_OTHER.replace("{player}", target.getName()));
+            if (PortableCraftingInvsPlugin.getFakeContainers().openFurnace(target)) {
+                Utils.debugLog(Settings.DEBUG, "Opened a virtual smoker for " + target.getName());
+                tellTarget(target, Messages.OPENED_SMOKER);
+                returnTell(Messages.OPENED_SMOKER_OTHER.replace("{player}", target.getName()));
+            }
             return;
         }
 
@@ -45,9 +46,10 @@ public class SmokerCommand extends UniversalCommand {
             checkPerms(player, Permissions.SMOKER);
 
         if (args.length == 0) {
-            PortableCraftingInvsPlugin.getFakeContainers().openSmoker(player);
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + player.getName());
-            returnTell( Messages.OPENED_SMOKER);
+            if (PortableCraftingInvsPlugin.getFakeContainers().openSmoker(player)) {
+                Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + player.getName());
+                returnTell(Messages.OPENED_SMOKER);
+            }
         }
 
         if (args.length == 1) {
@@ -57,10 +59,11 @@ public class SmokerCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            PortableCraftingInvsPlugin.getFakeContainers().openFurnace(target);
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual smoker for " + target.getName());
-            tellTarget(target, Messages.OPENED_SMOKER);
-            returnTell(Messages.OPENED_SMOKER_OTHER.replace("{player}", target.getName()));
+            if (PortableCraftingInvsPlugin.getFakeContainers().openFurnace(target)) {
+                Utils.debugLog(Settings.DEBUG, "Opened a virtual smoker for " + target.getName());
+                tellTarget(target, Messages.OPENED_SMOKER);
+                returnTell(Messages.OPENED_SMOKER_OTHER.replace("{player}", target.getName()));
+            }
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {

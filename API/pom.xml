@@ -4,36 +4,34 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>PortableCraftingInvs-Interface</artifactId>
-    <packaging>jar</packaging>
-
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.6.0</version>
+        <version>1.5.2</version>
     </parent>
 
-    <properties>
-        <maven.skip.test>true</maven.skip.test>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+    <artifactId>API</artifactId>
+    <version>1.0.0</version>
 
     <repositories>
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+
+        <repository>
+            <id>shadowlibs-repo</id>
+            <url>https://itsschatten.com/repositories/repos/shadowlibs/</url>
+        </repository>
     </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -33,10 +33,11 @@ public class FurnaceCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            PortableCraftingInvsPlugin.getFakeContainers().openFurnace(target);
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + target.getName());
-            tellTarget(target, Messages.OPENED_FURNACE);
-            returnTell(Messages.OPENED_FURNACE_OTHER.replace("{player}", target.getName()));
+            if (PortableCraftingInvsPlugin.getFakeContainers().openFurnace(target)) {
+                Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + target.getName());
+                tellTarget(target, Messages.OPENED_FURNACE);
+                returnTell(Messages.OPENED_FURNACE_OTHER.replace("{player}", target.getName()));
+            }
             return;
         }
 
@@ -45,9 +46,10 @@ public class FurnaceCommand extends UniversalCommand {
             checkPerms(player, Permissions.FURNACE);
 
         if (args.length == 0) {
-            PortableCraftingInvsPlugin.getFakeContainers().openFurnace(player);
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + player.getName());
-            returnTell( Messages.OPENED_FURNACE);
+            if (PortableCraftingInvsPlugin.getFakeContainers().openFurnace(player)) {
+                Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + player.getName());
+                returnTell(Messages.OPENED_FURNACE);
+            }
         }
 
         if (args.length == 1) {
@@ -57,10 +59,11 @@ public class FurnaceCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            PortableCraftingInvsPlugin.getFakeContainers().openFurnace(target);
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + target.getName());
-            tellTarget(target, Messages.OPENED_FURNACE);
-            returnTell(Messages.OPENED_FURNACE_OTHER.replace("{player}", target.getName()));
+            if (PortableCraftingInvsPlugin.getFakeContainers().openFurnace(target)) {
+                Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + target.getName());
+                tellTarget(target, Messages.OPENED_FURNACE);
+                returnTell(Messages.OPENED_FURNACE_OTHER.replace("{player}", target.getName()));
+            }
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {

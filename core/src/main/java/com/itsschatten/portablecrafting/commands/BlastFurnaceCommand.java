@@ -30,13 +30,7 @@ public class BlastFurnaceCommand extends UniversalCommand {
         if (!(commandSender instanceof Player)) {
             checkArgs(1, Messages.NOT_ENOUGH_ARGS);
 
-            final Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
-
-            PortableCraftingInvsPlugin.getFakeContainers().openBlastFurnace(target);
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + target.getName());
-            tellTarget(target, Messages.OPENED_BLAST_FURNACE);
-            returnTell(Messages.OPENED_BLAST_FURNACE_OTHER.replace("{player}", target.getName()));
+            openBlastFurnaceForTarget(args);
             return;
         }
 
@@ -45,26 +39,32 @@ public class BlastFurnaceCommand extends UniversalCommand {
             checkPerms(player, Permissions.BLAST_FURNACE);
 
         if (args.length == 0) {
-            PortableCraftingInvsPlugin.getFakeContainers().openBlastFurnace(player);
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + player.getName());
-            returnTell( Messages.OPENED_BLAST_FURNACE);
+            if (PortableCraftingInvsPlugin.getFakeContainers().openBlastFurnace(player)) {
+                Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + player.getName());
+                returnTell(Messages.OPENED_BLAST_FURNACE);
+            }
         }
 
         if (args.length == 1) {
             if (Settings.USE_PERMISSIONS)
                 checkPerms(player, Permissions.BLAST_FURNACE_OTHER);
 
-            final Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
-
-            PortableCraftingInvsPlugin.getFakeContainers().openBlastFurnace(target);
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + target.getName());
-            tellTarget(target, Messages.OPENED_BLAST_FURNACE);
-            returnTell(Messages.OPENED_BLAST_FURNACE_OTHER.replace("{player}", target.getName()));
+            openBlastFurnaceForTarget(args);
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
             returnTell(Messages.TOO_MANY_ARGS);
+        }
+    }
+
+    private void openBlastFurnaceForTarget(final String[] args) {
+        final Player target = Bukkit.getPlayer(args[0]);
+        checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
+
+        if (PortableCraftingInvsPlugin.getFakeContainers().openBlastFurnace(target)) {
+            Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + target.getName());
+            tellTarget(target, Messages.OPENED_BLAST_FURNACE);
+            returnTell(Messages.OPENED_BLAST_FURNACE_OTHER.replace("{player}", target.getName()));
         }
     }
 }

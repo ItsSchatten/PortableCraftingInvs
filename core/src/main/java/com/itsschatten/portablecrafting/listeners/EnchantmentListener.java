@@ -2,9 +2,11 @@ package com.itsschatten.portablecrafting.listeners;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.portablecrafting.commands.EnchanttableCommand;
+import com.itsschatten.portablecrafting.configs.Settings;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentOffer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
@@ -30,12 +32,18 @@ public class EnchantmentListener implements Listener {
         if (EnchanttableCommand.getOpenEnchantTables().containsKey(event.getEnchanter().getUniqueId())) {
             int maxLevel = EnchanttableCommand.getOpenEnchantTables().get(event.getEnchanter().getUniqueId());
 
-            Utils.log((int) ((double) maxLevel - ((double) maxLevel * .1)) + "");
-            Utils.log((int) ((double) maxLevel - ((double) maxLevel * .3)) + "");
+            Utils.debugLog(Settings.DEBUG, (int) ((double) maxLevel - ((double) maxLevel * .1)) + "");
+            Utils.debugLog(Settings.DEBUG, (int) ((double) maxLevel - ((double) maxLevel * .3)) + "");
 
             event.getOffers()[0] = new EnchantmentOffer(obtainRandomEnchant(event.getItem()), ThreadLocalRandom.current().nextInt(2), (int) ((double) maxLevel - ((double) maxLevel * .60)));
             event.getOffers()[1] = new EnchantmentOffer(obtainRandomEnchant(event.getItem()), ThreadLocalRandom.current().nextInt(4), (int) ((double) maxLevel - ((double) maxLevel * .35)));
             event.getOffers()[2] = new EnchantmentOffer(obtainRandomEnchant(event.getItem()), ThreadLocalRandom.current().nextInt(5), maxLevel);
+            event.getInventory().getViewers().forEach((viewer) -> {
+                if (viewer instanceof Player) {
+                    Player player = (Player) viewer;
+                    player.updateInventory();
+                }
+            });
         }
     }
 

@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.5.2</version>
+        <version>1.6.0</version>
     </parent>
 
     <properties>
@@ -41,35 +41,42 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-Interface</artifactId>
-            <version>1.5.2</version>
+            <version>1.6.0</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R1</artifactId>
-            <version>1.5.2</version>
+            <version>1.6.0</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R2</artifactId>
-            <version>1.5.2</version>
+            <version>1.6.0</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R3</artifactId>
-            <version>1.5.2</version>
+            <version>1.6.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.itsschatten.portablecrafting</groupId>
+            <artifactId>API</artifactId>
+            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_15_R1</artifactId>
-            <version>1.5.2</version>
+            <version>1.6.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

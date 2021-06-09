@@ -49,15 +49,8 @@ public class EnchanttableCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + target.getName());
-            }
 
-            PortableCraftingInvsPlugin.getFakeContainers().openEnchant(target);
-            tellTarget(target, Messages.OPENED_ANVIL);
-            returnTell(Messages.OPENED_ANVIL_OTHER);
-
+            openEnchantingForTarget(openEnchanttableSound, target);
             return;
         }
 
@@ -66,56 +59,58 @@ public class EnchanttableCommand extends UniversalCommand {
         if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ENCHANT_TABLE); // Check perms.
 
         if (args.length == 0) {
+            if (PortableCraftingInvsPlugin.getFakeContainers().openEnchant(player)) {
+                if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
+                    player.playSound(player.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + player.getName());
+                }
 
-            if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
-                player.playSound(player.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + player.getName());
+                Utils.debugLog(Settings.DEBUG, "Opened the enchantment table.");
+                returnTell(Messages.OPENED_ENCHANT_TABLE);
             }
-
-            PortableCraftingInvsPlugin.getFakeContainers().openEnchant(player);
-            Utils.debugLog(Settings.DEBUG, "Opened the enchantment table.");
-            returnTell(Messages.OPENED_ENCHANT_TABLE);
         }
 
         if (args.length == 1) {
 
             if (NumberUtils.isNumber(args[0])) {
                 if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ENCHANT_USE_MAX_LEVEL);
-                if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
-                    player.playSound(player.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + player.getName());
-                }
 
                 int maxLevel = getNumber(0, 1, Settings.ENCHANT_MAX_LEVEL, StringUtils.replaceEach(Messages.MUST_BE_IN_RANGE, new String[]{"{max}", "{min}"}, new String[]{Settings.ENCHANT_MAX_LEVEL + "", "1"}));
 
-                PortableCraftingInvsPlugin.getFakeContainers().openEnchant(player, maxLevel);
-                openEnchantTables.put(player.getUniqueId(), maxLevel);
-                Utils.debugLog(Settings.DEBUG, "Opened the enchantment table with max level " + maxLevel);
-
-
-                returnTell(StringUtils.replace(Messages.OPENED_ENCHANT_WITH_MAX_LEVEL, "{level}", maxLevel + ""));
+                if (PortableCraftingInvsPlugin.getFakeContainers().openEnchant(player, maxLevel)) {
+                    if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
+                        player.playSound(player.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                        Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + player.getName());
+                    }
+                    openEnchantTables.put(player.getUniqueId(), maxLevel);
+                    Utils.debugLog(Settings.DEBUG, "Opened the enchantment table with max level " + maxLevel);
+                    returnTell(StringUtils.replace(Messages.OPENED_ENCHANT_WITH_MAX_LEVEL, "{level}", maxLevel + ""));
+                }
                 return;
             }
 
             if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ENCHANT_TABLE_OTHER); // Check perms.
             Player target = Bukkit.getPlayer(args[0]); // Set target
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0])); // Make sure target isn't null.
-            if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + target.getName());
-
-            }
-
-            PortableCraftingInvsPlugin.getFakeContainers().openEnchant(target);
-            Utils.debugLog(Settings.DEBUG, "Opened the enchantment table.");
-
-            tellTarget(target, Messages.OPENED_ENCHANT_TABLE);
-            returnTell(Messages.OPENED_ENCHANT_TABLE_OTHER.replace("{player}", target.getName()));
+            openEnchantingForTarget(openEnchanttableSound, target);
         }
 
 
         if (args.length > 2 && Settings.USE_TOO_MANY_ARGS) {
             returnTell(Messages.TOO_MANY_ARGS);
+        }
+    }
+
+    private void openEnchantingForTarget(String openEnchanttableSound, Player target) {
+        if (PortableCraftingInvsPlugin.getFakeContainers().openEnchant(target)) {
+            if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
+                target.playSound(target.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + target.getName());
+            }
+
+            Utils.debugLog(Settings.DEBUG, "Opened the enchantment table.");
+            tellTarget(target, Messages.OPENED_ANVIL);
+            returnTell(Messages.OPENED_ANVIL_OTHER);
         }
     }
 

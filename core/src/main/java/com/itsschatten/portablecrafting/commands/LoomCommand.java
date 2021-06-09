@@ -32,31 +32,33 @@ public class LoomCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            if (Settings.USE_LOOM_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(loomSoundOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + loomSoundOpen + " to " + target.getName());
-            }
+            if (PortableCraftingInvsPlugin.getFakeContainers().openLoom(target)) {
+                if (Settings.USE_LOOM_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(loomSoundOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + loomSoundOpen + " to " + target.getName());
+                }
 
-            PortableCraftingInvsPlugin.getFakeContainers().openLoom(target);
-            Utils.debugLog(Settings.DEBUG, "Opened the loom for " + target.getName());
-            tellTarget(target, Messages.OPENED_LOOM);
-            returnTell(Messages.OPENED_LOOM_OTHER.replace("{player}", target.getName()));
+                Utils.debugLog(Settings.DEBUG, "Opened the loom for " + target.getName());
+                tellTarget(target, Messages.OPENED_LOOM);
+                returnTell(Messages.OPENED_LOOM_OTHER.replace("{player}", target.getName()));
+            }
+            return;
         }
 
         final Player player = (Player) commandSender;
         if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.LOOM);
 
         if (args.length == 0) {
-            if (Settings.USE_LOOM_SOUNDS) {
-                player.playSound(player.getLocation(), Sound.valueOf(loomSoundOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + loomSoundOpen + " to " + player.getName());
+            if (PortableCraftingInvsPlugin.getFakeContainers().openLoom(player)) {
+                if (Settings.USE_LOOM_SOUNDS) {
+                    player.playSound(player.getLocation(), Sound.valueOf(loomSoundOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + loomSoundOpen + " to " + player.getName());
+                }
+
+                Utils.debugLog(Settings.DEBUG, "Opened the loom for " + player.getName());
+
+                returnTell(Messages.OPENED_LOOM);
             }
-
-            PortableCraftingInvsPlugin.getFakeContainers().openLoom(player);
-            Utils.debugLog(Settings.DEBUG, "Opened the loom for " + player.getName());
-
-            returnTell(Messages.OPENED_LOOM);
-
         }
 
         if (args.length == 1) {
@@ -65,17 +67,16 @@ public class LoomCommand extends UniversalCommand {
             Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            if (Settings.USE_LOOM_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(loomSoundOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + loomSoundOpen + " to " + target.getName());
+            if (PortableCraftingInvsPlugin.getFakeContainers().openLoom(target)) {
+                if (Settings.USE_LOOM_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(loomSoundOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + loomSoundOpen + " to " + target.getName());
+                }
+
+                Utils.debugLog(Settings.DEBUG, "Opened the loom for " + target.getName());
+                tellTarget(target, Messages.OPENED_LOOM);
+                returnTell(Messages.OPENED_LOOM_OTHER.replace("{player}", target.getName()));
             }
-
-            PortableCraftingInvsPlugin.getFakeContainers().openLoom(player);
-
-            Utils.debugLog(Settings.DEBUG, "Opened the loom for " + target.getName());
-
-            tellTarget(target, Messages.OPENED_LOOM);
-            returnTell(Messages.OPENED_LOOM_OTHER.replace("{player}", target.getName()));
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {

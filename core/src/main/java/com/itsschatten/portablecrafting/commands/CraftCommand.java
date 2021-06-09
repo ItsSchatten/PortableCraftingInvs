@@ -5,6 +5,7 @@ import com.itsschatten.libs.commandutils.UniversalCommand;
 import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
+import com.itsschatten.portablecrafting.events.CraftingOpenEvent;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -39,19 +40,22 @@ public class CraftCommand extends UniversalCommand {
         final String craftOpenSound = Settings.CRAFTING_OPEN_SOUND.toUpperCase(); // Sets the sound when the crafting table is opened. (even if not used.)
 
         if (!(sender instanceof Player)) {
-
             checkArgs(1, Messages.NOT_ENOUGH_ARGS);
 
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            if (Settings.USE_CRAFTING_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds are enabled play a sound, if random pitch at random.
-                Utils.debugLog(Settings.DEBUG, "Played the sound " + craftOpenSound + " to player " + target.getName());
-            }
+            final CraftingOpenEvent event = new CraftingOpenEvent(target);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                if (Settings.USE_CRAFTING_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds are enabled play a sound, if random pitch at random.
+                    Utils.debugLog(Settings.DEBUG, "Played the sound " + craftOpenSound + " to player " + target.getName());
+                }
 
-            target.openWorkbench(target.getLocation(), true);
-            Utils.debugLog(Settings.DEBUG, "Opened the crafting inventory for" + target.getName() + ".");
+                target.openWorkbench(target.getLocation(), true);
+                Utils.debugLog(Settings.DEBUG, "Opened the crafting inventory for" + target.getName() + ".");
+            }
 
             if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
                 returnTell(Messages.TOO_MANY_ARGS);
@@ -62,7 +66,7 @@ public class CraftCommand extends UniversalCommand {
 
         final Player player = (Player) sender;
 
-        if (Settings.USE_PERMISSIONS)checkPerms(player, Permissions.CRAFTING); // Check for permission again.
+        if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.CRAFTING); // Check for permission again.
 
         if (args.length == 0) { // If no arguments, open a crafting table for the sender.
             if (Settings.USE_CRAFTING_SOUNDS) {
@@ -80,19 +84,21 @@ public class CraftCommand extends UniversalCommand {
             if (Settings.USE_PERMISSIONS)
                 checkPerms(player, Permissions.CRAFTING_OTHER); // Check if the sender of the command has permission to run it as other.
             Player target = Bukkit.getPlayer(args[0]); // Sets the target.
-
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0])); // Make sure the player isn't null.
 
-            if (Settings.USE_CRAFTING_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Played sound " + craftOpenSound + " to player " + target.getName());
+            final CraftingOpenEvent event = new CraftingOpenEvent(target);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                if (Settings.USE_CRAFTING_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds are enabled play a sound, if random pitch at random.
+                    Utils.debugLog(Settings.DEBUG, "Played the sound " + craftOpenSound + " to player " + target.getName());
+                }
+
+                target.openWorkbench(target.getLocation(), true);
+                Utils.debugLog(Settings.DEBUG, "Opened the crafting inventory for" + target.getName() + ".");
+                tellTarget(target, Messages.OPENED_CRAFTING);
+                returnTell(Messages.OPENED_CRAFTING_OTHER.replace("{player}", target.getName()));
             }
-
-            target.openWorkbench(target.getLocation(), true);
-            Utils.debugLog(Settings.DEBUG, "Opened the crafting inventory for" + target.getName() + ".");
-
-            tellTarget(target, Messages.OPENED_CRAFTING);
-            returnTell(Messages.OPENED_CRAFTING_OTHER.replace("{player}", target.getName()));
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {

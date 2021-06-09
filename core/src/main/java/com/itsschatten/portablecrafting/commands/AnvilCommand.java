@@ -45,15 +45,17 @@ public class AnvilCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            if (Settings.USE_ANVIL_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + target.getName());
-            }
 
-            PortableCraftingInvsPlugin.getFakeContainers().openAnvil(target);
-            Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + target.getName());
-            tellTarget(target, Messages.OPENED_ANVIL);
-            returnTell(Messages.OPENED_ANVIL_OTHER.replace("{player}", target.getName()));
+            if (PortableCraftingInvsPlugin.getFakeContainers().openAnvil(target)) {
+                if (Settings.USE_ANVIL_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + target.getName());
+                }
+                activeAnvils.add(target.getUniqueId());
+                Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + target.getName());
+                tellTarget(target, Messages.OPENED_ANVIL);
+                returnTell(Messages.OPENED_ANVIL_OTHER.replace("{player}", target.getName()));
+            }
             return;
         }
 
@@ -62,36 +64,34 @@ public class AnvilCommand extends UniversalCommand {
 
         if (args.length == 0) {
 
-            if (Settings.USE_ANVIL_SOUNDS) {
-                player.playSound(player.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + player.getName());
+            if (PortableCraftingInvsPlugin.getFakeContainers().openAnvil(player)) {
+                if (Settings.USE_ANVIL_SOUNDS) {
+                    player.playSound(player.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + player.getName());
+                }
+                activeAnvils.add(player.getUniqueId());
+                Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + player.getName());
+                returnTell(Messages.OPENED_ANVIL);
             }
-
-            PortableCraftingInvsPlugin.getFakeContainers().openAnvil(player);
-
-            activeAnvils.add(player.getUniqueId());
-            Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + player.getName());
-            returnTell(Messages.OPENED_ANVIL);
         }
 
         if (args.length == 1) {
             if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ANVIL_OTHER); // Check perms.
 
-            Player target = Bukkit.getPlayer(args[0]); // Set target.
+            final Player target = Bukkit.getPlayer(args[0]); // Set target.
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0])); // Make sure not null.
 
 
-            if (Settings.USE_ANVIL_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + target.getName());
+            if (PortableCraftingInvsPlugin.getFakeContainers().openAnvil(target)) {
+                if (Settings.USE_ANVIL_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + target.getName());
+                }
+                Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + target.getName());
+                activeAnvils.add(player.getUniqueId());
+                tellTarget(target, Messages.OPENED_ANVIL);
+                returnTell(Messages.OPENED_ANVIL_OTHER.replace("{player}", target.getName()));
             }
-
-            PortableCraftingInvsPlugin.getFakeContainers().openAnvil(target);
-            Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + target.getName());
-
-            activeAnvils.add(target.getUniqueId());
-            tellTarget(target, Messages.OPENED_ANVIL);
-            returnTell(Messages.OPENED_ANVIL_OTHER.replace("{player}", target.getName()));
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {

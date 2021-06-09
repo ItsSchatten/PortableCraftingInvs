@@ -2,6 +2,7 @@ package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.PlayerConfigManager;
+import com.itsschatten.portablecrafting.events.*;
 import com.shanebeestudios.vf.api.BrewingManager;
 import com.shanebeestudios.vf.api.FurnaceManager;
 import com.shanebeestudios.vf.api.VirtualFurnaceAPI;
@@ -10,6 +11,7 @@ import com.shanebeestudios.vf.api.machine.Furnace;
 import com.shanebeestudios.vf.api.property.FurnaceProperties;
 import lombok.Getter;
 import net.minecraft.server.v1_16_R2.*;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
 import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
@@ -23,7 +25,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
-
     private final FurnaceManager manager;
     private final BrewingManager brewingManager;
     boolean debug, mysql;
@@ -31,7 +32,7 @@ public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
     MySqlI sql;
 
     public FakeContainers_v1_16_R2(JavaPlugin plugin, MySqlI sql) {
-        VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true);
+        VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true, true);
         this.manager = furnaceAPI.getFurnaceManager();
         this.brewingManager = furnaceAPI.getBrewingManager();
         this.sql = sql;
@@ -48,346 +49,412 @@ public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
     }
 
     @Override
-    public void openLoom(Player player) {
+    public boolean openLoom(Player player) {
         try {
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
-            FakeLoom fakeLoom = new FakeLoom(containerID, player);
+            final FakeLoom fakeLoom = new FakeLoom(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.LOOM, fakeLoom.getTitle()));
-
-            ePlayer.activeContainer = fakeLoom;
-            ePlayer.activeContainer.addSlotListener(ePlayer);
+            final LoomOpenEvent event = new LoomOpenEvent(player);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                ePlayer.activeContainer = ePlayer.defaultContainer;
+                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.LOOM, fakeLoom.getTitle()));
+                ePlayer.activeContainer = fakeLoom;
+                ePlayer.activeContainer.addSlotListener(ePlayer);
+                return true;
+            }
+            return false;
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
             Utils.debugLog(debug, ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
-
+            return false;
         }
     }
 
     @Override
-    public void openAnvil(Player player) {
+    public boolean openAnvil(Player player) {
         try {
             CraftEventFactory.handleInventoryCloseEvent(((CraftPlayer) player).getHandle());
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
             final FakeAnvil fakeAnvil = new FakeAnvil(containerID, player);
 
-            ePlayer.activeContainer = ePlayer.defaultContainer;
-
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, new ChatMessage("Repair & Name")));
-            ePlayer.activeContainer = fakeAnvil;
-            ePlayer.activeContainer.addSlotListener(ePlayer);
+            final AnvilOpenEvent event = new AnvilOpenEvent(player);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                ePlayer.activeContainer = ePlayer.defaultContainer;
+                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, new ChatMessage("Repair & Name")));
+                ePlayer.activeContainer = fakeAnvil;
+                ePlayer.activeContainer.addSlotListener(ePlayer);
+                return true;
+            }
+            return false;
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
             Utils.debugLog(debug, ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
-
+            return false;
         }
     }
 
     @Override
-    public void openCartography(Player player) {
+    public boolean openCartography(Player player) {
         try {
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
             FakeCartography fakeCartography = new FakeCartography(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.CARTOGRAPHY_TABLE, fakeCartography.getTitle()));
-
-            ePlayer.activeContainer = fakeCartography;
-            ePlayer.activeContainer.addSlotListener(ePlayer);
+            final CartographyOpenEvent event = new CartographyOpenEvent(player);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                ePlayer.activeContainer = ePlayer.defaultContainer;
+                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.CARTOGRAPHY_TABLE, fakeCartography.getTitle()));
+                ePlayer.activeContainer = fakeCartography;
+                ePlayer.activeContainer.addSlotListener(ePlayer);
+                return true;
+            }
+            return false;
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
             Utils.debugLog(debug, ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
-
+            return false;
         }
     }
 
     @Override
-    public void openGrindStone(Player player) {
+    public boolean openGrindStone(Player player) {
         try {
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerId = ePlayer.nextContainerCounter();
             FakeGrindstone fakeGrindstone = new FakeGrindstone(containerId, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerId, Containers.GRINDSTONE, fakeGrindstone.getTitle()));
-
-            ePlayer.activeContainer = fakeGrindstone;
-            ePlayer.activeContainer.addSlotListener(ePlayer);
+            final GrindStoneOpenEvent event = new GrindStoneOpenEvent(player);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                ePlayer.activeContainer = ePlayer.defaultContainer;
+                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerId, Containers.GRINDSTONE, fakeGrindstone.getTitle()));
+                ePlayer.activeContainer = fakeGrindstone;
+                ePlayer.activeContainer.addSlotListener(ePlayer);
+                return true;
+            }
+            return false;
         } catch (UnsupportedOperationException ex) {
             Utils.debugLog(debug, ex.getMessage());
             Utils.log("An error occurred while running the grindstone command, make sure you have debug enabled to see this message.");
             player.sendMessage("An error occurred, please contact an administrator.");
+            return false;
         }
     }
 
     @Override
-    public void openStoneCutter(Player player) {
+    public boolean openStoneCutter(Player player) {
         try {
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
             FakeStoneCutter fakeStoneCutter = new FakeStoneCutter(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.STONECUTTER, fakeStoneCutter.getTitle()));
+            final StoneCutterOpenEvent event = new StoneCutterOpenEvent(player);
+            Bukkit.getPluginManager().callEvent(event);
 
-            ePlayer.activeContainer = fakeStoneCutter;
-            ePlayer.activeContainer.addSlotListener(ePlayer);
+            if (!event.isCancelled()) {
+                ePlayer.activeContainer = ePlayer.defaultContainer;
+                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.STONECUTTER, fakeStoneCutter.getTitle()));
+                ePlayer.activeContainer = fakeStoneCutter;
+                ePlayer.activeContainer.addSlotListener(ePlayer);
+
+                return true;
+            }
+            return false;
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
             Utils.debugLog(debug, ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
-
         }
+        return true;
     }
 
     @Override
-    public void openEnchant(Player player) {
+    public boolean openEnchant(Player player) {
         EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
         int containerID = ePlayer.nextContainerCounter();
         FakeEnchant fakeEnchant = new FakeEnchant(containerID, player);
+        return callEnchant(player, ePlayer, containerID, fakeEnchant);
+    }
 
-        ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, fakeEnchant.getTitle()));
-
-        ePlayer.activeContainer = fakeEnchant;
-        ePlayer.activeContainer.addSlotListener(ePlayer);
+    private boolean callEnchant(Player player, EntityPlayer ePlayer, int containerID, FakeEnchant fakeEnchant) {
+        final EnchantingOpenEvent event = new EnchantingOpenEvent(player);
+        Bukkit.getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {
+            ePlayer.activeContainer = ePlayer.defaultContainer;
+            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, fakeEnchant.getTitle()));
+            ePlayer.activeContainer = fakeEnchant;
+            ePlayer.activeContainer.addSlotListener(ePlayer);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void openEnchant(Player player, int maxLvl) {
+    public boolean openEnchant(Player player, int maxLvl) {
         EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
         int containerID = ePlayer.nextContainerCounter();
         FakeEnchant fakeEnchant = new FakeEnchant(containerID, player, maxLvl);
 
-        ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, fakeEnchant.getTitle()));
-
-        ePlayer.activeContainer = fakeEnchant;
-        ePlayer.activeContainer.addSlotListener(ePlayer);
+        return callEnchant(player, ePlayer, containerID, fakeEnchant);
     }
 
     @Override
-    public void openBrewingStand(Player player) {
+    public boolean openBrewingStand(Player player) {
         if (mysql) {
+            BrewingStand stand;
             if (sql.getStand(player.getUniqueId(), brewingManager) == null) {
-                BrewingStand stand = brewingManager.createBrewingStand("Brewing");
-                stand.openInventory(player);
+                stand = brewingManager.createBrewingStand("Brewing");
 
                 sql.setStand(player.getUniqueId(), stand);
             } else {
-                BrewingStand stand = sql.getStand(player.getUniqueId(), brewingManager);
+                stand = sql.getStand(player.getUniqueId(), brewingManager);
 
                 if (stand == null) {
                     stand = brewingManager.createBrewingStand("Brewing");
-                    stand.openInventory(player);
 
                     sql.setStand(player.getUniqueId(), stand);
-                    return;
                 }
 
-                stand.openInventory(player);
             }
-            return;
+            final BrewingOpenEvent event = new BrewingOpenEvent(player, stand);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                stand.openInventory(player);
+                return true;
+            }
+            return false;
         }
 
         if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
             FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
-
+            BrewingStand stand;
             if (playerConfig.get("brewing") == null) {
-                BrewingStand stand = brewingManager.createBrewingStand("Brewing");
-                stand.openInventory(player);
+                stand = brewingManager.createBrewingStand("Brewing");
 
                 playerConfig.set("brewing", stand.getUniqueID().toString());
                 PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
             } else {
-                BrewingStand stand = brewingManager.getByID(UUID.fromString(playerConfig.getString("brewing")));
+                stand = brewingManager.getByID(UUID.fromString(playerConfig.getString("brewing")));
 
                 if (stand == null) {
                     stand = brewingManager.createBrewingStand("Brewing");
-                    stand.openInventory(player);
 
                     playerConfig.set("brewing", stand.getUniqueID().toString());
                     PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-                    return;
                 }
-
+            }
+            final BrewingOpenEvent event = new BrewingOpenEvent(player, stand);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
                 stand.openInventory(player);
+                return true;
             }
         }
+        return false;
     }
 
     @Override
-    public void openFurnace(Player player) {
+    public boolean openFurnace(Player player) {
         if (mysql) {
+            Furnace furnace;
             if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE) == null) {
-                Furnace furnace = manager.createFurnace("Furnace", FurnaceProperties.FURNACE);
-                furnace.openInventory(player);
+                furnace = manager.createFurnace("Furnace", FurnaceProperties.FURNACE);
 
                 sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.FURNACE);
             } else {
-                Furnace furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE);
+                furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE);
 
                 if (furnace == null) {
                     furnace = manager.createFurnace("Furnace");
-                    furnace.openInventory(player);
 
                     sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.FURNACE);
-                    return;
                 }
 
-                furnace.openInventory(player);
             }
-            return;
+            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                furnace.openInventory(player);
+                return true;
+            }
+            return false;
         }
 
         if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
             FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
-
+            Furnace furnace;
             if (playerConfig.get("furnaces.furnace") == null) {
-                Furnace furnace = manager.createFurnace("Furnace");
-                furnace.openInventory(player);
+                furnace = manager.createFurnace("Furnace");
 
                 playerConfig.set("furnaces.furnace", furnace.getUniqueID().toString());
                 PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
             } else {
-                Furnace furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.furnace")));
+                furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.furnace")));
 
                 if (furnace == null) {
                     furnace = manager.createFurnace("Furnace");
-                    furnace.openInventory(player);
 
                     playerConfig.set("furnaces.furnace", furnace.getUniqueID().toString());
                     PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-                    return;
                 }
-
+            }
+            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
                 furnace.openInventory(player);
+                return true;
             }
         }
+        return false;
     }
 
     @Override
-    public void openBlastFurnace(Player player) {
+    public boolean openBlastFurnace(Player player) {
         if (mysql) {
+            Furnace furnace;
             if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.BLAST_FURNACE) == null) {
-                Furnace furnace = manager.createFurnace("Blast Furnace", FurnaceProperties.BLAST_FURNACE);
+                furnace = manager.createFurnace("Blast Furnace", FurnaceProperties.BLAST_FURNACE);
                 furnace.openInventory(player);
 
                 sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.BLAST_FURNACE);
             } else {
-                Furnace furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.BLAST_FURNACE);
+                furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.BLAST_FURNACE);
 
                 if (furnace == null) {
                     furnace = manager.createFurnace("Blast Furnace");
-                    furnace.openInventory(player);
 
                     sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.BLAST_FURNACE);
-                    return;
                 }
-
-                furnace.openInventory(player);
             }
-            return;
+            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                furnace.openInventory(player);
+                return true;
+            }
+            return false;
         }
 
         if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
             FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
-
+            Furnace furnace;
             if (playerConfig.get("furnaces.blast-furnace") == null) {
-                Furnace blastFurnace = manager.createFurnace("Blast Furnace", FurnaceProperties.BLAST_FURNACE);
-                blastFurnace.openInventory(player);
+                furnace = manager.createFurnace("Blast Furnace", FurnaceProperties.BLAST_FURNACE);
 
-                playerConfig.set("furnaces.blast-furnace", blastFurnace.getUniqueID().toString());
+                playerConfig.set("furnaces.blast-furnace", furnace.getUniqueID().toString());
                 PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
             } else {
-                Furnace blastFurnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.blast-furnace")));
+                furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.blast-furnace")));
 
-                if (blastFurnace == null) {
-                    blastFurnace = manager.createFurnace("Blast Furnace");
-                    blastFurnace.openInventory(player);
+                if (furnace == null) {
+                    furnace = manager.createFurnace("Blast Furnace");
 
-                    playerConfig.set("furnaces.blast-furnace", blastFurnace.getUniqueID().toString());
+                    playerConfig.set("furnaces.blast-furnace", furnace.getUniqueID().toString());
                     PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-                    return;
                 }
-
-                blastFurnace.openInventory(player);
+            }
+            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                furnace.openInventory(player);
+                return true;
             }
         }
+        return false;
     }
 
     @Override
-    public void openSmoker(Player player) {
+    public boolean openSmoker(Player player) {
         if (mysql) {
+            Furnace furnace;
             if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.SMOKER) == null) {
-                Furnace furnace = manager.createFurnace("Smoker", FurnaceProperties.SMOKER);
+                furnace = manager.createFurnace("Smoker", FurnaceProperties.SMOKER);
                 furnace.openInventory(player);
 
                 sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.SMOKER);
             } else {
-                Furnace furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.SMOKER);
+                furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.SMOKER);
 
                 if (furnace == null) {
                     furnace = manager.createFurnace("Smoker");
-                    furnace.openInventory(player);
 
                     sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.SMOKER);
-                    return;
                 }
-
-                furnace.openInventory(player);
             }
-            return;
+
+            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                furnace.openInventory(player);
+                return true;
+            }
+            return false;
         }
 
         if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
             FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
-
+            Furnace furnace;
             if (playerConfig.get("furnaces.smoker") == null) {
-                Furnace smoker = manager.createFurnace("Smoker", FurnaceProperties.SMOKER);
-                smoker.openInventory(player);
+                furnace = manager.createFurnace("Smoker", FurnaceProperties.SMOKER);
 
-                playerConfig.set("furnaces.smoker", smoker.getUniqueID().toString());
+                playerConfig.set("furnaces.smoker", furnace.getUniqueID().toString());
                 PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
             } else {
-                Furnace furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.smoker")));
+                furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.smoker")));
 
                 if (furnace == null) {
                     furnace = manager.createFurnace("Smoker");
-                    furnace.openInventory(player);
 
                     playerConfig.set("furnaces.smoker", furnace.getUniqueID().toString());
                     PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-                    return;
                 }
-                furnace.openInventory(player);
             }
 
+            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                furnace.openInventory(player);
+                return true;
+            }
         }
+        return false;
     }
 
     @Override
-    public void openSmithing(Player player) {
+    public boolean openSmithing(Player player) {
         try {
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
             FakeSmithing fakeSmithing = new FakeSmithing(containerID, player);
 
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.SMITHING, fakeSmithing.getTitle()));
-
-            ePlayer.activeContainer = fakeSmithing;
-            ePlayer.activeContainer.addSlotListener(ePlayer);
+            final SmithingOpenEvent event = new SmithingOpenEvent(player);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                ePlayer.activeContainer = ePlayer.defaultContainer;
+                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.SMITHING, fakeSmithing.getTitle()));
+                ePlayer.activeContainer = fakeSmithing;
+                ePlayer.activeContainer.addSlotListener(ePlayer);
+                return true;
+            }
+            return false;
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
             Utils.debugLog(debug, ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
-
+            return false;
         }
     }
 
@@ -481,6 +548,5 @@ public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
 
             this.setTitle(new ChatMessage("Enchant"));
         }
-
     }
 }

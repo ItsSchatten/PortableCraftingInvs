@@ -25,7 +25,8 @@ public class SmithingCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender commandSender, String[] args) {
-        if (PortableCraftingInvsPlugin.getServerVersion().equals("v1_15_R1")) returnTell(Messages.CANT_USE_SMITHING_IN_1_15);
+        if (PortableCraftingInvsPlugin.getServerVersion().equals("v1_15_R1"))
+            returnTell(Messages.CANT_USE_SMITHING_IN_1_15);
         if (!Settings.USE_SMITHING_TABLE) returnTell(Messages.FEATURE_DISABLED);
 
         final String smithingTableOpen = Settings.SMITHING_TABLE_OPEN_SOUND;
@@ -36,15 +37,17 @@ public class SmithingCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[1]));
 
-            if (Settings.USE_SMITHING_TABLE_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(smithingTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + smithingTableOpen + " to " + target.getName());
-            }
+            if (PortableCraftingInvsPlugin.getFakeContainers().openSmithing(target)) {
+                if (Settings.USE_SMITHING_TABLE_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(smithingTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + smithingTableOpen + " to " + target.getName());
+                }
 
-            PortableCraftingInvsPlugin.getFakeContainers().openSmithing(target);
-            Utils.debugLog(Settings.DEBUG, "Opened the smithing table for " + target.getName());
-            tellTarget(target, Messages.OPENED_SMITHING_TABLE);
-            returnTell(Messages.OPENED_SMITHING_TABLE_OTHER.replace("{player}", target.getName()));
+
+                Utils.debugLog(Settings.DEBUG, "Opened the smithing table for " + target.getName());
+                tellTarget(target, Messages.OPENED_SMITHING_TABLE);
+                returnTell(Messages.OPENED_SMITHING_TABLE_OTHER.replace("{player}", target.getName()));
+            }
             return;
         }
 
@@ -70,13 +73,17 @@ public class SmithingCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            if (Settings.USE_SMITHING_TABLE_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(smithingTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + smithingTableOpen + " to " + target.getName());
-            }
+            if (PortableCraftingInvsPlugin.getFakeContainers().openSmithing(target)) {
+                if (Settings.USE_SMITHING_TABLE_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(smithingTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + smithingTableOpen + " to " + target.getName());
+                }
 
-            tellTarget(target, Messages.OPENED_SMITHING_TABLE);
-            returnTell(Messages.OPENED_SMITHING_TABLE_OTHER.replace("{player}", target.getName()));
+
+                Utils.debugLog(Settings.DEBUG, "Opened the smithing table for " + target.getName());
+                tellTarget(target, Messages.OPENED_SMITHING_TABLE);
+                returnTell(Messages.OPENED_SMITHING_TABLE_OTHER.replace("{player}", target.getName()));
+            }
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {

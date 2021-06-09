@@ -32,31 +32,33 @@ public class StoneCutterCommand extends UniversalCommand {
             final Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            if (Settings.USE_STONE_CUTTER_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(stoneCutterOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + stoneCutterOpen + " to " + target.getName());
-            }
+            if (PortableCraftingInvsPlugin.getFakeContainers().openStoneCutter(target)) {
+                if (Settings.USE_STONE_CUTTER_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(stoneCutterOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + stoneCutterOpen + " to " + target.getName());
+                }
 
-            PortableCraftingInvsPlugin.getFakeContainers().openStoneCutter(target);
-            Utils.debugLog(Settings.DEBUG, "Opened the stone cutter for " + target.getName());
-            tellTarget(target, Messages.OPENED_STONE_CUTTER);
-            returnTell(Messages.OPENED_STONE_CUTTER_OTHER.replace("{player}", target.getName()));
+
+                Utils.debugLog(Settings.DEBUG, "Opened the stone cutter for " + target.getName());
+                tellTarget(target, Messages.OPENED_STONE_CUTTER);
+                returnTell(Messages.OPENED_STONE_CUTTER_OTHER.replace("{player}", target.getName()));
+            }
+            return;
         }
 
         final Player player = (Player) commandSender;
         if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.STONE_CUTTER);
 
         if (args.length == 0) {
-            if (Settings.USE_STONE_CUTTER_SOUNDS) {
-                player.playSound(player.getLocation(), Sound.valueOf(stoneCutterOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + stoneCutterOpen + " to " + player.getName());
+            if (PortableCraftingInvsPlugin.getFakeContainers().openStoneCutter(player)) {
+                if (Settings.USE_STONE_CUTTER_SOUNDS) {
+                    player.playSound(player.getLocation(), Sound.valueOf(stoneCutterOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + stoneCutterOpen + " to " + player.getName());
+                }
+
+                Utils.debugLog(Settings.DEBUG, "Opened the stone cutter for " + player.getName());
+                returnTell(Messages.OPENED_STONE_CUTTER);
             }
-
-            PortableCraftingInvsPlugin.getFakeContainers().openStoneCutter(player);
-            Utils.debugLog(Settings.DEBUG, "Opened the stone cutter for " + player.getName());
-
-            returnTell(Messages.OPENED_STONE_CUTTER);
-
         }
 
         if (args.length == 1) {
@@ -65,15 +67,17 @@ public class StoneCutterCommand extends UniversalCommand {
             Player target = Bukkit.getPlayer(args[0]);
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
-            if (Settings.USE_STONE_CUTTER_SOUNDS) {
-                target.playSound(target.getLocation(), Sound.valueOf(stoneCutterOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + stoneCutterOpen + " to " + target.getName());
+            if (PortableCraftingInvsPlugin.getFakeContainers().openStoneCutter(target)) {
+                if (Settings.USE_STONE_CUTTER_SOUNDS) {
+                    target.playSound(target.getLocation(), Sound.valueOf(stoneCutterOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
+                    Utils.debugLog(Settings.DEBUG, "Playing sound " + stoneCutterOpen + " to " + target.getName());
+                }
+
+
+                Utils.debugLog(Settings.DEBUG, "Opened the stone cutter for " + target.getName());
+                tellTarget(target, Messages.OPENED_STONE_CUTTER);
+                returnTell(Messages.OPENED_STONE_CUTTER_OTHER.replace("{player}", target.getName()));
             }
-
-            PortableCraftingInvsPlugin.getFakeContainers().openStoneCutter(player);
-
-            tellTarget(target, Messages.OPENED_STONE_CUTTER);
-            returnTell(Messages.OPENED_STONE_CUTTER_OTHER.replace("{player}", target.getName()));
         }
 
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {

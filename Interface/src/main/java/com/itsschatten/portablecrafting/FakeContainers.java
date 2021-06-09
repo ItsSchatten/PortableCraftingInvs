@@ -7,27 +7,27 @@ public interface FakeContainers {
 
     void setDebug(boolean bool);
 
-    void openLoom(Player player);
+    boolean openAnvil(Player player);
 
-    void openAnvil(Player player);
+    boolean openBlastFurnace(Player player);
 
-    void openCartography(Player player);
+    boolean openBrewingStand(Player player);
 
-    void openGrindStone(Player player);
+    boolean openCartography(Player player);
 
-    void openStoneCutter(Player player);
+    boolean openEnchant(Player player);
 
-    void openSmithing(Player player);
+    boolean openEnchant(Player player, int maxLvl);
 
-    void openEnchant(Player player);
+    boolean openFurnace(Player player);
 
-    void openEnchant(Player player, int maxLvl);
+    boolean openGrindStone(Player player);
 
-    void openFurnace(Player player);
+    boolean openLoom(Player player);
 
-    void openBlastFurnace(Player player);
+    boolean openStoneCutter(Player player);
 
-    void openSmoker(Player player);
+    boolean openSmithing(Player player);
 
-    void openBrewingStand(Player player);
+    boolean openSmoker(Player player);
 }
