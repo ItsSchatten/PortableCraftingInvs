@@ -10,12 +10,16 @@ import com.shanebeestudios.vf.api.machine.BrewingStand;
 import com.shanebeestudios.vf.api.machine.Furnace;
 import com.shanebeestudios.vf.api.property.FurnaceProperties;
 import lombok.Getter;
-import net.minecraft.server.v1_16_R3.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_16_R3.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_17_R1.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,14 +28,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
+public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
     private final FurnaceManager manager;
     private final BrewingManager brewingManager;
     boolean debug, mysql;
 
     MySqlI sql;
 
-    public FakeContainers_v1_16_R3(JavaPlugin plugin, MySqlI sql) {
+    public FakeContainers_v1_17_R1(JavaPlugin plugin, MySqlI sql) {
         VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true, true);
         this.manager = furnaceAPI.getFurnaceManager();
         this.brewingManager = furnaceAPI.getBrewingManager();
@@ -52,17 +56,16 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
     @Override
     public boolean openLoom(Player player) {
         try {
-            EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+            ServerPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
             final FakeLoom fakeLoom = new FakeLoom(containerID, player);
 
             final LoomOpenEvent event = new LoomOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
-                ePlayer.activeContainer = ePlayer.defaultContainer;
-                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.LOOM, fakeLoom.getTitle()));
-                ePlayer.activeContainer = fakeLoom;
-                ePlayer.activeContainer.addSlotListener(ePlayer);
+                ePlayer.containerMenu = ePlayer.inventoryMenu;
+                ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.LOOM, fakeLoom.getTitle()));
+                ePlayer.containerMenu = fakeLoom;
                 return true;
             }
             return false;
@@ -79,17 +82,16 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
     public boolean openAnvil(Player player) {
         try {
             CraftEventFactory.handleInventoryCloseEvent(((CraftPlayer) player).getHandle());
-            EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+            ServerPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
             final FakeAnvil fakeAnvil = new FakeAnvil(containerID, player);
 
             final AnvilOpenEvent event = new AnvilOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
-                ePlayer.activeContainer = ePlayer.defaultContainer;
-                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, new ChatMessage("Repair & Name")));
-                ePlayer.activeContainer = fakeAnvil;
-                ePlayer.activeContainer.addSlotListener(ePlayer);
+                ePlayer.containerMenu = ePlayer.inventoryMenu;
+                ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.ANVIL, fakeAnvil.getTitle()));
+                ePlayer.containerMenu = fakeAnvil;
                 return true;
             }
             return false;
@@ -105,17 +107,16 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
     @Override
     public boolean openCartography(Player player) {
         try {
-            EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+            ServerPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
             FakeCartography fakeCartography = new FakeCartography(containerID, player);
 
             final CartographyOpenEvent event = new CartographyOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
-                ePlayer.activeContainer = ePlayer.defaultContainer;
-                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.CARTOGRAPHY_TABLE, fakeCartography.getTitle()));
-                ePlayer.activeContainer = fakeCartography;
-                ePlayer.activeContainer.addSlotListener(ePlayer);
+                ePlayer.containerMenu = ePlayer.inventoryMenu;
+                ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.CARTOGRAPHY_TABLE, fakeCartography.getTitle()));
+                ePlayer.containerMenu = fakeCartography;
                 return true;
             }
             return false;
@@ -131,17 +132,16 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
     @Override
     public boolean openGrindStone(Player player) {
         try {
-            EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+            ServerPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerId = ePlayer.nextContainerCounter();
             FakeGrindstone fakeGrindstone = new FakeGrindstone(containerId, player);
 
             final GrindStoneOpenEvent event = new GrindStoneOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
-                ePlayer.activeContainer = ePlayer.defaultContainer;
-                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerId, Containers.GRINDSTONE, fakeGrindstone.getTitle()));
-                ePlayer.activeContainer = fakeGrindstone;
-                ePlayer.activeContainer.addSlotListener(ePlayer);
+                ePlayer.containerMenu = ePlayer.inventoryMenu;
+                ePlayer.connection.send(new ClientboundOpenScreenPacket(containerId, MenuType.GRINDSTONE, fakeGrindstone.getTitle()));
+                ePlayer.containerMenu = fakeGrindstone;
                 return true;
             }
             return false;
@@ -156,7 +156,7 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
     @Override
     public boolean openStoneCutter(Player player) {
         try {
-            EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+            ServerPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
             FakeStoneCutter fakeStoneCutter = new FakeStoneCutter(containerID, player);
 
@@ -164,10 +164,9 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
             Bukkit.getPluginManager().callEvent(event);
 
             if (!event.isCancelled()) {
-                ePlayer.activeContainer = ePlayer.defaultContainer;
-                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.STONECUTTER, fakeStoneCutter.getTitle()));
-                ePlayer.activeContainer = fakeStoneCutter;
-                ePlayer.activeContainer.addSlotListener(ePlayer);
+                ePlayer.containerMenu = ePlayer.inventoryMenu;
+                ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.STONECUTTER, fakeStoneCutter.getTitle()));
+                ePlayer.containerMenu = fakeStoneCutter;
 
                 return true;
             }
@@ -183,20 +182,19 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
 
     @Override
     public boolean openEnchant(Player player) {
-        EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+        ServerPlayer ePlayer = ((CraftPlayer) player).getHandle();
         int containerID = ePlayer.nextContainerCounter();
         FakeEnchant fakeEnchant = new FakeEnchant(containerID, player);
         return callEnchant(player, ePlayer, containerID, fakeEnchant);
     }
 
-    private boolean callEnchant(Player player, EntityPlayer ePlayer, int containerID, FakeEnchant fakeEnchant) {
+    private boolean callEnchant(Player player, ServerPlayer ePlayer, int containerID, FakeEnchant fakeEnchant) {
         final EnchantingOpenEvent event = new EnchantingOpenEvent(player);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
-            ePlayer.activeContainer = ePlayer.defaultContainer;
-            ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ENCHANTMENT, fakeEnchant.getTitle()));
-            ePlayer.activeContainer = fakeEnchant;
-            ePlayer.activeContainer.addSlotListener(ePlayer);
+            ePlayer.containerMenu = ePlayer.inventoryMenu;
+            ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.ENCHANTMENT, fakeEnchant.getTitle()));
+            ePlayer.containerMenu = fakeEnchant;
             return true;
         }
         return false;
@@ -204,7 +202,7 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
 
     @Override
     public boolean openEnchant(Player player, int maxLvl) {
-        EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+        ServerPlayer ePlayer = ((CraftPlayer) player).getHandle();
         int containerID = ePlayer.nextContainerCounter();
         FakeEnchant fakeEnchant = new FakeEnchant(containerID, player, maxLvl);
 
@@ -436,17 +434,16 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
     @Override
     public boolean openSmithing(Player player) {
         try {
-            EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
+            ServerPlayer ePlayer = ((CraftPlayer) player).getHandle();
             int containerID = ePlayer.nextContainerCounter();
             FakeSmithing fakeSmithing = new FakeSmithing(containerID, player);
 
             final SmithingOpenEvent event = new SmithingOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
-                ePlayer.activeContainer = ePlayer.defaultContainer;
-                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.SMITHING, fakeSmithing.getTitle()));
-                ePlayer.activeContainer = fakeSmithing;
-                ePlayer.activeContainer.addSlotListener(ePlayer);
+                ePlayer.containerMenu = ePlayer.inventoryMenu;
+                ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.SMITHING, fakeSmithing.getTitle()));
+                ePlayer.containerMenu = fakeSmithing;
                 return true;
             }
             return false;
@@ -459,95 +456,84 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
         }
     }
 
-    private static class FakeGrindstone extends ContainerGrindstone {
+    private static class FakeGrindstone extends GrindstoneMenu {
 
         public FakeGrindstone(final int containerId, final Player player) {
-            super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
-            this.setTitle(new ChatMessage("Repair & Disenchant"));
+            this.setTitle(new TextComponent("Repair & Disenchant"));
         }
     }
 
-    private static class FakeCartography extends ContainerCartography {
+    private static class FakeCartography extends CartographyTableMenu {
 
         public FakeCartography(final int containerId, final Player player) {
-            super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
-            this.setTitle(new ChatMessage("Cartography Table"));
+            this.setTitle(new TextComponent("Cartography Table"));
         }
     }
 
-    private static class FakeLoom extends ContainerLoom {
+    private static class FakeLoom extends LoomMenu {
 
         public FakeLoom(final int containerId, final Player player) {
-            super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
-            this.setTitle(new ChatMessage("Loom"));
+            this.setTitle(new TextComponent("Loom"));
         }
     }
 
-    private static class FakeStoneCutter extends ContainerStonecutter {
+    private static class FakeStoneCutter extends StonecutterMenu {
 
         public FakeStoneCutter(final int containerId, final Player player) {
-            super(containerId, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
-            this.setTitle(new ChatMessage("Stonecutter"));
+            this.setTitle(new TextComponent("Stonecutter"));
         }
     }
 
-    private static class FakeAnvil extends ContainerAnvil {
+    private static class FakeAnvil extends AnvilMenu {
 
         public FakeAnvil(final int containerID, final Player player) {
-            super(containerID, ((CraftPlayer) player).getHandle().inventory,
-                    ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(),
-                            new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerID, ((CraftPlayer) player).getHandle().getInventory(),
+                    ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(),
+                            new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
-            this.setTitle(new ChatMessage("Repair & Name"));
+            this.setTitle(new TextComponent("Repair & Name"));
         }
 
-        @Override
-        public void b(EntityHuman entityhuman) {
-        }
 
-        @Override
-        public void e() {
-            super.e();
-        }
-
-        @Override
-        protected void a(EntityHuman entityhuman, World world, IInventory iinventory) {
-        }
     }
 
-    private static class FakeSmithing extends ContainerSmithing {
+    private static class FakeSmithing extends SmithingMenu {
 
         public FakeSmithing(final int containerID, final Player player) {
-            super(containerID, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerID, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
-            this.setTitle(new ChatMessage("Upgrade Gear"));
+            this.setTitle(new TextComponent("Upgrade Gear"));
         }
 
     }
 
-    private static class FakeEnchant extends ContainerEnchantTable {
+    private static class FakeEnchant extends EnchantmentMenu {
         @Getter
         private static final Map<UUID, FakeEnchant> openEnchantTables = new HashMap<>();
         public int maxLevel;
 
         public FakeEnchant(final int i, final Player player, int maxLevel) {
-            super(i, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(i, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
             this.maxLevel = maxLevel;
 
             openEnchantTables.put(player.getUniqueId(), this);
-            this.setTitle(new ChatMessage("Enchant"));
+            this.setTitle(new TextComponent("Enchant"));
         }
 
         public FakeEnchant(final int i, final Player player) {
-            super(i, ((CraftPlayer) player).getHandle().inventory, ContainerAccess.at(((CraftWorld) player.getWorld()).getHandle(), new BlockPosition(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(i, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
 
-            this.setTitle(new ChatMessage("Enchant"));
+            this.setTitle(new TextComponent("Enchant"));
         }
     }
 }

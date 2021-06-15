@@ -10,15 +10,15 @@
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.6.0</version>
+        <version>1.6.1</version>
     </parent>
 
     <properties>
         <maven.skip.test>true</maven.skip.test>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-Interface</artifactId>
-            <version>1.6.0</version>
+            <version>1.6.1</version>
         </dependency>
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
