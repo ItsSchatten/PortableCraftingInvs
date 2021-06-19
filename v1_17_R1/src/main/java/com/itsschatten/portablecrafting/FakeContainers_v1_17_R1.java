@@ -195,6 +195,7 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
             ePlayer.containerMenu = ePlayer.inventoryMenu;
             ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.ENCHANTMENT, fakeEnchant.getTitle()));
             ePlayer.containerMenu = fakeEnchant;
+            ePlayer.initMenu(fakeEnchant);
             return true;
         }
         return false;
@@ -508,11 +509,12 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
     private static class FakeSmithing extends SmithingMenu {
 
         public FakeSmithing(final int containerID, final Player player) {
-            super(containerID, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerID, ((CraftPlayer) player).getHandle().getInventory(),
+                    ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(),
+                            new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
             this.setTitle(new TextComponent("Upgrade Gear"));
         }
-
     }
 
     private static class FakeEnchant extends EnchantmentMenu {
@@ -521,7 +523,9 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
         public int maxLevel;
 
         public FakeEnchant(final int i, final Player player, int maxLevel) {
-            super(i, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(i, ((CraftPlayer) player).getHandle().getInventory(),
+                    ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(),
+                            new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
             this.maxLevel = maxLevel;
 
@@ -530,7 +534,8 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
         }
 
         public FakeEnchant(final int i, final Player player) {
-            super(i, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(i, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftPlayer) player).getHandle().level,
+                    new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
 
             this.setTitle(new TextComponent("Enchant"));

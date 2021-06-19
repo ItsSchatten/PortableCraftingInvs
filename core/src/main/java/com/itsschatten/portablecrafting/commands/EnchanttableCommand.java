@@ -42,7 +42,7 @@ public class EnchanttableCommand extends UniversalCommand {
 
         final String openEnchanttableSound = Settings.ENCHANT_TABLE_OPEN_SOUND.toUpperCase(); // Set sound.
 
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof final Player player)) {
             if (args.length == 0)
                 returnTell(Messages.NOT_ENOUGH_ARGS);
 
@@ -53,8 +53,6 @@ public class EnchanttableCommand extends UniversalCommand {
             openEnchantingForTarget(openEnchanttableSound, target);
             return;
         }
-
-        final Player player = (Player) sender;
 
         if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.ENCHANT_TABLE); // Check perms.
 

@@ -39,8 +39,7 @@ public class EnchantmentListener implements Listener {
             event.getOffers()[1] = new EnchantmentOffer(obtainRandomEnchant(event.getItem()), ThreadLocalRandom.current().nextInt(4), (int) ((double) maxLevel - ((double) maxLevel * .35)));
             event.getOffers()[2] = new EnchantmentOffer(obtainRandomEnchant(event.getItem()), ThreadLocalRandom.current().nextInt(5), maxLevel);
             event.getInventory().getViewers().forEach((viewer) -> {
-                if (viewer instanceof Player) {
-                    Player player = (Player) viewer;
+                if (viewer instanceof Player player) {
                     player.updateInventory();
                 }
             });
@@ -48,6 +47,7 @@ public class EnchantmentListener implements Listener {
     }
 
     private Enchantment obtainRandomEnchant(ItemStack item) {
+
         List<Enchantment> possibleEnchants = new ArrayList<>();
 
         if (item.getType().equals(Material.BOOK)) {

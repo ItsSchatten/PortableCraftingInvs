@@ -10,16 +10,18 @@
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.6.1</version>
+        <version>1.6.2</version>
     </parent>
 
     <properties>
         <author>ItsSchatten</author>
         <main>${project.parent.groupId}.PortableCraftingInvsPlugin</main>
 
+        <!--<buildDir>C:\Users\darks\Desktop\dev-servers\PortableCraftingInvs\plugins</buildDir> For my dev environment-->
+        <buildDir>C:\Users\darks\Desktop\plugin-updates</buildDir>
+        <javaVersion>16</javaVersion>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
     </properties>
 
     <repositories>
@@ -41,28 +43,28 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-Interface</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.2</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R1</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.2</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R2</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.2</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R3</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.2</version>
             <scope>compile</scope>
         </dependency>
 
@@ -76,7 +78,7 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_15_R1</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -88,7 +90,7 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_17_R1</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.2</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -129,8 +131,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>${javaVersion}</source>
+                    <target>${javaVersion}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -138,7 +140,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <outputDirectory>C:\Users\darks\Desktop\plugin-updates</outputDirectory>
+                    <outputDirectory>${buildDir}</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -155,7 +157,7 @@
                 </executions>
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
-                    <!--<minimizeJar>true</minimizeJar>-->
+                    <minimizeJar>true</minimizeJar>
                     <relocations>
                         <relocation>
                             <pattern>com.itsschatten.libs</pattern>
