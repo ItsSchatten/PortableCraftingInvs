@@ -17,14 +17,13 @@ import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_16_R1.event.CraftEventFactory;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
+public class FakeContainers_v1_16_R1 implements FakeContainers {
     private final FurnaceManager manager;
     private final BrewingManager brewingManager;
     boolean debug, mysql;
@@ -456,6 +455,11 @@ public class FakeContainers_v1_16_R1 implements FakeContainers, Listener {
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
         }
+    }
+
+    @Override
+    public void removeFromEnchantList(Player player) {
+        FakeEnchant.getOpenEnchantTables().remove(player.getUniqueId());
     }
 
     private static class FakeGrindstone extends ContainerGrindstone {

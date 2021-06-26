@@ -9,6 +9,7 @@ import com.shanebeestudios.api.VirtualFurnaceAPI;
 import com.shanebeestudios.api.machine.BrewingStand;
 import com.shanebeestudios.api.machine.Furnace;
 import com.shanebeestudios.api.property.FurnaceProperties;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.minecraft.server.v1_16_R2.*;
 import org.bukkit.Bukkit;
@@ -433,6 +434,11 @@ public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
     }
 
     @Override
+    public void removeFromEnchantList(Player player) {
+        FakeEnchant.getOpenEnchantTables().remove(player.getUniqueId());
+    }
+
+    @Override
     public boolean openSmithing(Player player) {
         try {
             EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
@@ -529,7 +535,7 @@ public class FakeContainers_v1_16_R2 implements FakeContainers, Listener {
     }
 
     private static class FakeEnchant extends ContainerEnchantTable {
-        @Getter
+        @Getter(AccessLevel.PUBLIC)
         private static final Map<UUID, FakeEnchant> openEnchantTables = new HashMap<>();
         public int maxLevel;
 

@@ -459,6 +459,13 @@ public class FakeContainers_v1_16_R3 implements FakeContainers, Listener {
         }
     }
 
+
+    @Override
+    public void removeFromEnchantList(Player player) {
+        FakeEnchant.getOpenEnchantTables().remove(player.getUniqueId());
+    }
+
+
     private static class FakeGrindstone extends ContainerGrindstone {
 
         public FakeGrindstone(final int containerId, final Player player) {

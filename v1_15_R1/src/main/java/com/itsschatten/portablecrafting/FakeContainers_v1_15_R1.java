@@ -427,6 +427,10 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
         return false;
     }
 
+    @Override
+    public void removeFromEnchantList(Player player) {
+    }
+
 
     @Override
     public boolean openSmithing(Player player) {

@@ -3,7 +3,6 @@ package com.itsschatten.portablecrafting;
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.PlayerConfigManager;
 import com.itsschatten.portablecrafting.events.*;
-
 import com.shanebeestudios.api.BrewingManager;
 import com.shanebeestudios.api.FurnaceManager;
 import com.shanebeestudios.api.VirtualFurnaceAPI;
@@ -12,22 +11,31 @@ import com.shanebeestudios.api.machine.Furnace;
 import com.shanebeestudios.api.property.FurnaceProperties;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
 import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_17_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_17_R1.util.CraftNamespacedKey;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
     private final FurnaceManager manager;
@@ -458,6 +466,11 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
         }
     }
 
+    @Override
+    public void removeFromEnchantList(Player player) {
+        FakeEnchant.getOpenEnchantTables().remove(player.getUniqueId());
+    }
+
     private static class FakeGrindstone extends GrindstoneMenu {
 
         public FakeGrindstone(final int containerId, final Player player) {
@@ -521,6 +534,10 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
     private static class FakeEnchant extends EnchantmentMenu {
         @Getter
         private static final Map<UUID, FakeEnchant> openEnchantTables = new HashMap<>();
+        private final ContainerLevelAccess myAccess;
+        private final Random random;
+        private final DataSlot enchantSeed;
+        private final ServerPlayer player;
         public int maxLevel;
 
         public FakeEnchant(final int i, final Player player, int maxLevel) {
@@ -528,9 +545,14 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
                     ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(),
                             new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
+            this.myAccess = ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(),
+                    new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
             this.maxLevel = maxLevel;
-
+            this.random = new Random();
+            this.enchantSeed = DataSlot.standalone();
+            enchantSeed.set(((CraftPlayer) player).getHandle().getEnchantmentSeed());
             openEnchantTables.put(player.getUniqueId(), this);
+            this.player = ((CraftPlayer) player).getHandle();
             this.setTitle(new TextComponent("Enchant"));
         }
 
@@ -538,8 +560,100 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
             super(i, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftPlayer) player).getHandle().level,
                     new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
-
+            this.random = null;
+            this.myAccess = null;
+            this.enchantSeed = null;
+            this.player = ((CraftPlayer) player).getHandle();
             this.setTitle(new TextComponent("Enchant"));
+        }
+
+        @Override
+        public void slotsChanged(Container iinventory) {
+            if (openEnchantTables.containsKey(player.getBukkitEntity().getUniqueId())) {
+                ItemStack itemstack = iinventory.getItem(0);
+                if (iinventory.isEmpty()) {
+                    for (int i = 0; i < 3; ++i) {
+                        this.costs[i] = 0;
+                        this.enchantClue[i] = -1;
+                        this.levelClue[i] = -1;
+                    }
+                    enchantSeed.set(player.getEnchantmentSeed());
+                    return;
+                }
+                myAccess.execute((world, blockPos) -> {
+                    int i = maxLevel;
+                    int j;
+                    this.random.setSeed(this.enchantSeed.get());
+
+                    for (j = 0; j < 3; ++j) {
+                        this.costs[j] = EnchantmentHelper.getEnchantmentCost(this.random, j, i, itemstack);
+                        this.enchantClue[j] = -1;
+                        this.levelClue[j] = -1;
+                        if (this.costs[j] < j + 1) {
+                            this.costs[j] = 0;
+                        }
+                    }
+
+                    for (j = 0; j < 3; ++j) {
+                        if (this.costs[j] > 0) {
+                            List<EnchantmentInstance> list = this.getEnchantmentList(itemstack, j, this.costs[j]);
+                            if (list != null && !list.isEmpty()) {
+                                EnchantmentInstance weightedrandomenchant = list.get(this.random.nextInt(list.size()));
+                                this.enchantClue[j] = Registry.ENCHANTMENT.getId(weightedrandomenchant.enchantment);
+                                this.levelClue[j] = weightedrandomenchant.level;
+                            }
+                        }
+                    }
+
+                    CraftItemStack item = CraftItemStack.asCraftMirror(itemstack);
+                    EnchantmentOffer[] offers = new EnchantmentOffer[3];
+
+                    for (j = 0; j < 3; ++j) {
+                        Enchantment enchantment = this.enchantClue[j] >= 0 ? Enchantment.getByKey(CraftNamespacedKey.fromMinecraft(Registry.ENCHANTMENT.getKey(Registry.ENCHANTMENT.byId(this.enchantClue[j])))) : null;
+                        offers[j] = enchantment != null ? new EnchantmentOffer(enchantment, this.levelClue[j], this.costs[j]) : null;
+                    }
+
+                    PrepareItemEnchantEvent event = new PrepareItemEnchantEvent(this.player.getBukkitEntity(), this.getBukkitView(), this.myAccess.getLocation().getBlock(), item, offers, i);
+                    event.setCancelled(!itemstack.isEnchantable());
+                    world.getCraftServer().getPluginManager().callEvent(event);
+                    if (!event.isCancelled()) {
+                        for (j = 0; j < 3; ++j) {
+                            EnchantmentOffer offer = event.getOffers()[j];
+                            if (offer != null) {
+                                this.costs[j] = offer.getCost();
+                                this.enchantClue[j] = Registry.ENCHANTMENT.getId(Registry.ENCHANTMENT.get(CraftNamespacedKey.toMinecraft(offer.getEnchantment().getKey())));
+                                this.levelClue[j] = offer.getEnchantmentLevel();
+                            } else {
+                                this.costs[j] = 0;
+                                this.enchantClue[j] = -1;
+                                this.levelClue[j] = -1;
+                            }
+                        }
+
+                        this.broadcastChanges();
+                    } else {
+                        for (j = 0; j < 3; ++j) {
+                            this.costs[j] = 0;
+                            this.enchantClue[j] = -1;
+                            this.levelClue[j] = -1;
+                        }
+
+                    }
+
+                });
+                return;
+            }
+            super.slotsChanged(iinventory);
+        }
+
+        private List<EnchantmentInstance> getEnchantmentList(ItemStack itemstack, int i, int j) {
+            this.random.setSeed(this.enchantSeed.get() + i);
+            List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(this.random, itemstack, j, false);
+            if (itemstack.is(Items.BOOK) && list.size() > 1) {
+                list.remove(this.random.nextInt(list.size()));
+            }
+
+            return list;
         }
     }
 }

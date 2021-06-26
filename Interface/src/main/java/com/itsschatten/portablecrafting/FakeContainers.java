@@ -30,4 +30,6 @@ public interface FakeContainers {
     boolean openSmithing(Player player);
 
     boolean openSmoker(Player player);
+
+    void removeFromEnchantList(Player player);
 }
