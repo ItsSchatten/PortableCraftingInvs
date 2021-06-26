@@ -1,6 +1,6 @@
 package com.itsschatten.portablecrafting.events;
 
-import com.shanebeestudios.vf.api.machine.Furnace;
+import com.shanebeestudios.api.machine.Furnace;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

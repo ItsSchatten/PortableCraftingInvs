@@ -3,12 +3,12 @@ package com.itsschatten.portablecrafting;
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.PlayerConfigManager;
 import com.itsschatten.portablecrafting.events.*;
-import com.shanebeestudios.vf.api.BrewingManager;
-import com.shanebeestudios.vf.api.FurnaceManager;
-import com.shanebeestudios.vf.api.VirtualFurnaceAPI;
-import com.shanebeestudios.vf.api.machine.BrewingStand;
-import com.shanebeestudios.vf.api.machine.Furnace;
-import com.shanebeestudios.vf.api.property.FurnaceProperties;
+import com.shanebeestudios.api.BrewingManager;
+import com.shanebeestudios.api.FurnaceManager;
+import com.shanebeestudios.api.VirtualFurnaceAPI;
+import com.shanebeestudios.api.machine.BrewingStand;
+import com.shanebeestudios.api.machine.Furnace;
+import com.shanebeestudios.api.property.FurnaceProperties;
 import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -42,6 +42,7 @@ public class FakeContainers_v1_15_R1 implements FakeContainers {
     public void setDebug(boolean bool) {
         debug = bool;
     }
+
     @Override
     public boolean openLoom(Player player) {
         try {

@@ -4,10 +4,10 @@ import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.MySqlUtils;
 import com.itsschatten.portablecrafting.MySqlI;
 import com.itsschatten.portablecrafting.PortableCraftingInvsPlugin;
-import com.shanebeestudios.vf.api.BrewingManager;
-import com.shanebeestudios.vf.api.FurnaceManager;
-import com.shanebeestudios.vf.api.machine.BrewingStand;
-import com.shanebeestudios.vf.api.machine.Furnace;
+import com.shanebeestudios.api.BrewingManager;
+import com.shanebeestudios.api.FurnaceManager;
+import com.shanebeestudios.api.machine.BrewingStand;
+import com.shanebeestudios.api.machine.Furnace;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.SQLException;

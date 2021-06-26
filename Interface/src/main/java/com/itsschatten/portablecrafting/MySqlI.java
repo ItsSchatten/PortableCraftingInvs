@@ -1,9 +1,9 @@
 package com.itsschatten.portablecrafting;
 
-import com.shanebeestudios.vf.api.BrewingManager;
-import com.shanebeestudios.vf.api.FurnaceManager;
-import com.shanebeestudios.vf.api.machine.BrewingStand;
-import com.shanebeestudios.vf.api.machine.Furnace;
+import com.shanebeestudios.api.BrewingManager;
+import com.shanebeestudios.api.FurnaceManager;
+import com.shanebeestudios.api.machine.BrewingStand;
+import com.shanebeestudios.api.machine.Furnace;
 
 import java.util.UUID;
 

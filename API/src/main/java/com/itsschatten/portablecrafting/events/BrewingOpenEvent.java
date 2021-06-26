@@ -1,6 +1,6 @@
 package com.itsschatten.portablecrafting.events;
 
-import com.shanebeestudios.vf.api.machine.BrewingStand;
+import com.shanebeestudios.api.machine.BrewingStand;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

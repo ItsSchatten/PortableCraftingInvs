@@ -8,7 +8,7 @@ import com.itsschatten.portablecrafting.configs.MySql;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
 import com.itsschatten.portablecrafting.listeners.*;
-import com.shanebeestudios.vf.api.VirtualFurnaceAPI;
+import com.shanebeestudios.api.VirtualFurnaceAPI;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

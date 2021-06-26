@@ -6,7 +6,7 @@
 
     <groupId>com.itsschatten.portablecrafting</groupId>
     <artifactId>PortableCraftingInvs-parent</artifactId>
-    <version>1.6.2</version>
+    <version>1.6.3</version>
     <description>Open crafting inventories, such as anvils, crafting table, enchant tables, etc..</description>
     <packaging>pom</packaging>
 
@@ -54,8 +54,8 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.shanebeestudios.vf.api</groupId>
-            <artifactId>VF-API</artifactId>
+            <groupId>com.shanebeestudios.api</groupId>
+            <artifactId>VirtualFurnace-API</artifactId>
             <version>1.1.1-Schatten</version>
             <scope>compile</scope>
         </dependency>
