@@ -10,18 +10,20 @@
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.6.4</version>
+        <version>1.6.5</version>
     </parent>
 
     <properties>
         <author>ItsSchatten</author>
         <main>${project.parent.groupId}.PortableCraftingInvsPlugin</main>
 
-        <!--<buildDir>C:\Users\darks\Desktop\dev-servers\PortableCraftingInvs\plugins</buildDir>-->
+        <!--<buildDir>C:\Users\darks\Desktop\dev-servers\PortableCraftingInvs (1.16)\plugins</buildDir>-->
         <buildDir>C:\Users\darks\Desktop\plugin-updates</buildDir>
         <javaVersion>16</javaVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
     </properties>
 
     <repositories>
@@ -43,28 +45,28 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-Interface</artifactId>
-            <version>1.6.4</version>
+            <version>1.6.5</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R1</artifactId>
-            <version>1.6.4</version>
+            <version>1.6.5</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R2</artifactId>
-            <version>1.6.4</version>
+            <version>1.6.5</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R3</artifactId>
-            <version>1.6.4</version>
+            <version>1.6.5</version>
             <scope>compile</scope>
         </dependency>
 
@@ -78,7 +80,7 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_15_R1</artifactId>
-            <version>1.6.4</version>
+            <version>1.6.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -90,7 +92,7 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_17_R1</artifactId>
-            <version>1.6.4</version>
+            <version>1.6.5</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
