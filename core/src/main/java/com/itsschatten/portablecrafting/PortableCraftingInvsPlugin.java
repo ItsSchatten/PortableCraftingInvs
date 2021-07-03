@@ -75,7 +75,6 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             case "v1_16_R3" -> fakeContainers = new FakeContainers_v1_16_R3(this, database);
             case "v1_16_R2" -> fakeContainers = new FakeContainers_v1_16_R2(this, database);
             case "v1_16_R1" -> fakeContainers = new FakeContainers_v1_16_R1(this, database);
-            case "v1_15_R1" -> fakeContainers = new FakeContainers_v1_15_R1(this, database);
             default -> {
                 Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
                 Bukkit.getPluginManager().disablePlugin(this);

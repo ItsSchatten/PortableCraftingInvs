@@ -61,9 +61,6 @@ help-message: |+
 # The message that is sent if you disable a feature in the settings.yml.
 feature-disabled: "{prefix} That feature is disabled, sorry about that..."
 
-# Sent when someone tries to open the smithing table in 1.15.
-cant-use-smithing-1-15: "{prefix}&c You can't open the smithing table in 1.15"
-
 # The message that is sent to whomever reloaded the configs
 reload-message: "{prefix}&a The plugin has been reloaded."
 

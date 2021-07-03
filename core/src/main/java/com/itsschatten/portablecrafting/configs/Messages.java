@@ -47,7 +47,6 @@ public class Messages extends SimpleConfig {
             OPENED_SMITHING_TABLE_OTHER,
             CANT_RETRIEVE_ITEM_FROM_ENDER,
             MUST_SHIFT_CLICK_TO_BREAK_SIGN,
-            CANT_USE_SMITHING_IN_1_15,
 
     OPENED_FURNACE,
             OPENED_FURNACE_OTHER,
@@ -151,7 +150,6 @@ public class Messages extends SimpleConfig {
         OPENED_BREWING_OTHER = getString("opened-brewing-other");
 
         CANT_RETRIEVE_ITEM_FROM_ENDER = getString("cant-retrieve-from-enderchest");
-        CANT_USE_SMITHING_IN_1_15 = getString("cant-use-smithing-1-15");
 
         OPENED_CARTOGRAPHY = getString("opened-cartography");
         OPENED_CARTOGRAPHY_OTHER = getString("opened-cartography-other");
@@ -235,7 +233,6 @@ public class Messages extends SimpleConfig {
         OPENED_BREWING_OTHER = "";
 
         CANT_RETRIEVE_ITEM_FROM_ENDER = "";
-        CANT_USE_SMITHING_IN_1_15 = "";
 
         OPENED_CARTOGRAPHY = "";
         OPENED_CARTOGRAPHY_OTHER = "";
