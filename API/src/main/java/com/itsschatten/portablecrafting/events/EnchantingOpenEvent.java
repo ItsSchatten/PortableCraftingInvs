@@ -15,7 +15,6 @@ public class EnchantingOpenEvent extends Event implements Cancellable {
     private final Player player;
     private boolean cancelled;
 
-
     public EnchantingOpenEvent(Player player) {
         this.player = player;
         this.cancelled = false;

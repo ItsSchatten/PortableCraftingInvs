@@ -198,16 +198,16 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
     }
 
     private boolean callEnchant(Player player, ServerPlayer ePlayer, int containerID, FakeEnchant fakeEnchant) {
-        final EnchantingOpenEvent event = new EnchantingOpenEvent(player);
-        Bukkit.getPluginManager().callEvent(event);
-        if (!event.isCancelled()) {
+        // final EnchantingOpenEvent event = new EnchantingOpenEvent(player);
+/*        Bukkit.getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {*/
             ePlayer.containerMenu = ePlayer.inventoryMenu;
             ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.ENCHANTMENT, fakeEnchant.getTitle()));
             ePlayer.containerMenu = fakeEnchant;
             ePlayer.initMenu(fakeEnchant);
             return true;
-        }
-        return false;
+  //      }
+//        return false;
     }
 
     @Override
@@ -492,7 +492,8 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
     private static class FakeLoom extends LoomMenu {
 
         public FakeLoom(final int containerId, final Player player) {
-            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerId, ((CraftPlayer) player).getHandle().getInventory(),
+                    ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
             this.checkReachable = false;
             this.setTitle(new TextComponent("Loom"));
         }

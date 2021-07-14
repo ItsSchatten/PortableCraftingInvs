@@ -10,14 +10,14 @@
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.6.6</version>
+        <version>1.6.7</version>
     </parent>
 
     <properties>
         <author>ItsSchatten</author>
         <main>${project.parent.groupId}.PortableCraftingInvsPlugin</main>
 
-        <!--<buildDir>C:\Users\darks\Desktop\dev-servers\PortableCraftingInvs (1.16)\plugins</buildDir>-->
+        <!--<buildDir>C:\Users\darks\Desktop\dev-servers\PortableCraftingInvs\plugins</buildDir>-->
         <buildDir>C:\Users\darks\Desktop\plugin-updates</buildDir>
         <javaVersion>16</javaVersion>
 
@@ -45,28 +45,28 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-Interface</artifactId>
-            <version>1.6.6</version>
+            <version>1.6.7</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R1</artifactId>
-            <version>1.6.6</version>
+            <version>1.6.7</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R2</artifactId>
-            <version>1.6.6</version>
+            <version>1.6.7</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_16_R3</artifactId>
-            <version>1.6.6</version>
+            <version>1.6.7</version>
             <scope>compile</scope>
         </dependency>
 
@@ -80,13 +80,13 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.17-R0.1-SNAPSHOT</version>
+            <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_17_R1</artifactId>
-            <version>1.6.6</version>
+            <version>1.6.7</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
