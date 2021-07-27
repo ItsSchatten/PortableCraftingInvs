@@ -98,9 +98,7 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
             final AnvilOpenEvent event = new AnvilOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
-                ePlayer.containerMenu = ePlayer.inventoryMenu;
-                ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.ANVIL, fakeAnvil.getTitle()));
-                ePlayer.containerMenu = fakeAnvil;
+                player.openInventory(fakeAnvil.getBukkitView()); // Using this seemingly makes the Anvil listener far more consistent.
                 return true;
             }
             return false;
@@ -198,16 +196,16 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
     }
 
     private boolean callEnchant(Player player, ServerPlayer ePlayer, int containerID, FakeEnchant fakeEnchant) {
-        // final EnchantingOpenEvent event = new EnchantingOpenEvent(player);
-/*        Bukkit.getPluginManager().callEvent(event);
-        if (!event.isCancelled()) {*/
+        final EnchantingOpenEvent event = new EnchantingOpenEvent(player);
+        Bukkit.getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {
             ePlayer.containerMenu = ePlayer.inventoryMenu;
             ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.ENCHANTMENT, fakeEnchant.getTitle()));
             ePlayer.containerMenu = fakeEnchant;
             ePlayer.initMenu(fakeEnchant);
             return true;
-  //      }
-//        return false;
+        }
+        return false;
     }
 
     @Override
@@ -517,8 +515,6 @@ public class FakeContainers_v1_17_R1 implements FakeContainers, Listener {
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
             this.setTitle(new TextComponent("Repair & Name"));
         }
-
-
     }
 
     private static class FakeSmithing extends SmithingMenu {

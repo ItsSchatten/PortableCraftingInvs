@@ -84,10 +84,7 @@ public class FakeContainers_v1_16_R1 implements FakeContainers {
             final AnvilOpenEvent event = new AnvilOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
-                ePlayer.activeContainer = ePlayer.defaultContainer;
-                ePlayer.playerConnection.sendPacket(new PacketPlayOutOpenWindow(containerID, Containers.ANVIL, new ChatMessage("Repair & Name")));
-                ePlayer.activeContainer = fakeAnvil;
-                ePlayer.activeContainer.addSlotListener(ePlayer);
+                player.openInventory(fakeAnvil.getBukkitView());
                 return true;
             }
             return false;
