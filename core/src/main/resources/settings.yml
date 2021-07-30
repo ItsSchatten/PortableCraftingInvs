@@ -13,20 +13,23 @@
 #
 # This file can be used to enable or disable all parts of the plugin.
 #
-# If you have questions you can post an issue on Github
+# If you have questions you can post an issue on GitHub
 # (https://github.com/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
 # see the code for the plugin.
 # You may also join my Discord support server. (https://discord.gg/BmWrNam7Sp)
+
+# This attempts to migrate some information to a newer format so your players don't lose any items.
+attempt-migration-at-start: true
 
 # I do not recommend you enable this unless you want to have your console be filled with messages.
 debug: false
 
 # Don't like all of that flooding in your console when the plugin boots? This is the setting for you!
 # Note: In an effort to be transparent we still log that we are collecting metrics if that setting is enabled.
-#  We also will log when a new update is available so you can always use the latest version.
+# We also will log when a new update is available, so you can always use the latest version.
 silent-start: false
 
-# If this is set to true and you add more then the required amount of arguments
+# If this is set to true, and you add more than the required amount of arguments,
 # the plugin will send you a message saying so.
 use-too-many-args: true
 
@@ -35,7 +38,7 @@ use-too-many-args: true
 # in the message.yml if you want.
 use-updater: true
 
-# Set the interval that we should check for updates, IN MINUTES. By default this is 30.
+# Set the interval that we should check for updates, IN MINUTES. By default, this is 30.
 update-check-interval: 30
 
 # If this option is set to true the plugin will not register specific commands if the feature is disabled to allow
@@ -55,7 +58,7 @@ use-help-if-no-args: true
 # will be given to all users by default.
 use-permissions: true
 
-# Should we store furnace data inside of a mysql database?
+# Should we store furnace data inside a mysql database?
 use-sql: false
 
 # This would would be an IP address or a URL. (default: localhost)

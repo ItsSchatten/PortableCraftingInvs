@@ -9,6 +9,7 @@ import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
 import com.itsschatten.portablecrafting.listeners.*;
 import com.shanebeestudios.api.VirtualFurnaceAPI;
+import com.shanebeestudios.api.machine.Furnace;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +17,19 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.Properties;
+import java.util.UUID;
 
 public class PortableCraftingInvsPlugin extends JavaPlugin {
 
@@ -83,6 +93,50 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         }
         fakeContainers.setUsingMysql(Settings.USE_MYSQL);
         fakeContainers.setDebug(Settings.DEBUG);
+
+        if (Settings.ATTEMPT_MIGRATION_AT_START) {
+            try {
+                final Properties properties = new Properties();
+                final File file = new File(getDataFolder(), "PCI.properties");
+                if (!file.exists()) {
+                    Utils.debugLog(Settings.DEBUG, "Found properties file in the data folder!");
+                    properties.load(getResource("PCI.properties"));
+                } else {
+                    Utils.debugLog(Settings.DEBUG, "Unable to find the properties file in the data folder! Creating a new one.");
+                    FileInputStream in = new FileInputStream(file);
+                    properties.load(in);
+                }
+
+                int version = Integer.parseInt(properties.getProperty("furnace-version", "0"));
+                if (version != 1) {
+                    FileOutputStream out = new FileOutputStream(getDataFolder() + File.separator + "PCI.properties");
+                    properties.setProperty("furnace-version", "1");
+                    properties.store(out, null);
+                    out.close();
+                    long timeStart = System.currentTimeMillis();
+                    FileConfiguration configuration = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "furnaces.yml"));
+
+                    ConfigurationSection section = configuration.getConfigurationSection("furnaces");
+                    if (section != null) {
+                        for (String string : section.getKeys(true)) {
+                            final Furnace furnace = VirtualFurnaceAPI.getInstance().getFurnaceManager().getByID(UUID.fromString(string));
+
+                            if (!furnace.getName().equalsIgnoreCase("furnace")) {
+                                if (furnace.getProperties().getFuelMultiplier() != 2) {
+                                    furnace.getProperties().fuelMultiplier(2);
+                                    Utils.debugLog(Settings.DEBUG, "Found a furnace that I can migrate, attempting to set cookX to 2");
+                                }
+                            }
+                        }
+                    }
+                    VirtualFurnaceAPI.getInstance().getFurnaceManager().saveConfig();
+                    Utils.debugLog(Settings.DEBUG, "Completed furnace migration in " + (System.currentTimeMillis() - timeStart) + "ms");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         if (Settings.USE_METRICS) {
             Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/PortableCraftingInvss&7",

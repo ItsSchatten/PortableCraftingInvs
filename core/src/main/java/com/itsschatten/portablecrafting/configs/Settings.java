@@ -14,6 +14,7 @@ public class Settings extends SimpleConfig {
 
     public static boolean
             SILENT_START_UP,
+            ATTEMPT_MIGRATION_AT_START,
             DEBUG,
             USE_MYSQL,
             USE_PERMISSIONS,
@@ -126,6 +127,7 @@ public class Settings extends SimpleConfig {
     private void onLoad() {
         /* Features */
         SILENT_START_UP = (boolean) get("silent-start");
+        ATTEMPT_MIGRATION_AT_START = getBoolean("attempt-migration-at-start");
         DEBUG = (boolean) get("debug");
         UPDATE_CHECK_INTERVAL = getInt("update-check-interval");
         USE_PERMISSIONS = (boolean) get("use-permissions");
