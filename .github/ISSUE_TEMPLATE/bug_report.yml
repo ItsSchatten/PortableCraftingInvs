@@ -1,0 +1,48 @@
+name: Bug Report
+description: Report a bug or issue with the plugin or how it functions.
+labels: ["type: bug", "priority: normal", "status: awaiting confirmation"]
+title: "[BUG] | "
+body:
+  - type: markdown
+    attributes:
+      value: | 
+        I appreciate you taking the time to file a bug report to make this project better for everyone! Please fill out the fields below with as much information as you can.
+  - type: input
+    id: using_version
+    attributes:
+      label: "What is the version of the plugin you're using?"
+      description: "If you're unsure run the command "/pci version" in-game or in your console."
+      placeholder: "1.0.0"
+    validation:
+      required: true
+  - type: input
+    id: spigot_version
+    attributes:
+      label: "What is your Spigot version?"
+      description: "Providing your Spigot version will help to track down your issues, ensure to always test the plugin with the latest version of Spigot before reporting a bug here!"
+      placeholder: "3207-Spigot-18c71bf-8537925 (MC: 1.17.1)"
+    validation:
+      required: true
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: "Please describe the bug."
+      description: "Describe the bug in full detail, explain what happened and how to reproduce this bug."
+      placeholder: |
+        Anvils delete items!
+
+        1. Run the command '/anvil'
+        2. Place any item into any slot in the anvil.
+        3. Close the anvil and the item will not be returned to the player!
+        4. Profit.
+    validation:
+      required: true
+  - type: textarea
+    id: plugin_list
+    attributes:
+      label: "Please list your plugins."
+      description: "Providing a list of your plugins will be useful in order to see if there are any incompatible plugins with PCI."
+      placeholder: |
+        PlaceholderAPI, PortableCraftingInvs, EssentialsX, EssentialsXChat...
+    validation:
+      required: false
