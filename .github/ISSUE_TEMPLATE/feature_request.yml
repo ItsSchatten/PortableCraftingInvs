@@ -1,0 +1,26 @@
+name: Feature Request
+description: Report a bug or issue with the plugin or how it functions.
+labels: ["type: enhancement", "priority: normal"]
+title: "[FEATURE] | "
+body:
+  - type: markdown
+    attributes:
+      value: | 
+        I appreciate you taking the time to file an enhancement report to make this project better for everyone! Please fill out the fields below with as much information as you can.
+        _Please understand that not all issues can be added into the plugin._
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: "Please describe the feature."
+      description: "Describe the feature you are proposing, how do you think it should work?"
+      placeholder: |
+        Support for an API! Should be able to listen to when a player opens a virtual inventory and perform some basic modifications on it!
+    validations:
+      required: true
+  - type: textarea
+    id: anything_else_to_add
+    attributes:
+      label: "Anything else to add?"
+      description: "Anything else you think I should be aware of?"
+    validations:
+      required: false

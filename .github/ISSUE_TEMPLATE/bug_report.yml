@@ -47,3 +47,10 @@ body:
         PlaceholderAPI, PortableCraftingInvs, EssentialsX, EssentialsXChat...
     validations:
       required: false
+  - type: textarea
+    id: anything_else_to_add
+    attributes:
+      label: "Anything else to add?"
+      description: "Anything else you think I should be aware of?"
+    validations:
+      required: false
