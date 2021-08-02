@@ -1,5 +1,5 @@
 name: Feature Request
-description: Report a bug or issue with the plugin or how it functions.
+description: Request a feature or function for the plugin.
 labels: ["type: enhancement", "priority: normal"]
 title: "[FEATURE] | "
 body:
