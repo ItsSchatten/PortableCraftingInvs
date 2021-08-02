@@ -46,4 +46,8 @@ body:
       placeholder: |
         PlaceholderAPI, PortableCraftingInvs, EssentialsX, EssentialsXChat...
     validations:
+<<<<<<< HEAD
       required: false
+=======
+      required: false
+>>>>>>> bc7a1c63c5821d932618b7f519dfc4b24ccb5a13
