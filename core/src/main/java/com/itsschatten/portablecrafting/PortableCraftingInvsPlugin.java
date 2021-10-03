@@ -28,6 +28,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -80,40 +84,48 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             database = null;
         }
 
-        switch (serverVersion) {
-            case "v1_17_R1" -> fakeContainers = new FakeContainers_v1_17_R1(this, database);
-            case "v1_16_R3" -> fakeContainers = new FakeContainers_v1_16_R3(this, database);
-            case "v1_16_R2" -> fakeContainers = new FakeContainers_v1_16_R2(this, database);
-            case "v1_16_R1" -> fakeContainers = new FakeContainers_v1_16_R1(this, database);
-            default -> {
-                Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
-                Bukkit.getPluginManager().disablePlugin(this);
-                return;
-            }
-        }
-        fakeContainers.setUsingMysql(Settings.USE_MYSQL);
-        fakeContainers.setDebug(Settings.DEBUG);
-
         if (Settings.ATTEMPT_MIGRATION_AT_START) {
             try {
                 final Properties properties = new Properties();
                 final File file = new File(getDataFolder(), "PCI.properties");
                 if (!file.exists()) {
-                    Utils.debugLog(Settings.DEBUG, "Found properties file in the data folder!");
+                    Utils.debugLog(Settings.DEBUG, "Unable to find the properties file in the data folder! Creating a new one.");
                     properties.load(getResource("PCI.properties"));
                 } else {
-                    Utils.debugLog(Settings.DEBUG, "Unable to find the properties file in the data folder! Creating a new one.");
+                    Utils.debugLog(Settings.DEBUG, "Found properties file in the data folder!");
                     FileInputStream in = new FileInputStream(file);
                     properties.load(in);
                 }
 
                 int version = Integer.parseInt(properties.getProperty("furnace-version", "0"));
-                if (version != 1) {
+                if (version != 2) {
                     FileOutputStream out = new FileOutputStream(getDataFolder() + File.separator + "PCI.properties");
-                    properties.setProperty("furnace-version", "1");
+                    properties.setProperty("furnace-version", "2");
                     properties.store(out, null);
                     out.close();
                     long timeStart = System.currentTimeMillis();
+
+                    try {
+                        Utils.debugLog(Settings.DEBUG, "Attempting to update API references to new package...");
+                        Utils.debugLog(Settings.DEBUG, "Attempting to migrate furnaces.yml...");
+                        Path furnacePath = Paths.get(getDataFolder() + File.separator + "furnaces.yml");
+
+                        String content = Files.readString(furnacePath, StandardCharsets.UTF_8);
+                        content = content.replaceAll("com\\.shanebeestudios\\.api", "com.itsschatten.portablecrafting.libs");
+                        Files.writeString(furnacePath, content);
+
+                        Utils.debugLog(Settings.DEBUG, "Attempting to migrate brewing-stands.yml");
+                        Path brewingPath = Paths.get(getDataFolder() + File.separator + "brewing-stands.yml");
+                        String brewingContent = Files.readString(brewingPath, StandardCharsets.UTF_8);
+                        brewingContent = brewingContent.replaceAll("com\\.shanebeestudios\\.api", "com.itsschatten.portablecrafting.libs");
+                        Files.writeString(brewingPath, brewingContent);
+                        Utils.debugLog(Settings.DEBUG, "API package migration completed...");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    if (registerFakeContainers()) return;
+
                     FileConfiguration configuration = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "furnaces.yml"));
 
                     ConfigurationSection section = configuration.getConfigurationSection("furnaces");
@@ -130,13 +142,20 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                         }
                     }
                     VirtualFurnaceAPI.getInstance().getFurnaceManager().saveConfig();
+
                     Utils.debugLog(Settings.DEBUG, "Completed furnace migration in " + (System.currentTimeMillis() - timeStart) + "ms");
+                } else {
+                    if (registerFakeContainers()) return;
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            if (registerFakeContainers()) return;
         }
+        fakeContainers.setUsingMysql(Settings.USE_MYSQL);
+        fakeContainers.setDebug(Settings.DEBUG);
 
         if (Settings.USE_METRICS) {
             Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/PortableCraftingInvss&7",
@@ -240,6 +259,21 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         if (!Settings.SILENT_START_UP)
             Utils.log("&9+---------------------------------------------------+ ",
                     "");
+    }
+
+    private boolean registerFakeContainers() {
+        switch (serverVersion) {
+            case "v1_17_R1" -> fakeContainers = new FakeContainers_v1_17_R1(this, database);
+            case "v1_16_R3" -> fakeContainers = new FakeContainers_v1_16_R3(this, database);
+            case "v1_16_R2" -> fakeContainers = new FakeContainers_v1_16_R2(this, database);
+            case "v1_16_R1" -> fakeContainers = new FakeContainers_v1_16_R1(this, database);
+            default -> {
+                Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
+                Bukkit.getPluginManager().disablePlugin(this);
+                return true;
+            }
+        }
+        return false;
     }
 
     // Remove the instance of the plugin, to help prevent memory leaks, and set it to null in the Utils so we can get a new instance of it when it's reloaded.

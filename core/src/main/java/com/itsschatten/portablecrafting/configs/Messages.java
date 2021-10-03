@@ -62,21 +62,29 @@ public class Messages extends SimpleConfig {
     ANVIL_SIGN,
             CARTOGRAPHY_SIGN,
             CRAFTING_SIGN,
+            BLAST_FURNACE_SIGN,
+            BREWING_SIGN,
             ENCHANT_TABLE_SIGN,
             ENDERCHEST_SIGN,
+            FURNACE_SIGN,
             GRINDSTONE_SIGN,
             LOOM_SIGN,
             STONE_CUTTER_SIGN,
             SMITHING_TABLE_SIGN,
+            SMOKER_SIGN,
             ANVIL_SIGN_CREATED,
+            BREWING_SIGN_CREATED,
+            BLAST_FURNACE_SIGN_CREATED,
             CARTOGRAPHY_SIGN_CREATED,
             CRAFTING_SIGN_CREATED,
             ENCHANT_TABLE_SIGN_CREATED,
             ENDERCHEST_SIGN_CREATED,
+            FURNACE_SIGN_CREATED,
             GRINDSTONE_SIGN_CREATED,
             LOOM_SIGN_CREATED,
             STONE_CUTTER_SIGN_CREATED,
-            SMITHING_TABLE_SIGN_CREATED;
+            SMITHING_TABLE_SIGN_CREATED,
+            SMOKER_SIGN_CREATED;
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
     private static Messages instance;
@@ -182,6 +190,11 @@ public class Messages extends SimpleConfig {
         STONE_CUTTER_SIGN = getString("stonecutter-sign");
         SMITHING_TABLE_SIGN = getString("smithing-sign");
 
+        BLAST_FURNACE_SIGN = getString("blast-furnace-sign");
+        BREWING_SIGN = getString("brewing-sign");
+        FURNACE_SIGN = getString("furnace-sign");
+        SMOKER_SIGN = getString("smoker-sign");
+
         ANVIL_SIGN_CREATED = getString("anvil-sign-created");
         CARTOGRAPHY_SIGN_CREATED = getString("cartography-sign-created");
         CRAFTING_SIGN_CREATED = getString("crafting-sign-created");
@@ -191,6 +204,12 @@ public class Messages extends SimpleConfig {
         LOOM_SIGN_CREATED = getString("loom-sign-created");
         STONE_CUTTER_SIGN_CREATED = getString("stonecutter-sign-created");
         SMITHING_TABLE_SIGN_CREATED = getString("smithing-sign-created");
+
+        BLAST_FURNACE_SIGN_CREATED = getString("blast-furnace-sign-created");
+        BREWING_SIGN_CREATED = getString("brewing-sign-created");
+        FURNACE_SIGN_CREATED = getString("furnace-sign-created");
+        SMOKER_SIGN_CREATED = getString("smoker-sign-created");
+
     }
 
     public void onLoadNoMessages() {
@@ -255,15 +274,20 @@ public class Messages extends SimpleConfig {
         // Sign messages
         MUST_SHIFT_CLICK_TO_BREAK_SIGN = "";
 
-        ANVIL_SIGN = "";
-        CARTOGRAPHY_SIGN = "";
-        CRAFTING_SIGN = "";
-        ENCHANT_TABLE_SIGN = "";
-        ENDERCHEST_SIGN = "";
-        GRINDSTONE_SIGN = "";
-        LOOM_SIGN = "";
-        STONE_CUTTER_SIGN = "";
-        SMITHING_TABLE_SIGN = "";
+        ANVIL_SIGN = getString("anvil-sign");
+        CARTOGRAPHY_SIGN = getString("cartography-sign");
+        CRAFTING_SIGN = getString("crafting-sign");
+        ENCHANT_TABLE_SIGN = getString("enchant-table-sign");
+        ENDERCHEST_SIGN = getString("enderchest-sign");
+        GRINDSTONE_SIGN = getString("grindstone-sign");
+        LOOM_SIGN = getString("loom-sign");
+        STONE_CUTTER_SIGN = getString("stonecutter-sign");
+        SMITHING_TABLE_SIGN = getString("smithing-sign");
+
+        BLAST_FURNACE_SIGN = getString("blast-furnace-sign");
+        BREWING_SIGN = getString("brewing-sign");
+        FURNACE_SIGN = getString("furnace-sign");
+        SMOKER_SIGN = getString("smoker-sign");
 
         ANVIL_SIGN_CREATED = "";
         CARTOGRAPHY_SIGN_CREATED = "";
@@ -274,6 +298,11 @@ public class Messages extends SimpleConfig {
         LOOM_SIGN_CREATED = "";
         STONE_CUTTER_SIGN_CREATED = "";
         SMITHING_TABLE_SIGN_CREATED = "";
+
+        BLAST_FURNACE_SIGN_CREATED = "";
+        BREWING_SIGN_CREATED = "";
+        FURNACE_SIGN_CREATED = "";
+        SMOKER_SIGN_CREATED = "";
     }
 
     public void reload() {

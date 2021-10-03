@@ -10,15 +10,15 @@
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.6.9</version>
+        <version>1.6.10</version>
     </parent>
 
     <properties>
         <author>ItsSchatten</author>
         <main>${project.parent.groupId}.PortableCraftingInvsPlugin</main>
 
-        <!--        <buildDir>C:\Users\darks\Desktop\dev-servers\PortableCraftingInvs\plugins</buildDir>-->
-        <buildDir>C:\Users\darks\Desktop\plugin-updates</buildDir>
+<!--        <buildDir>${user.home}\Desktop\dev-servers\PortableCraftingInvs\plugins</buildDir>-->
+        <buildDir>${user.home}\Desktop\plugin-updates</buildDir>
         <javaVersion>16</javaVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -164,11 +164,7 @@
                             <shadedPattern>${project.groupId}.libs</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>com.itsschatten.portablecrafting</pattern>
-                            <shadedPattern>${project.groupId}</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>com.shanebeestudios.vf</pattern>
+                            <pattern>com.shanebeestudios.api</pattern>
                             <shadedPattern>${project.groupId}.libs</shadedPattern>
                         </relocation>
                     </relocations>

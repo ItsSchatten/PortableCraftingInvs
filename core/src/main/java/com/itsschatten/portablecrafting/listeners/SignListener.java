@@ -1,6 +1,7 @@
 package com.itsschatten.portablecrafting.listeners;
 
 import com.itsschatten.libs.Utils;
+import com.itsschatten.portablecrafting.FakeContainers;
 import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.PortableCraftingInvsPlugin;
 import com.itsschatten.portablecrafting.configs.Messages;
@@ -13,6 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class SignListener implements Listener {
 
@@ -25,8 +29,8 @@ public class SignListener implements Listener {
             return;
         }
 
-        switch (event.getLine(0).toLowerCase()) {
-            case "[anvil]": {
+        switch (Objects.requireNonNull(event.getLine(0), "Somehow bypassed the null check, null line check. Uh oh.").toLowerCase()) {
+            case "[anvil]" -> {
                 if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.SIGN_CREATE_ANVIL.getPermission()))
                     return;
                 if (!Settings.USE_ANVIL_SIGN)
@@ -36,10 +40,34 @@ public class SignListener implements Listener {
                 makeSign(event, SignTypes.ANVIL);
 
                 Utils.tell(event.getPlayer(), Messages.ANVIL_SIGN_CREATED);
-                break;
             }
 
-            case "[cartography]": {
+            case "[blastfurnace]" -> {
+                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_BLASTFURANCE.getPermission()))
+                    return;
+                if (!Settings.USE_BLAST_FURNACE_SIGN)
+                    return;
+
+                event.setLine(0, Utils.colorize(Messages.BLAST_FURNACE_SIGN));
+
+                makeSign(event, SignTypes.BLAST_FURNACE);
+
+                Utils.tell(event.getPlayer(), Messages.BLAST_FURNACE_SIGN_CREATED);
+            }
+
+            case "[brewing]" -> {
+                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_BREWING.getPermission()))
+                    return;
+                if (!Settings.USE_BREWING_STAND_SIGN)
+                    return;
+                event.setLine(0, Utils.colorize(Messages.BREWING_SIGN));
+
+                makeSign(event, SignTypes.BREWING_STAND);
+
+                Utils.tell(event.getPlayer(), Messages.BREWING_SIGN_CREATED);
+            }
+
+            case "[cartography]" -> {
                 if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.SIGN_CREATE_CARTOGRAPHY.getPermission()))
                     return;
                 if (!Settings.USE_CARTOGRAPHY_SIGN)
@@ -49,10 +77,9 @@ public class SignListener implements Listener {
                 makeSign(event, SignTypes.CARTOGRAPHY);
 
                 Utils.tell(event.getPlayer(), Messages.CARTOGRAPHY_SIGN_CREATED);
-                break;
             }
 
-            case "[crafting]": {
+            case "[crafting]" -> {
                 if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.SIGN_CREATE_CRAFTING.getPermission()))
                     return;
                 if (!Settings.USE_CRAFTING_SIGN)
@@ -62,10 +89,9 @@ public class SignListener implements Listener {
                 makeSign(event, SignTypes.CRAFTING_TABLE);
 
                 Utils.tell(event.getPlayer(), Messages.CRAFTING_SIGN_CREATED);
-                break;
             }
 
-            case "[enchanttable]": {
+            case "[enchanttable]" -> {
                 if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.SIGN_CREATE_ENCHANT_TABLE.getPermission()))
                     return;
                 if (!Settings.USE_ENCHANT_TABLE_SIGN)
@@ -75,10 +101,9 @@ public class SignListener implements Listener {
                 makeSign(event, SignTypes.ENCHANTMENT_TABLE);
 
                 Utils.tell(event.getPlayer(), Messages.ENCHANT_TABLE_SIGN_CREATED);
-                break;
             }
 
-            case "[enderchest]": {
+            case "[enderchest]" -> {
                 if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.SIGN_CREATE_ENDERCHEST.getPermission()))
                     return;
                 if (!Settings.USE_ENDERCHEST_SIGN)
@@ -88,10 +113,22 @@ public class SignListener implements Listener {
                 makeSign(event, SignTypes.ENDER_CHEST);
 
                 Utils.tell(event.getPlayer(), Messages.ENDERCHEST_SIGN_CREATED);
-                break;
             }
 
-            case "[grindstone]": {
+            case "[furnace]" -> {
+                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_FURANCE.getPermission()))
+                    return;
+                if (!Settings.USE_FURNACE_SIGN)
+                    return;
+
+                event.setLine(0, Utils.colorize(Messages.FURNACE_SIGN));
+
+                makeSign(event, SignTypes.FURNACE);
+
+                Utils.tell(event.getPlayer(), Messages.FURNACE_SIGN_CREATED);
+            }
+
+            case "[grindstone]" -> {
                 if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.SIGN_CREATE_GRINDSTONE.getPermission()))
                     return;
                 if (!Settings.USE_GRINDSTONE_SIGN)
@@ -101,10 +138,9 @@ public class SignListener implements Listener {
                 makeSign(event, SignTypes.GRINDSTONE);
 
                 Utils.tell(event.getPlayer(), Messages.GRINDSTONE_SIGN_CREATED);
-                break;
             }
 
-            case "[loom]": {
+            case "[loom]" -> {
                 if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.SIGN_CREATE_LOOM.getPermission()))
                     return;
                 if (!Settings.USE_LOOM_SIGN)
@@ -114,10 +150,9 @@ public class SignListener implements Listener {
                 makeSign(event, SignTypes.LOOM);
 
                 Utils.tell(event.getPlayer(), Messages.LOOM_SIGN_CREATED);
-                break;
             }
 
-            case "[stonecutter]": {
+            case "[stonecutter]" -> {
                 if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.SIGN_CREATE_STONE_CUTTER.getPermission()))
                     return;
                 if (!Settings.USE_STONE_CUTTER_SIGN)
@@ -127,10 +162,9 @@ public class SignListener implements Listener {
                 makeSign(event, SignTypes.STONE_CUTTER);
 
                 Utils.tell(event.getPlayer(), Messages.STONE_CUTTER_SIGN_CREATED);
-                break;
             }
 
-            case "[smithing]": {
+            case "[smithing]" -> {
                 if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.SIGN_CREATE_SMITHING.getPermission()))
                     return;
                 if (!Settings.USE_SMITHING_SIGN)
@@ -140,11 +174,22 @@ public class SignListener implements Listener {
                 makeSign(event, SignTypes.SMITHING);
 
                 Utils.tell(event.getPlayer(), Messages.SMITHING_TABLE_SIGN_CREATED);
-                break;
             }
 
-            default: {
-                break;
+            case "[smoker]" -> {
+                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_SMOKER.getPermission()))
+                    return;
+                if (!Settings.USE_SMOKER_SIGN)
+                    return;
+
+                event.setLine(0, Utils.colorize(Messages.SMOKER_SIGN));
+
+                makeSign(event, SignTypes.SMOKER);
+
+                Utils.tell(event.getPlayer(), Messages.SMOKER_SIGN_CREATED);
+            }
+
+            default -> {
             }
         }
     }
@@ -180,10 +225,21 @@ public class SignListener implements Listener {
             }
 
             for (String key : signsConfig.getConfigurationSection("signs").getKeys(false)) {
-                if (signsConfig.get("signs." + key + ".where.world") == event.getPlayer().getLocation().getWorld().getName()
+                if (signsConfig.getString("signs." + key + ".where.world").equalsIgnoreCase(event.getPlayer().getLocation().getWorld().getName())
                         && signsConfig.getInt("signs." + key + ".where.x") == event.getClickedBlock().getX()
                         && signsConfig.getInt("signs." + key + ".where.y") == event.getClickedBlock().getY()
                         && signsConfig.getInt("signs." + key + ".where.z") == event.getClickedBlock().getZ()) {
+
+                    if (SignTypes.valueOf(signsConfig.getString("signs." + key + ".type")).equals(SignTypes.ENCHANTMENT_TABLE)) {
+                        try {
+                            if (signsConfig.getInt("signs." + key + ".max-level") != -1) {
+                                int level = signsConfig.getInt("signs." + key + ".max-level");
+                                getSign(event, SignTypes.valueOf(signsConfig.getString("signs." + key + ".type")), level);
+                            }
+                        } catch (NullPointerException ex) { // Catch this error because spigot is weird and doesn't want to use a proper check because it doesn't exist...
+                            getSign(event, SignTypes.valueOf(signsConfig.getString("signs." + key + ".type")));
+                        }
+                    }
 
                     getSign(event, SignTypes.valueOf(signsConfig.getString("signs." + key + ".type")));
                 }
@@ -192,21 +248,19 @@ public class SignListener implements Listener {
 
     }
 
-    private boolean isSign(final PlayerInteractEvent event) {
+    private boolean isSign(final @NotNull PlayerInteractEvent event) {
         final SignsConfig signsConfig = SignsConfig.getInstance();
-
         if (event.getClickedBlock() == null) {
             return false;
         }
 
         if (event.getClickedBlock().getType().name().contains("SIGN")) {
-
             if (signsConfig.getConfigurationSection("signs") == null || signsConfig.getConfigurationSection("signs").getKeys(false).isEmpty()) {
                 return false;
             }
 
             for (String key : signsConfig.getConfigurationSection("signs").getKeys(false)) {
-                if (signsConfig.get("signs." + key + ".where.world") == event.getPlayer().getLocation().getWorld().getName()
+                if (signsConfig.getString("signs." + key + ".where.world").equalsIgnoreCase(event.getPlayer().getLocation().getWorld().getName())
                         && signsConfig.getInt("signs." + key + ".where.x") == event.getClickedBlock().getX()
                         && signsConfig.getInt("signs." + key + ".where.y") == event.getClickedBlock().getY()
                         && signsConfig.getInt("signs." + key + ".where.z") == event.getClickedBlock().getZ()) {
@@ -219,8 +273,7 @@ public class SignListener implements Listener {
         return false;
     }
 
-    private void makeSign(final SignChangeEvent event, final SignTypes signType) {
-
+    private void makeSign(final @NotNull SignChangeEvent event, final @NotNull SignTypes signType) {
         final SignsConfig signs = SignsConfig.getInstance();
         signs.set("sign-amount", signs.getInt("sign-amount") + 1);
 
@@ -231,34 +284,64 @@ public class SignListener implements Listener {
         signs.set("signs." + signs.getInt("sign-amount") + ".type", signType.name());
         signs.set("signs." + signs.getInt("sign-amount") + ".created-by", event.getPlayer().getName());
 
-        signs.saveConfig();
+        if (signType.equals(SignTypes.ENCHANTMENT_TABLE)) {
+            if (event.getLine(1) == null || event.getLine(1).isEmpty()) {
+                signs.set("signs." + signs.getInt("sign-amount") + ".max-level", -1);
+                return;
+            }
+            try {
+                int maxLevel = Math.min(Integer.parseInt(Objects.requireNonNull(event.getLine(1))), 30);
+                signs.set("signs." + signs.getInt("sign-amount") + ".max-level", maxLevel);
+            } catch (NumberFormatException ignored) {
+            }
+        }
 
+        signs.saveConfig();
     }
 
-    private void getSign(PlayerInteractEvent event, SignTypes signTypes) {
+    private void getSign(@NotNull PlayerInteractEvent event, @NotNull SignTypes signTypes, int... maxLevel) {
         final Player player = event.getPlayer();
+        final FakeContainers fakeContainers = PortableCraftingInvsPlugin.getFakeContainers();
 
         switch (signTypes) {
             case ANVIL: {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_ANVIL.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_ANVIL.getPermission()))
                     return;
                 if (!Settings.USE_ANVIL_SIGN)
                     return;
-                PortableCraftingInvsPlugin.getFakeContainers().openAnvil(player);
+                fakeContainers.openAnvil(player);
+                break;
+            }
+
+            case BLAST_FURNACE: {
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_BLASTFURANCE.getPermission()))
+                    return;
+                if (!Settings.USE_BLAST_FURNACE_SIGN)
+                    return;
+                fakeContainers.openBlastFurnace(player);
+                break;
+            }
+
+            case BREWING_STAND: {
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_BREWING.getPermission()))
+                    return;
+                if (!Settings.USE_BREWING_STAND_SIGN)
+                    return;
+                fakeContainers.openBrewingStand(player);
                 break;
             }
 
             case CARTOGRAPHY: {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_CARTOGRAPHY.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_CARTOGRAPHY.getPermission()))
                     return;
                 if (!Settings.USE_CARTOGRAPHY_SIGN)
                     return;
-                PortableCraftingInvsPlugin.getFakeContainers().openCartography(player);
+                fakeContainers.openCartography(player);
                 break;
             }
 
             case CRAFTING_TABLE: {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_CRAFTING.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_CRAFTING.getPermission()))
                     return;
                 if (!Settings.USE_CRAFTING_SIGN)
                     return;
@@ -267,16 +350,21 @@ public class SignListener implements Listener {
             }
 
             case ENCHANTMENT_TABLE: {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_ENCHANT_TABLE.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_ENCHANT_TABLE.getPermission()))
                     return;
                 if (!Settings.USE_ENCHANT_TABLE_SIGN)
                     return;
-                PortableCraftingInvsPlugin.getFakeContainers().openEnchant(player);
+
+                if (maxLevel.length > 1) {
+                    fakeContainers.openEnchant(player, maxLevel[0]);
+                } else
+                    fakeContainers.openEnchant(player);
+
                 break;
             }
 
             case ENDER_CHEST: {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_ENDERCHEST.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_ENDERCHEST.getPermission()))
                     return;
                 if (!Settings.USE_ENDERCHEST_SIGN)
                     return;
@@ -284,34 +372,44 @@ public class SignListener implements Listener {
                 break;
             }
 
+            case FURNACE: {
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_FURANCE.getPermission()))
+                    return;
+                if (!Settings.USE_FURNACE_SIGN)
+                    return;
+                fakeContainers.openFurnace(player);
+                break;
+            }
+
             case GRINDSTONE: {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_GRINDSTONE.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_GRINDSTONE.getPermission()))
                     return;
                 if (!Settings.USE_GRINDSTONE_SIGN)
                     return;
-                PortableCraftingInvsPlugin.getFakeContainers().openGrindStone(player);
+                fakeContainers.openGrindStone(player);
                 break;
             }
 
             case LOOM: {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_LOOM.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_LOOM.getPermission()))
                     return;
                 if (!Settings.USE_LOOM_SIGN)
                     return;
-                PortableCraftingInvsPlugin.getFakeContainers().openLoom(player);
+                fakeContainers.openLoom(player);
                 break;
             }
 
             case STONE_CUTTER: {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_STONE_CUTTER.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_STONE_CUTTER.getPermission()))
                     return;
                 if (!Settings.USE_STONE_CUTTER_SIGN)
                     return;
-                PortableCraftingInvsPlugin.getFakeContainers().openStoneCutter(player);
+                fakeContainers.openStoneCutter(player);
                 break;
             }
+
             case SMITHING: {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_SMITHING.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_SMITHING.getPermission()))
                     return;
                 if (!Settings.USE_SMITHING_SIGN)
                     return;
@@ -319,7 +417,16 @@ public class SignListener implements Listener {
                     Utils.debugLog(Settings.DEBUG, "Version is not 1.16+, not attempting to open the smithing table.");
                     return;
                 }
-                PortableCraftingInvsPlugin.getFakeContainers().openSmithing(player);
+                fakeContainers.openSmithing(player);
+            }
+
+            case SMOKER: {
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_SMOKER.getPermission()))
+                    return;
+                if (!Settings.USE_SMOKER_SIGN)
+                    return;
+                fakeContainers.openSmoker(player);
+                break;
             }
 
             default:
@@ -330,14 +437,18 @@ public class SignListener implements Listener {
 
     enum SignTypes {
         ANVIL,
+        BLAST_FURNACE,
+        BREWING_STAND,
         CARTOGRAPHY,
         CRAFTING_TABLE,
         ENCHANTMENT_TABLE,
         ENDER_CHEST,
+        FURNACE,
         GRINDSTONE,
         LOOM,
         STONE_CUTTER,
-        SMITHING
+        SMITHING,
+        SMOKER
     }
 
 }

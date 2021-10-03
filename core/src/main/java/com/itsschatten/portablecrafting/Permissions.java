@@ -6,13 +6,6 @@ import com.itsschatten.libs.interfaces.IPermissions;
  * A utility class that I can use to specify permissions, so I don't have to constantly rewrite them.
  */
 public enum Permissions implements IPermissions {
-    EMPTY {
-        @Override
-        public String getPermission() {
-            return "";
-        }
-    },
-
     ANVIL {
         @Override
         public String getPermission() {
@@ -274,6 +267,34 @@ public enum Permissions implements IPermissions {
         }
     },
 
+    SIGN_CREATE_FURANCE {
+        @Override
+        public String getPermission() {
+            return "pci.sign.furnace";
+        }
+    },
+
+    SIGN_CREATE_BLASTFURANCE {
+        @Override
+        public String getPermission() {
+            return "pci.sign.blastfurnace";
+        }
+    },
+
+    SIGN_CREATE_SMOKER {
+        @Override
+        public String getPermission() {
+            return "pci.sign.smoker";
+        }
+    },
+
+    SIGN_CREATE_BREWING {
+        @Override
+        public String getPermission() {
+            return "pci.sign.brewing";
+        }
+    },
+
     USE_SIGN_ANVIL {
         @Override
         public String getPermission() {
@@ -334,6 +355,34 @@ public enum Permissions implements IPermissions {
         @Override
         public String getPermission() {
             return "pci.sign.stonecutter.use";
+        }
+    },
+
+    USE_SIGN_FURANCE {
+        @Override
+        public String getPermission() {
+            return "pci.sign.furnace.use";
+        }
+    },
+
+    USE_SIGN_BLASTFURANCE {
+        @Override
+        public String getPermission() {
+            return "pci.sign.blastfurnace.use";
+        }
+    },
+
+    USE_SIGN_SMOKER {
+        @Override
+        public String getPermission() {
+            return "pci.sign.smoker.use";
+        }
+    },
+
+    USE_SIGN_BREWING {
+        @Override
+        public String getPermission() {
+            return "pci.sign.brewing.use";
         }
     },
 

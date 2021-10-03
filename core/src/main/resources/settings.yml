@@ -151,6 +151,12 @@ require-shift-click-to-break-signs: true
 # Enable or disable the anvil sign.
 use-anvil-sign: true
 
+# Enable or disable the blast furnace sign.
+use-blast-furnace-sign: true
+
+# Enable or disable the brewing stand sign.
+use-brewing-sign: true
+
 # Enable or disable the anvil sign.
 use-cartography-sign: true
 
@@ -163,6 +169,9 @@ use-enchanttable-sign: true
 # Enable or disable the anvil sign.
 use-enderchest-sign: true
 
+# Enable or disable the furnace sign.
+use-furnace-sign: true
+
 # Enable or disable the grindstone sign.
 use-grindstone-sign: true
 
@@ -172,8 +181,11 @@ use-loom-sign: true
 # Enable or disable the stonecutter sign.
 use-stonecutter-sign: true
 
-# Enable or disable the smithing table sign (1.16+ only)
+# Enable or disable the smithing table sign.
 use-smithingtable-sign: true
+
+# Enable or disable the smoker sign.
+use-smoker-sign: true
 
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #

@@ -59,14 +59,18 @@ public class Settings extends SimpleConfig {
 
     // Sign booleans.
     USE_ANVIL_SIGN,
+            USE_BLAST_FURNACE_SIGN,
+            USE_BREWING_STAND_SIGN,
             USE_CARTOGRAPHY_SIGN,
             USE_CRAFTING_SIGN,
             USE_ENDERCHEST_SIGN,
             USE_ENCHANT_TABLE_SIGN,
+            USE_FURNACE_SIGN,
             USE_GRINDSTONE_SIGN,
             USE_LOOM_SIGN,
             USE_STONE_CUTTER_SIGN,
-            USE_SMITHING_SIGN;
+            USE_SMITHING_SIGN,
+            USE_SMOKER_SIGN;
 
     // The interval in which we should check for an update for the plugin.
     public static int UPDATE_CHECK_INTERVAL,
@@ -194,14 +198,18 @@ public class Settings extends SimpleConfig {
         REQUIRE_SIGHT_CLICK_BREAK_SIGN = (boolean) get("require-shift-click-to-break-signs");
 
         USE_ANVIL_SIGN = (boolean) get("use-anvil-sign");
+        USE_BLAST_FURNACE_SIGN = (boolean) get("use-blast-furnace-sign");
+        USE_BREWING_STAND_SIGN = (boolean) get("use-brewing-sign");
         USE_CARTOGRAPHY_SIGN = (boolean) get("use-cartography-sign");
         USE_CRAFTING_SIGN = (boolean) get("use-crafting-sign");
         USE_ENDERCHEST_SIGN = (boolean) get("use-enderchest-sign");
         USE_ENCHANT_TABLE_SIGN = getBoolean("use-enchanttable-sign");
+        USE_FURNACE_SIGN = getBoolean("use-furnace-sign");
         USE_GRINDSTONE_SIGN = (boolean) get("use-grindstone-sign");
         USE_LOOM_SIGN = (boolean) get("use-loom-sign");
         USE_STONE_CUTTER_SIGN = (boolean) get("use-stonecutter-sign");
         USE_SMITHING_SIGN = (boolean) get("use-smithingtable-sign");
+        USE_SMOKER_SIGN = (boolean) get("use-smoker-sign");
     }
 
     public void reload() {

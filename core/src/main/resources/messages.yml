@@ -224,6 +224,18 @@ loom-sign: "&3[Loom]"
 # This is what the sign text will turn to when creating the stonecutter sign.
 stonecutter-sign: "&3[Stonecutter]"
 
+# This is what the sign text will turn to when creating the blast furnace sign.
+blast-furnace-sign: "&3[Blast Furnace]"
+
+# This is what the sign text will turn to when creating the brewing sign.
+brewing-sign: "&3[Brew]"
+
+# This is what the sign text will turn to when creating the furnace sign.
+furnace-sign: "&3[Furnace]"
+
+# This is what the sign text will turn to when creating the smoker sign.
+smoker-sign: "&3[Smoker]"
+
 # This is what the sign text will turn to when creating the smithing table sign.
 smithing-sign: "&3[Smithing Table]"
 
@@ -253,3 +265,15 @@ stonecutter-sign-created: "{prefix} You've created a stonecutter sign."
 
 # This is what is sent to the player to confirm the creation of the smithing table sign.
 smithing-sign-created: "{prefix} You've created a smithing table sign."
+
+# This is what is sent to the player to confirm the creation of a blast furnace sign.
+blast-furnace-sign-created: "{prefix} You've created a blast furnace sign."
+
+# This is what is sent to the player to confirm the creation of a brewing stand sign.
+brewing-sign-created: "{prefix} You've created a brewing stand sign."
+
+# This is what is sent to the player to confirm the creation of a furnace sign.
+furnace-sign-created: "{prefix} You've created a furnace sign."
+
+# This is what is sent to the player to confirm the creation of a smoker sign.
+smoker-sign-created: "{prefix} You've created a smoker sign."

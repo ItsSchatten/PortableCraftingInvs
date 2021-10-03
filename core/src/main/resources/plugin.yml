@@ -166,6 +166,9 @@ permissions:
       pci.sign.grindstone: true
       pci.sign.loom: true
       pci.sign.stonecutter: true
+      pci.sign.furnace: true
+      pci.sign.blastfurnace: true
+      pci.sign.smoker: true
 
   pci.sign.use.*:
     default: op
@@ -180,6 +183,9 @@ permissions:
       pci.sign.loom.use: true
       pci.sign.stonecutter.use: true
       pci.sign.smithingtable.use: true
+      pci.sign.furnace.use: true
+      pci.sign.blastfurnace.use: true
+      pci.sign.smoker.use: true
 
   pci.sign.anvil:
     default: op
@@ -208,7 +214,18 @@ permissions:
   pci.sign.smithingtable:
     default: op
     description: "Create the smithing table sign."
-
+  pci.sign.furnace:
+    default: op
+    description: "Create the furnace sign."
+  pci.sign.blastfurnace:
+    default: op
+    description: "Create the blast furnace sign."
+  pci.sign.smoker:
+    default: op
+    description: "Create the smoker sign."
+  pci.sign.brewing:
+    default: op
+    description: "Create the brewing sign."
 
   pci.sign.anvil.use:
     default: op
@@ -221,7 +238,7 @@ permissions:
     description: "Use a crafting table sign."
   pci.sign.enchanttable.use:
     default: op
-    description: "Use an enchanttable sign."
+    description: "Use an enchantment table sign."
   pci.sign.endechest.use:
     default: op
     description: "Use an enderchest sign."
@@ -237,3 +254,15 @@ permissions:
   pci.sign.smithingtable.use:
     default: op
     description: "Use a smithing table sign."
+  pci.sign.furnace.use:
+    default: op
+    description: "Use a furnace sign."
+  pci.sign.blastfurnace.use:
+    default: op
+    description: "Use a blast furnace sign."
+  pci.sign.smoker.use:
+    default: op
+    description: "Use a smoker sign."
+  pci.sign.brewing.use:
+    default: op
+    description: "Use a brewing stand sign."
