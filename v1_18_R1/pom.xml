@@ -2,16 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>PortableCraftingInvs-v1_17_R1</artifactId>
-    <packaging>jar</packaging>
-
     <parent>
-        <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
+        <groupId>com.itsschatten.portablecrafting</groupId>
         <version>1.7.0</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>PortableCraftingInvs-v1_18_R1</artifactId>
 
     <properties>
         <maven.skip.test>true</maven.skip.test>
@@ -25,7 +23,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>1.18-R0.1-SNAPSHOT</version>
             <classifier>remapped-mojang</classifier>
             <scope>provided</scope>
         </dependency>
@@ -41,13 +39,6 @@
             <version>1.0.0</version>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -65,10 +56,10 @@
                         </goals>
                         <id>remap-obf</id>
                         <configuration>
-                            <!-- minecraft-server-1.17.1-R0.1-SNAPSHOT-maps-mojang -->
-                            <srgIn>org.spigotmc:minecraft-server:1.17.1-R0.1-SNAPSHOT:txt:maps-mojang</srgIn>
+                            <!-- minecraft-server-1.18-R0.1-SNAPSHOT-maps-mojang -->
+                            <srgIn>org.spigotmc:minecraft-server:1.18-R0.1-SNAPSHOT:txt:maps-mojang</srgIn>
                             <reverse>true</reverse>
-                            <remappedDependencies>org.spigotmc:spigot:1.17.1-R0.1-SNAPSHOT:jar:remapped-mojang
+                            <remappedDependencies>org.spigotmc:spigot:1.18-R0.1-SNAPSHOT:jar:remapped-mojang
                             </remappedDependencies>
                             <remappedArtifactAttached>true</remappedArtifactAttached>
                             <remappedClassifierName>remapped-obf</remappedClassifierName>
@@ -84,16 +75,13 @@
                             <inputFile>
                                 ${project.build.directory}/${project.artifactId}-${project.version}-remapped-obf.jar
                             </inputFile>
-                            <srgIn>org.spigotmc:minecraft-server:1.17.1-R0.1-SNAPSHOT:csrg:maps-spigot</srgIn>
-                            <remappedDependencies>org.spigotmc:spigot:1.17.1-R0.1-SNAPSHOT:jar:remapped-obf
+                            <srgIn>org.spigotmc:minecraft-server:1.18-R0.1-SNAPSHOT:csrg:maps-spigot</srgIn>
+                            <remappedDependencies>org.spigotmc:spigot:1.18-R0.1-SNAPSHOT:jar:remapped-obf
                             </remappedDependencies>
                         </configuration>
                     </execution>
-
-
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 

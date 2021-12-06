@@ -6,9 +6,27 @@
 
     <groupId>com.itsschatten.portablecrafting</groupId>
     <artifactId>PortableCraftingInvs-parent</artifactId>
-    <version>1.6.10</version>
+    <version>1.7.0</version>
     <description>Open crafting inventories, such as anvils, crafting table, enchant tables, etc..</description>
     <packaging>pom</packaging>
+
+    <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <id>development</id>
+            <properties>
+                <buildDir>${user.home}\Desktop\dev-servers\PortableCraftingInvs\plugins</buildDir>
+            </properties>
+        </profile>
+        <profile>
+            <id>publish</id>
+            <properties>
+                <buildDir>${user.home}\Desktop\plugin-updates</buildDir>
+            </properties>
+        </profile>
+    </profiles>
 
     <properties>
         <maven.skip.test>true</maven.skip.test>
@@ -24,6 +42,7 @@
         <module>v1_16_R2</module>
         <module>v1_16_R3</module>
         <module>v1_17_R1</module>
+        <module>v1_18_R1</module>
         <module>API</module>
     </modules>
 
@@ -39,11 +58,10 @@
     </repositories>
 
     <dependencies>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
+            <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
