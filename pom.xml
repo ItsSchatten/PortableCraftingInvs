@@ -6,7 +6,7 @@
 
     <groupId>com.itsschatten.portablecrafting</groupId>
     <artifactId>PortableCraftingInvs-parent</artifactId>
-    <version>1.7.0</version>
+    <version>1.7.1</version>
     <description>Open crafting inventories, such as anvils, crafting table, enchant tables, etc..</description>
     <packaging>pom</packaging>
 
@@ -38,9 +38,6 @@
     <modules>
         <module>core</module>
         <module>Interface</module>
-        <module>v1_16_R1</module>
-        <module>v1_16_R2</module>
-        <module>v1_16_R3</module>
         <module>v1_17_R1</module>
         <module>v1_18_R1</module>
         <module>API</module>
