@@ -176,7 +176,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 }
             }.runTaskAsynchronously(this);
 
-            new CheckForUpdate().runTaskTimerAsynchronously(this, Settings.UPDATE_CHECK_INTERVAL * (60 * 20), Settings.UPDATE_CHECK_INTERVAL * (60 * 20)); // Wait for the time set in the settings.yml before checking for an update.
+            new CheckForUpdateTask().runTaskTimerAsynchronously(this, Settings.UPDATE_CHECK_INTERVAL * (60 * 20), Settings.UPDATE_CHECK_INTERVAL * (60 * 20)); // Wait for the time set in the settings.yml before checking for an update.
             Utils.debugLog(Settings.DEBUG, "Checked for update, and set timer running, checking for update again in " + Settings.UPDATE_CHECK_INTERVAL + " minutes.");
         }
 
@@ -263,9 +263,13 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
     private boolean registerFakeContainers() {
         switch (serverVersion) {
+            case "v1_19_R1" -> fakeContainers = new FakeContainers_v1_19_R1(this, database);
             case "v1_18_R2" -> fakeContainers = new FakeContainers_v1_18_R2(this, database);
             case "v1_18_R1" -> fakeContainers = new FakeContainers_v1_18_R1(this, database);
-            case "v1_17_R1" -> fakeContainers = new FakeContainers_v1_17_R1(this, database);
+            case "v1_17_R1" -> {
+                Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " will soon reach EOL (end of life)!");
+                fakeContainers = new FakeContainers_v1_17_R1(this, database);
+            }
             default -> {
                 Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
                 Bukkit.getPluginManager().disablePlugin(this);

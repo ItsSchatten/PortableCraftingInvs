@@ -3,10 +3,9 @@ package com.itsschatten.portablecrafting.listeners;
 import com.itsschatten.libs.UpdateNotifications;
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.PlayerConfigManager;
-import com.itsschatten.portablecrafting.CheckForUpdate;
+import com.itsschatten.portablecrafting.CheckForUpdateTask;
 import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Settings;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,14 +30,14 @@ public class PlayerJoinListener implements Listener {
             }
         }
 
-        if (player.hasPermission(Permissions.UPDATE_NOTIFICATIONS.getPermission()) && Settings.USE_UPDATER && (UpdateNotifications.isUpdateAvailable() || CheckForUpdate.isUpdateAvailable())) {
+        if (player.hasPermission(Permissions.UPDATE_NOTIFICATIONS.getPermission()) && Settings.USE_UPDATER && (UpdateNotifications.isUpdateAvailable() || CheckForUpdateTask.isUpdateAvailable())) {
             // Check if an update is available, if the updater is used, and if the player has permission to see an update.
             PluginDescriptionFile pdf = Utils.getInstance().getDescription(); // So we can get the version.
 
             Utils.debugLog(Settings.DEBUG, "Found an update for the plugin, sending the message to the player.");
 
-            Utils.tell(player, StringUtils.replaceEach(UpdateNotifications.getUpdateMessage(), new String[]{"{currentVer}", "{newVer}", "{link}"},
-                    new String[]{pdf.getVersion(), UpdateNotifications.getLatestVersion(), "https://spigotmc.org/resources/" + UpdateNotifications.getProjectId()}));
+            Utils.tell(player, UpdateNotifications.getUpdateMessage().replace("{currentVer}", pdf.getVersion()).replace("{newVer}", UpdateNotifications.getLatestVersion())
+                    .replace("{link}", "https://spigotmc.org/resources/" + UpdateNotifications.getProjectId()));
         }
     }
 

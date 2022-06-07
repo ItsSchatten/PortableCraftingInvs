@@ -3,6 +3,11 @@ package com.itsschatten.portablecrafting;
 import org.bukkit.entity.Player;
 
 public interface FakeContainers {
+
+    default void register() {
+    }
+
+
     void setUsingMysql(boolean bool);
 
     void setDebug(boolean bool);

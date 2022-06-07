@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.7.2</version>
+        <version>1.7.3</version>
     </parent>
 
     <properties>
@@ -38,7 +38,7 @@
     <dependencies>
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
-            <artifactId>PortableCraftingInvs-Interface</artifactId>
+            <artifactId>PortableCraftingInvs-Common</artifactId>
             <version>${parent.version}</version>
             <scope>compile</scope>
         </dependency>
@@ -74,8 +74,14 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.18.2-R0.1-SNAPSHOT</version>
+            <version>1.19-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.itsschatten.portablecrafting</groupId>
+            <artifactId>PortableCraftingInvs-v1_19_R1</artifactId>
+            <version>${parent.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

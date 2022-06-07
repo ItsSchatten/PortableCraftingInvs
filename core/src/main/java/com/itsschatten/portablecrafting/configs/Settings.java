@@ -124,21 +124,17 @@ public class Settings extends SimpleConfig {
         Utils.debugLog(DEBUG, "Loaded the settings.yml file.");
     }
 
-    public static void setUseMysql(boolean useMysql) {
-        USE_MYSQL = useMysql;
-    }
-
     private void onLoad() {
         /* Features */
-        SILENT_START_UP = (boolean) get("silent-start");
+        SILENT_START_UP = getBoolean("silent-start");
         ATTEMPT_MIGRATION_AT_START = getBoolean("attempt-migration-at-start");
-        DEBUG = (boolean) get("debug");
+        DEBUG = getBoolean("debug");
         UPDATE_CHECK_INTERVAL = getInt("update-check-interval");
-        USE_PERMISSIONS = (boolean) get("use-permissions");
-        ALLOW_ESSENTIALS = (boolean) get("allow-essentials");
-        USE_MESSAGES = (boolean) get("use-messages");
+        USE_PERMISSIONS = getBoolean("use-permissions");
+        ALLOW_ESSENTIALS = getBoolean("allow-essentials");
+        USE_MESSAGES = getBoolean("use-messages");
 
-        USE_MYSQL = (boolean) get("use-sql");
+        USE_MYSQL = getBoolean("use-sql");
 
         MYSQL_HOST = getString("sql-host");
         MYSQL_DATABASE = getString("sql-database");
@@ -146,39 +142,39 @@ public class Settings extends SimpleConfig {
         MYSQL_PASS = getString("sql-pass");
         MYSQL_PORT = getInt("sql-port");
 
-        USE_FURNACE = (boolean) get("use-furnace");
-        USE_BLAST_FURNACE = (boolean) get("use-blast-furnace");
-        USE_SMOKER = (boolean) get("use-smoker");
-        USE_BREWING = (boolean) get("use-brewing");
+        USE_FURNACE = getBoolean("use-furnace");
+        USE_BLAST_FURNACE = getBoolean("use-blast-furnace");
+        USE_SMOKER = getBoolean("use-smoker");
+        USE_BREWING = getBoolean("use-brewing");
 
-        USE_TOO_MANY_ARGS = (boolean) get("use-too-many-args");
-        USE_HELP_IF_WRONG_ARGS = (boolean) get("use-help-if-no-args");
-        USE_UPDATER = (boolean) get("use-updater");
-        USE_METRICS = (boolean) get("metrics");
-        USE_CRAFTING = (boolean) get("use-crafting");
-        USE_ENDERCHEST = (boolean) get("use-enderchest");
-        USE_OLD_ENDERCHEST = (boolean) get("old-enderchest");
-        USE_ENCHANT_TABLE = (boolean) get("use-enchanttable");
-        USE_ENCHANT_MAX_LEVEL_ARGUMENT = (boolean) get("allow-max-level-argument");
+        USE_TOO_MANY_ARGS = getBoolean("use-too-many-args");
+        USE_HELP_IF_WRONG_ARGS = getBoolean("use-help-if-no-args");
+        USE_UPDATER = getBoolean("use-updater");
+        USE_METRICS = getBoolean("metrics");
+        USE_CRAFTING = getBoolean("use-crafting");
+        USE_ENDERCHEST = getBoolean("use-enderchest");
+        USE_OLD_ENDERCHEST = getBoolean("old-enderchest");
+        USE_ENCHANT_TABLE = getBoolean("use-enchanttable");
+        USE_ENCHANT_MAX_LEVEL_ARGUMENT = getBoolean("allow-max-level-argument");
         ENCHANT_MAX_LEVEL = getInt("maximum-enchant-level");
-        USE_ANVIL = (boolean) get("use-anvil");
-        USE_ENDERCHEST_RESTRICTION = (boolean) get("ender-chest-restrictions");
-        USE_GRINDSTONE = (boolean) get("use-grindstone");
-        USE_LOOM = (boolean) get("use-loom");
-        USE_CARTOGRAPHY = (boolean) get("use-cartography");
-        USE_STONE_CUTTER = (boolean) get("use-stonecutter");
-        USE_SMITHING_TABLE = (boolean) get("use-smithing-table");
+        USE_ANVIL = getBoolean("use-anvil");
+        USE_ENDERCHEST_RESTRICTION = getBoolean("ender-chest-restrictions");
+        USE_GRINDSTONE = getBoolean("use-grindstone");
+        USE_LOOM = getBoolean("use-loom");
+        USE_CARTOGRAPHY = getBoolean("use-cartography");
+        USE_STONE_CUTTER = getBoolean("use-stonecutter");
+        USE_SMITHING_TABLE = getBoolean("use-smithing-table");
 
         /* Sound Booleans */
-        USE_ANVIL_SOUNDS = (boolean) get("use-anvil-sounds");
-        USE_CRAFTING_SOUNDS = (boolean) get("use-crafting-sounds");
-        USE_ENCHANT_TABLE_SOUNDS = (boolean) get("use-enchanttable-sounds");
-        USE_ENDERCHEST_SOUNDS = (boolean) get("use-enderchest-sounds");
-        USE_GRINDSTONE_SOUNDS = (boolean) get("use-grindstone-sounds");
-        USE_LOOM_SOUNDS = (boolean) get("use-loom-sounds");
-        USE_CARTOGRAPHY_SOUNDS = (boolean) get("use-cartography-sounds");
-        USE_STONE_CUTTER_SOUNDS = (boolean) get("use-stonecutter-sounds");
-        USE_SMITHING_TABLE_SOUNDS = (boolean) get("use-smithing-table-sounds");
+        USE_ANVIL_SOUNDS = getBoolean("use-anvil-sounds");
+        USE_CRAFTING_SOUNDS = getBoolean("use-crafting-sounds");
+        USE_ENCHANT_TABLE_SOUNDS = getBoolean("use-enchanttable-sounds");
+        USE_ENDERCHEST_SOUNDS = getBoolean("use-enderchest-sounds");
+        USE_GRINDSTONE_SOUNDS = getBoolean("use-grindstone-sounds");
+        USE_LOOM_SOUNDS = getBoolean("use-loom-sounds");
+        USE_CARTOGRAPHY_SOUNDS = getBoolean("use-cartography-sounds");
+        USE_STONE_CUTTER_SOUNDS = getBoolean("use-stonecutter-sounds");
+        USE_SMITHING_TABLE_SOUNDS = getBoolean("use-smithing-table-sounds");
 
         /* Sounds */
         ENDER_CHEST_OPEN_SOUND = getString("enderchest-open-sound");
@@ -191,25 +187,25 @@ public class Settings extends SimpleConfig {
         STONE_CUTTER_OPEN_SOUND = getString("stonecutter-open-sound");
         SMITHING_TABLE_OPEN_SOUND = getString("smithing-open-sound");
 
-        USE_RANDOM_SOUND_PITCH = (boolean) get("use-random-sound-pitch");
+        USE_RANDOM_SOUND_PITCH = getBoolean("use-random-sound-pitch");
 
         /* Sign Stuff */
-        USE_SIGNS = (boolean) get("use-signs");
-        REQUIRE_SIGHT_CLICK_BREAK_SIGN = (boolean) get("require-shift-click-to-break-signs");
+        USE_SIGNS = getBoolean("use-signs");
+        REQUIRE_SIGHT_CLICK_BREAK_SIGN = getBoolean("require-shift-click-to-break-signs");
 
-        USE_ANVIL_SIGN = (boolean) get("use-anvil-sign");
-        USE_BLAST_FURNACE_SIGN = (boolean) get("use-blast-furnace-sign");
-        USE_BREWING_STAND_SIGN = (boolean) get("use-brewing-sign");
-        USE_CARTOGRAPHY_SIGN = (boolean) get("use-cartography-sign");
-        USE_CRAFTING_SIGN = (boolean) get("use-crafting-sign");
-        USE_ENDERCHEST_SIGN = (boolean) get("use-enderchest-sign");
+        USE_ANVIL_SIGN = getBoolean("use-anvil-sign");
+        USE_BLAST_FURNACE_SIGN = getBoolean("use-blast-furnace-sign");
+        USE_BREWING_STAND_SIGN = getBoolean("use-brewing-sign");
+        USE_CARTOGRAPHY_SIGN = getBoolean("use-cartography-sign");
+        USE_CRAFTING_SIGN = getBoolean("use-crafting-sign");
+        USE_ENDERCHEST_SIGN = getBoolean("use-enderchest-sign");
         USE_ENCHANT_TABLE_SIGN = getBoolean("use-enchanttable-sign");
         USE_FURNACE_SIGN = getBoolean("use-furnace-sign");
-        USE_GRINDSTONE_SIGN = (boolean) get("use-grindstone-sign");
-        USE_LOOM_SIGN = (boolean) get("use-loom-sign");
-        USE_STONE_CUTTER_SIGN = (boolean) get("use-stonecutter-sign");
-        USE_SMITHING_SIGN = (boolean) get("use-smithingtable-sign");
-        USE_SMOKER_SIGN = (boolean) get("use-smoker-sign");
+        USE_GRINDSTONE_SIGN = getBoolean("use-grindstone-sign");
+        USE_LOOM_SIGN = getBoolean("use-loom-sign");
+        USE_STONE_CUTTER_SIGN = getBoolean("use-stonecutter-sign");
+        USE_SMITHING_SIGN = getBoolean("use-smithingtable-sign");
+        USE_SMOKER_SIGN = getBoolean("use-smoker-sign");
     }
 
     public void reload() {

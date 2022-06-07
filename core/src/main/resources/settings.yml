@@ -58,10 +58,10 @@ use-help-if-no-args: true
 # will be given to all users by default.
 use-permissions: true
 
-# Should we store furnace data inside a mysql database?
+# Should we store furnace and brewing data inside a mysql database?
 use-sql: false
 
-# This would would be an IP address or a URL. (default: localhost)
+# This would be an IP address or a URL. (default: localhost)
 # If you are unsure what this would be leave it as localhost.
 sql-host: localhost
 

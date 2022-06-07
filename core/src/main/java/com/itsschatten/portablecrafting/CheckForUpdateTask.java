@@ -10,7 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 /**
  * This is a class that checks for an update when run.
  */
-public class CheckForUpdate extends BukkitRunnable {
+public class CheckForUpdateTask extends BukkitRunnable {
 
     @Getter
     @Setter
