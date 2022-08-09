@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This class handles the player if an update is available for the plugin. We send the player a message saying that we've found an update.
@@ -19,7 +20,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 public class PlayerJoinListener implements Listener {
 
     @EventHandler
-    public void onJoin(final PlayerJoinEvent event) {
+    public void onJoin(final @NotNull PlayerJoinEvent event) {
         final Player player = event.getPlayer(); // We set the player so we can use them later.
         if (!Settings.USE_MYSQL) {
             if (!PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
