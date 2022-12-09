@@ -39,7 +39,7 @@ public class CraftCommand extends UniversalCommand {
 
         final String craftOpenSound = Settings.CRAFTING_OPEN_SOUND.toUpperCase(); // Sets the sound when the crafting table is opened. (even if not used.)
 
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof final Player player)) {
             checkArgs(1, Messages.NOT_ENOUGH_ARGS);
 
             final Player target = Bukkit.getPlayer(args[0]);
@@ -64,10 +64,7 @@ public class CraftCommand extends UniversalCommand {
             return;
         }
 
-        final Player player = (Player) sender;
-
         if (Settings.USE_PERMISSIONS) checkPerms(player, Permissions.CRAFTING); // Check for permission again.
-
         if (args.length == 0) { // If no arguments, open a crafting table for the sender.
             if (Settings.USE_CRAFTING_SOUNDS) {
                 player.playSound(player.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds are enabled play a sound, if random pitch at random.
@@ -104,6 +101,5 @@ public class CraftCommand extends UniversalCommand {
         if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
             returnTell(Messages.TOO_MANY_ARGS);
         }
-        return;
     }
 }

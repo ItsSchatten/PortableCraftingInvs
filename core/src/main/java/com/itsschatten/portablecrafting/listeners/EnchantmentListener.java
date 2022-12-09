@@ -11,6 +11,7 @@ import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,7 +82,7 @@ public class EnchantmentListener implements Listener {
     }
 
     @EventHandler
-    public void closeEnchantInventory(InventoryCloseEvent event) {
+    public void closeEnchantInventory(@NotNull InventoryCloseEvent event) {
         if (event.getInventory().getType() == InventoryType.ENCHANTING) {
             EnchanttableCommand.getOpenEnchantTables().remove(event.getPlayer().getUniqueId());
             PortableCraftingInvsPlugin.getFakeContainers().removeFromEnchantList((Player) event.getPlayer());

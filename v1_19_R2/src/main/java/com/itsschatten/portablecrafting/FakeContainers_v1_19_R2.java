@@ -11,7 +11,7 @@ import com.shanebeestudios.api.machine.Furnace;
 import com.shanebeestudios.api.property.FurnaceProperties;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,12 +24,12 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_19_R1.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_19_R1.util.CraftNamespacedKey;
-import org.bukkit.craftbukkit.v1_19_R1.util.RandomSourceWrapper;
+import org.bukkit.craftbukkit.v1_19_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R2.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_19_R2.util.CraftNamespacedKey;
+import org.bukkit.craftbukkit.v1_19_R2.util.RandomSourceWrapper;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.entity.Player;
@@ -39,14 +39,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
-public class FakeContainers_v1_19_R1 implements FakeContainers, Listener {
+public class FakeContainers_v1_19_R2 implements FakeContainers, Listener {
     private final FurnaceManager manager;
     private final BrewingManager brewingManager;
     boolean debug, mysql;
 
     MySqlI sql;
 
-    public FakeContainers_v1_19_R1(JavaPlugin plugin, MySqlI sql) {
+    public FakeContainers_v1_19_R2(JavaPlugin plugin, MySqlI sql) {
         VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true, true);
         this.manager = furnaceAPI.getFurnaceManager();
         this.brewingManager = furnaceAPI.getBrewingManager();
@@ -384,7 +384,7 @@ public class FakeContainers_v1_19_R1 implements FakeContainers, Listener {
         return false;
     }
 
-    // TODO: Not used.
+    // TODO: Implement later.
     @Override
     public boolean queryVirtualTileAPI() {
         return false;
@@ -604,7 +604,7 @@ public class FakeContainers_v1_19_R1 implements FakeContainers, Listener {
                             List<EnchantmentInstance> list = this.getEnchantmentList(itemstack, j, this.costs[j]);
                             if (list != null && !list.isEmpty()) {
                                 EnchantmentInstance weightedRandomEnchant = list.get(this.random.nextInt(list.size()));
-                                this.enchantClue[j] = Registry.ENCHANTMENT.getId(weightedRandomEnchant.enchantment);
+                                this.enchantClue[j] = BuiltInRegistries.ENCHANTMENT.getId(weightedRandomEnchant.enchantment);
                                 this.levelClue[j] = weightedRandomEnchant.level;
                             }
                         }
@@ -615,7 +615,7 @@ public class FakeContainers_v1_19_R1 implements FakeContainers, Listener {
 
                     for (j = 0; j < 3; ++j) {
                         Enchantment enchantment = this.enchantClue[j] >= 0 ?
-                                Enchantment.getByKey(CraftNamespacedKey.fromMinecraft(Objects.requireNonNull(Registry.ENCHANTMENT.getKey(Registry.ENCHANTMENT.byId(this.enchantClue[j]))))) : null;
+                                Enchantment.getByKey(CraftNamespacedKey.fromMinecraft(Objects.requireNonNull(BuiltInRegistries.ENCHANTMENT.getKey(BuiltInRegistries.ENCHANTMENT.byId(this.enchantClue[j]))))) : null;
                         offers[j] = enchantment != null ? new EnchantmentOffer(enchantment, this.levelClue[j], this.costs[j]) : null;
                     }
 
@@ -627,7 +627,7 @@ public class FakeContainers_v1_19_R1 implements FakeContainers, Listener {
                             EnchantmentOffer offer = event.getOffers()[j];
                             if (offer != null) {
                                 this.costs[j] = offer.getCost();
-                                this.enchantClue[j] = Registry.ENCHANTMENT.getId(Registry.ENCHANTMENT.get(CraftNamespacedKey.toMinecraft(offer.getEnchantment().getKey())));
+                                this.enchantClue[j] = BuiltInRegistries.ENCHANTMENT.getId(BuiltInRegistries.ENCHANTMENT.get(CraftNamespacedKey.toMinecraft(offer.getEnchantment().getKey())));
                                 this.levelClue[j] = offer.getEnchantmentLevel();
                             } else {
                                 this.costs[j] = 0;

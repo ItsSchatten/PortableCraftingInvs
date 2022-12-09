@@ -225,18 +225,6 @@ target/classes
 *.class
 .idea/compiler.xml
 .idea/
-target/classes/plugin.yml
-target/classes/messages.yml
-target/classes/settings.yml
-core/target/*
-v1_15_R1/target/*
-v1_16_R1/target/*
-v1_16_R2/target/*
-v1_16_R3/target/*
-Interface/target/*
 
+*/target/
 build.xml
-API/target
-v1_17_R1/target
-v1_18_R1/target/
-Common/target/*

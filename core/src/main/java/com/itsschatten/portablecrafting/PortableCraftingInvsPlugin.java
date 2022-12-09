@@ -21,6 +21,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -126,9 +127,8 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
                     if (registerFakeContainers()) return;
 
-                    FileConfiguration configuration = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "furnaces.yml"));
-
-                    ConfigurationSection section = configuration.getConfigurationSection("furnaces");
+                    final FileConfiguration configuration = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "furnaces.yml"));
+                    final ConfigurationSection section = configuration.getConfigurationSection("furnaces");
                     if (section != null) {
                         for (String string : section.getKeys(true)) {
                             final Furnace furnace = VirtualFurnaceAPI.getInstance().getFurnaceManager().getByID(UUID.fromString(string));
@@ -147,7 +147,6 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 } else {
                     if (registerFakeContainers()) return;
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -157,8 +156,11 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         fakeContainers.setUsingMysql(Settings.USE_MYSQL);
         fakeContainers.setDebug(Settings.DEBUG);
 
+        // Register PCIFakeContainers for API usages.
+        Bukkit.getServicesManager().register(PCIFakeContainers.class, fakeContainers, this, ServicePriority.Normal);
+
         if (Settings.USE_METRICS) {
-            Utils.log("&7Metrics are enabled! You can see the information collect at the following link: &chttps://bstats.org/plugin/bukkit/PortableCraftingInvss&7",
+            Utils.log("&7Metrics are enabled! You can see the information collect at the following link:&c https://bstats.org/plugin/bukkit/PortableCraftingInvs &7",
                     "If you don't wish for this information to be collected you can disable it in the settings.yml.");
             new Metrics(this, 5752);
         }
@@ -263,6 +265,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
     private boolean registerFakeContainers() {
         switch (serverVersion) {
+            case "v1_19_R2" -> fakeContainers = new FakeContainers_v1_19_R2(this, database);
             case "v1_19_R1" -> fakeContainers = new FakeContainers_v1_19_R1(this, database);
             case "v1_18_R2" -> fakeContainers = new FakeContainers_v1_18_R2(this, database);
             case "v1_18_R1" -> fakeContainers = new FakeContainers_v1_18_R1(this, database);

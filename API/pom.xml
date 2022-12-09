@@ -7,10 +7,10 @@
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.7.4</version>
+        <version>1.7.5</version>
     </parent>
 
-    <artifactId>API</artifactId>
+    <artifactId>PortableCraftingInvs-API</artifactId>
     <version>1.0.0</version>
 
     <repositories>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.18-R0.1-SNAPSHOT</version>
+            <version>1.19.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
