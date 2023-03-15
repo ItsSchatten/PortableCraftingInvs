@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.7.5</version>
+        <version>1.7.6</version>
     </parent>
 
     <properties>
@@ -80,6 +80,12 @@
         <dependency>
             <groupId>com.itsschatten.portablecrafting</groupId>
             <artifactId>PortableCraftingInvs-v1_19_R2</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.itsschatten.portablecrafting</groupId>
+            <artifactId>PortableCraftingInvs-v1_19_R3</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>

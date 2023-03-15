@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.itsschatten.portablecrafting</groupId>
         <artifactId>PortableCraftingInvs-parent</artifactId>
-        <version>1.7.5</version>
+        <version>1.7.6</version>
     </parent>
 
     <artifactId>PortableCraftingInvs-v1_19_R1</artifactId>

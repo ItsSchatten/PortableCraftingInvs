@@ -34,7 +34,6 @@ public class MySql implements MySqlI {
 
             if (mysql.getConnection() == null) {
                 Utils.log("&cConnection to MySQL was unsuccessful! Reverting to using file system...");
-
             } else
                 Utils.debugLog(Settings.DEBUG, "&aConnection to MySQL was successful!");
         } else
