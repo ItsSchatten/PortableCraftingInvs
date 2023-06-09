@@ -17,14 +17,12 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
-import org.bukkit.command.defaults.ReloadCommand;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,7 +33,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -273,11 +270,18 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
     private boolean registerFakeContainers() {
         switch (serverVersion) {
+            case "v1_20_R1" -> fakeContainers = new FakeContainers_v1_20_R1(this, database);
             case "v1_19_R3" -> fakeContainers = new FakeContainers_v1_19_R3(this, database);
             case "v1_19_R2" -> fakeContainers = new FakeContainers_v1_19_R2(this, database);
             case "v1_19_R1" -> fakeContainers = new FakeContainers_v1_19_R1(this, database);
-            case "v1_18_R2" -> fakeContainers = new FakeContainers_v1_18_R2(this, database);
-            case "v1_18_R1" -> fakeContainers = new FakeContainers_v1_18_R1(this, database);
+            case "v1_18_R2" -> {
+                Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " will soon be unsupported for this plugin! It is recommended to update to 1.19.4 to maintain stability and get new features for this plugin.");
+                fakeContainers = new FakeContainers_v1_18_R2(this, database);
+            }
+            case "v1_18_R1" -> {
+                Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " will soon be unsupported for this plugin! It is recommended to update to 1.19.4 to maintain stability and get new features for this plugin.");
+                fakeContainers = new FakeContainers_v1_18_R1(this, database);
+            }
             default -> {
                 Utils.log("&4&l! Attention ! &cVersion " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will be disabled.");
                 Bukkit.getPluginManager().disablePlugin(this);
