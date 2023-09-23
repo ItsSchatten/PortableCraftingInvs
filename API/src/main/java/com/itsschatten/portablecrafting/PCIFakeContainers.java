@@ -13,7 +13,7 @@ public interface PCIFakeContainers {
      * Opens an Anvil for the provided player.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openAnvil(Player player);
 
@@ -21,7 +21,7 @@ public interface PCIFakeContainers {
      * Opens the player's blast furnace for them.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown, an event cancelled the opening, or if the API to open a furnace has been disabled.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown, an event canceled the opening, or if the API to open a furnace has been disabled.
      * @see #queryVirtualTileAPI()
      */
     boolean openBlastFurnace(Player player);
@@ -37,7 +37,7 @@ public interface PCIFakeContainers {
      * Opens the player's brewing stand for them.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openBrewingStand(Player player);
 
@@ -45,7 +45,7 @@ public interface PCIFakeContainers {
      * Opens a cartography table for the player.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openCartography(Player player);
 
@@ -53,7 +53,7 @@ public interface PCIFakeContainers {
      * Opens an enchanting table for the player.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openEnchant(Player player);
 
@@ -62,7 +62,7 @@ public interface PCIFakeContainers {
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
      * @param maxLvl The maximum level that should be used for this enchantment table.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openEnchant(Player player, int maxLvl);
 
@@ -70,7 +70,7 @@ public interface PCIFakeContainers {
      * Opens the player's furnace for them.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openFurnace(Player player);
 
@@ -78,7 +78,7 @@ public interface PCIFakeContainers {
      * Opens a grindstone for a player.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openGrindStone(Player player);
 
@@ -86,7 +86,7 @@ public interface PCIFakeContainers {
      * Opens a loom for a player.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openLoom(Player player);
 
@@ -94,7 +94,7 @@ public interface PCIFakeContainers {
      * Opens a stone cutter for a player.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openStoneCutter(Player player);
 
@@ -102,7 +102,7 @@ public interface PCIFakeContainers {
      * Opens a smithing table for the player.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openSmithing(Player player);
 
@@ -110,7 +110,7 @@ public interface PCIFakeContainers {
      * Opens the player's smoker for them.
      *
      * @param player The {@link Player} instance that we wish to open the inventory for.
-     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event cancelled the opening.
+     * @return Returns <code>true</code> if inventory was opened successfully; <code>false</code> if an error was thrown or an event canceled the opening.
      */
     boolean openSmoker(Player player);
 

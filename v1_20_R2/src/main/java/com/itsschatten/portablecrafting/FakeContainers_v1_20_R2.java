@@ -11,10 +11,11 @@ import com.shanebeestudios.api.machine.Furnace;
 import com.shanebeestudios.api.property.FurnaceProperties;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
@@ -23,28 +24,30 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_18_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_18_R1.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_18_R1.util.CraftNamespacedKey;
+import org.bukkit.craftbukkit.v1_20_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_20_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_20_R2.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_20_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_20_R2.util.CraftNamespacedKey;
+import org.bukkit.craftbukkit.v1_20_R2.util.RandomSourceWrapper;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
+public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
     private final FurnaceManager manager;
     private final BrewingManager brewingManager;
     boolean debug, mysql;
 
     MySqlI sql;
 
-    public FakeContainers_v1_18_R1(JavaPlugin plugin, MySqlI sql) {
+    public FakeContainers_v1_20_R2(JavaPlugin plugin, MySqlI sql) {
         VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true, true);
         this.manager = furnaceAPI.getFurnaceManager();
         this.brewingManager = furnaceAPI.getBrewingManager();
@@ -121,9 +124,7 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
             final CartographyOpenEvent event = new CartographyOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
-                ePlayer.containerMenu = ePlayer.inventoryMenu;
-                ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.CARTOGRAPHY_TABLE, fakeCartography.getTitle()));
-                ePlayer.containerMenu = fakeCartography;
+                player.openInventory(fakeCartography.getBukkitView());
                 return true;
             }
             return false;
@@ -382,6 +383,12 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
         return false;
     }
 
+    // TODO: Implement later.
+    @Override
+    public boolean queryVirtualTileAPI() {
+        return false;
+    }
+
     @Override
     public boolean openSmoker(Player player) {
         if (mysql) {
@@ -472,18 +479,18 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
     private static class FakeGrindstone extends GrindstoneMenu {
 
         public FakeGrindstone(final int containerId, final Player player) {
-            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ())));
             this.checkReachable = false;
-            this.setTitle(new TextComponent("Repair & Disenchant"));
+            this.setTitle(Component.literal("Repair & Disenchant"));
         }
     }
 
     private static class FakeCartography extends CartographyTableMenu {
 
         public FakeCartography(final int containerId, final Player player) {
-            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ())));
             this.checkReachable = false;
-            this.setTitle(new TextComponent("Cartography Table"));
+            this.setTitle(Component.literal("Cartography Table"));
         }
     }
 
@@ -491,18 +498,18 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
 
         public FakeLoom(final int containerId, final Player player) {
             super(containerId, ((CraftPlayer) player).getHandle().getInventory(),
-                    ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+                    ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ())));
             this.checkReachable = false;
-            this.setTitle(new TextComponent("Loom"));
+            this.setTitle(Component.literal("Loom"));
         }
     }
 
     private static class FakeStoneCutter extends StonecutterMenu {
 
         public FakeStoneCutter(final int containerId, final Player player) {
-            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+            super(containerId, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(), new BlockPos(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ())));
             this.checkReachable = false;
-            this.setTitle(new TextComponent("Stonecutter"));
+            this.setTitle(Component.literal("Stonecutter"));
         }
     }
 
@@ -511,9 +518,9 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
         public FakeAnvil(final int containerID, final Player player) {
             super(containerID, ((CraftPlayer) player).getHandle().getInventory(),
                     ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(),
-                            new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+                            new BlockPos(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ())));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
-            this.setTitle(new TextComponent("Repair & Name"));
+            this.setTitle(Component.literal("Repair & Name"));
         }
     }
 
@@ -522,9 +529,9 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
         public FakeSmithing(final int containerID, final Player player) {
             super(containerID, ((CraftPlayer) player).getHandle().getInventory(),
                     ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(),
-                            new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+                            new BlockPos(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ())));
             this.checkReachable = false; // ignore if the block is reachable, otherwise open regardless of distance.
-            this.setTitle(new TextComponent("Upgrade Gear"));
+            this.setTitle(Component.literal("Upgrade Gear"));
         }
     }
 
@@ -532,7 +539,7 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
         @Getter
         private static final Map<UUID, FakeEnchant> openEnchantTables = new HashMap<>();
         private final ContainerLevelAccess myAccess;
-        private final Random random;
+        private final RandomSource random;
         private final DataSlot enchantSeed;
         private final ServerPlayer player;
         public int maxLevel;
@@ -540,28 +547,28 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
         public FakeEnchant(final int i, final Player player, int maxLevel) {
             super(i, ((CraftPlayer) player).getHandle().getInventory(),
                     ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(),
-                            new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+                            new BlockPos(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ())));
             this.checkReachable = false;
             this.myAccess = ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(),
-                    new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
+                    new BlockPos(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ()));
             this.maxLevel = maxLevel;
-            this.random = new Random();
+            this.random = new RandomSourceWrapper(new Random());
             this.enchantSeed = DataSlot.standalone();
             enchantSeed.set(((CraftPlayer) player).getHandle().getEnchantmentSeed());
             openEnchantTables.put(player.getUniqueId(), this);
             this.player = ((CraftPlayer) player).getHandle();
-            this.setTitle(new TextComponent("Enchant"));
+            this.setTitle(Component.literal("Enchant"));
         }
 
-        public FakeEnchant(final int i, final Player player) {
-            super(i, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftPlayer) player).getHandle().level,
-                    new BlockPos(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ())));
+        public FakeEnchant(final int i, final @NotNull Player player) {
+            super(i, ((CraftPlayer) player).getHandle().getInventory(), ContainerLevelAccess.create(((CraftPlayer) player).getHandle().level(),
+                    new BlockPos(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ())));
             this.checkReachable = false;
             this.random = null;
             this.myAccess = null;
             this.enchantSeed = null;
             this.player = ((CraftPlayer) player).getHandle();
-            this.setTitle(new TextComponent("Enchant"));
+            this.setTitle(Component.literal("Enchant"));
         }
 
         @Override
@@ -595,9 +602,9 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
                         if (this.costs[j] > 0) {
                             List<EnchantmentInstance> list = this.getEnchantmentList(itemstack, j, this.costs[j]);
                             if (list != null && !list.isEmpty()) {
-                                EnchantmentInstance weightedrandomenchant = list.get(this.random.nextInt(list.size()));
-                                this.enchantClue[j] = Registry.ENCHANTMENT.getId(weightedrandomenchant.enchantment);
-                                this.levelClue[j] = weightedrandomenchant.level;
+                                EnchantmentInstance weightedRandomEnchant = list.get(this.random.nextInt(list.size()));
+                                this.enchantClue[j] = BuiltInRegistries.ENCHANTMENT.getId(weightedRandomEnchant.enchantment);
+                                this.levelClue[j] = weightedRandomEnchant.level;
                             }
                         }
                     }
@@ -606,7 +613,8 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
                     EnchantmentOffer[] offers = new EnchantmentOffer[3];
 
                     for (j = 0; j < 3; ++j) {
-                        Enchantment enchantment = this.enchantClue[j] >= 0 ? Enchantment.getByKey(CraftNamespacedKey.fromMinecraft(Registry.ENCHANTMENT.getKey(Registry.ENCHANTMENT.byId(this.enchantClue[j])))) : null;
+                        Enchantment enchantment = this.enchantClue[j] >= 0 ?
+                                Enchantment.getByKey(CraftNamespacedKey.fromMinecraft(Objects.requireNonNull(BuiltInRegistries.ENCHANTMENT.getKey(BuiltInRegistries.ENCHANTMENT.byId(this.enchantClue[j]))))) : null;
                         offers[j] = enchantment != null ? new EnchantmentOffer(enchantment, this.levelClue[j], this.costs[j]) : null;
                     }
 
@@ -618,7 +626,7 @@ public class FakeContainers_v1_18_R1 implements FakeContainers, Listener {
                             EnchantmentOffer offer = event.getOffers()[j];
                             if (offer != null) {
                                 this.costs[j] = offer.getCost();
-                                this.enchantClue[j] = Registry.ENCHANTMENT.getId(Registry.ENCHANTMENT.get(CraftNamespacedKey.toMinecraft(offer.getEnchantment().getKey())));
+                                this.enchantClue[j] = BuiltInRegistries.ENCHANTMENT.getId(BuiltInRegistries.ENCHANTMENT.get(CraftNamespacedKey.toMinecraft(offer.getEnchantment().getKey())));
                                 this.levelClue[j] = offer.getEnchantmentLevel();
                             } else {
                                 this.costs[j] = 0;
