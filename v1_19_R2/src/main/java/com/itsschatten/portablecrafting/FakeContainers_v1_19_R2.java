@@ -83,7 +83,7 @@ public class FakeContainers_v1_19_R2 implements FakeContainers, Listener {
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
-            Utils.debugLog(debug, ex.getMessage());
+            Utils.debugLog( ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
         }
@@ -107,7 +107,7 @@ public class FakeContainers_v1_19_R2 implements FakeContainers, Listener {
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
-            Utils.debugLog(debug, ex.getMessage());
+            Utils.debugLog( ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
         }
@@ -132,7 +132,7 @@ public class FakeContainers_v1_19_R2 implements FakeContainers, Listener {
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
-            Utils.debugLog(debug, ex.getMessage());
+            Utils.debugLog( ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
         }
@@ -155,7 +155,7 @@ public class FakeContainers_v1_19_R2 implements FakeContainers, Listener {
             }
             return false;
         } catch (UnsupportedOperationException ex) {
-            Utils.debugLog(debug, ex.getMessage());
+            Utils.debugLog( ex.getMessage());
             Utils.log("An error occurred while running the grindstone command, make sure you have debug enabled to see this message.");
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
@@ -183,7 +183,7 @@ public class FakeContainers_v1_19_R2 implements FakeContainers, Listener {
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
-            Utils.debugLog(debug, ex.getMessage());
+            Utils.debugLog( ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
         }
         return true;
@@ -466,7 +466,7 @@ public class FakeContainers_v1_19_R2 implements FakeContainers, Listener {
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
-            Utils.debugLog(debug, ex.getMessage());
+            Utils.debugLog( ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
         }

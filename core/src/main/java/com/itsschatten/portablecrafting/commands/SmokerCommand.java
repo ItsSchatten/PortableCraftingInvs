@@ -34,7 +34,7 @@ public class SmokerCommand extends UniversalCommand {
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
             if (PortableCraftingInvsPlugin.getFakeContainers().openFurnace(target)) {
-                Utils.debugLog(Settings.DEBUG, "Opened a virtual smoker for " + target.getName());
+                Utils.debugLog( "Opened a virtual smoker for " + target.getName());
                 tellTarget(target, Messages.OPENED_SMOKER);
                 returnTell(Messages.OPENED_SMOKER_OTHER.replace("{player}", target.getName()));
             }
@@ -47,7 +47,7 @@ public class SmokerCommand extends UniversalCommand {
 
         if (args.length == 0) {
             if (PortableCraftingInvsPlugin.getFakeContainers().openSmoker(player)) {
-                Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + player.getName());
+                Utils.debugLog( "Opened a virtual furnace for " + player.getName());
                 returnTell(Messages.OPENED_SMOKER);
             }
         }
@@ -60,7 +60,7 @@ public class SmokerCommand extends UniversalCommand {
             checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
             if (PortableCraftingInvsPlugin.getFakeContainers().openFurnace(target)) {
-                Utils.debugLog(Settings.DEBUG, "Opened a virtual smoker for " + target.getName());
+                Utils.debugLog( "Opened a virtual smoker for " + target.getName());
                 tellTarget(target, Messages.OPENED_SMOKER);
                 returnTell(Messages.OPENED_SMOKER_OTHER.replace("{player}", target.getName()));
             }

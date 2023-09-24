@@ -40,7 +40,7 @@ public class BrewingStandCommand extends UniversalCommand {
 
         if (args.length == 0) {
             if (PortableCraftingInvsPlugin.getFakeContainers().openBrewingStand(player)) {
-                Utils.debugLog(Settings.DEBUG, "Opened a virtual brewing stand for " + player.getName());
+                Utils.debugLog( "Opened a virtual brewing stand for " + player.getName());
                 returnTell(Messages.OPENED_BREWING);
             }
             return;
@@ -64,7 +64,7 @@ public class BrewingStandCommand extends UniversalCommand {
 
 
         if (PortableCraftingInvsPlugin.getFakeContainers().openBrewingStand(target)) {
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual brewing stand for " + target.getName());
+            Utils.debugLog( "Opened a virtual brewing stand for " + target.getName());
             tellTarget(target, Messages.OPENED_BREWING);
             returnTell(Messages.OPENED_BREWING_OTHER.replace("{player}", target.getName()));
         }

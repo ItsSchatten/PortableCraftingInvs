@@ -59,10 +59,10 @@ public class EnchanttableCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openEnchant(player)) {
                 if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
                     player.playSound(player.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + player.getName());
+                    Utils.debugLog( "Playing sound " + openEnchanttableSound + " to " + player.getName());
                 }
 
-                Utils.debugLog(Settings.DEBUG, "Opened the enchantment table.");
+                Utils.debugLog( "Opened the enchantment table.");
                 returnTell(Messages.OPENED_ENCHANT_TABLE);
             }
         }
@@ -76,10 +76,10 @@ public class EnchanttableCommand extends UniversalCommand {
                 if (PortableCraftingInvsPlugin.getFakeContainers().openEnchant(player, maxLevel)) {
                     if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
                         player.playSound(player.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                        Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + player.getName());
+                        Utils.debugLog( "Playing sound " + openEnchanttableSound + " to " + player.getName());
                     }
                     openEnchantTables.put(player.getUniqueId(), maxLevel);
-                    Utils.debugLog(Settings.DEBUG, "Opened the enchantment table with max level " + maxLevel);
+                    Utils.debugLog( "Opened the enchantment table with max level " + maxLevel);
                     returnTell(Messages.OPENED_ENCHANT_WITH_MAX_LEVEL.replace("{level}", maxLevel + ""));
                 }
             } catch (NumberFormatException ex) {
@@ -99,10 +99,10 @@ public class EnchanttableCommand extends UniversalCommand {
         if (PortableCraftingInvsPlugin.getFakeContainers().openEnchant(target)) {
             if (Settings.USE_ENCHANT_TABLE_SOUNDS) {
                 target.playSound(target.getLocation(), Sound.valueOf(openEnchanttableSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + openEnchanttableSound + " to " + target.getName());
+                Utils.debugLog( "Playing sound " + openEnchanttableSound + " to " + target.getName());
             }
 
-            Utils.debugLog(Settings.DEBUG, "Opened the enchantment table.");
+            Utils.debugLog( "Opened the enchantment table.");
             tellTarget(target, Messages.OPENED_ANVIL);
             returnTell(Messages.OPENED_ANVIL_OTHER);
         }

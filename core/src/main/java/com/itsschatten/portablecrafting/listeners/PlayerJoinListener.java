@@ -27,7 +27,7 @@ public class PlayerJoinListener implements Listener {
                 FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
                 playerConfig.set("furnaces", null);
                 PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-                Utils.debugLog(Settings.DEBUG, "Saved default player file.");
+                Utils.debugLog( "Saved default player file.");
             }
         }
 
@@ -35,7 +35,7 @@ public class PlayerJoinListener implements Listener {
             // Check if an update is available, if the updater is used, and if the player has permission to see an update.
             PluginDescriptionFile pdf = Utils.getInstance().getDescription(); // So we can get the version.
 
-            Utils.debugLog(Settings.DEBUG, "Found an update for the plugin, sending the message to the player.");
+            Utils.debugLog( "Found an update for the plugin, sending the message to the player.");
 
             Utils.tell(player, UpdateNotifications.getUpdateMessage().replace("{currentVer}", pdf.getVersion()).replace("{newVer}", UpdateNotifications.getLatestVersion())
                     .replace("{link}", "https://spigotmc.org/resources/" + UpdateNotifications.getProjectId()));

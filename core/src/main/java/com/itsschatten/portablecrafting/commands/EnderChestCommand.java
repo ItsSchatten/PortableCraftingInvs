@@ -58,7 +58,7 @@ public class EnderChestCommand extends UniversalCommand {
             if (!event.isCancelled()) {
                 if (Settings.USE_ENDERCHEST_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + sound + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + sound + " to " + target.getName());
                 }
 
                 if (Settings.USE_ENDERCHEST_RESTRICTION) {
@@ -66,7 +66,7 @@ public class EnderChestCommand extends UniversalCommand {
                 }
 
                 target.openInventory(target.getEnderChest());
-                Utils.debugLog(Settings.DEBUG, "Opening " + target.getName() + "'s enderchest for themselves.");
+                Utils.debugLog( "Opening " + target.getName() + "'s enderchest for themselves.");
 
                 tellTarget(target, Messages.OPENED_ENDERCHEST);
             }
@@ -84,11 +84,11 @@ public class EnderChestCommand extends UniversalCommand {
             Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
                 player.openInventory(eChest); // Open it.
-                Utils.debugLog(Settings.DEBUG, "Opened inventory");
+                Utils.debugLog( "Opened inventory");
 
                 if (Settings.USE_ENDERCHEST_SOUNDS) {
                     player.playSound(player.getLocation(), Sound.valueOf(sound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + sound + " to " + player.getName());
+                    Utils.debugLog( "Playing sound " + sound + " to " + player.getName());
 
                 }
 
@@ -138,11 +138,11 @@ public class EnderChestCommand extends UniversalCommand {
             players.add(target.getUniqueId());
         }
         player.openInventory(targetEChest);
-        Utils.debugLog(Settings.DEBUG, "Opening " + target.getName() + " enderchest for " + player.getName());
+        Utils.debugLog( "Opening " + target.getName() + " enderchest for " + player.getName());
 
         if (Settings.USE_ENDERCHEST_SOUNDS) {
             player.playSound(player.getLocation(), Sound.valueOf(sound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-            Utils.debugLog(Settings.DEBUG, "Playing sound " + sound + " to " + name);
+            Utils.debugLog( "Playing sound " + sound + " to " + name);
         }
     }
 }

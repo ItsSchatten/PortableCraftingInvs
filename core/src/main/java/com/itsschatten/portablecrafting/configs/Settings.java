@@ -121,7 +121,7 @@ public class Settings extends SimpleConfig {
 
     public static void init() {
         new Settings("settings.yml").onLoad();
-        Utils.debugLog(DEBUG, "Loaded the settings.yml file.");
+        Utils.debugLog("Loaded the settings.yml file.");
     }
 
     private void onLoad() {
@@ -206,6 +206,8 @@ public class Settings extends SimpleConfig {
         USE_STONE_CUTTER_SIGN = getBoolean("use-stonecutter-sign");
         USE_SMITHING_SIGN = getBoolean("use-smithingtable-sign");
         USE_SMOKER_SIGN = getBoolean("use-smoker-sign");
+
+        Utils.setDebugMode(DEBUG);
     }
 
     public void reload() {
@@ -220,7 +222,7 @@ public class Settings extends SimpleConfig {
             PortableCraftingInvsPlugin.getFakeContainers().setUsingMysql(Settings.USE_MYSQL);
         }
 
-        Utils.debugLog(Settings.DEBUG, "Reloaded the settings.yml file.");
+        Utils.debugLog("Reloaded the settings.yml file.");
     }
 
 }

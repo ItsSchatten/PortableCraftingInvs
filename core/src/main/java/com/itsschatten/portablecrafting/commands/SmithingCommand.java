@@ -38,11 +38,11 @@ public class SmithingCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openSmithing(target)) {
                 if (Settings.USE_SMITHING_TABLE_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(smithingTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + smithingTableOpen + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + smithingTableOpen + " to " + target.getName());
                 }
 
 
-                Utils.debugLog(Settings.DEBUG, "Opened the smithing table for " + target.getName());
+                Utils.debugLog( "Opened the smithing table for " + target.getName());
                 tellTarget(target, Messages.OPENED_SMITHING_TABLE);
                 returnTell(Messages.OPENED_SMITHING_TABLE_OTHER.replace("{player}", target.getName()));
             }
@@ -56,11 +56,11 @@ public class SmithingCommand extends UniversalCommand {
         if (args.length == 0) {
             if (Settings.USE_SMITHING_TABLE_SOUNDS) {
                 player.playSound(player.getLocation(), Sound.valueOf(smithingTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                Utils.debugLog(Settings.DEBUG, "Playing sound " + smithingTableOpen + " to " + player.getName());
+                Utils.debugLog( "Playing sound " + smithingTableOpen + " to " + player.getName());
             }
 
             PortableCraftingInvsPlugin.getFakeContainers().openSmithing(player);
-            Utils.debugLog(Settings.DEBUG, "Opened the smithing table for " + player.getName());
+            Utils.debugLog( "Opened the smithing table for " + player.getName());
             returnTell(Messages.OPENED_SMITHING_TABLE);
         }
 
@@ -74,11 +74,11 @@ public class SmithingCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openSmithing(target)) {
                 if (Settings.USE_SMITHING_TABLE_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(smithingTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + smithingTableOpen + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + smithingTableOpen + " to " + target.getName());
                 }
 
 
-                Utils.debugLog(Settings.DEBUG, "Opened the smithing table for " + target.getName());
+                Utils.debugLog( "Opened the smithing table for " + target.getName());
                 tellTarget(target, Messages.OPENED_SMITHING_TABLE);
                 returnTell(Messages.OPENED_SMITHING_TABLE_OTHER.replace("{player}", target.getName()));
             }

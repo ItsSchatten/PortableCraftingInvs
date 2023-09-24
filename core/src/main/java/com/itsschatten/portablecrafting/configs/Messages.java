@@ -115,7 +115,7 @@ public class Messages extends SimpleConfig {
         Utils.setPrefix(PREFIX);
         Utils.setUpdateAvailableMessage(Messages.UPDATE_AVAILABLE_MESSAGE);
         Utils.setNoPermsMessage(NO_PERMS);
-        Utils.debugLog(Settings.DEBUG, "Loaded the file messages.yml");
+        Utils.debugLog( "Loaded the file messages.yml");
     }
 
     private void onLoad() {
@@ -309,7 +309,7 @@ public class Messages extends SimpleConfig {
         setInstance(null);
 
         init();
-        Utils.debugLog(Settings.DEBUG, "Reloaded the messages.yml file.");
+        Utils.debugLog( "Reloaded the messages.yml file.");
     }
 
 

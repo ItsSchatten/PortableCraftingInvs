@@ -50,11 +50,11 @@ public class CraftCommand extends UniversalCommand {
             if (!event.isCancelled()) {
                 if (Settings.USE_CRAFTING_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds are enabled play a sound, if random pitch at random.
-                    Utils.debugLog(Settings.DEBUG, "Played the sound " + craftOpenSound + " to player " + target.getName());
+                    Utils.debugLog( "Played the sound " + craftOpenSound + " to player " + target.getName());
                 }
 
                 target.openWorkbench(target.getLocation(), true);
-                Utils.debugLog(Settings.DEBUG, "Opened the crafting inventory for" + target.getName() + ".");
+                Utils.debugLog( "Opened the crafting inventory for" + target.getName() + ".");
             }
 
             if (args.length > 1 && Settings.USE_TOO_MANY_ARGS) {
@@ -68,11 +68,11 @@ public class CraftCommand extends UniversalCommand {
         if (args.length == 0) { // If no arguments, open a crafting table for the sender.
             if (Settings.USE_CRAFTING_SOUNDS) {
                 player.playSound(player.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds are enabled play a sound, if random pitch at random.
-                Utils.debugLog(Settings.DEBUG, "Played the sound " + craftOpenSound + " to player " + player.getName());
+                Utils.debugLog( "Played the sound " + craftOpenSound + " to player " + player.getName());
             }
 
             player.openWorkbench(player.getLocation(), true); // Opens the workBench.
-            Utils.debugLog(Settings.DEBUG, "Opened the crafting inventory.");
+            Utils.debugLog( "Opened the crafting inventory.");
 
             returnTell(Messages.OPENED_CRAFTING); // Sends a message to the player.
         }
@@ -88,11 +88,11 @@ public class CraftCommand extends UniversalCommand {
             if (!event.isCancelled()) {
                 if (Settings.USE_CRAFTING_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds are enabled play a sound, if random pitch at random.
-                    Utils.debugLog(Settings.DEBUG, "Played the sound " + craftOpenSound + " to player " + target.getName());
+                    Utils.debugLog( "Played the sound " + craftOpenSound + " to player " + target.getName());
                 }
 
                 target.openWorkbench(target.getLocation(), true);
-                Utils.debugLog(Settings.DEBUG, "Opened the crafting inventory for" + target.getName() + ".");
+                Utils.debugLog( "Opened the crafting inventory for" + target.getName() + ".");
                 tellTarget(target, Messages.OPENED_CRAFTING);
                 returnTell(Messages.OPENED_CRAFTING_OTHER.replace("{player}", target.getName()));
             }

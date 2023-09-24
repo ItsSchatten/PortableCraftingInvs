@@ -42,7 +42,7 @@ public class GrindStoneCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openGrindStone(target)) {
                 if (Settings.USE_GRINDSTONE_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + grindStoneOpen + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + grindStoneOpen + " to " + target.getName());
                 }
 
                 Utils.debugLog("Opened the grindstone for " + target.getName());
@@ -60,10 +60,10 @@ public class GrindStoneCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openGrindStone(player)) {
                 if (Settings.USE_GRINDSTONE_SOUNDS) {
                     player.playSound(player.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + grindStoneOpen + " to " + player.getName());
+                    Utils.debugLog( "Playing sound " + grindStoneOpen + " to " + player.getName());
                 }
 
-                Utils.debugLog(Settings.DEBUG, "Opened the grindstone for " + player.getName());
+                Utils.debugLog( "Opened the grindstone for " + player.getName());
                 returnTell(Messages.OPENED_GRINDSTONE);
             }
         }
@@ -77,7 +77,7 @@ public class GrindStoneCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openGrindStone(target)) {
                 if (Settings.USE_GRINDSTONE_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(grindStoneOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + grindStoneOpen + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + grindStoneOpen + " to " + target.getName());
                 }
 
                 Utils.debugLog("Opened the grindstone for " + target.getName());

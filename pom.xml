@@ -6,7 +6,7 @@
 
     <groupId>com.itsschatten.portablecrafting</groupId>
     <artifactId>PortableCraftingInvs-parent</artifactId>
-    <version>1.7.9</version>
+    <version>1.7.10</version>
     <description>Open crafting inventories, such as anvils, crafting table, enchant tables, etc..</description>
     <packaging>pom</packaging>
 
@@ -48,10 +48,6 @@
 
     <repositories>
         <repository>
-            <id>shadows-libs</id>
-            <url>https://itsschatten.com/repositories/repos/shadowlibs/</url>
-        </repository>
-        <repository>
             <id>CodeMC</id>
             <url>https://repo.codemc.org/repository/maven-public</url>
         </repository>
@@ -61,13 +57,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>1.18.26</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.itsschatten.libs</groupId>
             <artifactId>ShadowLibs</artifactId>
-            <version>1.0.7</version>
+            <version>1.0.9</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -79,7 +75,7 @@
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

@@ -29,13 +29,13 @@ public class MySql implements MySqlI {
         if (enabled) {
             this.mysql = new MySqlUtils(host, port, database, user, pass);
 
-            Utils.debugLog(Settings.DEBUG, "Checking if tables exist. If they do not we will create them.");
+            Utils.debugLog( "Checking if tables exist. If they do not we will create them.");
             createIfNotExists();
 
             if (mysql.getConnection() == null) {
                 Utils.log("&cConnection to MySQL was unsuccessful! Reverting to using file system...");
             } else
-                Utils.debugLog(Settings.DEBUG, "&aConnection to MySQL was successful!");
+                Utils.debugLog( "&aConnection to MySQL was successful!");
         } else
             this.mysql = null;
 

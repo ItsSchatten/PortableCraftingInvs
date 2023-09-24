@@ -42,10 +42,10 @@ public class CartographyCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openCartography(target)) {
                 if (Settings.USE_CARTOGRAPHY_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(cartographyTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + cartographyTableOpen + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + cartographyTableOpen + " to " + target.getName());
                 }
 
-                Utils.debugLog(Settings.DEBUG, "Opened the cartography table for " + target.getName());
+                Utils.debugLog( "Opened the cartography table for " + target.getName());
                 tellTarget(target, Messages.OPENED_CARTOGRAPHY);
                 returnTell(Messages.OPENED_CARTOGRAPHY_OTHER.replace("{player}", target.getName()));
             }
@@ -59,10 +59,10 @@ public class CartographyCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openCartography(player)) {
                 if (Settings.USE_CARTOGRAPHY_SOUNDS) {
                     player.playSound(player.getLocation(), Sound.valueOf(cartographyTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + cartographyTableOpen + " to " + player.getName());
+                    Utils.debugLog( "Playing sound " + cartographyTableOpen + " to " + player.getName());
                 }
 
-                Utils.debugLog(Settings.DEBUG, "Opened the cartography table for " + player.getName());
+                Utils.debugLog( "Opened the cartography table for " + player.getName());
 
                 returnTell(Messages.OPENED_CARTOGRAPHY);
             }
@@ -77,10 +77,10 @@ public class CartographyCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openCartography(target)) {
                 if (Settings.USE_CARTOGRAPHY_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(cartographyTableOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + cartographyTableOpen + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + cartographyTableOpen + " to " + target.getName());
                 }
 
-                Utils.debugLog(Settings.DEBUG, "Opened the cartography table for " + target.getName());
+                Utils.debugLog( "Opened the cartography table for " + target.getName());
                 tellTarget(target, Messages.OPENED_CARTOGRAPHY);
                 returnTell(Messages.OPENED_CARTOGRAPHY_OTHER.replace("{player}", target.getName()));
             }

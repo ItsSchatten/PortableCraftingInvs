@@ -21,7 +21,7 @@ public class SignsConfig extends SimpleConfig {
     public void reload() {
         instance = null;
         init();
-        Utils.debugLog(Settings.DEBUG, "Reloaded signs.yml");
+        Utils.debugLog( "Reloaded signs.yml");
     }
 
 }

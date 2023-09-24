@@ -414,7 +414,7 @@ public class SignListener implements Listener {
                 if (!Settings.USE_SMITHING_SIGN)
                     return;
                 if (!Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_16_R1")) {
-                    Utils.debugLog(Settings.DEBUG, "Version is not 1.16+, not attempting to open the smithing table.");
+                    Utils.debugLog( "Version is not 1.16+, not attempting to open the smithing table.");
                     return;
                 }
                 fakeContainers.openSmithing(player);

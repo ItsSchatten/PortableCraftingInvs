@@ -78,13 +78,13 @@ public class AnvilCommand extends UniversalCommand {
 
         if (Settings.USE_ANVIL_SOUNDS) {
             target.playSound(target.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-            Utils.debugLog(Settings.DEBUG, "Playing sound " + anvilOpenSound + " to " + target.getName());
+            Utils.debugLog( "Playing sound " + anvilOpenSound + " to " + target.getName());
         }
         if (PortableCraftingInvsPlugin.getServerVersion().contains("v1_16")) {
-            Utils.debugLog(Settings.DEBUG, "Version of the server is 1.16; adding user to set.");
+            Utils.debugLog( "Version of the server is 1.16; adding user to set.");
             activeAnvils.add(target.getUniqueId());
         }
-        Utils.debugLog(Settings.DEBUG, "Opened the anvil for " + target.getName());
+        Utils.debugLog( "Opened the anvil for " + target.getName());
     }
 
 

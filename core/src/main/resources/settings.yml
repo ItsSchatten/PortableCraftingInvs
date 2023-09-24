@@ -25,11 +25,11 @@ attempt-migration-at-start: true
 debug: false
 
 # Don't like all of that flooding in your console when the plugin boots? This is the setting for you!
-# Note: In an effort to be transparent we still log that we are collecting metrics if that setting is enabled.
+# Note: In an effort to be transparent, we still log that we are collecting metrics if that setting is enabled.
 # We also will log when a new update is available, so you can always use the latest version.
 silent-start: false
 
-# If this is set to true, and you add more than the required amount of arguments,
+# If this is set to true, and you add more than the required number of arguments,
 # the plugin will send you a message saying so.
 use-too-many-args: true
 

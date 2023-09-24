@@ -40,7 +40,7 @@ public class BlastFurnaceCommand extends UniversalCommand {
 
         if (args.length == 0) {
             if (PortableCraftingInvsPlugin.getFakeContainers().openBlastFurnace(player)) {
-                Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + player.getName());
+                Utils.debugLog( "Opened a virtual furnace for " + player.getName());
                 returnTell(Messages.OPENED_BLAST_FURNACE);
             }
         }
@@ -62,7 +62,7 @@ public class BlastFurnaceCommand extends UniversalCommand {
         checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
         if (PortableCraftingInvsPlugin.getFakeContainers().openBlastFurnace(target)) {
-            Utils.debugLog(Settings.DEBUG, "Opened a virtual furnace for " + target.getName());
+            Utils.debugLog( "Opened a virtual furnace for " + target.getName());
             tellTarget(target, Messages.OPENED_BLAST_FURNACE);
             returnTell(Messages.OPENED_BLAST_FURNACE_OTHER.replace("{player}", target.getName()));
         }

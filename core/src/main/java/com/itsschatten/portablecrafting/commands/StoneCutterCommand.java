@@ -35,11 +35,11 @@ public class StoneCutterCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openStoneCutter(target)) {
                 if (Settings.USE_STONE_CUTTER_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(stoneCutterOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + stoneCutterOpen + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + stoneCutterOpen + " to " + target.getName());
                 }
 
 
-                Utils.debugLog(Settings.DEBUG, "Opened the stone cutter for " + target.getName());
+                Utils.debugLog( "Opened the stone cutter for " + target.getName());
                 tellTarget(target, Messages.OPENED_STONE_CUTTER);
                 returnTell(Messages.OPENED_STONE_CUTTER_OTHER.replace("{player}", target.getName()));
             }
@@ -53,10 +53,10 @@ public class StoneCutterCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openStoneCutter(player)) {
                 if (Settings.USE_STONE_CUTTER_SOUNDS) {
                     player.playSound(player.getLocation(), Sound.valueOf(stoneCutterOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + stoneCutterOpen + " to " + player.getName());
+                    Utils.debugLog( "Playing sound " + stoneCutterOpen + " to " + player.getName());
                 }
 
-                Utils.debugLog(Settings.DEBUG, "Opened the stone cutter for " + player.getName());
+                Utils.debugLog( "Opened the stone cutter for " + player.getName());
                 returnTell(Messages.OPENED_STONE_CUTTER);
             }
         }
@@ -70,11 +70,11 @@ public class StoneCutterCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openStoneCutter(target)) {
                 if (Settings.USE_STONE_CUTTER_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(stoneCutterOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + stoneCutterOpen + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + stoneCutterOpen + " to " + target.getName());
                 }
 
 
-                Utils.debugLog(Settings.DEBUG, "Opened the stone cutter for " + target.getName());
+                Utils.debugLog( "Opened the stone cutter for " + target.getName());
                 tellTarget(target, Messages.OPENED_STONE_CUTTER);
                 returnTell(Messages.OPENED_STONE_CUTTER_OTHER.replace("{player}", target.getName()));
             }

@@ -3,7 +3,7 @@ version: ${project.version}
 main: ${main}
 author: ${author}
 description: ${description}
-api-version: "1.18"
+api-version: "1.19"
 soft-depend: [ Essentials ]
 permissions:
   pci.*:

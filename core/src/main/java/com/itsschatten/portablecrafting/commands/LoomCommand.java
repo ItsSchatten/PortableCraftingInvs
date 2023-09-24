@@ -35,10 +35,10 @@ public class LoomCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openLoom(target)) {
                 if (Settings.USE_LOOM_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(loomSoundOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + loomSoundOpen + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + loomSoundOpen + " to " + target.getName());
                 }
 
-                Utils.debugLog(Settings.DEBUG, "Opened the loom for " + target.getName());
+                Utils.debugLog( "Opened the loom for " + target.getName());
                 tellTarget(target, Messages.OPENED_LOOM);
                 returnTell(Messages.OPENED_LOOM_OTHER.replace("{player}", target.getName()));
             }
@@ -52,10 +52,10 @@ public class LoomCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openLoom(player)) {
                 if (Settings.USE_LOOM_SOUNDS) {
                     player.playSound(player.getLocation(), Sound.valueOf(loomSoundOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + loomSoundOpen + " to " + player.getName());
+                    Utils.debugLog( "Playing sound " + loomSoundOpen + " to " + player.getName());
                 }
 
-                Utils.debugLog(Settings.DEBUG, "Opened the loom for " + player.getName());
+                Utils.debugLog( "Opened the loom for " + player.getName());
 
                 returnTell(Messages.OPENED_LOOM);
             }
@@ -70,10 +70,10 @@ public class LoomCommand extends UniversalCommand {
             if (PortableCraftingInvsPlugin.getFakeContainers().openLoom(target)) {
                 if (Settings.USE_LOOM_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(loomSoundOpen), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-                    Utils.debugLog(Settings.DEBUG, "Playing sound " + loomSoundOpen + " to " + target.getName());
+                    Utils.debugLog( "Playing sound " + loomSoundOpen + " to " + target.getName());
                 }
 
-                Utils.debugLog(Settings.DEBUG, "Opened the loom for " + target.getName());
+                Utils.debugLog( "Opened the loom for " + target.getName());
                 tellTarget(target, Messages.OPENED_LOOM);
                 returnTell(Messages.OPENED_LOOM_OTHER.replace("{player}", target.getName()));
             }
