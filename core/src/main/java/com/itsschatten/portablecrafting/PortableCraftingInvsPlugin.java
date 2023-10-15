@@ -90,10 +90,10 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 final Properties properties = new Properties();
                 final File file = new File(getDataFolder(), "PCI.properties");
                 if (!file.exists()) {
-                    Utils.debugLog( "Unable to find the properties file in the data folder! Creating a new one.");
+                    Utils.debugLog("Unable to find the properties file in the data folder! Creating a new one.");
                     properties.load(getResource("PCI.properties"));
                 } else {
-                    Utils.debugLog( "Found properties file in the data folder!");
+                    Utils.debugLog("Found properties file in the data folder!");
                     FileInputStream in = new FileInputStream(file);
                     properties.load(in);
                 }
@@ -107,20 +107,20 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                     long timeStart = System.currentTimeMillis();
 
                     try {
-                        Utils.debugLog( "Attempting to update API references to new package...");
-                        Utils.debugLog( "Attempting to migrate furnaces.yml...");
+                        Utils.debugLog("Attempting to update API references to new package...");
+                        Utils.debugLog("Attempting to migrate furnaces.yml...");
                         Path furnacePath = Paths.get(getDataFolder() + File.separator + "furnaces.yml");
 
                         String content = Files.readString(furnacePath, StandardCharsets.UTF_8);
                         content = content.replaceAll("com\\.shanebeestudios\\.api", "com.itsschatten.portablecrafting.libs");
                         Files.writeString(furnacePath, content);
 
-                        Utils.debugLog( "Attempting to migrate brewing-stands.yml");
+                        Utils.debugLog("Attempting to migrate brewing-stands.yml");
                         Path brewingPath = Paths.get(getDataFolder() + File.separator + "brewing-stands.yml");
                         String brewingContent = Files.readString(brewingPath, StandardCharsets.UTF_8);
                         brewingContent = brewingContent.replaceAll("com\\.shanebeestudios\\.api", "com.itsschatten.portablecrafting.libs");
                         Files.writeString(brewingPath, brewingContent);
-                        Utils.debugLog( "API package migration completed...");
+                        Utils.debugLog("API package migration completed...");
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -136,14 +136,14 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                             if (!furnace.getName().equalsIgnoreCase("furnace")) {
                                 if (furnace.getProperties().getFuelMultiplier() != 2) {
                                     furnace.getProperties().fuelMultiplier(2);
-                                    Utils.debugLog( "Found a furnace that I can migrate, attempting to set cookX to 2");
+                                    Utils.debugLog("Found a furnace that I can migrate, attempting to set cookX to 2");
                                 }
                             }
                         }
                     }
                     VirtualFurnaceAPI.getInstance().getFurnaceManager().saveConfig();
 
-                    Utils.debugLog( "Completed furnace migration in " + (System.currentTimeMillis() - timeStart) + "ms");
+                    Utils.debugLog("Completed furnace migration in " + (System.currentTimeMillis() - timeStart) + "ms");
                 } else {
                     if (registerFakeContainers()) return;
                 }
@@ -167,7 +167,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         if (!Settings.USE_FURNACE && !Settings.USE_BLAST_FURNACE && !Settings.USE_SMOKER && !Settings.USE_BREWING) {
             VirtualFurnaceAPI.getInstance().disableAPI();
-            Utils.debugLog( "&cFurnaces and Brewing stands are not enabled, disabled the API so we won't take up loads of resources.");
+            Utils.debugLog("&cFurnaces and Brewing stands are not enabled, disabled the API so we won't take up loads of resources.");
         }
 
         if (Settings.USE_UPDATER) {
@@ -179,18 +179,18 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             }.runTaskAsynchronously(this);
 
             new CheckForUpdateTask().runTaskTimerAsynchronously(this, Settings.UPDATE_CHECK_INTERVAL * (60 * 20), Settings.UPDATE_CHECK_INTERVAL * (60 * 20)); // Wait for the time set in the settings.yml before checking for an update.
-            Utils.debugLog( "Checked for update, and set timer running, checking for update again in " + Settings.UPDATE_CHECK_INTERVAL + " minutes.");
+            Utils.debugLog("Checked for update, and set timer running, checking for update again in " + Settings.UPDATE_CHECK_INTERVAL + " minutes.");
         }
 
         if (Settings.USE_ENDERCHEST_RESTRICTION) {
             this.getServer().getPluginManager().registerEvents(new EnderchestListener(), this);
-            Utils.debugLog( "USE_ENDERCHEST_RESTRICTIONS is true; EnderchestListener has been initialized.");
+            Utils.debugLog("USE_ENDERCHEST_RESTRICTIONS is true; EnderchestListener has been initialized.");
         }
 
         if (Settings.USE_SIGNS) {
             SignsConfig.init();
             this.getServer().getPluginManager().registerEvents(new SignListener(), this);
-            Utils.debugLog( "Signs have been enabled.");
+            Utils.debugLog("Signs have been enabled.");
         }
 
         // Register commands, and JoinListener.
@@ -198,49 +198,49 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         if (Settings.ALLOW_ESSENTIALS && Bukkit.getPluginManager().isPluginEnabled("Essentials")) {
             if (!Settings.USE_CRAFTING) {
-                Utils.debugLog( "Crafting features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+                Utils.debugLog("Crafting features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
             } else {
                 registerCommands(new CraftCommand());
             }
 
             if (!Settings.USE_ENDERCHEST) {
-                Utils.debugLog( "Enderchest features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+                Utils.debugLog("Enderchest features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
             } else {
                 registerCommands(new EnderChestCommand());
             }
 
             if (!Settings.USE_ANVIL) {
-                Utils.debugLog( "Anvil features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+                Utils.debugLog("Anvil features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
             } else {
                 registerCommands(new AnvilCommand());
             }
 
             if (!Settings.USE_GRINDSTONE) {
-                Utils.debugLog( "Grind stone features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+                Utils.debugLog("Grind stone features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
             } else {
                 registerCommands(new GrindStoneCommand());
             }
 
             if (!Settings.USE_LOOM) {
-                Utils.debugLog( "Loom features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+                Utils.debugLog("Loom features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
             } else {
                 registerCommands(new LoomCommand());
             }
 
             if (!Settings.USE_STONE_CUTTER) {
-                Utils.debugLog( "Stonecutter features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+                Utils.debugLog("Stonecutter features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
             } else {
                 registerCommands(new StoneCutterCommand());
             }
 
             if (!Settings.USE_CARTOGRAPHY) {
-                Utils.debugLog( "Cartography table features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+                Utils.debugLog("Cartography table features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
             } else {
                 registerCommands(new CartographyCommand());
             }
 
             if (!Settings.USE_SMITHING_TABLE) {
-                Utils.debugLog( "Smithing table features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
+                Utils.debugLog("Smithing table features have been disabled, and Essentials has been installed. To avoid causing issues we are not going to register the command.");
             } else {
                 registerCommands(new SmithingCommand());
             }
@@ -259,7 +259,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         this.getServer().getPluginManager().registerEvents(new EnchantmentListener(), this);
-        Utils.debugLog( "Loaded event listeners.");
+        Utils.debugLog("Loaded event listeners.");
 
         if (!Settings.SILENT_START_UP)
             Utils.log("&9+---------------------------------------------------+ ",
@@ -306,7 +306,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             for (Command command : commands) {
                 command.register(commandMap);
                 commandMap.register(this.getName(), command);
-                Utils.debugLog( "&7Command " + command.getName() + " has been registered.");
+                Utils.debugLog("&7Command " + command.getName() + " has been registered.");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -326,7 +326,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 if (command == null) continue;
                 command.unregister(commandMap);
                 Utils.registerCommand(command);
-                Utils.debugLog( "&7Command " + command.getName() + " has been unregistered.");
+                Utils.debugLog("&7Command " + command.getName() + " has been unregistered.");
             }
         } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
