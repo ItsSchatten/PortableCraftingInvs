@@ -268,6 +268,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
     private boolean registerFakeContainers() {
         switch (serverVersion) {
+            case "v1_20_R3" -> fakeContainers = new FakeContainers_v1_20_R3(this, database);
             case "v1_20_R2" -> fakeContainers = new FakeContainers_v1_20_R2(this, database);
             case "v1_20_R1" -> fakeContainers = new FakeContainers_v1_20_R1(this, database);
             case "v1_19_R3" -> fakeContainers = new FakeContainers_v1_19_R3(this, database);
