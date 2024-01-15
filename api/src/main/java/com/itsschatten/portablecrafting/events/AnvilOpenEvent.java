@@ -19,7 +19,6 @@ public class AnvilOpenEvent extends Event implements Cancellable {
         this.cancelled = false;
     }
 
-
     public static HandlerList getHandlerList() {
         return handlers;
     }
@@ -36,7 +35,7 @@ public class AnvilOpenEvent extends Event implements Cancellable {
     }
 
     @Override
-    public void setCancelled(boolean b) {
-        this.cancelled = b;
+    public void setCancelled(boolean value) {
+        this.cancelled = value;
     }
 }

@@ -11,6 +11,8 @@ import lombok.Setter;
  */
 public class Messages extends SimpleConfig {
 
+    // TODO: Improve this.
+
     public static String
             PREFIX,
             NO_PERMS,
@@ -92,18 +94,6 @@ public class Messages extends SimpleConfig {
     private Messages(String fileName) {
         super(fileName);
 
-        setHeader(new String[]{
-                "--------------------------------------------------------",
-                " This configuration file has been automatically updated!",
-                "",
-                " Unfortunately, due to the way Bukkit saves .yml files,",
-                " all comments in your file where lost. To read them,",
-                " please open " + fileName + " directly to browse the default values.",
-                " Don't know how to do this? You can also check our github",
-                " page for the default file.",
-                "(https://github.com/itsschatten/portablecraftinginvs/)",
-                "--------------------------------------------------------"});
-
         setInstance(this);
     }
 
@@ -115,7 +105,7 @@ public class Messages extends SimpleConfig {
         Utils.setPrefix(PREFIX);
         Utils.setUpdateAvailableMessage(Messages.UPDATE_AVAILABLE_MESSAGE);
         Utils.setNoPermsMessage(NO_PERMS);
-        Utils.debugLog( "Loaded the file messages.yml");
+        Utils.debugLog("Loaded the file messages.yml");
     }
 
     private void onLoad() {
@@ -309,7 +299,7 @@ public class Messages extends SimpleConfig {
         setInstance(null);
 
         init();
-        Utils.debugLog( "Reloaded the messages.yml file.");
+        Utils.debugLog("Reloaded the messages.yml file.");
     }
 
 

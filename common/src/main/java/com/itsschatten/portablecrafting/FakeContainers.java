@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
  * <p>
  * All API functionality is stored in {@link PCIFakeContainers}
  */
-public interface FakeContainers extends PCIFakeContainers {
+public interface FakeContainers extends PCIAPI {
 
     /**
      * Sets if furnaces and brewing stands are stored using an SQL database and thus if we should enforce SQL support.

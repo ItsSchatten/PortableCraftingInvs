@@ -6,24 +6,17 @@ import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.PortableCraftingInvsPlugin;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  * Anvil
  */
 public class AnvilCommand extends UniversalCommand {
-
-    @Getter
-    private static final Set<UUID> activeAnvils = new HashSet<>();
 
     public AnvilCommand() {
         super("anvil");
@@ -35,7 +28,7 @@ public class AnvilCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender sender, String[] args) {
-        if (!Settings.USE_ANVIL) returnTell(Messages.FEATURE_DISABLED); // Check if feature is enabled.
+        if (!Settings.USE_ANVIL) returnTell(Messages.FEATURE_DISABLED); // Check if the feature is enabled.
 
         if (!(sender instanceof final Player player)) {
             checkArgs(1, Messages.NOT_ENOUGH_ARGS);
@@ -78,13 +71,9 @@ public class AnvilCommand extends UniversalCommand {
 
         if (Settings.USE_ANVIL_SOUNDS) {
             target.playSound(target.getLocation(), Sound.valueOf(anvilOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
-            Utils.debugLog( "Playing sound " + anvilOpenSound + " to " + target.getName());
+            Utils.debugLog("Playing sound " + anvilOpenSound + " to " + target.getName());
         }
-        if (PortableCraftingInvsPlugin.getServerVersion().contains("v1_16")) {
-            Utils.debugLog( "Version of the server is 1.16; adding user to set.");
-            activeAnvils.add(target.getUniqueId());
-        }
-        Utils.debugLog( "Opened the anvil for " + target.getName());
+        Utils.debugLog("Opened the anvil for " + target.getName());
     }
 
 

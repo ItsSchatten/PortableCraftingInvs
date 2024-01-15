@@ -7,7 +7,10 @@ import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.MySql;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
-import com.itsschatten.portablecrafting.listeners.*;
+import com.itsschatten.portablecrafting.listeners.EnchantmentListener;
+import com.itsschatten.portablecrafting.listeners.EnderchestListener;
+import com.itsschatten.portablecrafting.listeners.PlayerJoinListener;
+import com.itsschatten.portablecrafting.listeners.SignListener;
 import com.shanebeestudios.api.VirtualFurnaceAPI;
 import com.shanebeestudios.api.machine.Furnace;
 import lombok.AccessLevel;
@@ -157,7 +160,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         fakeContainers.setDebug(Settings.DEBUG);
 
         // Register PCIFakeContainers for API usages.
-        Bukkit.getServicesManager().register(PCIFakeContainers.class, fakeContainers, this, ServicePriority.Normal);
+        Bukkit.getServicesManager().register(PCIAPI.class, fakeContainers, this, ServicePriority.Normal);
 
         if (Settings.USE_METRICS) {
             Utils.log("&7Metrics are enabled! You can see the information collect at the following link:&c https://bstats.org/plugin/bukkit/PortableCraftingInvs &7",
@@ -252,9 +255,6 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
             registerCommands(new AnvilCommand(), new GrindStoneCommand(), new EnderChestCommand(), new CraftCommand(),
                     new LoomCommand(), new StoneCutterCommand(), new CartographyCommand(), new SmithingCommand());
-
-            if (Settings.USE_ANVIL)
-                this.getServer().getPluginManager().registerEvents(new AnvilListeners(), this);
         }
 
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);

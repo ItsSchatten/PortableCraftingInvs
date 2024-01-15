@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
  * <p>
  * Containers opened from this API will all function as proper containers.
  */
-public interface PCIFakeContainers {
+public interface PCIAPI {
 
     /**
      * Opens an Anvil for the provided player.

@@ -6,5 +6,7 @@ target/classes
 
 */target/
 .gradle
-*/build
+!**/build
 build
+
+gradle.properties
