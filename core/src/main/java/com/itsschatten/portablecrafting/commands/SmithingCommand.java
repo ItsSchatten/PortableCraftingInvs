@@ -25,8 +25,6 @@ public class SmithingCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender commandSender, String[] args) {
-        if (!Settings.USE_SMITHING_TABLE) returnTell(Messages.FEATURE_DISABLED);
-
         final String smithingTableOpen = Settings.SMITHING_TABLE_OPEN_SOUND;
 
         if (!(commandSender instanceof Player)) {

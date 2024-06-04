@@ -1,13 +1,13 @@
 package com.itsschatten.portablecrafting.listeners;
 
 import com.itsschatten.libs.Utils;
-import com.itsschatten.portablecrafting.FakeContainers;
+import com.itsschatten.portablecrafting.PCIAPI;
 import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.PortableCraftingInvsPlugin;
 import com.itsschatten.portablecrafting.configs.Messages;
 import com.itsschatten.portablecrafting.configs.Settings;
 import com.itsschatten.portablecrafting.configs.SignsConfig;
-import org.bukkit.Bukkit;
+import org.bukkit.Tag;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -196,13 +196,15 @@ public class SignListener implements Listener {
 
     @EventHandler
     public void onSignInteract(final PlayerInteractEvent event) {
-
         if (isSign(event)) {
             if (!Settings.USE_SIGNS)
                 return;
             final SignsConfig signsConfig = SignsConfig.getInstance();
 
-            if (Settings.REQUIRE_SIGHT_CLICK_BREAK_SIGN && event.getAction() == Action.LEFT_CLICK_BLOCK && event.getPlayer().isSneaking()) {
+            if (Settings.REQUIRE_SIGHT_CLICK_BREAK_SIGN && (event.getAction() == Action.LEFT_CLICK_BLOCK && event.getPlayer().isSneaking())) {
+                if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE.getPermission())) {
+                    return;
+                }
                 String path;
 
                 for (String key : signsConfig.getConfigurationSection("signs").getKeys(false)) {
@@ -236,7 +238,8 @@ public class SignListener implements Listener {
                                 int level = signsConfig.getInt("signs." + key + ".max-level");
                                 getSign(event, SignTypes.valueOf(signsConfig.getString("signs." + key + ".type")), level);
                             }
-                        } catch (NullPointerException ex) { // Catch this error because spigot is weird and doesn't want to use a proper check because it doesn't exist...
+                        } catch (
+                                NullPointerException ex) { // Catch this error because spigot is weird and doesn't want to use a proper check because it doesn't exist...
                             getSign(event, SignTypes.valueOf(signsConfig.getString("signs." + key + ".type")));
                         }
                     }
@@ -254,7 +257,7 @@ public class SignListener implements Listener {
             return false;
         }
 
-        if (event.getClickedBlock().getType().name().contains("SIGN")) {
+        if (Tag.ALL_SIGNS.isTagged(event.getClickedBlock().getType())) {
             if (signsConfig.getConfigurationSection("signs") == null || signsConfig.getConfigurationSection("signs").getKeys(false).isEmpty()) {
                 return false;
             }
@@ -301,7 +304,7 @@ public class SignListener implements Listener {
 
     private void getSign(@NotNull PlayerInteractEvent event, @NotNull SignTypes signTypes, int... maxLevel) {
         final Player player = event.getPlayer();
-        final FakeContainers fakeContainers = PortableCraftingInvsPlugin.getFakeContainers();
+        final PCIAPI fakeContainers = PortableCraftingInvsPlugin.getFakeContainers();
 
         switch (signTypes) {
             case ANVIL: {
@@ -413,10 +416,6 @@ public class SignListener implements Listener {
                     return;
                 if (!Settings.USE_SMITHING_SIGN)
                     return;
-                if (!Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].contains("1_16_R1")) {
-                    Utils.debugLog( "Version is not 1.16+, not attempting to open the smithing table.");
-                    return;
-                }
                 fakeContainers.openSmithing(player);
             }
 

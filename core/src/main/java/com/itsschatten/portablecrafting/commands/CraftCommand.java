@@ -35,8 +35,6 @@ public class CraftCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender sender, String[] args) {
-        if (!Settings.USE_CRAFTING) returnTell(Messages.FEATURE_DISABLED); // Check if the feature is enabled.
-
         final String craftOpenSound = Settings.CRAFTING_OPEN_SOUND.toUpperCase(); // Sets the sound when the crafting table is opened. (even if not used.)
 
         if (!(sender instanceof final Player player)) {
@@ -47,7 +45,7 @@ public class CraftCommand extends UniversalCommand {
 
             final CraftingOpenEvent event = new CraftingOpenEvent(target);
             Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 if (Settings.USE_CRAFTING_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds are enabled play a sound, if random pitch at random.
                     Utils.debugLog( "Played the sound " + craftOpenSound + " to player " + target.getName());
@@ -85,7 +83,7 @@ public class CraftCommand extends UniversalCommand {
 
             final CraftingOpenEvent event = new CraftingOpenEvent(target);
             Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 if (Settings.USE_CRAFTING_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(craftOpenSound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f); // If sounds are enabled play a sound, if random pitch at random.
                     Utils.debugLog( "Played the sound " + craftOpenSound + " to player " + target.getName());

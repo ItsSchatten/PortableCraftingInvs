@@ -1,15 +1,7 @@
 package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.Utils;
-import com.itsschatten.libs.configutils.PlayerConfigManager;
 import com.itsschatten.portablecrafting.events.*;
-import com.shanebeestudios.api.BrewingManager;
-import com.shanebeestudios.api.FurnaceManager;
-import com.shanebeestudios.api.VirtualFurnaceAPI;
-import com.shanebeestudios.api.machine.BrewingStand;
-import com.shanebeestudios.api.machine.Furnace;
-import com.shanebeestudios.api.property.FurnaceProperties;
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -23,7 +15,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_20_R2.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R2.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_20_R2.event.CraftEventFactory;
@@ -33,37 +24,14 @@ import org.bukkit.craftbukkit.v1_20_R2.util.RandomSourceWrapper;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
-public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
-    private final FurnaceManager manager;
-    private final BrewingManager brewingManager;
-    boolean debug, mysql;
-
-    MySqlI sql;
-
-    public FakeContainers_v1_20_R2(JavaPlugin plugin, MySqlI sql) {
-        VirtualFurnaceAPI furnaceAPI = new VirtualFurnaceAPI(plugin, true, true);
-        this.manager = furnaceAPI.getFurnaceManager();
-        this.brewingManager = furnaceAPI.getBrewingManager();
-        this.sql = sql;
-
-    }
-
-    @Override
-    public void setUsingMysql(boolean bool) {
-        mysql = bool;
-    }
-
-    @Override
-    public void setDebug(boolean bool) {
-        debug = bool;
-    }
+public class FakeContainers_v1_20_R2 extends BaseFakeContainers {
 
     @Override
     public boolean openLoom(Player player) {
@@ -74,7 +42,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
 
             final LoomOpenEvent event = new LoomOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 ePlayer.containerMenu = ePlayer.inventoryMenu;
                 ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.LOOM, fakeLoom.getTitle()));
                 ePlayer.containerMenu = fakeLoom;
@@ -84,7 +52,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
-            Utils.debugLog( ex.getMessage());
+            Utils.debugLog(ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
         }
@@ -100,7 +68,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
 
             final AnvilOpenEvent event = new AnvilOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 player.openInventory(fakeAnvil.getBukkitView()); // Using this seemingly makes the Anvil listener far more consistent.
                 return true;
             }
@@ -108,7 +76,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
-            Utils.debugLog( ex.getMessage());
+            Utils.debugLog(ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
         }
@@ -123,7 +91,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
 
             final CartographyOpenEvent event = new CartographyOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 player.openInventory(fakeCartography.getBukkitView());
                 return true;
             }
@@ -131,7 +99,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
-            Utils.debugLog( ex.getMessage());
+            Utils.debugLog(ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
         }
@@ -146,7 +114,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
 
             final GrindStoneOpenEvent event = new GrindStoneOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 ePlayer.containerMenu = ePlayer.inventoryMenu;
                 ePlayer.connection.send(new ClientboundOpenScreenPacket(containerId, MenuType.GRINDSTONE, fakeGrindstone.getTitle()));
                 ePlayer.containerMenu = fakeGrindstone;
@@ -154,7 +122,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
             }
             return false;
         } catch (UnsupportedOperationException ex) {
-            Utils.debugLog( ex.getMessage());
+            Utils.debugLog(ex.getMessage());
             Utils.log("An error occurred while running the grindstone command, make sure you have debug enabled to see this message.");
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
@@ -171,7 +139,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
             final StoneCutterOpenEvent event = new StoneCutterOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
 
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 ePlayer.containerMenu = ePlayer.inventoryMenu;
                 ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.STONECUTTER, fakeStoneCutter.getTitle()));
                 ePlayer.containerMenu = fakeStoneCutter;
@@ -182,7 +150,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
-            Utils.debugLog( ex.getMessage());
+            Utils.debugLog(ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
         }
         return true;
@@ -199,7 +167,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
     private boolean callEnchant(Player player, ServerPlayer ePlayer, int containerID, FakeEnchant fakeEnchant) {
         final EnchantingOpenEvent event = new EnchantingOpenEvent(player);
         Bukkit.getPluginManager().callEvent(event);
-        if (!event.isCancelled()) {
+        if (!event.isCanceled()) {
             ePlayer.containerMenu = ePlayer.inventoryMenu;
             ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.ENCHANTMENT, fakeEnchant.getTitle()));
             ePlayer.containerMenu = fakeEnchant;
@@ -219,234 +187,6 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
     }
 
     @Override
-    public boolean openBrewingStand(Player player) {
-        if (mysql) {
-            BrewingStand stand;
-            if (sql.getStand(player.getUniqueId(), brewingManager) == null) {
-                stand = brewingManager.createBrewingStand("Brewing");
-
-                sql.setStand(player.getUniqueId(), stand);
-            } else {
-                stand = sql.getStand(player.getUniqueId(), brewingManager);
-
-                if (stand == null) {
-                    stand = brewingManager.createBrewingStand("Brewing");
-
-                    sql.setStand(player.getUniqueId(), stand);
-                }
-
-            }
-            final BrewingOpenEvent event = new BrewingOpenEvent(player, stand);
-            Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
-                stand.openInventory(player);
-                return true;
-            }
-            return false;
-        }
-
-        if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
-            FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
-            BrewingStand stand;
-            if (playerConfig.get("brewing") == null) {
-                stand = brewingManager.createBrewingStand("Brewing");
-
-                playerConfig.set("brewing", stand.getUniqueID().toString());
-                PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-            } else {
-                stand = brewingManager.getByID(UUID.fromString(playerConfig.getString("brewing")));
-
-                if (stand == null) {
-                    stand = brewingManager.createBrewingStand("Brewing");
-
-                    playerConfig.set("brewing", stand.getUniqueID().toString());
-                    PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-                }
-            }
-            final BrewingOpenEvent event = new BrewingOpenEvent(player, stand);
-            Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
-                stand.openInventory(player);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean openFurnace(Player player) {
-        if (mysql) {
-            Furnace furnace;
-            if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE) == null) {
-                furnace = manager.createFurnace("Furnace", FurnaceProperties.FURNACE);
-
-                sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.FURNACE);
-            } else {
-                furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.FURNACE);
-
-                if (furnace == null) {
-                    furnace = manager.createFurnace("Furnace");
-
-                    sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.FURNACE);
-                }
-
-            }
-            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
-            Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
-                furnace.openInventory(player);
-                return true;
-            }
-            return false;
-        }
-
-        if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
-            FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
-            Furnace furnace;
-            if (playerConfig.get("furnaces.furnace") == null) {
-                furnace = manager.createFurnace("Furnace");
-
-                playerConfig.set("furnaces.furnace", furnace.getUniqueID().toString());
-                PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-            } else {
-                furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.furnace")));
-
-                if (furnace == null) {
-                    furnace = manager.createFurnace("Furnace");
-
-                    playerConfig.set("furnaces.furnace", furnace.getUniqueID().toString());
-                    PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-                }
-            }
-            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
-            Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
-                furnace.openInventory(player);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean openBlastFurnace(Player player) {
-        if (mysql) {
-            Furnace furnace;
-            if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.BLAST_FURNACE) == null) {
-                furnace = manager.createFurnace("Blast Furnace", FurnaceProperties.BLAST_FURNACE);
-                furnace.openInventory(player);
-
-                sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.BLAST_FURNACE);
-            } else {
-                furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.BLAST_FURNACE);
-
-                if (furnace == null) {
-                    furnace = manager.createFurnace("Blast Furnace");
-
-                    sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.BLAST_FURNACE);
-                }
-            }
-            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
-            Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
-                furnace.openInventory(player);
-                return true;
-            }
-            return false;
-        }
-
-        if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
-            FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
-            Furnace furnace;
-            if (playerConfig.get("furnaces.blast-furnace") == null) {
-                furnace = manager.createFurnace("Blast Furnace", FurnaceProperties.BLAST_FURNACE);
-
-                playerConfig.set("furnaces.blast-furnace", furnace.getUniqueID().toString());
-                PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-            } else {
-                furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.blast-furnace")));
-
-                if (furnace == null) {
-                    furnace = manager.createFurnace("Blast Furnace");
-
-                    playerConfig.set("furnaces.blast-furnace", furnace.getUniqueID().toString());
-                    PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-                }
-            }
-            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
-            Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
-                furnace.openInventory(player);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // TODO: Implement later.
-    @Override
-    public boolean queryVirtualTileAPI() {
-        return false;
-    }
-
-    @Override
-    public boolean openSmoker(Player player) {
-        if (mysql) {
-            Furnace furnace;
-            if (sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.SMOKER) == null) {
-                furnace = manager.createFurnace("Smoker", FurnaceProperties.SMOKER);
-                furnace.openInventory(player);
-
-                sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.SMOKER);
-            } else {
-                furnace = sql.getFurnace(player.getUniqueId(), manager, MySqlI.FurnaceTypes.SMOKER);
-
-                if (furnace == null) {
-                    furnace = manager.createFurnace("Smoker");
-
-                    sql.setFurnace(player.getUniqueId(), furnace, MySqlI.FurnaceTypes.SMOKER);
-                }
-            }
-
-            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
-            Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
-                furnace.openInventory(player);
-                return true;
-            }
-            return false;
-        }
-
-        if (PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
-            FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
-            Furnace furnace;
-            if (playerConfig.get("furnaces.smoker") == null) {
-                furnace = manager.createFurnace("Smoker", FurnaceProperties.SMOKER);
-
-                playerConfig.set("furnaces.smoker", furnace.getUniqueID().toString());
-                PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-            } else {
-                furnace = manager.getByID(UUID.fromString(playerConfig.getString("furnaces.smoker")));
-
-                if (furnace == null) {
-                    furnace = manager.createFurnace("Smoker");
-
-                    playerConfig.set("furnaces.smoker", furnace.getUniqueID().toString());
-                    PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-                }
-            }
-
-            final FurnaceOpenEvent event = new FurnaceOpenEvent(player, furnace);
-            Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
-                furnace.openInventory(player);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
     public boolean openSmithing(Player player) {
         try {
             ServerPlayer ePlayer = ((CraftPlayer) player).getHandle();
@@ -455,7 +195,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
 
             final SmithingOpenEvent event = new SmithingOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 ePlayer.containerMenu = ePlayer.inventoryMenu;
                 ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.SMITHING, fakeSmithing.getTitle()));
                 ePlayer.containerMenu = fakeSmithing;
@@ -465,16 +205,12 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
         } catch (UnsupportedOperationException ex) {
             // Logging this error normally spams console
             Utils.log("An error occurred while running the anvil command, make sure you have debug enabled to see this message.");
-            Utils.debugLog( ex.getMessage());
+            Utils.debugLog(ex.getMessage());
             player.sendMessage("An error occurred, please contact an administrator.");
             return false;
         }
     }
 
-    @Override
-    public void removeFromEnchantList(Player player) {
-        FakeEnchant.getOpenEnchantTables().remove(player.getUniqueId());
-    }
 
     private static class FakeGrindstone extends GrindstoneMenu {
 
@@ -536,8 +272,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
     }
 
     private static class FakeEnchant extends EnchantmentMenu {
-        @Getter
-        private static final Map<UUID, FakeEnchant> openEnchantTables = new HashMap<>();
+
         private final ContainerLevelAccess myAccess;
         private final RandomSource random;
         private final DataSlot enchantSeed;
@@ -555,7 +290,6 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
             this.random = new RandomSourceWrapper(new Random());
             this.enchantSeed = DataSlot.standalone();
             enchantSeed.set(((CraftPlayer) player).getHandle().getEnchantmentSeed());
-            openEnchantTables.put(player.getUniqueId(), this);
             this.player = ((CraftPlayer) player).getHandle();
             this.setTitle(Component.literal("Enchant"));
         }
@@ -573,7 +307,7 @@ public class FakeContainers_v1_20_R2 implements FakeContainers, Listener {
 
         @Override
         public void slotsChanged(Container iinventory) {
-            if (openEnchantTables.containsKey(player.getBukkitEntity().getUniqueId())) {
+            if (maxLevel > 0) {
                 ItemStack itemstack = iinventory.getItem(0);
                 if (iinventory.isEmpty()) {
                     for (int i = 0; i < 3; ++i) {

@@ -43,8 +43,6 @@ public class EnderChestCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender sender, String[] args) {
-        if (!Settings.USE_ENDERCHEST) returnTell(Messages.FEATURE_DISABLED); // Check if feature is enabled.
-
         final String sound = Settings.ENDER_CHEST_OPEN_SOUND.toUpperCase(); // Set the sound.
 
         if (!(sender instanceof Player)) {
@@ -55,7 +53,7 @@ public class EnderChestCommand extends UniversalCommand {
 
             final EnderchestOpenEvent event = new EnderchestOpenEvent(target);
             Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 if (Settings.USE_ENDERCHEST_SOUNDS) {
                     target.playSound(target.getLocation(), Sound.valueOf(sound), 1.0f, Settings.USE_RANDOM_SOUND_PITCH ? (float) Math.random() : 1.0f);
                     Utils.debugLog( "Playing sound " + sound + " to " + target.getName());
@@ -82,7 +80,7 @@ public class EnderChestCommand extends UniversalCommand {
             Inventory eChest = player.getEnderChest(); // Get the players enderchest inventory.
             final EnderchestOpenEvent event = new EnderchestOpenEvent(player);
             Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 player.openInventory(eChest); // Open it.
                 Utils.debugLog( "Opened inventory");
 
@@ -120,7 +118,7 @@ public class EnderChestCommand extends UniversalCommand {
             // Open the target's enderchest for themselves.
             final EnderchestOpenEvent event = new EnderchestOpenEvent(target);
             Bukkit.getPluginManager().callEvent(event);
-            if (!event.isCancelled()) {
+            if (!event.isCanceled()) {
                 openEnderchestForPlayer(sound, target, target, targetEChest, player.getName());
 
                 returnTell(Messages.OPEN_TARGET_ENDERCHEST.replace("{player}", target.getName()).replace("{playerFormatted}",

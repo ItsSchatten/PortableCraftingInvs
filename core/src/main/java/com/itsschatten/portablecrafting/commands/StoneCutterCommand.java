@@ -22,8 +22,6 @@ public class StoneCutterCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender commandSender, String[] args) {
-        if (!Settings.USE_STONE_CUTTER) returnTell(Messages.FEATURE_DISABLED);
-
         final String stoneCutterOpen = Settings.STONE_CUTTER_OPEN_SOUND.toUpperCase();
 
         if (!(commandSender instanceof Player)) {

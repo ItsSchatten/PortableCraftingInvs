@@ -3,14 +3,13 @@ package com.itsschatten.portablecrafting.listeners;
 import com.itsschatten.libs.UpdateNotifications;
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.PlayerConfigManager;
-import com.itsschatten.portablecrafting.CheckForUpdateTask;
 import com.itsschatten.portablecrafting.Permissions;
 import com.itsschatten.portablecrafting.configs.Settings;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,27 +18,37 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerJoinListener implements Listener {
 
+    final UpdateNotifications notifications;
+
+    public PlayerJoinListener(final UpdateNotifications notifications) {
+        this.notifications = notifications;
+    }
+
     @EventHandler
     public void onJoin(final @NotNull PlayerJoinEvent event) {
-        final Player player = event.getPlayer(); // We set the player so we can use them later.
-        if (!Settings.USE_MYSQL) {
-            if (!PlayerConfigManager.getConfig(player.getUniqueId()).exists()) {
-                FileConfiguration playerConfig = PlayerConfigManager.getConfig(player.getUniqueId()).getConfig();
-                playerConfig.set("furnaces", null);
-                PlayerConfigManager.getConfig(player.getUniqueId()).saveConfig();
-                Utils.debugLog( "Saved default player file.");
-            }
-        }
+        // Store this so we don't have to get the player constantly.
+        // Also, it looks nicer.
+        final Player player = event.getPlayer();
 
-        if (player.hasPermission(Permissions.UPDATE_NOTIFICATIONS.getPermission()) && Settings.USE_UPDATER && (UpdateNotifications.isUpdateAvailable() || CheckForUpdateTask.isUpdateAvailable())) {
-            // Check if an update is available, if the updater is used, and if the player has permission to see an update.
-            PluginDescriptionFile pdf = Utils.getInstance().getDescription(); // So we can get the version.
+        // Guard clauses to ensure we have an update and the player has valid permissions.
+        if (!Settings.USE_UPDATER) return;
+        if (!player.hasPermission(Permissions.UPDATE_NOTIFICATIONS.getPermission())) return;
 
-            Utils.debugLog( "Found an update for the plugin, sending the message to the player.");
+        // Check if we are using the updater, and that there is an update available.
+        if (Settings.USE_UPDATER && notifications != null && notifications.isUpdateAvailable()) {
+            // Get the version.
+            final PluginDescriptionFile pdf = Utils.getInstance().getDescription();
 
-            Utils.tell(player, UpdateNotifications.getUpdateMessage().replace("{currentVer}", pdf.getVersion()).replace("{newVer}", UpdateNotifications.getLatestVersion())
+            Utils.debugLog("Found an update for the plugin, sending the message to the player.");
+            Utils.tell(player, notifications.getUpdateMessage().replace("{currentVer}", pdf.getVersion()).replace("{newVer}", UpdateNotifications.getLatestVersion())
                     .replace("{link}", "https://spigotmc.org/resources/" + UpdateNotifications.getProjectId()));
         }
+    }
+
+    // Remove the player config from memory.
+    @EventHandler
+    public void onLeave(final @NotNull PlayerQuitEvent event) {
+        PlayerConfigManager.removeConfig(event.getPlayer());
     }
 
 
