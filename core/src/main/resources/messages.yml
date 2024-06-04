@@ -13,16 +13,14 @@
 # This file allows you to edit MOST messages in the plugin, there are some messages you
 # cannot edit as they are hard coded into the plugin, if you really want those messages
 # to be editable (and if there is enough support for it) I will try and add it.
-# Please note that if there is ever an update to this file, like new message were added
-# we take the liberty to automatically add the value into this file BUT due to the way
-# Bukkit/Spigot save configuration files all of my 'helpful' comments are removed. So it
-# is recommended before updating to the newest version to backup your config and messages
-# file to save your work and to keep the comments.
+# Please note that if there is ever an update to this file, like new messages were added,
+# we take the liberty to automatically add the value into this file.
+# So it is recommended before updating to the newest version to back up your 'settings.yml'
+# and 'messages.yml' files to save your work.
 #
-# If you have questions you can post an issue on Github
-# (https://github.com/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
-# see the code for the plugin.
-# You may also join my Discord support server (https://discord.gg/BmWrNam7Sp)
+# If you have questions,
+# you may post an issue on GitHub (https://github.com/itsschatten/portablecraftinginvs/issues).
+# GitHub is also helpful if you want to see the code for the plugin.
 
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
@@ -58,9 +56,6 @@ help-message: |+
 
   &7&oDeveloped by ItsSchatten on spigot.
 
-# The message that is sent if you disable a feature in the settings.yml.
-feature-disabled: "{prefix} That feature is disabled, sorry about that..."
-
 # The message that is sent to whomever reloaded the configs
 reload-message: "{prefix}&a The plugin has been reloaded."
 
@@ -84,12 +79,20 @@ doesnt-exist: "{prefix} &cSomething that you've entered doesn't exist."
 player-doesnt-exist: "{prefix}&e {player}&c doesn't exist."
 
 # This message is sent when an update to the plugin is available. (In-game only)
-update-available: |+
-
+update-available: |-
   &7There is an update for &dPortable Crafting Invs&7!
-  &7We recommened that you update to the latest version!
+  &7We recommend that you update to the latest version!
   &bCurrent &e{currentVer} &bNew Version &e{newVer}&7.
   &7Click the link to get it. &e{link}
+
+# Replaces {player} in some messages to mention you instead of your player name.
+you: "You"
+
+# Replaces {feature} in some messages.
+blast-furnace: "Blast Furnace"
+brewing-stand: "Brewing Stand"
+furnace: "Furnace"
+smoker: "Smoker"
 
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
@@ -101,8 +104,8 @@ update-available: |+
 # This message is sent to a player when executing /enderchest command.
 opened-enderchest: "{prefix} Opened your enderchest."
 
-# This message is sent to a player when opening another players enderchest.
-# This message has a fancy modifier that uses appropriate pluralisation to a players name.
+# This message is sent to a player when opening another player enderchest.
+# This message has a fancy modifier that uses appropriate pluralization to a player name.
 # To use it do {playerFormatted}
 open-target-enderchest-old: "{prefix} Opening {player} enderchest."
 
@@ -191,6 +194,9 @@ opened-smoker: "{prefix} Opened your virtual smoker."
 # The message that is sent when opening the smoker for someone else.
 opened-smoker-other: "{prefix} Opened virtual smoker for {player}."
 
+# Sent when a player reaches the maximum allotted furnaces or brewing stand.
+reached-maximum-feature: "{prefix} &c{player} have reached the maximum (&7{maximum}&c) allowed virtual &e{feature}&c!"
+
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                       Sign Messages                                   #
@@ -260,7 +266,7 @@ grindstone-sign-created: "{prefix} You've created a grindstone sign."
 # This is what is sent to the player to confirm the creation of the loom sign.
 loom-sign-created: "{prefix} You've created a loom sign."
 
-# This is what is sent to the player to confirm the creation of the stonecutter sign.
+# This is what is sent to the player to confirm the creation of the stone cutter sign.
 stonecutter-sign-created: "{prefix} You've created a stonecutter sign."
 
 # This is what is sent to the player to confirm the creation of the smithing table sign.

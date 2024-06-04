@@ -22,7 +22,6 @@ public class Messages extends SimpleConfig {
             WRONG_ARGS,
             TOO_MANY_ARGS,
             NOT_ENOUGH_ARGS,
-            FEATURE_DISABLED,
             DOES_NOT_EXIST,
             PLAYER_DOES_NOT_EXIST,
             UPDATE_AVAILABLE_MESSAGE,
@@ -49,6 +48,11 @@ public class Messages extends SimpleConfig {
             OPENED_SMITHING_TABLE_OTHER,
             CANT_RETRIEVE_ITEM_FROM_ENDER,
             MUST_SHIFT_CLICK_TO_BREAK_SIGN,
+            YOU,
+            BLAST_FURNACE,
+            SMOKER,
+            FURNACE,
+            BREWING_STAND,
 
     OPENED_FURNACE,
             OPENED_FURNACE_OTHER,
@@ -58,6 +62,7 @@ public class Messages extends SimpleConfig {
             OPENED_SMOKER_OTHER,
             OPENED_BREWING,
             OPENED_BREWING_OTHER,
+            REACHED_MAXIMUM_FEATURE,
 
     // Sign Messages
 
@@ -121,7 +126,11 @@ public class Messages extends SimpleConfig {
 
         PLAYER_DOES_NOT_EXIST = getString("player-doesnt-exist");
 
-        FEATURE_DISABLED = getString("feature-disabled");
+        YOU = getString("you");
+        BLAST_FURNACE = getString("blast-furnace");
+        BREWING_STAND = getString("brewing-stand");
+        FURNACE = getString("furnace");
+        SMOKER = getString("smoker");
 
         UPDATE_AVAILABLE_MESSAGE = (String) get("update-available");
 
@@ -147,19 +156,18 @@ public class Messages extends SimpleConfig {
         OPENED_BREWING = getString("opened-brewing");
         OPENED_BREWING_OTHER = getString("opened-brewing-other");
 
+        REACHED_MAXIMUM_FEATURE = getString("reached-maximum-feature");
+
         CANT_RETRIEVE_ITEM_FROM_ENDER = getString("cant-retrieve-from-enderchest");
 
         OPENED_CARTOGRAPHY = getString("opened-cartography");
         OPENED_CARTOGRAPHY_OTHER = getString("opened-cartography-other");
 
-
         OPENED_GRINDSTONE = getString("opened-grindstone");
         OPENED_GRINDSTONE_OTHER = getString("opened-grindstone-other");
 
-
         OPENED_LOOM = getString("opened-loom");
         OPENED_LOOM_OTHER = getString("opened-loom-other");
-
 
         OPENED_STONE_CUTTER = getString("opened-stonecutter");
         OPENED_STONE_CUTTER_OTHER = getString("opened-stonecutter-other");
@@ -199,7 +207,6 @@ public class Messages extends SimpleConfig {
         BREWING_SIGN_CREATED = getString("brewing-sign-created");
         FURNACE_SIGN_CREATED = getString("furnace-sign-created");
         SMOKER_SIGN_CREATED = getString("smoker-sign-created");
-
     }
 
     public void onLoadNoMessages() {
@@ -215,9 +222,15 @@ public class Messages extends SimpleConfig {
 
         PLAYER_DOES_NOT_EXIST = "";
 
-        FEATURE_DISABLED = "";
-
         UPDATE_AVAILABLE_MESSAGE = (String) get("update-available");
+
+        YOU = getString("you");
+        BLAST_FURNACE = getString("blast-furnace");
+        BREWING_STAND = getString("brewing-stand");
+        FURNACE = getString("furnace");
+        SMOKER = getString("smoker");
+
+        REACHED_MAXIMUM_FEATURE = getString("reached-maximum-feature");
 
         OPENED_ENDERCHEST = "";
         OPEN_TARGET_ENDERCHEST_OLD = "";
@@ -246,14 +259,11 @@ public class Messages extends SimpleConfig {
         OPENED_CARTOGRAPHY = "";
         OPENED_CARTOGRAPHY_OTHER = "";
 
-
         OPENED_GRINDSTONE = "";
         OPENED_GRINDSTONE_OTHER = "";
 
-
         OPENED_LOOM = "";
         OPENED_LOOM_OTHER = "";
-
 
         OPENED_STONE_CUTTER = "";
         OPENED_STONE_CUTTER_OTHER = "";

@@ -13,10 +13,9 @@
 #
 # This file can be used to enable or disable all parts of the plugin.
 #
-# If you have questions you can post an issue on GitHub
+# If you have questions, you can post an issue on GitHub
 # (https://github.com/itsschatten/portablecraftinginvs/issues) Also helpful if you want to
 # see the code for the plugin.
-# You may also join my Discord support server. (https://discord.gg/BmWrNam7Sp)
 
 # This attempts to migrate some information to a newer format so your players don't lose any items.
 attempt-migration-at-start: true
@@ -41,12 +40,12 @@ use-updater: true
 # Set the interval that we should check for updates, IN MINUTES. By default, this is 30.
 update-check-interval: 30
 
-# If this option is set to true the plugin will not register specific commands if the feature is disabled to allow
+# If this option is set to true, the plugin will not register specific commands if the feature is disabled to allow
 # Essentials to handle those commands, if false we will register the commands to allow the sending of the feature
 # disabled message.
 allow-essentials: true
 
-# If this is set to false we will not send any messages when commands are run.
+# If this is set to false, we will not send any messages when commands are run.
 use-messages: true
 
 # If a user was to use the command /pci and not provide any arguments to the command,
@@ -54,35 +53,97 @@ use-messages: true
 use-help-if-no-args: true
 
 # Have you ever not wanted to fiddle with those nasty complicated looking permissions?
-# Well now you don't have to! Simple set this to "false" and all permissions (besides pci.update and pci.reload)
+# Well, now you don't have to!
+#  Simply set this to "false" and all permissions (besides a select few)
 # will be given to all users by default.
 use-permissions: true
 
-# Should we store furnace and brewing data inside a mysql database?
-use-sql: false
-
-# This would be an IP address or a URL. (default: localhost)
-# If you are unsure what this would be leave it as localhost.
-sql-host: localhost
-
-# The port that your sql server is listening on.
-sql-port: 3306
-
-# The credentials to log into your sql instance.
-sql-user: root
-sql-pass: admin
-
-# The name of the database that we should save our table to.
-sql-database: "portablecraftinginvs"
-
-# If enabled the plugin will send statistics to BStats. Which you can see here: https://bstats.org/plugin/bukkit/PortableCraftingInvs
+# If enabled, the plugin will send statistics to BStats.
+# Which you can find here: https://bstats.org/plugin/bukkit/PortableCraftingInvs
 metrics: true
+
+# ------------------------------------------------------------------------------------- #
+#                                                                                       #
+#                                Storage Configurations                                 #
+#                                                                                       #
+# ------------------------------------------------------------------------------------- #
+
+# How furnaces and brewing data should be stored.
+# It should be noted, if you've disabled all virtual tiles or disabled the virtual tile API,
+# this configuration is not taken into account, and the plugin will not attempt to connect to a database
+# or store data.
+#
+# Valid options:
+#   Easy to Read:
+#   (Does not require any additional configuration.)
+#   - YAML -> Stores furnace and brewing stand directly into a per-player config file.
+#             Similar to EssentialX's approach.
+#
+#   Remote databases:
+#   (These require additional configuration below.)
+#   - MySQL
+#   - MariaDB
+#
+# YAML is the default option.
+method: YAML
+
+# All of these configuration options are similar to LuckPerms.
+database:
+  # The address to connect to your SQL database.
+  # You should add the port if it differs from 3306.
+  address: "localhost"
+  # The username to connect to your database with.
+  username: "steve"
+  # Your user password.
+  password: ""
+  # The database to connect to where all the tables will be placed.
+  database: "minecraft"
+
+  # The prefix to apply to all tables.
+  table-prefix: "pci_"
+
+  # Additional configuration for a MySQL (/MariaDB) connection pool.
+  # If you've used LuckPerms, this is basically a carbon copy configuration style.
+  pool-config:
+    # The maximum size of the connection pool (how many connections can be active to the backend database).
+    maximum-pool-size: 10
+    #
+    minimum-idle-connections: 10
+    # Controls how long the lifetime of a connection in the pool is, in milliseconds.
+    maximum-lifetime: 1800000
+    # How frequently the pool will attempt to ping a connection to prevent
+    # it from being timed out by the database or network, in milliseconds.
+    keep-alive-timeout: 0
+    # How long we should wait for a connection before it times out, measured in milliseconds.
+    connection-timeout: 5000
+
+    # Allows you to define additional properties for the connection pool.
+    properties:
+      useUnicode: true
+      characterEncoding: utf8
+      #useSSL: false
+      #verifyServerCertificate: false
 
 # ------------------------------------------------------------------------------------- #
 #                                                                                       #
 #                                   Crafting Features                                   #
 #                                                                                       #
 # ------------------------------------------------------------------------------------- #
+
+# Enable or disable all virtual tile entities (Furnaces and Brewing Stands).
+# The virtual tile API will not be registered if all furnaces and brewing stands are disabled.
+use-virtual-tiles: true
+
+# Both below options can be increased with a permission pci.<brewing|furnace>.limit.<number>
+# (There is a hard limit of 100.)
+
+# The maximum number of furnaces a player can have, this goes for all types.
+# Can be bypassed by 'pci.furnace.limit.bypass'
+maximum-furnaces: 3
+
+# The maximum number of brewing stands a player can have.
+# Can be bypassed by 'pci.brewing.limit.bypass'
+maximum-brewing-stands: 3
 
 # Enable or disable the use of the /anvil command.
 use-anvil: true
@@ -91,15 +152,19 @@ use-anvil: true
 use-crafting: true
 
 # Enable or disable the use of the /brewing command.
+# Configuring this while 'use-virtual-tiles' is false will have no noticeable effect.
 use-brewing: true
 
 # Enable or disable the use of the /furnace command.
+# Configuring this while 'use-virtual-tiles' is false will have no noticeable effect.
 use-furnace: true
 
 # Enable or disable the use of the /blastfurnace command.
+# Configuring this while 'use-virtual-tiles' is false will have no noticeable effect.
 use-blast-furnace: true
 
 # Enable or disable the use of the /smoker command.
+# Configuring this while 'use-virtual-tiles' is false will have no noticeable effect.
 use-smoker: true
 
 # Enable or disable the use of the /enchanttable command.
@@ -142,7 +207,7 @@ use-smithing-table: true
 #                                                                                       #
 # ------------------------------------------------------------------------------------- #
 
-# Enable or disable the use of signs.
+# Enable or disable the use of all signs.
 use-signs: true
 
 # Should we only allow players to break signs if they are shift clicking?

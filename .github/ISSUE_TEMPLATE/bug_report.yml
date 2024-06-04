@@ -1,33 +1,24 @@
 name: Bug Report
 description: Report a bug or issue with the plugin or how it functions.
-labels: ["type: bug", "priority: normal", "status: awaiting confirmation"]
+labels: [ "type: bug", "priority: normal", "status: awaiting confirmation" ]
 title: "[BUG] | "
 body:
   - type: markdown
     attributes:
-      value: | 
-        I appreciate you taking the time to file a bug report to make this project better for everyone! Please fill out the fields below with as much information as you can.
-
-  - type: input
-    id: using_version
+      value: |
+        Thanks for taking the time to fill out a bug report! Please fill out the fields below with as much information and detail as you can.
+  - type: textarea
+    id: version
     attributes:
-      label: "What is the version of the plugin you''re using?"
+      label: "PCI Information"
       description: "If you're unsure run the command \"/pci version\" in-game or in your console."
       placeholder: "1.0.0"
-    validations:
-       required: true
-  - type: input
-    id: spigot_version
-    attributes:
-      label: "What is your Spigot version?"
-      description: "Providing your Spigot version will help to track down your issues, ensure to always test the plugin with the latest version of Spigot before reporting a bug here!"
-      placeholder: "3207-Spigot-18c71bf-8537925 (MC: 1.17.1)"
     validations:
       required: true
   - type: textarea
     id: bug_description
     attributes:
-      label: "Please describe the bug."
+      label: "Describe the Bug"
       description: "Describe the bug in full detail, explain what happened and how to reproduce this bug."
       placeholder: |
         Anvils delete items!
@@ -41,8 +32,8 @@ body:
   - type: textarea
     id: plugin_list
     attributes:
-      label: "Please list your plugins."
-      description: "Providing a list of your plugins will be useful in order to see if there are any incompatible plugins with PCI."
+      label: "What plugins are you running?"
+      description: "Providing a list of your plugins may be useful to determine incompatibilities with PCI."
       placeholder: |
         PlaceholderAPI, PortableCraftingInvs, EssentialsX, EssentialsXChat...
     validations:
@@ -50,7 +41,7 @@ body:
   - type: textarea
     id: anything_else_to_add
     attributes:
-      label: "Anything else to add?"
-      description: "Anything else you think I should be aware of?"
+      label: "Anything else?"
+      description: "Anything else you think I should be aware of."
     validations:
       required: false

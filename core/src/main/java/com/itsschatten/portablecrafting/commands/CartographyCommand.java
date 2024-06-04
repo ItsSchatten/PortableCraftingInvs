@@ -29,8 +29,6 @@ public class CartographyCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender commandSender, String[] args) {
-        if (!Settings.USE_CARTOGRAPHY) returnTell(Messages.FEATURE_DISABLED);
-
         final String cartographyTableOpen = Settings.CARTOGRAPHY_OPEN_SOUND.toUpperCase();
 
         if (!(commandSender instanceof Player)) {

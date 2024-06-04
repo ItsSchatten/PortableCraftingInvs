@@ -28,9 +28,6 @@ public class GrindStoneCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender commandSender, String[] args) {
-        if (!Settings.USE_GRINDSTONE) // Check if the feature is enabled.
-            returnTell(Messages.FEATURE_DISABLED);
-
         final String grindStoneOpen = Settings.GRINDSTONE_OPEN_SOUND.toUpperCase();
 
         if (!(commandSender instanceof Player)) {

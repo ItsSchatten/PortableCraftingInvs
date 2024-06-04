@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -28,7 +29,6 @@ public class AnvilCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender sender, String[] args) {
-        if (!Settings.USE_ANVIL) returnTell(Messages.FEATURE_DISABLED); // Check if the feature is enabled.
 
         if (!(sender instanceof final Player player)) {
             checkArgs(1, Messages.NOT_ENOUGH_ARGS);
@@ -54,7 +54,7 @@ public class AnvilCommand extends UniversalCommand {
         }
     }
 
-    private void openAnvil(String[] args) {
+    private void openAnvil(String @NotNull [] args) {
         final Player target = Bukkit.getPlayer(args[0]); // Set target.
         checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0])); // Make sure not null.
         assert target != null;

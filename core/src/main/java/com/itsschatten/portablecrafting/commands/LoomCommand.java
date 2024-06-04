@@ -22,8 +22,6 @@ public class LoomCommand extends UniversalCommand {
 
     @Override
     protected void run(CommandSender commandSender, String[] args) {
-        if (!Settings.USE_LOOM) returnTell(Messages.FEATURE_DISABLED);
-
         final String loomSoundOpen = Settings.LOOM_OPEN_SOUND.toUpperCase();
 
         if (!(commandSender instanceof Player)) {

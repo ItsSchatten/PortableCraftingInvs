@@ -3,29 +3,37 @@ package com.itsschatten.portablecrafting.configs;
 import com.itsschatten.libs.Utils;
 import com.itsschatten.libs.configutils.SimpleConfig;
 import com.itsschatten.portablecrafting.PortableCraftingInvsPlugin;
+import com.itsschatten.portablecrafting.storage.StorageMedium;
+import com.itsschatten.portablecrafting.virtual.ISettings;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.Untainted;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * Sets values to be used throughout the plugin.
  */
-public class Settings extends SimpleConfig {
+public class Settings extends SimpleConfig implements ISettings {
+
+    public static StorageMedium CURRENT_MEDIUM = null;
 
     public static boolean
             SILENT_START_UP,
             ATTEMPT_MIGRATION_AT_START,
             DEBUG,
-            USE_MYSQL,
             USE_PERMISSIONS,
             USE_UPDATER,
             USE_METRICS,
             USE_MESSAGES,
             USE_TOO_MANY_ARGS,
-            ALLOW_ESSENTIALS,
             USE_HELP_IF_WRONG_ARGS,
             USE_RANDOM_SOUND_PITCH,
             USE_SIGNS,
+            USE_VIRTUAL_TILES,
             REQUIRE_SIGHT_CLICK_BREAK_SIGN,
 
     // Feature booleans.
@@ -77,15 +85,9 @@ public class Settings extends SimpleConfig {
     // The max level of enchantment that should be allowed in Enchantment tables.
     ENCHANT_MAX_LEVEL;
 
-
     public static String
-            // MYSQL Stuff.
-            MYSQL_USER,
-            MYSQL_HOST,
-            MYSQL_PASS,
-            MYSQL_DATABASE,
-    // The sounds that are played when opening a specific inventory.
-    ENDER_CHEST_OPEN_SOUND,
+            // The sounds that are played when opening a specific inventory.
+            ENDER_CHEST_OPEN_SOUND,
             ENCHANT_TABLE_OPEN_SOUND,
             CRAFTING_OPEN_SOUND,
             ANVIL_OPEN_SOUND,
@@ -95,53 +97,62 @@ public class Settings extends SimpleConfig {
             STONE_CUTTER_OPEN_SOUND,
             SMITHING_TABLE_OPEN_SOUND;
 
-    public static int MYSQL_PORT;
+    public static String STORAGE_MEDIUM, DATABASE_ADDRESS, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE;
+    @Untainted
+    public static String DATABASE_PREFIX;
+    public static int POOL_MAX_SIZE, POOL_MIN_CONNECTIONS, POOL_MAX_LIFE, POOL_KEEP_ALIVE, POOL_CONNECTION_TIMEOUT;
+    public static Map<String, Object> PROPERTIES;
 
     @Getter
     @Setter(value = AccessLevel.PRIVATE)
     private static Settings instance;
 
-    public Settings(String fileName) {
+    public Settings(String fileName, final StorageMedium current) {
         super(fileName);
 
-        setHeader(new String[]{
-                "--------------------------------------------------------",
-                " This configuration file has been automatically updated!",
-                "",
-                " Unfortunately, due to the way Bukkit saves .yml files,",
-                " all comments in your file where lost. To read them,",
-                " please open " + fileName + " directly to browse the default values.",
-                " Don't know how to do this? You can also check our github",
-                " page for the default file.",
-                "(https://github.com/itsschatten/portablecraftinginvs/)",
-                "--------------------------------------------------------"});
+        CURRENT_MEDIUM = current;
 
         setInstance(this);
     }
 
     public static void init() {
-        new Settings("settings.yml").onLoad();
+        new Settings("settings.yml", CURRENT_MEDIUM).onLoad();
         Utils.debugLog("Loaded the settings.yml file.");
     }
 
     private void onLoad() {
+        PROPERTIES = new HashMap<>();
+
         /* Features */
         SILENT_START_UP = getBoolean("silent-start");
         ATTEMPT_MIGRATION_AT_START = getBoolean("attempt-migration-at-start");
         DEBUG = getBoolean("debug");
         UPDATE_CHECK_INTERVAL = getInt("update-check-interval");
         USE_PERMISSIONS = getBoolean("use-permissions");
-        ALLOW_ESSENTIALS = getBoolean("allow-essentials");
         USE_MESSAGES = getBoolean("use-messages");
 
-        USE_MYSQL = getBoolean("use-sql");
+        STORAGE_MEDIUM = getString("method");
 
-        MYSQL_HOST = getString("sql-host");
-        MYSQL_DATABASE = getString("sql-database");
-        MYSQL_USER = getString("sql-user");
-        MYSQL_PASS = getString("sql-pass");
-        MYSQL_PORT = getInt("sql-port");
+        if (CURRENT_MEDIUM == null) {
+            CURRENT_MEDIUM = StorageMedium.valueOf(Objects.requireNonNullElse(STORAGE_MEDIUM, "YAML").toUpperCase());
+        }
 
+        DATABASE_ADDRESS = getString("database.address");
+        DATABASE_USER = getString("database.username");
+        DATABASE_PASSWORD = getString("database.password");
+        DATABASE_DATABASE = getString("database.database");
+
+        DATABASE_PREFIX = getString("database.table-prefix");
+
+        POOL_MAX_SIZE = getInt("database.pool-config.maximum-pool-size");
+        POOL_MIN_CONNECTIONS = getInt("database.pool-config.minimum-idle-connections");
+        POOL_MAX_LIFE = getInt("database.pool-config.maximum-lifetime");
+        POOL_KEEP_ALIVE = getInt("database.pool-config.keep-alive-timeout");
+        POOL_CONNECTION_TIMEOUT = getInt("database.pool-config.connection-timeout");
+
+        PROPERTIES = getConfigurationSection("database.pool-config.properties").getValues(true);
+
+        USE_VIRTUAL_TILES = getBoolean("use-virtual-tiles");
         USE_FURNACE = getBoolean("use-furnace");
         USE_BLAST_FURNACE = getBoolean("use-blast-furnace");
         USE_SMOKER = getBoolean("use-smoker");
@@ -212,17 +223,26 @@ public class Settings extends SimpleConfig {
 
     public void reload() {
         setInstance(null);
-
         init();
-        PortableCraftingInvsPlugin.getFakeContainers().setDebug(Settings.DEBUG);
 
-        if (!USE_MYSQL && (PortableCraftingInvsPlugin.getDatabase() != null && PortableCraftingInvsPlugin.getDatabase().mysql.getConnection() != null)) {
-            PortableCraftingInvsPlugin.getDatabase().mysql.close();
-            PortableCraftingInvsPlugin.setDatabase(null);
-            PortableCraftingInvsPlugin.getFakeContainers().setUsingMysql(Settings.USE_MYSQL);
+        // Update the settings instance for the manager.
+        PortableCraftingInvsPlugin.getInstance().getManager().setSettings(this);
+
+        if (StorageMedium.valueOf(STORAGE_MEDIUM.toUpperCase()) != CURRENT_MEDIUM) {
+            Utils.logError("Hey! Just so you're aware you cannot change the storage medium during runtime, please restart the server for that change to take effect.");
+            Utils.logError("After switching over you may migrate your data to your new medium by running '/pci migrate'.");
         }
 
         Utils.debugLog("Reloaded the settings.yml file.");
     }
 
+    @Override
+    public int maximumFurnaces() {
+        return getInt("maximum-furnaces", 3);
+    }
+
+    @Override
+    public int maximumBrewingStands() {
+        return getInt("maximum-brewing-stands", 3);
+    }
 }

@@ -1,9 +1,10 @@
 name: PortableCraftingInvs
-version: ${project.version}
-main: ${main}
-author: ${author}
-description: ${description}
-api-version: "1.19"
+version: ${version}
+main: com.itsschatten.portablecrafting.PortableCraftingInvsPlugin
+authors: [ ItsSchatten ]
+description: Open crafting inventories on the go!
+# We always use the api-version for the lowest version we support.
+api-version: "1.20"
 soft-depend: [ Essentials ]
 permissions:
   pci.*:
@@ -266,3 +267,15 @@ permissions:
   pci.sign.brewing.use:
     default: op
     description: "Use a brewing stand sign."
+
+  pci.brewing.limit.bypass:
+    default: false
+    description: "Bypass the brewing stand limit."
+
+  pci.furnace.limit.bypass:
+    default: false
+    description: "Bypass the furnace limit."
+
+  pci.migrate:
+    default: false
+    description: "Allows a player to migrate data using /pci migrate"

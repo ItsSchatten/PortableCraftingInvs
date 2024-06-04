@@ -7,5 +7,6 @@ version = "2.0.0"
 
 dependencies {
     // Always using the latest API version here, this plugin is built to always support the latest version.
-    compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT")
+
 }

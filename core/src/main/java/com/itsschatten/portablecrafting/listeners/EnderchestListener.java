@@ -10,11 +10,12 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.jetbrains.annotations.NotNull;
 
 public class EnderchestListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
-    public void onEnderchestClick(InventoryClickEvent event) {
+    public void onEnderchestClick(@NotNull InventoryClickEvent event) {
         if (EnderChestCommand.getPlayers().contains(event.getWhoClicked().getUniqueId()) && event.getWhoClicked().getOpenInventory().getType().equals(InventoryType.ENDER_CHEST)) {
             Utils.debugLog("Player " + event.getWhoClicked().getName() + " is contained in the set, and their open inventory is the Enderchest.");
 
@@ -24,6 +25,10 @@ public class EnderchestListener implements Listener {
 
             if (event.getClick().isShiftClick()) {
                 event.setCancelled(true);
+                return;
+            }
+
+            if (event.getClickedInventory() == null) {
                 return;
             }
 
@@ -38,7 +43,7 @@ public class EnderchestListener implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClose(InventoryCloseEvent event) {
+    public void onInventoryClose(@NotNull InventoryCloseEvent event) {
         if (event.getPlayer().getOpenInventory().getType().equals(InventoryType.ENDER_CHEST) && EnderChestCommand.getPlayers().contains(event.getPlayer().getUniqueId())) {
             EnderChestCommand.getPlayers().remove(event.getPlayer().getUniqueId());
             Utils.debugLog("Removed " + event.getPlayer().getName() + " from the enderchest Set.");
