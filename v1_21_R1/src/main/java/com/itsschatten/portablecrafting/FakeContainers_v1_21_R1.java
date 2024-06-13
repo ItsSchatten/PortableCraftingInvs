@@ -2,11 +2,12 @@ package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.portablecrafting.events.*;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.*;
@@ -15,23 +16,22 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_20_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_20_R1.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_20_R1.util.CraftNamespacedKey;
-import org.bukkit.craftbukkit.v1_20_R1.util.RandomSourceWrapper;
-import org.bukkit.enchantments.Enchantment;
+import org.bukkit.craftbukkit.v1_21_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_21_R1.enchantments.CraftEnchantment;
+import org.bukkit.craftbukkit.v1_21_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_21_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_21_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_21_R1.util.RandomSourceWrapper;
 import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
-public class FakeContainers_v1_20_R1 extends BaseFakeContainers {
+public class FakeContainers_v1_21_R1 extends BaseFakeContainers {
 
     @Override
     public boolean openLoom(Player player) {
@@ -261,8 +261,7 @@ public class FakeContainers_v1_20_R1 extends BaseFakeContainers {
     }
 
     private static class FakeSmithing extends SmithingMenu {
-
-        public FakeSmithing(final int containerID, final Player player) {
+        public FakeSmithing(final int containerID, final @NotNull Player player) {
             super(containerID, ((CraftPlayer) player).getHandle().getInventory(),
                     ContainerLevelAccess.create(((CraftWorld) player.getWorld()).getHandle(),
                             new BlockPos(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ())));
@@ -306,10 +305,10 @@ public class FakeContainers_v1_20_R1 extends BaseFakeContainers {
         }
 
         @Override
-        public void slotsChanged(Container iinventory) {
+        public void slotsChanged(Container inventory) {
             if (maxLevel > 0) {
-                ItemStack itemstack = iinventory.getItem(0);
-                if (iinventory.isEmpty()) {
+                ItemStack itemstack = inventory.getItem(0);
+                if (inventory.isEmpty()) {
                     for (int i = 0; i < 3; ++i) {
                         this.costs[i] = 0;
                         this.enchantClue[i] = -1;
@@ -318,7 +317,8 @@ public class FakeContainers_v1_20_R1 extends BaseFakeContainers {
                     enchantSeed.set(player.getEnchantmentSeed());
                     return;
                 }
-                myAccess.execute((world, blockPos) -> {
+                this.myAccess.execute((world, blockPos) -> {
+                    IdMap<Holder<net.minecraft.world.item.enchantment.Enchantment>> registry = world.registryAccess().registryOrThrow(Registries.ENCHANTMENT).asHolderIdMap();
                     int i = maxLevel;
                     int j;
                     this.random.setSeed(this.enchantSeed.get());
@@ -334,10 +334,10 @@ public class FakeContainers_v1_20_R1 extends BaseFakeContainers {
 
                     for (j = 0; j < 3; ++j) {
                         if (this.costs[j] > 0) {
-                            List<EnchantmentInstance> list = this.getEnchantmentList(itemstack, j, this.costs[j]);
+                            List<EnchantmentInstance> list = this.getEnchantmentList(world.registryAccess(), itemstack, j, this.costs[j]);
                             if (list != null && !list.isEmpty()) {
                                 EnchantmentInstance weightedRandomEnchant = list.get(this.random.nextInt(list.size()));
-                                this.enchantClue[j] = BuiltInRegistries.ENCHANTMENT.getId(weightedRandomEnchant.enchantment);
+                                this.enchantClue[j] = registry.getId(weightedRandomEnchant.enchantment);
                                 this.levelClue[j] = weightedRandomEnchant.level;
                             }
                         }
@@ -347,8 +347,7 @@ public class FakeContainers_v1_20_R1 extends BaseFakeContainers {
                     EnchantmentOffer[] offers = new EnchantmentOffer[3];
 
                     for (j = 0; j < 3; ++j) {
-                        Enchantment enchantment = this.enchantClue[j] >= 0 ?
-                                Enchantment.getByKey(CraftNamespacedKey.fromMinecraft(Objects.requireNonNull(BuiltInRegistries.ENCHANTMENT.getKey(BuiltInRegistries.ENCHANTMENT.byId(this.enchantClue[j]))))) : null;
+                        org.bukkit.enchantments.Enchantment enchantment = this.enchantClue[j] >= 0 ? CraftEnchantment.minecraftHolderToBukkit(registry.byId(this.enchantClue[j])) : null;
                         offers[j] = enchantment != null ? new EnchantmentOffer(enchantment, this.levelClue[j], this.costs[j]) : null;
                     }
 
@@ -360,7 +359,7 @@ public class FakeContainers_v1_20_R1 extends BaseFakeContainers {
                             EnchantmentOffer offer = event.getOffers()[j];
                             if (offer != null) {
                                 this.costs[j] = offer.getCost();
-                                this.enchantClue[j] = BuiltInRegistries.ENCHANTMENT.getId(BuiltInRegistries.ENCHANTMENT.get(CraftNamespacedKey.toMinecraft(offer.getEnchantment().getKey())));
+                                this.enchantClue[j] = registry.getId(CraftEnchantment.bukkitToMinecraftHolder(offer.getEnchantment()));
                                 this.levelClue[j] = offer.getEnchantmentLevel();
                             } else {
                                 this.costs[j] = 0;
@@ -382,17 +381,22 @@ public class FakeContainers_v1_20_R1 extends BaseFakeContainers {
                 });
                 return;
             }
-            super.slotsChanged(iinventory);
+            super.slotsChanged(inventory);
         }
 
-        private List<EnchantmentInstance> getEnchantmentList(ItemStack itemstack, int i, int j) {
-            this.random.setSeed(this.enchantSeed.get() + i);
-            List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(this.random, itemstack, j, false);
-            if (itemstack.is(Items.BOOK) && list.size() > 1) {
-                list.remove(this.random.nextInt(list.size()));
-            }
+        private List<EnchantmentInstance> getEnchantmentList(RegistryAccess registry, ItemStack itemstack, int i, int j) {
+            this.random.setSeed((this.enchantSeed.get() + i));
+            Optional<HolderSet.Named<net.minecraft.world.item.enchantment.Enchantment>> optional = registry.registryOrThrow(Registries.ENCHANTMENT).getTag(EnchantmentTags.IN_ENCHANTING_TABLE);
+            if (optional.isEmpty()) {
+                return List.of();
+            } else {
+                List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(this.random, itemstack, j, ((HolderSet.Named) optional.get()).stream());
+                if (itemstack.is(Items.BOOK) && list.size() > 1) {
+                    list.remove(this.random.nextInt(list.size()));
+                }
 
-            return list;
+                return list;
+            }
         }
     }
 }

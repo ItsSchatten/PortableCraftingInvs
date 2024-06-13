@@ -4,7 +4,6 @@ plugins {
 }
 
 dependencies {
-
     compileOnly(project(":api"))
     compileOnly("org.spigotmc:spigot:1.20.4-R0.1-SNAPSHOT:remapped-mojang")
 }
