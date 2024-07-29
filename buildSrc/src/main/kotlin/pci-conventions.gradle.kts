@@ -2,8 +2,7 @@ plugins {
     id("java")
 
     id("io.freefair.lombok")
-    id("io.github.goooler.shadow")
-    // id("com.github.johnrengelman.shadow")
+    id("io.github.goooler.shadow") // This is a continuation of the Shadow plugin see https://github.com/GradleUp/shadow/issues/908
 
 }
 
@@ -12,6 +11,17 @@ plugins {
 repositories {
     mavenCentral()
     mavenLocal()
+
+    maven {
+        url = uri("https://maven.pkg.github.com/ItsSchatten/ShadowLibs")
+        credentials {
+            // These are placed in the .gradle/gradle.properties file.
+            // Keep the names in mind as they must match to be used.
+            username = project.findProperty("gpr.username") as String
+            password = project.findProperty("gpr.token") as String
+        }
+    }
+
     maven {
         url = uri("https://repo.codemc.org/repository/maven-public")
     }
