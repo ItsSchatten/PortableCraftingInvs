@@ -263,15 +263,20 @@ public class Settings extends SimpleConfig implements ISettings {
                 final String ver = (String) minecraftVersion.invoke(Bukkit.getServer());
 
                 if (!ver.contains("1.21")) {
-                    Utils.logWarning("!!! ATTENTION !!! Due to breaking changes (and the goal to only actively support the latest Minecraft version for paper servers) the brewing stands cannot be used. Please update to a Minecraft 1.21.1 to continue using them.");
+                    Utils.logWarning("!!! ATTENTION !!! Due to breaking changes (and the goal to only actively support the latest Minecraft) the brewing stands cannot be used. Please update to a Minecraft 1.21.1 to continue using them.");
                     return false;
                 }
             } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                 Utils.logError(e);
                 Utils.logError("Failed to parse minecraft version!");
-                Utils.logWarning("!!! ATTENTION !!! Due to breaking changes (and the goal to only actively support the latest Minecraft version for paper servers) the brewing stands cannot be used. Please update to a Minecraft 1.21.1 to continue using them.");
+                Utils.logWarning("!!! ATTENTION !!! Due to breaking changes (and the goal to only actively support the latest Minecraft) the brewing stands cannot be used. Please update to a Minecraft 1.21.1 to continue using them.");
                 return false;
             }
+        }
+
+        if (!PortableCraftingInvsPlugin.getServerVersion().contains("v1_21")) {
+            Utils.logWarning("!!! ATTENTION !!! Due to breaking changes (and the goal to only actively support the latest Minecraft) the brewing stands cannot be used. Please update to a Minecraft 1.21.1 to continue using them.");
+            return false;
         }
 
         return USE_VIRTUAL_TILES && USE_BREWING;
