@@ -2,8 +2,11 @@ package com.itsschatten.portablecrafting;
 
 import com.itsschatten.portablecrafting.virtual.ReturnReason;
 import com.itsschatten.portablecrafting.virtual.VirtualManager;
+import com.itsschatten.portablecrafting.virtual.recipe.BrewingRecipe;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class BaseFakeContainers implements PCIAPI {
@@ -202,6 +205,5 @@ public abstract class BaseFakeContainers implements PCIAPI {
     public final boolean queryVirtualTileAPI() {
         return VirtualManager.getInstance() != null && VirtualManager.getInstance().isLoaded();
     }
-
 
 }

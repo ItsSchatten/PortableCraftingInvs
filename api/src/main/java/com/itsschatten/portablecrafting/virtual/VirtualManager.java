@@ -93,7 +93,7 @@ public class VirtualManager {
         this.storage = storage;
         this.settings = settings;
 
-        new RecipeManager();
+        new RecipeManager(settings);
         // The tick task, used to tick any open brewing stands or furnaces.
         this.tickTask = new TickTask();
 

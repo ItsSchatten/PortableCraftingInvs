@@ -2,11 +2,12 @@ package com.itsschatten.portablecrafting;
 
 import com.itsschatten.libs.Utils;
 import com.itsschatten.portablecrafting.events.*;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -30,6 +31,8 @@ import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -104,7 +107,7 @@ public class FakeContainersPaper extends BaseFakeContainers {
      */
     @Override
     public boolean openEnchant(Player player, int maxLvl) {
-        if (!Bukkit.getMinecraftVersion().equals("1.20.6")) {
+        if (!Bukkit.getMinecraftVersion().equals("1.21")) {
             Utils.logWarning("[WARNING] Opening an enchantment menu with a max level provided may not function and may throw an error.");
             Utils.logWarning("[WARNING] Paper support is built to run exclusively on the latest version.");
         }
@@ -257,6 +260,7 @@ public class FakeContainersPaper extends BaseFakeContainers {
 
                 if (!itemstack.isEmpty()) {
                     this.myAccess.execute((world, blockPos) -> {
+                        IdMap<Holder<Enchantment>> registry = world.registryAccess().registryOrThrow(Registries.ENCHANTMENT).asHolderIdMap();
                         int i = maxLevel;
 
                         // Normally, this would be where we check for bookshelves.
@@ -278,12 +282,11 @@ public class FakeContainersPaper extends BaseFakeContainers {
 
                         for (j = 0; j < 3; ++j) {
                             if (this.costs[j] > 0) {
-                                List<EnchantmentInstance> list = getEnchantmentList(world.enabledFeatures(), itemstack, j, this.costs[j]);
+                                List<EnchantmentInstance> list = getEnchantmentList(world.registryAccess(), itemstack, j, this.costs[j]);
 
-                                if (list != null && !list.isEmpty()) {
+                                if (!list.isEmpty()) {
                                     EnchantmentInstance weightedRandomEnchantment = list.get(this.random.nextInt(list.size()));
 
-                                    this.enchantClue[j] = BuiltInRegistries.ENCHANTMENT.getId(weightedRandomEnchantment.enchantment);
                                     this.levelClue[j] = weightedRandomEnchantment.level;
                                 }
                             }
@@ -292,7 +295,7 @@ public class FakeContainersPaper extends BaseFakeContainers {
                         final CraftItemStack item = CraftItemStack.asCraftMirror(itemstack);
                         final org.bukkit.enchantments.EnchantmentOffer[] offers = new EnchantmentOffer[3];
                         for (j = 0; j < 3; ++j) {
-                            org.bukkit.enchantments.Enchantment enchantment = (this.enchantClue[j] >= 0) ? CraftEnchantment.minecraftToBukkit(Enchantment.byId(this.enchantClue[j])) : null;
+                            org.bukkit.enchantments.Enchantment enchantment = (this.enchantClue[j] >= 0) ? CraftEnchantment.minecraftHolderToBukkit(Objects.requireNonNull(registry.byId(this.enchantClue[j]))) : null;
                             offers[j] = (enchantment != null) ? new EnchantmentOffer(enchantment, this.levelClue[j], this.costs[j]) : null;
                         }
 
@@ -316,7 +319,7 @@ public class FakeContainersPaper extends BaseFakeContainers {
                             EnchantmentOffer offer = event.getOffers()[j];
                             if (offer != null) {
                                 this.costs[j] = offer.getCost();
-                                this.enchantClue[j] = BuiltInRegistries.ENCHANTMENT.getId(CraftEnchantment.bukkitToMinecraft(offer.getEnchantment()));
+                                this.enchantClue[j] = registry.getId(CraftEnchantment.bukkitToMinecraftHolder(offer.getEnchantment()));
                                 this.levelClue[j] = offer.getEnchantmentLevel();
                             } else {
                                 this.costs[j] = 0;
@@ -344,10 +347,16 @@ public class FakeContainersPaper extends BaseFakeContainers {
         }
 
         // Duplicate of getEnchantmentList from EnchantMenu, put here, so we can use it.
-        private @NotNull List<EnchantmentInstance> getEnchantmentList(FeatureFlagSet featureflagset, ItemStack itemstack, int i, int j) {
+        private @NotNull List<EnchantmentInstance> getEnchantmentList(RegistryAccess registryManager, ItemStack itemstack, int i, int j) {
             this.random.setSeed(super.getEnchantmentSeed() + i);
 
-            final List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(featureflagset, this.random, itemstack, j, false);
+            final Optional<HolderSet.Named<Enchantment>> optional = registryManager.registryOrThrow(Registries.ENCHANTMENT).getTag(EnchantmentTags.IN_ENCHANTING_TABLE);
+
+            if (optional.isEmpty()) {
+                return List.of();
+            }
+
+            final List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(this.random, itemstack, j, ((HolderSet.Named) optional.get()).stream());
             if (itemstack.is(Items.BOOK) && list.size() > 1) {
                 list.remove(this.random.nextInt(list.size()));
             }

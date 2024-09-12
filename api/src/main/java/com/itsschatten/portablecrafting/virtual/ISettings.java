@@ -12,4 +12,18 @@ public interface ISettings {
      */
     int maximumBrewingStands();
 
+    /**
+     * If we should use furnaces.
+     *
+     * @return The value.
+     */
+    boolean useFurnaces();
+
+    /**
+     * If we should use brewing stands.
+     *
+     * @return The value.
+     */
+    boolean useBrewingStands();
+
 }

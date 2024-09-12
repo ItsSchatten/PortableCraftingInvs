@@ -175,6 +175,7 @@ public class BrewingStand extends Machine implements PropertyHolder<BrewingPrope
         // Update the inventory.
         this.inventory.getViewers().forEach((viewer) -> {
             try {
+                // TODO: Use the BrewingStandView
                 final InventoryView view = viewer.getOpenInventory();
                 view.setProperty(InventoryView.Property.BREW_TIME, brewTime);
                 view.setProperty(InventoryView.Property.FUEL_TIME, (int) Math.round(((double) fuelTime) / ((double) (max / 20))));

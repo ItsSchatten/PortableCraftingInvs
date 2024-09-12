@@ -8,8 +8,12 @@ import com.itsschatten.portablecrafting.virtual.ISettings;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
+import org.bukkit.Server;
 
 import javax.annotation.Untainted;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -245,4 +249,33 @@ public class Settings extends SimpleConfig implements ISettings {
     public int maximumBrewingStands() {
         return getInt("maximum-brewing-stands", 3);
     }
+
+    @Override
+    public boolean useFurnaces() {
+        return USE_VIRTUAL_TILES && USE_FURNACE;
+    }
+
+    @Override
+    public boolean useBrewingStands() {
+        if (PortableCraftingInvsPlugin.isPaperServer()) {
+            try {
+                final Method minecraftVersion = Server.class.getDeclaredMethod("getMinecraftVersion");
+                final String ver = (String) minecraftVersion.invoke(Bukkit.getServer());
+
+                if (!ver.contains("1.21")) {
+                    Utils.logWarning("!!! ATTENTION !!! Due to breaking changes (and the goal to only actively support the latest Minecraft version for paper servers) the brewing stands cannot be used. Please update to a Minecraft 1.21.1 to continue using them.");
+                    return false;
+                }
+            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                Utils.logError(e);
+                Utils.logError("Failed to parse minecraft version!");
+                Utils.logWarning("!!! ATTENTION !!! Due to breaking changes (and the goal to only actively support the latest Minecraft version for paper servers) the brewing stands cannot be used. Please update to a Minecraft 1.21.1 to continue using them.");
+                return false;
+            }
+        }
+
+        return USE_VIRTUAL_TILES && USE_BREWING;
+    }
+
+
 }

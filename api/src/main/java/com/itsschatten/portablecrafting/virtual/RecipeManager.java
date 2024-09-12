@@ -46,19 +46,27 @@ public class RecipeManager {
     /**
      * Registers all fuels (custom included) and registers maps
      */
-    public RecipeManager() {
+    public RecipeManager(ISettings settings) {
         instance = this;
         this.furnaceFuelMap = new HashMap<>();
         this.brewingFuelMap = new HashMap<>();
         this.furnaceRecipeMap = HashMultimap.create();
         this.brewingRecipeMap = new HashMap<>();
 
-        // Load fuels.
-        loadFuels();
+        if (settings.useFurnaces()) {
+            // Load fuels.
+            loadFuels();
+            // Load furnace recipes.
+            loadFurnaceRecipes();
+        }
 
-        // Load brewing and furnace recipes.
-        loadFurnaceRecipes();
-        loadBrewingRecipes();
+        if (settings.useBrewingStands()) {
+            // Brewing Fuel.
+            registerBrewingFuel(BrewingFuel.BLAZE_POWDER);
+
+            // Load brewing  recipes.
+            loadBrewingRecipes();
+        }
 
         if (Utils.isDebugMode()) {
             logNotRegisteredFuels();
@@ -106,9 +114,6 @@ public class RecipeManager {
      * Loads all vanilla fuels.
      */
     public final void loadFuels() {
-        // Brewing Fuel.
-        registerBrewingFuel(BrewingFuel.BLAZE_POWDER);
-
         // Furnace Fuel.
         FurnaceFuel.VANILLA_FUELS.forEach(this::registerFurnaceFuel);
     }

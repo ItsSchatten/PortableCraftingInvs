@@ -71,6 +71,10 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
     @Getter
     private VirtualManager manager;
 
+    public static boolean isPaperServer() {
+        return serverVersion.equals("PAPER");
+    }
+
     @Override
     public void onEnable() { // We all know what this does right? Right!?
         Utils.setInstance(this);
@@ -138,7 +142,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
                 // Check if we are at the iteration.
                 if (iteration != 1) {
-                    //<editor-fold desc="Migration" defaultstate="collapsed">
+                    //<editor-fold desc="Migration" default-state="collapsed">
 
                     // The current date, used to show the backups.
                     // This is built to work on Windows,
@@ -165,7 +169,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                         FileUtil.copy(new File(getDataFolder(), "furnaces.yml"), furn);
 
                         // Furnace and Brewing stand conversion.
-                        // Virtual Tile UUID -> Player
+                        // Virtual Tile UUID → Player
                         final Map<UUID, UUID> virtualToPlayer = new HashMap<>();
 
                         // Furnaces, we remove the types, so we can then convert it to a new type.

@@ -20,6 +20,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.view.FurnaceView;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -304,10 +305,16 @@ public class Furnace extends Machine implements PropertyHolder<FurnaceProperties
         this.inventory.getViewers().forEach((viewer) -> {
             try {
                 final InventoryView view = viewer.getOpenInventory();
-                view.setProperty(InventoryView.Property.COOK_TIME, this.cookTime);
-                view.setProperty(InventoryView.Property.TICKS_FOR_CURRENT_SMELTING, this.totalCookTime);
-                view.setProperty(InventoryView.Property.BURN_TIME, this.fuelTime);
-                view.setProperty(InventoryView.Property.TICKS_FOR_CURRENT_FUEL, this.totalFuelTime);
+                if (view instanceof FurnaceView furnace) {
+                    // TODO: Update this to non-deprecated options.
+                    // furnace.setCookTime(this.cookTime, this.totalCookTime);
+                    // furnace.setBurnTime(this.fuelTime, this.totalFuelTime);
+                    furnace.setProperty(InventoryView.Property.COOK_TIME, this.cookTime);
+                    furnace.setProperty(InventoryView.Property.TICKS_FOR_CURRENT_SMELTING, this.totalCookTime);
+                    furnace.setProperty(InventoryView.Property.BURN_TIME, this.fuelTime);
+                    furnace.setProperty(InventoryView.Property.TICKS_FOR_CURRENT_FUEL, this.totalFuelTime);
+                }
+
             } catch (Exception ignored) {
             }
         });

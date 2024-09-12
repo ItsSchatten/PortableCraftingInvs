@@ -390,7 +390,7 @@ public class FakeContainers_v1_21_R1 extends BaseFakeContainers {
             if (optional.isEmpty()) {
                 return List.of();
             } else {
-                List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(this.random, itemstack, j, ((HolderSet.Named) optional.get()).stream());
+                List<EnchantmentInstance> list = EnchantmentHelper.selectEnchantment(this.random, itemstack, j, optional.get().stream());
                 if (itemstack.is(Items.BOOK) && list.size() > 1) {
                     list.remove(this.random.nextInt(list.size()));
                 }
