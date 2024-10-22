@@ -15,7 +15,7 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/ItsSchatten/ShadowLibs")
         credentials {
-            // These are placed in the .gradle/gradle.properties file.
+            // These are placed in the %user%/.gradle/gradle.properties file.
             // Keep the names in mind as they must match to be used.
             username = project.findProperty("gpr.username") as String
             password = project.findProperty("gpr.token") as String

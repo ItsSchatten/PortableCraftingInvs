@@ -10,7 +10,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.EnchantmentMenu;
 import net.minecraft.world.inventory.MenuType;

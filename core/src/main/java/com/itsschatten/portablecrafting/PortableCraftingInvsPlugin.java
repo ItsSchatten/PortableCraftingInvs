@@ -455,6 +455,35 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         final long then = System.currentTimeMillis();
         Utils.debugLog("Begin loading fake containers.");
 
+        // Switch the server version.
+        switch (serverVersion) {
+            case "v1_21_R2" -> fakeContainers = new FakeContainers_v1_21_R2();
+            case "v1_21_R1" -> fakeContainers = new FakeContainers_v1_21_R1();
+            case "v1_20_R4" -> fakeContainers = new FakeContainers_v1_20_R4();
+            case "v1_20_R3" -> fakeContainers = new FakeContainers_v1_20_R3();
+            case "v1_20_R2" -> fakeContainers = new FakeContainers_v1_20_R2();
+            case "v1_20_R1" -> fakeContainers = new FakeContainers_v1_20_R1();
+            case "v1_19_R3", "v1_19_R2", "v1_19_R1" -> {
+                Utils.logWarning("With the rewrite in 2.0.0 PCI has decided to \"prematurely\" drop support for 1.19.x versions.");
+                Utils.logWarning("I'm sorry if this causes any inconveniences. The plugin will now disable to avoid issues.");
+
+                Utils.logError("Version " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will now disable.");
+                Bukkit.getPluginManager().disablePlugin(this);
+                Utils.debugLog("Failed to register fake containers in " + (System.currentTimeMillis() - then) + "ms.");
+            }
+            // Check whether Paper's plugin loader is available.
+            // If it is, we'll go ahead and use a paper specific FakeContainers instance.
+            // This also bypasses Paper's craft bukkit relocation.
+            // This does also pose an issue that lesser paper versions may not function appropriately.
+            case "PAPER" -> fakeContainers = new FakeContainersPaper();
+            default -> {
+                Utils.logError("Version " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will now disable.");
+                Utils.debugLog("Failed to register fake containers in " + (System.currentTimeMillis() - then) + "ms.");
+                Bukkit.getPluginManager().disablePlugin(this);
+                return true;
+            }
+        }
+
         if (Settings.USE_VIRTUAL_TILES) {
             if (!Settings.USE_FURNACE && !Settings.USE_BLAST_FURNACE && !Settings.USE_SMOKER && !Settings.USE_BREWING) {
                 Utils.logWarning("[ATTENTION] Hey! You seem to have to disabled all virtual tile features, because of this we will not be registering it's API so we don't take up any additional resources.");
@@ -488,34 +517,6 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             }
         } else {
             Utils.debugLog("Not loading virtual tile API.");
-        }
-
-        // Switch the server version.
-        switch (serverVersion) {
-            case "v1_21_R1" -> fakeContainers = new FakeContainers_v1_21_R1();
-            case "v1_20_R4" -> fakeContainers = new FakeContainers_v1_20_R4();
-            case "v1_20_R3" -> fakeContainers = new FakeContainers_v1_20_R3();
-            case "v1_20_R2" -> fakeContainers = new FakeContainers_v1_20_R2();
-            case "v1_20_R1" -> fakeContainers = new FakeContainers_v1_20_R1();
-            case "v1_19_R3", "v1_19_R2", "v1_19_R1" -> {
-                Utils.logWarning("With the rewrite in 2.0.0 PCI has decided to \"prematurely\" drop support for 1.19.x versions.");
-                Utils.logWarning("I'm sorry if this causes any inconveniences. The plugin will now disable to avoid issues.");
-
-                Utils.logError("Version " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will now disable.");
-                Bukkit.getPluginManager().disablePlugin(this);
-                Utils.debugLog("Failed to register fake containers in " + (System.currentTimeMillis() - then) + "ms.");
-            }
-            // Check whether Paper's plugin loader is available.
-            // If it is, we'll go ahead and use a paper specific FakeContainers instance.
-            // This also bypasses Paper's craft bukkit relocation.
-            // This does also pose an issue that lesser paper versions may not function appropriately.
-            case "PAPER" -> fakeContainers = new FakeContainersPaper();
-            default -> {
-                Utils.logError("Version " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will now disable.");
-                Bukkit.getPluginManager().disablePlugin(this);
-                Utils.debugLog("Failed to register fake containers in " + (System.currentTimeMillis() - then) + "ms.");
-                return true;
-            }
         }
 
         // Register PCIFakeContainers for API usages.
