@@ -35,9 +35,12 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * This class uses built in PaperMC API to open normally unusable inventories. This class also relies on the common API of opening furnaces.
+ * This class uses built in PaperMC API to open normally unusable inventories.
+ * This class also relies on the common API for opening furnaces.
  */
 public class FakeContainersPaper extends BaseFakeContainers {
+
+    private final static String SUPPORTED = "1.21.3";
 
     /**
      * {@inheritDoc}
@@ -106,12 +109,13 @@ public class FakeContainersPaper extends BaseFakeContainers {
      */
     @Override
     public boolean openEnchant(Player player, int maxLvl) {
-        if (!Bukkit.getMinecraftVersion().equals("1.21")) {
+        if (!Bukkit.getMinecraftVersion().equals(SUPPORTED)) {
             Utils.logWarning("[WARNING] Opening an enchantment menu with a max level provided may not function and may throw an error.");
             Utils.logWarning("[WARNING] Paper support is built to run exclusively on the latest version.");
+            Utils.logWarning("[WARNING] Bug reports regarding inaccurate enchantments on versions less than " + SUPPORTED + " will be closed.");
         }
 
-        Utils.debugLog("Someone called the openEnchant with the maxLvl parameters. This may break in-between versions.");
+        Utils.debugLog(player.getName() + " called the openEnchant with the maxLvl parameters. This may break in-between versions.");
         try {
             final ServerPlayer ePlayer = ((CraftPlayer) player).getHandle();
             final int containerID = ePlayer.nextContainerCounter();
@@ -259,8 +263,8 @@ public class FakeContainersPaper extends BaseFakeContainers {
 
                 if (!itemstack.isEmpty()) {
                     this.myAccess.execute((world, blockPos) -> {
-                        IdMap<Holder<Enchantment>> registry = world.registryAccess().registryOrThrow(Registries.ENCHANTMENT).asHolderIdMap();
-                        int i = maxLevel;
+                        final IdMap<Holder<Enchantment>> registry = world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).asHolderIdMap();
+                        final int i = maxLevel;
 
                         // Normally, this would be where we check for bookshelves.
                         // However, we instead just use the maximum level.
@@ -342,14 +346,15 @@ public class FakeContainersPaper extends BaseFakeContainers {
             }
 
             // We didn't provide a max level, go ahead and pass it along to the super method.
+            // This will then "assume" it's an actual enchantment table and WILL use surrounding bookshelves.
             super.slotsChanged(inventory);
         }
 
         // Duplicate of getEnchantmentList from EnchantMenu, put here, so we can use it.
-        private @NotNull List<EnchantmentInstance> getEnchantmentList(RegistryAccess registryManager, ItemStack itemstack, int i, int j) {
+        private @NotNull List<EnchantmentInstance> getEnchantmentList(@NotNull RegistryAccess registryManager, ItemStack itemstack, int i, int j) {
             this.random.setSeed(super.getEnchantmentSeed() + i);
 
-            final Optional<HolderSet.Named<Enchantment>> optional = registryManager.registryOrThrow(Registries.ENCHANTMENT).getTag(EnchantmentTags.IN_ENCHANTING_TABLE);
+            final Optional<HolderSet.Named<Enchantment>> optional = registryManager.lookupOrThrow(Registries.ENCHANTMENT).get(EnchantmentTags.IN_ENCHANTING_TABLE);
 
             if (optional.isEmpty()) {
                 return List.of();

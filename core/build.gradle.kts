@@ -35,7 +35,7 @@ dependencies {
     implementation(project(":paper", configuration = "reobf"))
 
     // Spigot.
-    compileOnly("org.spigotmc:spigot-api:1.21.2-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.21.3-R0.1-SNAPSHOT")
 
     compileOnly("org.jetbrains:annotations:24.1.0")
 
