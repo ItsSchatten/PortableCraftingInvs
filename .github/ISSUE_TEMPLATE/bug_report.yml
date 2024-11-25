@@ -12,7 +12,7 @@ body:
     attributes:
       label: "PCI & Server Information"
       description: "If you're unsure run the command \"/pci version\" in-game or in your console."
-      placeholder: "Include both PCI version and your server version here, if you aren't sure running \'/pci version \' in-game will allow you to open a bug report with the information already provided!"
+      placeholder: "Include both PCI version and your server version here, if you aren't sure running '/pci version' in-game will allow you to open a bug report with the information already provided!"
     validations:
       required: true
   - type: textarea
