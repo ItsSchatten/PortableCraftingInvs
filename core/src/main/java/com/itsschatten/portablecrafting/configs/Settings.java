@@ -230,7 +230,9 @@ public class Settings extends SimpleConfig implements ISettings {
         init();
 
         // Update the settings instance for the manager.
-        PortableCraftingInvsPlugin.getInstance().getManager().setSettings(this);
+        if (PortableCraftingInvsPlugin.getInstance().getManager() != null) {
+            PortableCraftingInvsPlugin.getInstance().getManager().setSettings(this);
+        }
 
         if (StorageMedium.valueOf(STORAGE_MEDIUM.toUpperCase()) != CURRENT_MEDIUM) {
             Utils.logError("Hey! Just so you're aware you cannot change the storage medium during runtime, please restart the server for that change to take effect.");

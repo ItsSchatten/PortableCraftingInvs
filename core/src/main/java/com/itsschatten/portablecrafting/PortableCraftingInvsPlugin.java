@@ -457,6 +457,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         // Switch the server version.
         switch (serverVersion) {
+            case "v1_21_R3" -> fakeContainers = new FakeContainers_v1_21_R3();
             case "v1_21_R2" -> fakeContainers = new FakeContainers_v1_21_R2();
             case "v1_21_R1" -> fakeContainers = new FakeContainers_v1_21_R1();
             case "v1_20_R4" -> fakeContainers = new FakeContainers_v1_20_R4();
@@ -530,7 +531,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
     // Also disable the VirtualFurnace API if it is enabled.
     @Override
     public void onDisable() {
-        if (VirtualManager.getInstance().isLoaded())
+        if (VirtualManager.getInstance() != null && VirtualManager.getInstance().isLoaded())
             VirtualManager.getInstance().shutdown();
 
         CraftCommand.setInstance(null);

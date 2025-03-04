@@ -2,7 +2,7 @@ plugins {
     id("java")
 
     id("io.freefair.lombok")
-    id("io.github.goooler.shadow") // This is a continuation of the Shadow plugin see https://github.com/GradleUp/shadow/issues/908
+    id("com.gradleup.shadow") // This is a continuation of the Shadow plugin see https://github.com/GradleUp/shadow/issues/908
 
 }
 

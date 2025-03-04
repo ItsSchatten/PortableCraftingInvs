@@ -6,7 +6,7 @@ plugins {
 
     // Used to obtain the shadowJar task mainly.
     // There is no configuration done in this plugin, it should be handled by pci-conventions
-    id("io.github.goooler.shadow")
+    id("com.gradleup.shadow")
     //id("com.github.johnrengelman.shadow")
 }
 

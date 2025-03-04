@@ -1,7 +1,7 @@
 plugins {
     id("pci-conventions")
 
-    id("io.papermc.paperweight.userdev") version "1.7.3"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.14"
 }
 
 repositories {
@@ -13,5 +13,5 @@ dependencies {
     compileOnly(project(":api"))
 
     // Paper's API.
-    paperweight.paperDevBundle("1.21.3-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
 }

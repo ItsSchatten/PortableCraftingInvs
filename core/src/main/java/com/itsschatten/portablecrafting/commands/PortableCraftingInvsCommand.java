@@ -55,9 +55,8 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
             case "help" -> returnTell(Messages.HELP_MESSAGE);
 
             // TODO: Dump command.
-
             // Dump debug information into a file, so it can be uploaded.
-            case "dump" -> returnTell("&cYou've found a command that doesn't function at all yet!");
+            //case "dump" -> returnTell("&cYou've found a command that doesn't function at all yet!");
 
             case "migrate" -> {
                 if (!commandSender.hasPermission("pci.migrate")) {

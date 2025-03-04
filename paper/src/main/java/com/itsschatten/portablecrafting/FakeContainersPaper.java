@@ -40,7 +40,7 @@ import java.util.Random;
  */
 public class FakeContainersPaper extends BaseFakeContainers {
 
-    private final static String SUPPORTED = "1.21.3";
+    private final static String SUPPORTED = "1.21.4";
 
     /**
      * {@inheritDoc}
