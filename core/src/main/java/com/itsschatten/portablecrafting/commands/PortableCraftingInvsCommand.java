@@ -89,11 +89,9 @@ public class PortableCraftingInvsCommand extends UniversalCommand {
                             &eYou are currently running version &b{ver}&e of PCI.
                             &r
                             &cThis server is running &3{version}&c.
-                            &cThis server is using {medium}&c as its storage solution.
-                            &7(&oUnused due to not utilizing virtual tiles.&7)"""
+                            &cThis server is not using virtual tiles, so it doesn't need a storage solution."""
                             .replace("{ver}", Utils.getInstance().getDescription().getVersion())
-                            .replace("{version}", Bukkit.getVersion())
-                            .replace("{medium}", VirtualManager.getInstance().getStorage().implementationName()));
+                            .replace("{version}", Bukkit.getVersion()));
                 } else {
                     tell("""
                             &7&oPortableCraftingInvs by ItsSchatten&r

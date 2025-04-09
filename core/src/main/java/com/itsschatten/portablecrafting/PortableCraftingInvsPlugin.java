@@ -110,6 +110,14 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                     "Version " + pdf.getVersion(),
                     "Using Minecraft version " + serverVersion);
 
+
+        // Check if we are unsupported. There is no point in continuing if we're unsupported.
+        if (!supported()) {
+            Utils.log("You are running an unsupported version of Minecraft!");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
         // Register one tick after all plugins are loaded.
         // This should effectively allow the registration of "custom" furnace recipes.
         // This will not work for "dynamic" (unloaded during run time) recipes, however.
@@ -432,7 +440,8 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         if (Settings.USE_ENCHANT_TABLE) registerCommands(new EnchantmentTableCommand());
         if (Settings.USE_ENDERCHEST) registerCommands(new EnderChestCommand());
         if (Settings.USE_GRINDSTONE) registerCommands(new GrindStoneCommand());
-        if (Settings.USE_SMITHING_TABLE) registerCommands(new LoomCommand());
+        if (Settings.USE_SMITHING_TABLE) registerCommands(new SmithingCommand());
+        if (Settings.USE_LOOM) registerCommands(new LoomCommand());
         if (Settings.USE_STONE_CUTTER) registerCommands(new StoneCutterCommand());
 
         // Virtual.
@@ -451,12 +460,29 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                     "");
     }
 
-    private boolean registerFakeContainers() {
+    // Method to quickly determine the versions we support.
+    private boolean supported() {
+        return switch (serverVersion) {
+            case "v1_21_R4",
+                 "v1_21_R3",
+                 "v1_21_R2",
+                 "v1_21_R1",
+                 "v1_20_R4",
+                 "v1_20_R3",
+                 "v1_20_R2",
+                 "v1_20_R1",
+                 "PAPER" -> true;
+            default -> false;
+        };
+    }
+
+    private void registerFakeContainers() {
         final long then = System.currentTimeMillis();
         Utils.debugLog("Begin loading fake containers.");
 
         // Switch the server version.
         switch (serverVersion) {
+            case "v1_21_R4" -> fakeContainers = new FakeContainers_v1_21_R4();
             case "v1_21_R3" -> fakeContainers = new FakeContainers_v1_21_R3();
             case "v1_21_R2" -> fakeContainers = new FakeContainers_v1_21_R2();
             case "v1_21_R1" -> fakeContainers = new FakeContainers_v1_21_R1();
@@ -464,14 +490,6 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             case "v1_20_R3" -> fakeContainers = new FakeContainers_v1_20_R3();
             case "v1_20_R2" -> fakeContainers = new FakeContainers_v1_20_R2();
             case "v1_20_R1" -> fakeContainers = new FakeContainers_v1_20_R1();
-            case "v1_19_R3", "v1_19_R2", "v1_19_R1" -> {
-                Utils.logWarning("With the rewrite in 2.0.0 PCI has decided to \"prematurely\" drop support for 1.19.x versions.");
-                Utils.logWarning("I'm sorry if this causes any inconveniences. The plugin will now disable to avoid issues.");
-
-                Utils.logError("Version " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will now disable.");
-                Bukkit.getPluginManager().disablePlugin(this);
-                Utils.debugLog("Failed to register fake containers in " + (System.currentTimeMillis() - then) + "ms.");
-            }
             // Check whether Paper's plugin loader is available.
             // If it is, we'll go ahead and use a paper specific FakeContainers instance.
             // This also bypasses Paper's craft bukkit relocation.
@@ -481,7 +499,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                 Utils.logError("Version " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will now disable.");
                 Utils.debugLog("Failed to register fake containers in " + (System.currentTimeMillis() - then) + "ms.");
                 Bukkit.getPluginManager().disablePlugin(this);
-                return true;
+                return;
             }
         }
 
@@ -523,7 +541,6 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         // Register PCIFakeContainers for API usages.
         Bukkit.getServicesManager().register(PCIAPI.class, fakeContainers, this, ServicePriority.Normal);
         Utils.debugLog("Registered fake containers in " + (System.currentTimeMillis() - then) + "ms.");
-        return false;
     }
 
     // Remove the instance of the plugin, to help prevent memory leaks,
