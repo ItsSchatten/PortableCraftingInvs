@@ -40,7 +40,7 @@ import java.util.Random;
  */
 public class FakeContainersPaper extends BaseFakeContainers {
 
-    private final static String SUPPORTED = "1.21.4";
+    private final static String SUPPORTED = "1.21.5";
 
     /**
      * {@inheritDoc}
@@ -290,7 +290,7 @@ public class FakeContainersPaper extends BaseFakeContainers {
                                 if (!list.isEmpty()) {
                                     EnchantmentInstance weightedRandomEnchantment = list.get(this.random.nextInt(list.size()));
 
-                                    this.levelClue[j] = weightedRandomEnchantment.level;
+                                    this.levelClue[j] = weightedRandomEnchantment.level();
                                 }
                             }
                         }

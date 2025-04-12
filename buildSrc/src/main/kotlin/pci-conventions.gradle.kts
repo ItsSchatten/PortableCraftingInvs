@@ -31,7 +31,7 @@ repositories {
 dependencies {
     // Many utilities used throughout.
     // See github.com/ItsSchatten/ShadowLibs
-    implementation("com.itsschatten.libs:ShadowLibs:1.0.10")
+    implementation("com.itsschatten.libs:shadowlibs:1.0.11")
     // Statistics for the plugin, relocated in the core module.
     implementation("org.bstats:bstats-bukkit:3.0.1")
 

@@ -274,12 +274,14 @@ public class Settings extends SimpleConfig implements ISettings {
                 Utils.logWarning("!!! ATTENTION !!! Due to breaking changes (and the goal to only actively support the latest Minecraft) the brewing stands cannot be used. Please update to a Minecraft 1.21.1 to continue using them.");
                 return false;
             }
+        } else {
+            if (!PortableCraftingInvsPlugin.getServerVersion().contains("v1_21") && !PortableCraftingInvsPlugin.getServerVersion().equalsIgnoreCase("v1_20_R4")) {
+                Utils.logWarning("!!! ATTENTION !!! Due to breaking changes (and the goal to only actively support the latest Minecraft) the brewing stands cannot be used. Please update to a Minecraft 1.21.1 to continue using them.");
+                return false;
+            }
         }
 
-        if (!PortableCraftingInvsPlugin.getServerVersion().contains("v1_21") && !PortableCraftingInvsPlugin.getServerVersion().equalsIgnoreCase("v1_20_R4")) {
-            Utils.logWarning("!!! ATTENTION !!! Due to breaking changes (and the goal to only actively support the latest Minecraft) the brewing stands cannot be used. Please update to a Minecraft 1.21.1 to continue using them.");
-            return false;
-        }
+
 
         return USE_VIRTUAL_TILES && USE_BREWING;
     }
