@@ -31,7 +31,7 @@ public class SmithingCommand extends UniversalCommand {
             checkArgs(1, Messages.NOT_ENOUGH_ARGS);
 
             final Player target = Bukkit.getPlayer(args[0]);
-            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[1]));
+            checkNotNull(target, Messages.PLAYER_DOES_NOT_EXIST.replace("{player}", args[0]));
 
             if (PortableCraftingInvsPlugin.getFakeContainers().openSmithing(target)) {
                 if (Settings.USE_SMITHING_TABLE_SOUNDS) {
