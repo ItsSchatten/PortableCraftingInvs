@@ -222,7 +222,7 @@ public class Furnace extends Machine implements PropertyHolder<FurnaceProperties
         }
 
         // Get the recipe based on the input.
-        final FurnaceRecipe recipe = RecipeManager.getInstance().getRecipe(this.input.getType(), this.getType()).orElse(null);
+        final FurnaceRecipe recipe = RecipeManager.getInstance().getRecipe(this.input, this.getType()).orElse(null);
 
         // Ensure it's a valid recipe.
         if (recipe == null) {

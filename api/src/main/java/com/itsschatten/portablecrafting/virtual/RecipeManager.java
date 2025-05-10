@@ -153,12 +153,12 @@ public class RecipeManager {
                         // Gets the key, something akin to 'nether_brick', the result of the recipe, the ingredient,
                         // the cooking time, the experience, and then we use the type configured above.
                         customRecipe = new FurnaceRecipe(furnaceRecipe.getKey().getKey(), furnaceRecipe.getResult(),
-                                choice.getChoices(), furnaceRecipe.getCookingTime(), furnaceRecipe.getExperience(), type);
+                                choice.getChoices().stream().map(ItemStack::new).toList(), furnaceRecipe.getCookingTime(), furnaceRecipe.getExperience(), type);
                     } else {
                         // Gets the key, something akin to 'nether_brick', the result of the recipe, the ingredient (in this case, the first in the choice list),
                         // the cooking time, the experience, and then we use the type configured above.
                         customRecipe = new FurnaceRecipe(furnaceRecipe.getKey().getKey(), furnaceRecipe.getResult(),
-                                choice.getChoices().getFirst(), furnaceRecipe.getCookingTime(), furnaceRecipe.getExperience(), type);
+                                new ItemStack(choice.getChoices().getFirst()), furnaceRecipe.getCookingTime(), furnaceRecipe.getExperience(), type);
                     }
                 } else {
                     // Not a valid choice, continue.
@@ -335,13 +335,13 @@ public class RecipeManager {
      * @param material The {@link Material} to get the recipe from.
      * @return Returns the recipe if existing, otherwise <code>null</code>.
      */
-    public final @NotNull Optional<FurnaceRecipe> getRecipe(final Material material, final FurnaceType type) {
+    public final @NotNull Optional<FurnaceRecipe> getRecipe(final ItemStack material, final FurnaceType type) {
         return this.furnaceRecipeMap.values().stream().filter((recipe) -> {
             if (recipe.getIngredients() != null) {
                 return recipe.getIngredients().contains(material) && type == recipe.getType();
             }
 
-            return recipe.getIngredient() == material && type == recipe.getType();
+            return recipe.getIngredient().isSimilar(material) && type == recipe.getType();
         }).findAny();
     }
 

@@ -89,6 +89,11 @@ public class FurnaceFuel extends Fuel {
     public static final FurnaceFuel WOODEN_SHOVEL = get("wooden_shovel", Material.WOODEN_SHOVEL, 200);
     public static final FurnaceFuel WOODEN_SWORD = get("wooden_sword", Material.WOODEN_SWORD, 200);
 
+    // 1.21.5
+    public static FurnaceFuel SHORT_DRY_GRASS;
+    public static FurnaceFuel TALL_DRY_GRASS;
+    public static FurnaceFuel LEAF_LITTER;
+
     // Add all fuel to the VANILLA fuel, this also maintains the alphabetical formatting.
     //<editor-fold defaultstate="collapsed" desc="Static initializations to the Vanilla fuels list.">
     static {
@@ -156,6 +161,23 @@ public class FurnaceFuel extends Fuel {
         VANILLA_FUELS.add(WOODEN_PICKAXE);
         VANILLA_FUELS.add(WOODEN_SHOVEL);
         VANILLA_FUELS.add(WOODEN_SWORD);
+
+        // 1.21.5
+        try {
+            SHORT_DRY_GRASS = get("short_dry_grass", Material.SHORT_DRY_GRASS, 100);
+            TALL_DRY_GRASS = get("tall_dry_grass", Material.TALL_DRY_GRASS, 100);
+            LEAF_LITTER = get("leaf_litter", Material.LEAF_LITTER, 100);
+
+            VANILLA_FUELS.add(SHORT_DRY_GRASS);
+            VANILLA_FUELS.add(TALL_DRY_GRASS);
+            VANILLA_FUELS.add(LEAF_LITTER);
+        } catch (Throwable e) {
+            if (Utils.isDebugMode()) {
+                Utils.logError(e);
+            }
+            Utils.debugLog("Failed to register 1.21.5 materials: SHORT_DRY_GRASS, TALL_DRY_GRASS, LEAF_LITTER!");
+        }
+
     }
     //</editor-fold>
 

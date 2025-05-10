@@ -13,6 +13,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import org.bukkit.Bukkit;
@@ -318,7 +319,7 @@ public class FakeContainers_v1_21_R3 extends BaseFakeContainers {
                     return;
                 }
                 this.myAccess.execute((world, blockPos) -> {
-                    IdMap<Holder<net.minecraft.world.item.enchantment.Enchantment>> registry = world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).asHolderIdMap();
+                    IdMap<Holder<Enchantment>> registry = world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).asHolderIdMap();
                     int i = maxLevel;
                     int j;
                     this.random.setSeed(this.enchantSeed.get());
@@ -386,7 +387,7 @@ public class FakeContainers_v1_21_R3 extends BaseFakeContainers {
 
         private List<EnchantmentInstance> getEnchantmentList(@NotNull RegistryAccess registry, ItemStack itemstack, int i, int j) {
             this.random.setSeed((this.enchantSeed.get() + i));
-            Optional<HolderSet.Named<net.minecraft.world.item.enchantment.Enchantment>> optional = registry.lookupOrThrow(Registries.ENCHANTMENT).get(EnchantmentTags.IN_ENCHANTING_TABLE);
+            Optional<HolderSet.Named<Enchantment>> optional = registry.lookupOrThrow(Registries.ENCHANTMENT).get(EnchantmentTags.IN_ENCHANTING_TABLE);
             if (optional.isEmpty()) {
                 return List.of();
             } else {

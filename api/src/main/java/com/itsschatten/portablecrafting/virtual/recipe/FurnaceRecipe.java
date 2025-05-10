@@ -20,12 +20,12 @@ public class FurnaceRecipe extends Recipe {
     /**
      * The ingredient.
      */
-    private final Material ingredient;
+    private final ItemStack ingredient;
 
     /**
      * A {@link Tag} for the ingredients.
      */
-    private final List<Material> ingredients;
+    private final List<ItemStack> ingredients;
 
     /**
      * How long it takes for this recipe to cook.
@@ -52,7 +52,7 @@ public class FurnaceRecipe extends Recipe {
      * @param experience  The amount of experience given for this recipe.
      * @param type        The type of furnace this recipe can be used in, all recipes inherit the {@link FurnaceType#FURNACE} type.
      */
-    public FurnaceRecipe(String name, @NotNull ItemStack result, Material ingredient, List<Material> ingredients, int cookTime, float experience, FurnaceType type) {
+    public FurnaceRecipe(String name, @NotNull ItemStack result, ItemStack ingredient, List<ItemStack> ingredients, int cookTime, float experience, FurnaceType type) {
         super(Utils.getKey("furnace_recipe_" + name), result);
         this.ingredient = ingredient;
         this.ingredients = ingredients == null ? null : List.copyOf(ingredients);
@@ -71,23 +71,10 @@ public class FurnaceRecipe extends Recipe {
      * @param experience The amount of experience given for this recipe.
      * @param type       The type of furnace this recipe can be used in, all recipes inherit the {@link FurnaceType#FURNACE} type.
      */
-    public FurnaceRecipe(String name, @NotNull Material result, Material ingredient, int cookTime, float experience, FurnaceType type) {
+    public FurnaceRecipe(String name, @NotNull ItemStack result, ItemStack ingredient, int cookTime, float experience, FurnaceType type) {
         this(name, new ItemStack(result), ingredient, null, cookTime, experience, type);
     }
 
-    /**
-     * "Creates" a new FurnaceRecipe.
-     *
-     * @param name       The name of this recipe, used in the {@link org.bukkit.NamespacedKey}
-     * @param result     The result of this recipe, as an {@link ItemStack}.
-     * @param ingredient The ingredient for this recipe.
-     * @param cookTime   How long this recipe takes to smelt.
-     * @param experience The amount of experience given for this recipe.
-     * @param type       The type of furnace this recipe can be used in, all recipes inherit the {@link FurnaceType#FURNACE} type.
-     */
-    public FurnaceRecipe(String name, @NotNull ItemStack result, Material ingredient, int cookTime, float experience, FurnaceType type) {
-        this(name, result, ingredient, null, cookTime, experience, type);
-    }
 
     /**
      * "Creates" a new FurnaceRecipe.
@@ -99,7 +86,7 @@ public class FurnaceRecipe extends Recipe {
      * @param experience  The amount of experience given for this recipe.
      * @param type        The type of furnace this recipe can be used in, all recipes inherit the {@link FurnaceType#FURNACE} type.
      */
-    public FurnaceRecipe(String name, @NotNull Material result, List<Material> ingredients, int cookTime, float experience, FurnaceType type) {
+    public FurnaceRecipe(String name, @NotNull Material result, List<ItemStack> ingredients, int cookTime, float experience, FurnaceType type) {
         this(name, new ItemStack(result), null, ingredients, cookTime, experience, type);
     }
 
@@ -113,7 +100,7 @@ public class FurnaceRecipe extends Recipe {
      * @param experience  The amount of experience given for this recipe.
      * @param type        The type of furnace this recipe can be used in, all recipes inherit the {@link FurnaceType#FURNACE} type.
      */
-    public FurnaceRecipe(String name, @NotNull ItemStack result, List<Material> ingredients, int cookTime, float experience, FurnaceType type) {
+    public FurnaceRecipe(String name, @NotNull ItemStack result, List<ItemStack> ingredients, int cookTime, float experience, FurnaceType type) {
         this(name, result, null, ingredients, cookTime, experience, type);
     }
 
