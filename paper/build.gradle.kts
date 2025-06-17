@@ -13,5 +13,5 @@ dependencies {
     compileOnly(project(":api"))
 
     // Paper's API.
-    paperweight.paperDevBundle("1.21.5-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.6-R0.1-SNAPSHOT")
 }

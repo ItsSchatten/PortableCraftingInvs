@@ -482,6 +482,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         // Switch the server version.
         switch (serverVersion) {
+            case "v1_21_R5" -> fakeContainers = new FakeContainers_v1_21_R5();
             case "v1_21_R4" -> fakeContainers = new FakeContainers_v1_21_R4();
             case "v1_21_R3" -> fakeContainers = new FakeContainers_v1_21_R3();
             case "v1_21_R2" -> fakeContainers = new FakeContainers_v1_21_R2();
