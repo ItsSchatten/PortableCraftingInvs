@@ -72,6 +72,7 @@ tasks {
             // We provide a classifier here because it's an in-development version.
             // Not strictly required, but helps me in terms of file organization.
             archiveClassifier.set("dev")
+            archiveVersion.set("")
 
             if (project.property("dev-path").toString().isNotBlank()) {
                 destinationDirectory.set(file(System.getProperty("user.home") + File.separator + project.property("dev-path")))
