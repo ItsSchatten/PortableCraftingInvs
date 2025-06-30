@@ -316,6 +316,7 @@ public class Furnace extends Machine implements PropertyHolder<FurnaceProperties
                 }
 
             } catch (Exception ignored) {
+            } catch (NoClassDefFoundError ignored) { // TODO: Remove.
             }
         });
 
