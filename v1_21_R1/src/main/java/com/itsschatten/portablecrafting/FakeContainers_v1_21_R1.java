@@ -168,6 +168,7 @@ public class FakeContainers_v1_21_R1 extends BaseFakeContainers {
         final EnchantingOpenEvent event = new EnchantingOpenEvent(player);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCanceled()) {
+            player.openInventory(fakeEnchant.getBukkitView());
             ePlayer.containerMenu = ePlayer.inventoryMenu;
             ePlayer.connection.send(new ClientboundOpenScreenPacket(containerID, MenuType.ENCHANTMENT, fakeEnchant.getTitle()));
             ePlayer.containerMenu = fakeEnchant;

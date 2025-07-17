@@ -134,6 +134,10 @@ database:
 # The virtual tile API will not be registered if all furnaces and brewing stands are disabled.
 use-virtual-tiles: true
 
+# If legacy limitation checks should be used.
+# If you aren't sure what this is, I probably wouldn't use it.
+old-limitation-checks: false
+
 # Both below options can be increased with a permission pci.<brewing|furnace>.limit.<number>
 # (There is a hard limit of 100.)
 

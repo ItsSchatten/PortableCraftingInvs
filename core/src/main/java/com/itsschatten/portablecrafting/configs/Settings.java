@@ -38,7 +38,8 @@ public class Settings extends SimpleConfig implements ISettings {
             USE_RANDOM_SOUND_PITCH,
             USE_SIGNS,
             USE_VIRTUAL_TILES,
-            REQUIRE_SIGHT_CLICK_BREAK_SIGN,
+            REQUIRE_SNEAK_CLICK_BREAK_SIGN,
+            OLD_LIMITATION_CHECKS,
 
     // Feature booleans.
     USE_ENDERCHEST,
@@ -157,6 +158,7 @@ public class Settings extends SimpleConfig implements ISettings {
         PROPERTIES = getConfigurationSection("database.pool-config.properties").getValues(true);
 
         USE_VIRTUAL_TILES = getBoolean("use-virtual-tiles");
+        OLD_LIMITATION_CHECKS = getBoolean("old-limitation-checks");
         USE_FURNACE = getBoolean("use-furnace");
         USE_BLAST_FURNACE = getBoolean("use-blast-furnace");
         USE_SMOKER = getBoolean("use-smoker");
@@ -206,7 +208,7 @@ public class Settings extends SimpleConfig implements ISettings {
 
         /* Sign Stuff */
         USE_SIGNS = getBoolean("use-signs");
-        REQUIRE_SIGHT_CLICK_BREAK_SIGN = getBoolean("require-shift-click-to-break-signs");
+        REQUIRE_SNEAK_CLICK_BREAK_SIGN = getBoolean("require-shift-click-to-break-signs");
 
         USE_ANVIL_SIGN = getBoolean("use-anvil-sign");
         USE_BLAST_FURNACE_SIGN = getBoolean("use-blast-furnace-sign");
@@ -284,6 +286,11 @@ public class Settings extends SimpleConfig implements ISettings {
 
 
         return USE_VIRTUAL_TILES && USE_BREWING;
+    }
+
+    @Override
+    public boolean oldLimitationChecks() {
+        return OLD_LIMITATION_CHECKS;
     }
 
 

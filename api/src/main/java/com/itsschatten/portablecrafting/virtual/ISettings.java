@@ -26,4 +26,11 @@ public interface ISettings {
      */
     boolean useBrewingStands();
 
+    /**
+     * If we should use the old limitation checks.
+     *
+     * @return The value.
+     */
+    boolean oldLimitationChecks();
+
 }

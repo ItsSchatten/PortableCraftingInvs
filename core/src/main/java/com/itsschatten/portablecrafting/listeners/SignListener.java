@@ -201,7 +201,7 @@ public class SignListener implements Listener {
                 return;
             final SignsConfig signsConfig = SignsConfig.getInstance();
 
-            if (Settings.REQUIRE_SIGHT_CLICK_BREAK_SIGN && (event.getAction() == Action.LEFT_CLICK_BLOCK && event.getPlayer().isSneaking())) {
+            if (Settings.REQUIRE_SNEAK_CLICK_BREAK_SIGN && (event.getAction() == Action.LEFT_CLICK_BLOCK && event.getPlayer().isSneaking())) {
                 if (!event.getPlayer().hasPermission(Permissions.SIGN_CREATE.getPermission())) {
                     return;
                 }
@@ -221,7 +221,7 @@ public class SignListener implements Listener {
                 return;
             }
 
-            if (Settings.REQUIRE_SIGHT_CLICK_BREAK_SIGN && event.getAction() == Action.LEFT_CLICK_BLOCK && event.getPlayer().hasPermission(Permissions.SIGN_CREATE.getPermission())) {
+            if (Settings.REQUIRE_SNEAK_CLICK_BREAK_SIGN && event.getAction() == Action.LEFT_CLICK_BLOCK && event.getPlayer().hasPermission(Permissions.SIGN_CREATE.getPermission())) {
                 Utils.tell(event.getPlayer(), Messages.MUST_SHIFT_CLICK_TO_BREAK_SIGN);
                 event.setCancelled(true);
             }

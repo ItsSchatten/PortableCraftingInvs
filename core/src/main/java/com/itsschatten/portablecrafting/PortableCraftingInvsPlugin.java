@@ -463,7 +463,8 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
     // Method to quickly determine the versions we support.
     private boolean supported() {
         return switch (serverVersion) {
-            case "v1_21_R4",
+            case "v1_21_R5",
+                 "v1_21_R4",
                  "v1_21_R3",
                  "v1_21_R2",
                  "v1_21_R1",

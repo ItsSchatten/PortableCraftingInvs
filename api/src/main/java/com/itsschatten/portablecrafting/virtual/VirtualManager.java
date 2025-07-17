@@ -32,6 +32,12 @@ import java.util.UUID;
 @Getter
 public class VirtualManager {
 
+    /**
+     * The instance of this class.
+     */
+    @Getter
+    private static VirtualManager instance;
+
     // Config serialization registration.
     static {
         ConfigurationSerialization.registerClass(Furnace.class, "furnace");
@@ -47,27 +53,17 @@ public class VirtualManager {
      */
     private final Storage storage;
 
-    /**
-     * Settings to use in the API.
-     */
-    @Setter // Required to ensure valid reload data.
-    private ISettings settings;
-
     // All open furnaces, regardless of type.
     private final Map<UUID, Furnace> openFurnaces;
+
     // All open brewing stands.
     private final Map<UUID, BrewingStand> openBrewingStands;
 
     // All open furnaces, regardless of type.
     private final Map<Inventory, Furnace> inventoryFurnaceMap;
+
     // All open brewing stands.
     private final Map<Inventory, BrewingStand> inventoryBrewingStandMap;
-
-    /**
-     * The instance of this class.
-     */
-    @Getter
-    private static VirtualManager instance;
 
     /**
      * If this class has been called.
@@ -78,6 +74,12 @@ public class VirtualManager {
      * The ticking task for this instance.
      */
     private final TickTask tickTask;
+
+    /**
+     * Settings to use in the API.
+     */
+    @Setter // Required to ensure valid reload data.
+    private ISettings settings;
 
     /**
      * Registers an instance, sets that it has been loaded, and registers required managers and classes.
@@ -241,12 +243,17 @@ public class VirtualManager {
      */
     @Contract("_, _, _ -> new")
     public final @Nullable Furnace getFurnace(final FurnaceType type, final Player player, final int number) {
+        if (!settings.oldLimitationChecks()) {
+            if (checkAtMax(storage.getPlayerFurnaceCount(player, type), settings.maximumFurnaces(), number, player.hasPermission("pci.furnace.limit.bypass")))
+                return null;
+        }
+
         final UUID uuid = storage.getFurnaceUUIDFromID(player, number, type);
         if (uuid != null) {
             return storage.loadFurnace(player, uuid);
         }
 
-        if (!player.hasPermission("pci.furnace.limit.bypass") && storage.getPlayerFurnaceCount(player, type) >= settings.maximumFurnaces()) {
+        if (settings.oldLimitationChecks() && (!player.hasPermission("pci.furnace.limit.bypass") && storage.getPlayerFurnaceCount(player, type) >= settings.maximumFurnaces())) {
             return null;
         }
 
@@ -362,12 +369,17 @@ public class VirtualManager {
      */
     @Contract(pure = true)
     public final @Nullable BrewingStand getBrewingStand(final Player player, final int number) {
+        if (!settings.oldLimitationChecks()) {
+            if (checkAtMax(storage.getPlayerBrewingStandCount(player),settings.maximumBrewingStands(), number, player.hasPermission("pci.brewing.limit.bypass")))
+                return null;
+        }
+
         final UUID uuid = storage.getBrewingStandUUIDFromID(player, number);
         if (uuid != null) {
             return storage.loadBrewingStand(player, uuid);
         }
 
-        if (!player.hasPermission("pci.brewing.limit.bypass") && storage.getPlayerBrewingStandCount(player) >= settings.maximumBrewingStands()) {
+        if (settings.oldLimitationChecks() && (!player.hasPermission("pci.brewing.limit.bypass") && storage.getPlayerBrewingStandCount(player) >= settings.maximumBrewingStands())) {
             return null;
         }
 
@@ -422,4 +434,24 @@ public class VirtualManager {
     public final int allUniquePlayers() {
         return storage.getUniquePlayers();
     }
+
+    /**
+     * Check if a player's number of virtual tiles is at the maximum, or if the player is seeking an old furnace that is higher than the current limit.
+     *
+     * @param count      The amount of tiles.
+     * @param limitation The limit.
+     * @param want       The wanted tile id.
+     * @param bypass     Allow if true.
+     * @return Returns {@code false} if {@code bypass} is {@code true} or if the {@code want >= limitation} and the {@code count >= limitation}
+     */
+    private boolean checkAtMax(final int count, final int limitation, final int want, final boolean bypass) {
+        if (bypass) return false;
+
+        if (want < count) {
+            return want >= limitation;
+        }
+
+        return count >= limitation;
+    }
+
 }
