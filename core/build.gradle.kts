@@ -33,12 +33,14 @@ dependencies {
     implementation(project(":v1_21_R3", configuration = "remap"))
     implementation(project(":v1_21_R4", configuration = "remap"))
     implementation(project(":v1_21_R5", configuration = "remap"))
+    implementation(project(":v1_21_R6", configuration = "remap"))
 
     // This doesn't require a direct remapping, it should be remapped already.
     implementation(project(":paper", configuration = "reobf"))
+    implementation(project(":paper-old", configuration = "reobf"))
 
     // Spigot.
-    compileOnly("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
 
     compileOnly("org.jetbrains:annotations:24.1.0")
 

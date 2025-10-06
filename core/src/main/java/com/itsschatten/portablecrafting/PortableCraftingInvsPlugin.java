@@ -67,6 +67,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
     @Getter
     private static String serverVersion;
+    private String minecraftVersion;
 
     @Getter
     private VirtualManager manager;
@@ -91,6 +92,9 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             serverVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
         }
 
+        final String ver = Bukkit.getVersion();
+        this.minecraftVersion = ver.substring(ver.indexOf("MC: ") + 4, ver.lastIndexOf(')'));
+
         // Register configuration files.
         Settings.init();
         Messages.init();
@@ -108,7 +112,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
                     " ",
                     "Developed by " + String.join(",", pdf.getAuthors()),
                     "Version " + pdf.getVersion(),
-                    "Using Minecraft version " + serverVersion);
+                    "Using Minecraft version " + serverVersion + " (MC: " + minecraftVersion + ")");
 
 
         // Check if we are unsupported. There is no point in continuing if we're unsupported.
@@ -463,7 +467,8 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
     // Method to quickly determine the versions we support.
     private boolean supported() {
         return switch (serverVersion) {
-            case "v1_21_R5",
+            case "v1_21_R6",
+                 "v1_21_R5",
                  "v1_21_R4",
                  "v1_21_R3",
                  "v1_21_R2",
@@ -483,6 +488,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         // Switch the server version.
         switch (serverVersion) {
+            case "v1_21_R6" -> fakeContainers = new FakeContainers_v1_21_R6();
             case "v1_21_R5" -> fakeContainers = new FakeContainers_v1_21_R5();
             case "v1_21_R4" -> fakeContainers = new FakeContainers_v1_21_R4();
             case "v1_21_R3" -> fakeContainers = new FakeContainers_v1_21_R3();
@@ -496,7 +502,13 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             // If it is, we'll go ahead and use a paper specific FakeContainers instance.
             // This also bypasses Paper's craft bukkit relocation.
             // This does also pose an issue that lesser paper versions may not function appropriately.
-            case "PAPER" -> fakeContainers = new FakeContainersPaper();
+            case "PAPER" -> {
+                if (minecraftVersion.equalsIgnoreCase("1.21.9")) {
+                    fakeContainers = new FakeContainersPaper();
+                } else {
+                    fakeContainers = new FakeContainersPaperOld();
+                }
+            }
             default -> {
                 Utils.logError("Version " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will now disable.");
                 Utils.debugLog("Failed to register fake containers in " + (System.currentTimeMillis() - then) + "ms.");

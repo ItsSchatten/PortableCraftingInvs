@@ -38,9 +38,9 @@ import java.util.Random;
  * This class uses built in PaperMC API to open normally unusable inventories.
  * This class also relies on the common API for opening furnaces.
  */
-public class FakeContainersPaper extends BaseFakeContainers {
+public class FakeContainersPaperOld extends BaseFakeContainers {
 
-    private final static String SUPPORTED = "1.21.9";
+    private final static String SUPPORTED = "1.21.7";
 
     /**
      * {@inheritDoc}

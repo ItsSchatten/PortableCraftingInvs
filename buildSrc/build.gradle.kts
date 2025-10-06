@@ -14,10 +14,10 @@ repositories {
 
 dependencies {
     // Automatic lombok and delombok configuration
-    implementation("io.freefair.gradle:lombok-plugin:8.6")
+    implementation("io.freefair.gradle:lombok-plugin:9.0.0")
 
     // Shade libraries into one "UberJar"
-    implementation("com.gradleup.shadow:com.gradleup.shadow.gradle.plugin:8.3.6")
+    implementation("com.gradleup.shadow:com.gradleup.shadow.gradle.plugin:9.2.2")
     //implementation("com.github.johnrengelman:shadow:8.1.1")
 
     // NMS remapper.
