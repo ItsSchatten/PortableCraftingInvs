@@ -336,12 +336,12 @@ public class RecipeManager {
      * @return Returns the recipe if existing, otherwise <code>null</code>.
      */
     public final @NotNull Optional<FurnaceRecipe> getRecipe(final ItemStack material, final FurnaceType type) {
-        return this.furnaceRecipeMap.values().stream().filter((recipe) -> {
+        return this.furnaceRecipeMap.values().stream().filter(Objects::nonNull).filter((recipe) -> {
             if (recipe.getIngredients() != null) {
-                return recipe.getIngredients().contains(material) && type == recipe.getType();
+                return recipe.getIngredients().stream().anyMatch(ing -> (!ing.hasItemMeta() && ing.getType() == material.getType()) || ing.isSimilar(material)) && type == recipe.getType();
             }
 
-            return recipe.getIngredient().isSimilar(material) && type == recipe.getType();
+            return ((!recipe.getIngredient().hasItemMeta() && recipe.getIngredient().getType() == material.getType()) || recipe.getIngredient().isSimilar(material)) && type == recipe.getType();
         }).findAny();
     }
 
