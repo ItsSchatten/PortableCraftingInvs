@@ -9,9 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 /**
@@ -93,6 +91,7 @@ public class FurnaceFuel extends Fuel {
     public static FurnaceFuel SHORT_DRY_GRASS;
     public static FurnaceFuel TALL_DRY_GRASS;
     public static FurnaceFuel LEAF_LITTER;
+    public static FurnaceFuel ANY_SHELF;
 
     // Add all fuel to the VANILLA fuel, this also maintains the alphabetical formatting.
     //<editor-fold defaultstate="collapsed" desc="Static initializations to the Vanilla fuels list.">
@@ -176,6 +175,17 @@ public class FurnaceFuel extends Fuel {
                 Utils.logError(e);
             }
             Utils.debugLog("Failed to register 1.21.5 materials: SHORT_DRY_GRASS, TALL_DRY_GRASS, LEAF_LITTER!");
+        }
+
+        // 1.21.10
+        try {
+            ANY_SHELF = get("any_shelf", Tag.WOODEN_SHELVES, 300);
+            VANILLA_FUELS.add(ANY_SHELF);
+        } catch (Throwable e) {
+            if (Utils.isDebugMode()) {
+                Utils.logError(e);
+            }
+            Utils.debugLog("Failed to register 1.21.10 materials: ANY_SHELF!");
         }
 
     }

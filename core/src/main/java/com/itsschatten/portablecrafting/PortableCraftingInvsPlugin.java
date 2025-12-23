@@ -467,7 +467,8 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
     // Method to quickly determine the versions we support.
     private boolean supported() {
         return switch (serverVersion) {
-            case "v1_21_R6",
+            case "v1_21_R7",
+                 "v1_21_R6",
                  "v1_21_R5",
                  "v1_21_R4",
                  "v1_21_R3",
@@ -488,6 +489,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         // Switch the server version.
         switch (serverVersion) {
+            case "v1_21_R7" -> fakeContainers = new FakeContainers_v1_21_R7();
             case "v1_21_R6" -> fakeContainers = new FakeContainers_v1_21_R6();
             case "v1_21_R5" -> fakeContainers = new FakeContainers_v1_21_R5();
             case "v1_21_R4" -> fakeContainers = new FakeContainers_v1_21_R4();
@@ -503,7 +505,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             // This also bypasses Paper's craft bukkit relocation.
             // This does also pose an issue that lesser paper versions may not function appropriately.
             case "PAPER" -> {
-                if (minecraftVersion.equalsIgnoreCase("1.21.9")) {
+                if (minecraftVersion.equalsIgnoreCase("1.21.11")) {
                     fakeContainers = new FakeContainersPaper();
                 } else {
                     fakeContainers = new FakeContainersPaperOld();

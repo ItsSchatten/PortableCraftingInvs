@@ -34,6 +34,7 @@ dependencies {
     implementation(project(":v1_21_R4", configuration = "remap"))
     implementation(project(":v1_21_R5", configuration = "remap"))
     implementation(project(":v1_21_R6", configuration = "remap"))
+    implementation(project(":v1_21_R7", configuration = "remap"))
 
     // This doesn't require a direct remapping, it should be remapped already.
     implementation(project(":paper", configuration = "reobf"))
