@@ -199,33 +199,33 @@ public class RecipeManager {
         //<editor-fold desc="Functional Potions" defaultstate="collapsed">
         // Speed
         recipes.addAll(BrewingRecipe.getAllRecipes("swiftness", Material.SUGAR, PotionType.AWKWARD, PotionType.SWIFTNESS));
-        recipes.addAll(BrewingRecipe.getAllRecipes("swiftness_strong", Material.GLOWSTONE, PotionType.SWIFTNESS, PotionType.STRONG_SWIFTNESS));
+        recipes.addAll(BrewingRecipe.getAllRecipes("swiftness_strong", Material.GLOWSTONE_DUST, PotionType.SWIFTNESS, PotionType.STRONG_SWIFTNESS));
         recipes.addAll(BrewingRecipe.getAllRecipes("swiftness_long", Material.REDSTONE, PotionType.SWIFTNESS, PotionType.LONG_SWIFTNESS));
 
         // Slowness
         recipes.addAll(BrewingRecipe.getAllRecipes("slowness", Material.FERMENTED_SPIDER_EYE, PotionType.SWIFTNESS, PotionType.SLOWNESS));
-        recipes.addAll(BrewingRecipe.getAllRecipes("slowness_strong", Material.GLOWSTONE, PotionType.SLOWNESS, PotionType.STRONG_SLOWNESS));
+        recipes.addAll(BrewingRecipe.getAllRecipes("slowness_strong", Material.GLOWSTONE_DUST, PotionType.SLOWNESS, PotionType.STRONG_SLOWNESS));
         recipes.addAll(BrewingRecipe.getAllRecipes("slowness_long", Material.REDSTONE, PotionType.SLOWNESS, PotionType.LONG_SLOWNESS));
         recipes.addAll(BrewingRecipe.getAllRecipes("slowness_long_2", Material.FERMENTED_SPIDER_EYE, PotionType.LONG_SWIFTNESS, PotionType.LONG_SLOWNESS));
         recipes.addAll(BrewingRecipe.getAllRecipes("slowness_long_3", Material.FERMENTED_SPIDER_EYE, PotionType.LONG_LEAPING, PotionType.LONG_SLOWNESS));
 
         // Jump
         recipes.addAll(BrewingRecipe.getAllRecipes("jump_boost", Material.RABBIT_FOOT, PotionType.AWKWARD, PotionType.LEAPING));
-        recipes.addAll(BrewingRecipe.getAllRecipes("jump_boost_strong", Material.GLOWSTONE, PotionType.LEAPING, PotionType.STRONG_LEAPING));
+        recipes.addAll(BrewingRecipe.getAllRecipes("jump_boost_strong", Material.GLOWSTONE_DUST, PotionType.LEAPING, PotionType.STRONG_LEAPING));
         recipes.addAll(BrewingRecipe.getAllRecipes("jump_boost_long", Material.REDSTONE, PotionType.LEAPING, PotionType.LONG_LEAPING));
 
         // Strength
         recipes.addAll(BrewingRecipe.getAllRecipes("strength", Material.BLAZE_POWDER, PotionType.AWKWARD, PotionType.STRENGTH));
-        recipes.addAll(BrewingRecipe.getAllRecipes("strength_strong", Material.GLOWSTONE, PotionType.STRENGTH, PotionType.STRONG_STRENGTH));
+        recipes.addAll(BrewingRecipe.getAllRecipes("strength_strong", Material.GLOWSTONE_DUST, PotionType.STRENGTH, PotionType.STRONG_STRENGTH));
         recipes.addAll(BrewingRecipe.getAllRecipes("strength_long", Material.REDSTONE, PotionType.STRENGTH, PotionType.LONG_STRENGTH));
 
         // Healing
         recipes.addAll(BrewingRecipe.getAllRecipes("healing", Material.GLISTERING_MELON_SLICE, PotionType.AWKWARD, PotionType.HEALING));
-        recipes.addAll(BrewingRecipe.getAllRecipes("healing_strong", Material.GLOWSTONE, PotionType.HEALING, PotionType.STRONG_HEALING));
+        recipes.addAll(BrewingRecipe.getAllRecipes("healing_strong", Material.GLOWSTONE_DUST, PotionType.HEALING, PotionType.STRONG_HEALING));
 
         // Poison
         recipes.addAll(BrewingRecipe.getAllRecipes("poison", Material.SPIDER_EYE, PotionType.AWKWARD, PotionType.POISON));
-        recipes.addAll(BrewingRecipe.getAllRecipes("poison_strong", Material.GLOWSTONE, PotionType.POISON, PotionType.STRONG_POISON));
+        recipes.addAll(BrewingRecipe.getAllRecipes("poison_strong", Material.GLOWSTONE_DUST, PotionType.POISON, PotionType.STRONG_POISON));
         recipes.addAll(BrewingRecipe.getAllRecipes("poison_long", Material.REDSTONE, PotionType.POISON, PotionType.LONG_POISON));
 
         // Harming
@@ -233,33 +233,33 @@ public class RecipeManager {
         recipes.addAll(BrewingRecipe.getAllRecipes("harming_2", Material.FERMENTED_SPIDER_EYE, PotionType.HEALING, PotionType.HARMING));
         recipes.addAll(BrewingRecipe.getAllRecipes("harming_strong", Material.FERMENTED_SPIDER_EYE, PotionType.STRONG_POISON, PotionType.STRONG_HARMING));
         recipes.addAll(BrewingRecipe.getAllRecipes("harming_strong_2", Material.FERMENTED_SPIDER_EYE, PotionType.STRONG_HEALING, PotionType.STRONG_HARMING));
-        recipes.addAll(BrewingRecipe.getAllRecipes("harming_strong_3", Material.GLOWSTONE, PotionType.HARMING, PotionType.STRONG_HARMING));
+        recipes.addAll(BrewingRecipe.getAllRecipes("harming_strong_3", Material.GLOWSTONE_DUST, PotionType.HARMING, PotionType.STRONG_HARMING));
 
         // Regen
         recipes.addAll(BrewingRecipe.getAllRecipes("regeneration", Material.GHAST_TEAR, PotionType.AWKWARD, PotionType.REGENERATION));
-        recipes.addAll(BrewingRecipe.getAllRecipes("regeneration_strong", Material.GLOWSTONE, PotionType.REGENERATION, PotionType.STRONG_REGENERATION));
+        recipes.addAll(BrewingRecipe.getAllRecipes("regeneration_strong", Material.GLOWSTONE_DUST, PotionType.REGENERATION, PotionType.STRONG_REGENERATION));
         recipes.addAll(BrewingRecipe.getAllRecipes("regeneration_long", Material.REDSTONE, PotionType.AWKWARD, PotionType.LONG_REGENERATION));
 
         // Fire Resist
         recipes.addAll(BrewingRecipe.getAllRecipes("fire_resistance", Material.MAGMA_CREAM, PotionType.AWKWARD, PotionType.FIRE_RESISTANCE));
-        recipes.addAll(BrewingRecipe.getAllRecipes("fire_resistance_long", Material.GLOWSTONE, PotionType.FIRE_RESISTANCE, PotionType.LONG_FIRE_RESISTANCE));
+        recipes.addAll(BrewingRecipe.getAllRecipes("fire_resistance_long", Material.GLOWSTONE_DUST, PotionType.FIRE_RESISTANCE, PotionType.LONG_FIRE_RESISTANCE));
 
         // Water Breathing
         recipes.addAll(BrewingRecipe.getAllRecipes("water_breathing", Material.PUFFERFISH, PotionType.AWKWARD, PotionType.WATER_BREATHING));
-        recipes.addAll(BrewingRecipe.getAllRecipes("water_breathing_long", Material.GLOWSTONE, PotionType.WATER_BREATHING, PotionType.LONG_WATER_BREATHING));
+        recipes.addAll(BrewingRecipe.getAllRecipes("water_breathing_long", Material.GLOWSTONE_DUST, PotionType.WATER_BREATHING, PotionType.LONG_WATER_BREATHING));
 
         // Night Vision
         recipes.addAll(BrewingRecipe.getAllRecipes("night_vision", Material.GOLDEN_CARROT, PotionType.AWKWARD, PotionType.NIGHT_VISION));
-        recipes.addAll(BrewingRecipe.getAllRecipes("night_vision_long", Material.GLOWSTONE, PotionType.NIGHT_VISION, PotionType.LONG_NIGHT_VISION));
+        recipes.addAll(BrewingRecipe.getAllRecipes("night_vision_long", Material.GLOWSTONE_DUST, PotionType.NIGHT_VISION, PotionType.LONG_NIGHT_VISION));
 
         // Invisibility
         recipes.addAll(BrewingRecipe.getAllRecipes("invisibility", Material.FERMENTED_SPIDER_EYE, PotionType.NIGHT_VISION, PotionType.INVISIBILITY));
         recipes.addAll(BrewingRecipe.getAllRecipes("invisibility_long", Material.FERMENTED_SPIDER_EYE, PotionType.LONG_NIGHT_VISION, PotionType.LONG_INVISIBILITY));
-        recipes.addAll(BrewingRecipe.getAllRecipes("invisibility_long_2", Material.GLOWSTONE, PotionType.INVISIBILITY, PotionType.LONG_INVISIBILITY));
+        recipes.addAll(BrewingRecipe.getAllRecipes("invisibility_long_2", Material.GLOWSTONE_DUST, PotionType.INVISIBILITY, PotionType.LONG_INVISIBILITY));
 
         // Turtle Master
         recipes.addAll(BrewingRecipe.getAllRecipes("turtle_master", Material.TURTLE_HELMET, PotionType.AWKWARD, PotionType.TURTLE_MASTER));
-        recipes.addAll(BrewingRecipe.getAllRecipes("turtle_master_strong", Material.GLOWSTONE, PotionType.TURTLE_MASTER, PotionType.STRONG_TURTLE_MASTER));
+        recipes.addAll(BrewingRecipe.getAllRecipes("turtle_master_strong", Material.GLOWSTONE_DUST, PotionType.TURTLE_MASTER, PotionType.STRONG_TURTLE_MASTER));
         recipes.addAll(BrewingRecipe.getAllRecipes("turtle_master_long", Material.REDSTONE, PotionType.TURTLE_MASTER, PotionType.LONG_TURTLE_MASTER));
 
         // Slow Falling

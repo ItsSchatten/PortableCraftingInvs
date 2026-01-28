@@ -10,7 +10,7 @@ This project will at most support three Minecraft versions but usually supports 
 
 ## Gradle Information
 
-PCI uses Gradle version 8.14.
+PCI uses Gradle version 9.3.0.
 
 PCI uses a modified fork of [Tagavari's NMS-Remap Gradle Plugin](https://github.com/tagavari/nms-remap).
 The fork is located [here](https://github.com/itsschatten/nms-remap-plugin).
