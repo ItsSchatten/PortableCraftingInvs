@@ -43,7 +43,7 @@ public class SignListener implements Listener {
             }
 
             case "[blastfurnace]" -> {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_BLASTFURANCE.getPermission()))
+                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_BLASTFURNACE.getPermission()))
                     return;
                 if (!Settings.USE_BLAST_FURNACE_SIGN)
                     return;
@@ -116,7 +116,7 @@ public class SignListener implements Listener {
             }
 
             case "[furnace]" -> {
-                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_FURANCE.getPermission()))
+                if (Settings.USE_PERMISSIONS && !event.getPlayer().hasPermission(Permissions.USE_SIGN_FURNACE.getPermission()))
                     return;
                 if (!Settings.USE_FURNACE_SIGN)
                     return;
@@ -317,7 +317,7 @@ public class SignListener implements Listener {
             }
 
             case BLAST_FURNACE: {
-                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_BLASTFURANCE.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_BLASTFURNACE.getPermission()))
                     return;
                 if (!Settings.USE_BLAST_FURNACE_SIGN)
                     return;
@@ -376,7 +376,7 @@ public class SignListener implements Listener {
             }
 
             case FURNACE: {
-                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_FURANCE.getPermission()))
+                if (Settings.USE_PERMISSIONS && !player.hasPermission(Permissions.USE_SIGN_FURNACE.getPermission()))
                     return;
                 if (!Settings.USE_FURNACE_SIGN)
                     return;

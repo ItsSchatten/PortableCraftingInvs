@@ -24,21 +24,10 @@ dependencies {
     implementation(project(":api"))
 
     // Versions, we must provide "remap" as the configuration otherwise we won't use the proper file.
-    implementation(project(":v1_20_R1", configuration = "remap"))
-    implementation(project(":v1_20_R2", configuration = "remap"))
-    implementation(project(":v1_20_R3", configuration = "remap"))
-    implementation(project(":v1_20_R4", configuration = "remap"))
-    implementation(project(":v1_21_R1", configuration = "remap"))
-    implementation(project(":v1_21_R2", configuration = "remap"))
-    implementation(project(":v1_21_R3", configuration = "remap"))
-    implementation(project(":v1_21_R4", configuration = "remap"))
-    implementation(project(":v1_21_R5", configuration = "remap"))
-    implementation(project(":v1_21_R6", configuration = "remap"))
-    implementation(project(":v1_21_R7", configuration = "remap"))
+    implementation(project(":v26_R1"))
 
     // This doesn't require a direct remapping, it should be remapped already.
-    implementation(project(":paper", configuration = "reobf"))
-    implementation(project(":paper-old", configuration = "reobf"))
+    implementation(project(":paper"))
 
     // Spigot.
     compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
@@ -65,10 +54,11 @@ tasks {
 
         dependencies {
             include(dependency("com.itsschatten.portablecrafting:.*"))
+            include(dependency("com.itsschatten.libs:shadowlibs"))
             include(dependency("com.zaxxer:HikariCP"))
             include(dependency("org.mariadb.jdbc:mariadb-java-client"))
             include(dependency("com.mysql:mysql-connector-j"))
-            include(dependency("org.bstats:bstats-bukkit"))
+            include(dependency("org.bstats:.*"))
         }
 
         if (ext.get("isDev") as Boolean) {
@@ -96,7 +86,7 @@ tasks {
         relocate("org.mariadb.jdbc", "com.itsschatten.libs.drivers.mariadb")
     }
 
-    assemble {
+    build {
         dependsOn(shadowJar)
     }
 

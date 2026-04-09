@@ -19,7 +19,4 @@ dependencies {
     // Shade libraries into one "UberJar"
     implementation("com.gradleup.shadow:com.gradleup.shadow.gradle.plugin:9.3.1")
     //implementation("com.github.johnrengelman:shadow:8.1.1")
-
-    // NMS remapper.
-    implementation("com.itsschatten:nms-remap-plugin:1.0.0")
 }

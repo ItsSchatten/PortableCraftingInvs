@@ -40,7 +40,7 @@ import java.util.Random;
  */
 public class FakeContainersPaper extends BaseFakeContainers {
 
-    private final static String SUPPORTED = "1.21.9";
+    private final static String SUPPORTED = "26.1";
 
     /**
      * {@inheritDoc}
@@ -109,7 +109,7 @@ public class FakeContainersPaper extends BaseFakeContainers {
      */
     @Override
     public boolean openEnchant(Player player, int maxLvl) {
-        if (!Bukkit.getMinecraftVersion().equals(SUPPORTED)) {
+        if (!Bukkit.getMinecraftVersion().contains(SUPPORTED)) {
             Utils.logWarning("[WARNING] Opening an enchantment menu with a max level provided may not function and may throw an error.");
             Utils.logWarning("[WARNING] Paper support is built to run exclusively on the latest version.");
             Utils.logWarning("[WARNING] Bug reports regarding inaccurate enchantments on versions less than " + SUPPORTED + " will be closed.");

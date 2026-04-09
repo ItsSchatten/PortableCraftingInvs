@@ -33,7 +33,7 @@ dependencies {
     // See github.com/ItsSchatten/ShadowLibs
     implementation("com.itsschatten.libs:shadowlibs:1.0.11")
     // Statistics for the plugin, relocated in the core module.
-    implementation("org.bstats:bstats-bukkit:3.0.1")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
 
     // Lombok for ease of development.
     compileOnly("org.projectlombok:lombok:1.18.30")
@@ -42,8 +42,8 @@ dependencies {
 
 group = "com.itsschatten.portablecrafting"
 version = project.property("version")!!
-java.sourceCompatibility = JavaVersion.VERSION_21
-java.targetCompatibility = JavaVersion.VERSION_21
+java.sourceCompatibility = JavaVersion.VERSION_25
+java.targetCompatibility = JavaVersion.VERSION_25
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"

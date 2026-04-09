@@ -129,7 +129,7 @@ opened-anvil-other: "{prefix} Opened anvil for {player}"
 opened-enchanttable: "{prefix} Opened enchantment table."
 
 # Sent when the player opens an enchant table with a defined max level.
-opened-enchanttable-with-max-level: "{prefix} Opened enchantment table with a maximum level of 30."
+opened-enchanttable-with-max-level: "{prefix} Opened enchantment table with a maximum level of {level}."
 
 # Sent when the player passes a higher then the max defined in the settings when opening the enchant table.
 must-be-in-range: "{prefix} &cYou must pass a number between &e{min}&c and &e{max}&c."

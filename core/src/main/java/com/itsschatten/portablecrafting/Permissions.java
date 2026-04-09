@@ -267,14 +267,14 @@ public enum Permissions implements IPermissions {
         }
     },
 
-    SIGN_CREATE_FURANCE {
+    SIGN_CREATE_FURNACE {
         @Override
         public String getPermission() {
             return "pci.sign.furnace";
         }
     },
 
-    SIGN_CREATE_BLASTFURANCE {
+    SIGN_CREATE_BLASTFURNACE {
         @Override
         public String getPermission() {
             return "pci.sign.blastfurnace";
@@ -358,14 +358,14 @@ public enum Permissions implements IPermissions {
         }
     },
 
-    USE_SIGN_FURANCE {
+    USE_SIGN_FURNACE {
         @Override
         public String getPermission() {
             return "pci.sign.furnace.use";
         }
     },
 
-    USE_SIGN_BLASTFURANCE {
+    USE_SIGN_BLASTFURNACE {
         @Override
         public String getPermission() {
             return "pci.sign.blastfurnace.use";

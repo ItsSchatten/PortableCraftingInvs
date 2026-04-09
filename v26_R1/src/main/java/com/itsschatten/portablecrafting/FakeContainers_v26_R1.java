@@ -17,22 +17,23 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_21_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_21_R3.enchantments.CraftEnchantment;
-import org.bukkit.craftbukkit.v1_21_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_21_R3.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_21_R3.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_21_R3.util.RandomSourceWrapper;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.enchantments.CraftEnchantment;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.event.CraftEventFactory;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.util.RandomSourceWrapper;
 import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class FakeContainers_v1_21_R3 extends BaseFakeContainers {
+public class FakeContainers_v26_R1 extends BaseFakeContainers {
 
     @Override
     public boolean openLoom(Player player) {
@@ -307,7 +308,7 @@ public class FakeContainers_v1_21_R3 extends BaseFakeContainers {
         }
 
         @Override
-        public void slotsChanged(Container inventory) {
+        public void slotsChanged(@NonNull Container inventory) {
             if (maxLevel > 0) {
                 ItemStack itemstack = inventory.getItem(0);
                 if (inventory.isEmpty()) {
@@ -339,8 +340,8 @@ public class FakeContainers_v1_21_R3 extends BaseFakeContainers {
                             List<EnchantmentInstance> list = this.getEnchantmentList(world.registryAccess(), itemstack, j, this.costs[j]);
                             if (list != null && !list.isEmpty()) {
                                 EnchantmentInstance weightedRandomEnchant = list.get(this.random.nextInt(list.size()));
-                                this.enchantClue[j] = registry.getId(weightedRandomEnchant.enchantment);
-                                this.levelClue[j] = weightedRandomEnchant.level;
+                                this.enchantClue[j] = registry.getId(weightedRandomEnchant.enchantment());
+                                this.levelClue[j] = weightedRandomEnchant.level();
                             }
                         }
                     }
@@ -388,7 +389,7 @@ public class FakeContainers_v1_21_R3 extends BaseFakeContainers {
 
         private List<EnchantmentInstance> getEnchantmentList(@NotNull RegistryAccess registry, ItemStack itemstack, int i, int j) {
             this.random.setSeed((this.enchantSeed.get() + i));
-            Optional<HolderSet.Named<Enchantment>> optional = registry.lookupOrThrow(Registries.ENCHANTMENT).get(EnchantmentTags.IN_ENCHANTING_TABLE);
+            Optional<HolderSet.Named<net.minecraft.world.item.enchantment.Enchantment>> optional = registry.lookupOrThrow(Registries.ENCHANTMENT).get(EnchantmentTags.IN_ENCHANTING_TABLE);
             if (optional.isEmpty()) {
                 return List.of();
             } else {

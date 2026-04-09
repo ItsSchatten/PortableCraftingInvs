@@ -489,26 +489,18 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
         // Switch the server version.
         switch (serverVersion) {
-            case "v1_21_R7" -> fakeContainers = new FakeContainers_v1_21_R7();
-            case "v1_21_R6" -> fakeContainers = new FakeContainers_v1_21_R6();
-            case "v1_21_R5" -> fakeContainers = new FakeContainers_v1_21_R5();
-            case "v1_21_R4" -> fakeContainers = new FakeContainers_v1_21_R4();
-            case "v1_21_R3" -> fakeContainers = new FakeContainers_v1_21_R3();
-            case "v1_21_R2" -> fakeContainers = new FakeContainers_v1_21_R2();
-            case "v1_21_R1" -> fakeContainers = new FakeContainers_v1_21_R1();
-            case "v1_20_R4" -> fakeContainers = new FakeContainers_v1_20_R4();
-            case "v1_20_R3" -> fakeContainers = new FakeContainers_v1_20_R3();
-            case "v1_20_R2" -> fakeContainers = new FakeContainers_v1_20_R2();
-            case "v1_20_R1" -> fakeContainers = new FakeContainers_v1_20_R1();
+            case "v26_1_R1" -> fakeContainers = new FakeContainers_v26_R1();
             // Check whether Paper's plugin loader is available.
             // If it is, we'll go ahead and use a paper specific FakeContainers instance.
             // This also bypasses Paper's craft bukkit relocation.
             // This does also pose an issue that lesser paper versions may not function appropriately.
             case "PAPER" -> {
-                if (minecraftVersion.equalsIgnoreCase("1.21.11")) {
+                if (minecraftVersion.equalsIgnoreCase("26.1.1")) {
                     fakeContainers = new FakeContainersPaper();
                 } else {
-                    fakeContainers = new FakeContainersPaperOld();
+                    Utils.logWarning("PCI only supports the latest Paper version (" + "26.1.1" + "). Please downgrade PCI or update to a newer version of paper.");
+                    Bukkit.getPluginManager().disablePlugin(this);
+                    return;
                 }
             }
             default -> {
