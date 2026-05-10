@@ -10,7 +10,6 @@ plugins {
 // The PaperMC Repo is supplied in :paper.
 repositories {
     mavenCentral()
-    mavenLocal()
 
     maven {
         url = uri("https://maven.pkg.github.com/ItsSchatten/ShadowLibs")
@@ -25,6 +24,7 @@ repositories {
     maven {
         url = uri("https://repo.codemc.org/repository/maven-public")
     }
+    mavenLocal()
 }
 
 // Common dependencies.

@@ -30,7 +30,7 @@ dependencies {
     implementation(project(":paper"))
 
     // Spigot.
-    compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:26.1-R0.1-SNAPSHOT")
 
     compileOnly("org.jetbrains:annotations:24.1.0")
 

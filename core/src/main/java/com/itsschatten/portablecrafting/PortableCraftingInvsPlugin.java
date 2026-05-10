@@ -495,10 +495,10 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             // This also bypasses Paper's craft bukkit relocation.
             // This does also pose an issue that lesser paper versions may not function appropriately.
             case "PAPER" -> {
-                if (minecraftVersion.equalsIgnoreCase("26.1.1")) {
+                if (minecraftVersion.equalsIgnoreCase("26.1.2")) {
                     fakeContainers = new FakeContainersPaper();
                 } else {
-                    Utils.logWarning("PCI only supports the latest Paper version (" + "26.1.1" + "). Please downgrade PCI or update to a newer version of paper.");
+                    Utils.logWarning("PCI only supports the latest Paper version (" + "26.1.2" + "). Please downgrade PCI or update to a newer version of paper.");
                     Bukkit.getPluginManager().disablePlugin(this);
                     return;
                 }

@@ -4,7 +4,7 @@ main: com.itsschatten.portablecrafting.PortableCraftingInvsPlugin
 authors: [ ItsSchatten ]
 description: Open crafting inventories on the go!
 # We always use the api-version for the lowest version we support.
-api-version: "1.20"
+api-version: "26.1"
 soft-depend: [ Essentials ]
 permissions:
   pci.*:

@@ -8,12 +8,8 @@ import com.itsschatten.portablecrafting.virtual.ISettings;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Bukkit;
-import org.bukkit.Server;
 
-import javax.annotation.Untainted;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -103,7 +99,6 @@ public class Settings extends SimpleConfig implements ISettings {
             SMITHING_TABLE_OPEN_SOUND;
 
     public static String STORAGE_MEDIUM, DATABASE_ADDRESS, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE;
-    @Untainted
     public static String DATABASE_PREFIX;
     public static int POOL_MAX_SIZE, POOL_MIN_CONNECTIONS, POOL_MAX_LIFE, POOL_KEEP_ALIVE, POOL_CONNECTION_TIMEOUT;
     public static Map<String, Object> PROPERTIES;
