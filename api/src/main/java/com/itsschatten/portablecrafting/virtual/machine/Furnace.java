@@ -306,7 +306,6 @@ public class Furnace extends Machine implements PropertyHolder<FurnaceProperties
             try {
                 final InventoryView view = viewer.getOpenInventory();
                 if (view instanceof FurnaceView furnace) {
-                    // TODO: Update this to non-deprecated options.
                     // furnace.setCookTime(this.cookTime, this.totalCookTime);
                     // furnace.setBurnTime(this.fuelTime, this.totalFuelTime);
                     furnace.setProperty(InventoryView.Property.COOK_TIME, this.cookTime);
@@ -457,7 +456,7 @@ public class Furnace extends Machine implements PropertyHolder<FurnaceProperties
                     // We don't have any fuel in the furnace.
                     if ((fuel == null || furnaceFuel == null || fuel.getType().isAir())) {
                         // Get our operations.
-                        final int operations = maximumOperations((this.fuelTime + this.cookTime) / recipeCookTime);
+                        final int operations = Math.min(input.getAmount(), maximumOperations((this.fuelTime + this.cookTime) / recipeCookTime));
                         // Consume the fuel.
                         this.fuelTime -= recipeCookTime * operations;
 
@@ -470,7 +469,8 @@ public class Furnace extends Machine implements PropertyHolder<FurnaceProperties
                     }
 
                     // Operations we can perform since the last opening.
-                    final int operations = Math.min((int) ((ticksSinceLastOpened + this.cookTime) / recipeCookTime), maximumOperations(maxItemsPerOneFuel * fuel.getAmount()));
+                    final int operations = Math.min(Math.min((int) ((ticksSinceLastOpened + this.cookTime) / recipeCookTime), maximumOperations(maxItemsPerOneFuel * fuel.getAmount())), input.getAmount());
+                    System.out.println("operations" + operations);
 
                     // Total fuel consumed.
                     final int fuelConsumed = operations * recipeCookTime;
