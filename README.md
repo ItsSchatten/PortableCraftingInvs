@@ -10,10 +10,10 @@ This project will at most support three Minecraft versions but usually supports 
 
 ## Gradle Information
 
-PCI uses Gradle version 9.3.0.
+PCI uses Gradle.
 
-PCI uses a modified fork of [Tagavari's NMS-Remap Gradle Plugin](https://github.com/tagavari/nms-remap).
-The fork is located [here](https://github.com/itsschatten/nms-remap-plugin).
+~~PCI uses a modified fork of [Tagavari's NMS-Remap Gradle Plugin](https://github.com/tagavari/nms-remap).
+The fork is located [here](https://github.com/itsschatten/nms-remap-plugin).~~
 This plugin is not distributed anywhere, as such it requires you to build the plugin on your machine.
 <br/>**View that project for more information.**
 
@@ -32,7 +32,7 @@ If omitted, it will default to `release`.
 
 ### Modify Output Directory
 
-Rename the `default-gradle.properties` file in the `root` directory
+Rename the `default-gradle.properties` file in the `root` directory to `gradle.properties`
 and supply a valid path to place the compiled jar into the provided directory.
 
 ```properties

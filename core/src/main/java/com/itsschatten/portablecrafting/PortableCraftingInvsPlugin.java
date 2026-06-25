@@ -89,7 +89,7 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
             serverVersion = "PAPER";
         } catch (Throwable ignored) {
             // We can assume this is probably a normal spigot implementation, so we'll split the version.
-            serverVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+            serverVersion = Bukkit.getServer().getBukkitVersion();
         }
 
         final String ver = Bukkit.getVersion();
@@ -466,19 +466,11 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
 
     // Method to quickly determine the versions we support.
     private boolean supported() {
-        return switch (serverVersion) {
-            case "v1_21_R7",
-                 "v1_21_R6",
-                 "v1_21_R5",
-                 "v1_21_R4",
-                 "v1_21_R3",
-                 "v1_21_R2",
-                 "v1_21_R1",
-                 "v1_20_R4",
-                 "v1_20_R3",
-                 "v1_20_R2",
-                 "v1_20_R1",
-                 "PAPER" -> true;
+        if (serverVersion.equals("PAPER")) return true;
+
+        return switch (minecraftVersion) {
+            case "26.1", "26.1.1", "26.1.2",
+                 "26.2" -> true;
             default -> false;
         };
     }
@@ -487,24 +479,26 @@ public class PortableCraftingInvsPlugin extends JavaPlugin {
         final long then = System.currentTimeMillis();
         Utils.debugLog("Begin loading fake containers.");
 
-        // Switch the server version.
-        switch (serverVersion) {
-            case "v26_1_R1" -> fakeContainers = new FakeContainers_v26_R1();
-            // Check whether Paper's plugin loader is available.
-            // If it is, we'll go ahead and use a paper specific FakeContainers instance.
-            // This also bypasses Paper's craft bukkit relocation.
-            // This does also pose an issue that lesser paper versions may not function appropriately.
-            case "PAPER" -> {
-                if (minecraftVersion.equalsIgnoreCase("26.1.2")) {
-                    fakeContainers = new FakeContainersPaper();
-                } else {
-                    Utils.logWarning("PCI only supports the latest Paper version (" + "26.1.2" + "). Please downgrade PCI or update to a newer version of paper.");
-                    Bukkit.getPluginManager().disablePlugin(this);
-                    return;
-                }
+        // Check whether Paper's plugin loader is available.
+        // If it is, we'll go ahead and use a paper specific FakeContainers instance.
+        // This also bypasses Paper's craft bukkit relocation.
+        // This does also pose an issue that lesser paper versions may not function appropriately.
+        if (serverVersion.equals("PAPER")) {
+            if (minecraftVersion.equalsIgnoreCase("26.2")) {
+                fakeContainers = new FakeContainersPaper();
+            } else {
+                Utils.logWarning("PCI only supports the latest Paper version (" + "26.2" + "). Please downgrade PCI or update to a newer version of paper.");
+                Bukkit.getPluginManager().disablePlugin(this);
+                return;
             }
+        }
+
+        // Switch the server version.
+        switch (minecraftVersion) {
+            case "26.1", "26.1.1", "26.1.2" -> fakeContainers = new FakeContainers_v26_R1();
+            case "26.2" -> fakeContainers = new FakeContainers_v26_R2();
             default -> {
-                Utils.logError("Version " + serverVersion + " of Spigot is not supported by this plugin, to avoid issues the plugin will now disable.");
+                Utils.logError("Version " + serverVersion + "(" + minecraftVersion + ") of Spigot is not supported by this plugin, to avoid issues the plugin will now disable.");
                 Utils.debugLog("Failed to register fake containers in " + (System.currentTimeMillis() - then) + "ms.");
                 Bukkit.getPluginManager().disablePlugin(this);
                 return;

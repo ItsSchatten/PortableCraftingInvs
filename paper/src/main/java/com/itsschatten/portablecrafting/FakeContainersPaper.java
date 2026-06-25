@@ -276,7 +276,6 @@ public class FakeContainersPaper extends BaseFakeContainers {
 
                         int j;
                         for (j = 0; j < 3; ++j) {
-                            System.out.println("Enchantment roll");
                             this.costs[j] = EnchantmentHelper.getEnchantmentCost(this.random, j, i, itemstack);
                             this.enchantClue[j] = -1;
                             this.levelClue[j] = -1;

@@ -25,6 +25,7 @@ dependencies {
 
     // Versions, we must provide "remap" as the configuration otherwise we won't use the proper file.
     implementation(project(":v26_R1"))
+    implementation(project(":v26_R2"))
 
     // This doesn't require a direct remapping, it should be remapped already.
     implementation(project(":paper"))
